@@ -3,6 +3,7 @@ package com.jakka.model.dao.admin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,7 +97,7 @@ public class AdminDAO {
 	
 	//관리자 추가
 	// 아이디, 이름, 닉네임, 주소, 전화번호를 입력
-	public int add(HashMap<String, String> map) {
+	public int add(AdminDTO dto) {
 		
 		final String SQL = "insert into tblAdmin (adId, adPw, adName, adNick, adAddress, adTel, adLv) values (?, default, ?, ?, ?, ?, default)";
 		
@@ -107,17 +108,20 @@ public class AdminDAO {
 			
 			) {
 			
-			pstat.setString(1, map.get("adId"));
-			pstat.setString(2, map.get("adName"));
-			pstat.setString(3, map.get("adNick"));
-			pstat.setString(4, map.get("adAddress"));
-			pstat.setString(5, map.get("adTel"));
+			pstat.setString(1, dto.getAdId());
+			pstat.setString(2, dto.getAdName());
+			pstat.setString(3, dto.getAdNick());
+			pstat.setString(4, dto.getAdAddress());
+			pstat.setString(5, dto.getAdTel());
 			
-			return pstat.executeUpdate();
+			int result = pstat.executeUpdate(); 
+			
+			return result;
 			
 		} catch (Exception e) {
 			System.out.println("AdminDAO.| add");
 			e.printStackTrace();
+			
 		}
 		
 		return 0;
@@ -125,7 +129,7 @@ public class AdminDAO {
 	}//add()
 	
 	//관리자 비밀번호 변경
-	public int setPw(String adId, String adPw) {
+	public int setPw(AdminDTO dto) {
 		
 	 	final String sql = "update tblAdmin set adPw = ? where adId = ?";
 		
@@ -136,8 +140,8 @@ public class AdminDAO {
 			
 			) {
 			
-			pstat.setString(1, adPw);
-			pstat.setString(2, adId);
+			pstat.setString(1, dto.getAdPw());
+			pstat.setString(2, dto.getAdId());
 			
 			return pstat.executeUpdate();
 			
@@ -149,83 +153,30 @@ public class AdminDAO {
 		return 0;
 	}//setPw()
 	
-	
-	//관리자 닉네임 변경
-	public int setNick(String adId, String adNick) {
-		
-	 	final String sql = "update tblAdmin set adNick = ? where adId = ?";
-		
-		try(
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(sql);
-			
-			) {
-			
-			pstat.setString(1, adNick);
-			pstat.setString(2, adId);
-			
-			return pstat.executeUpdate();
-			
-		} catch (Exception e) {
-			System.out.println("AdminDAO.| setPw");
-			e.printStackTrace();
-		}
-		
-		return 0;
-	}//setPw()
-	
-	//관리자 주소 변경
-	public int setAddress(String adId, String adAddress) {
-		
-	 	final String sql = "update tblAdmin set adAddress = ? where adId = ?";
-		
-		try(
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(sql);
-			
-			) {
-			
-			pstat.setString(1, adAddress);
-			pstat.setString(2, adId);
-			
-			return pstat.executeUpdate();
-			
-		} catch (Exception e) {
-			System.out.println("AdminDAO.| setPw");
-			e.printStackTrace();
-		}
-		
-		return 0;
-	}//setPw()
+	//관리자 개인정보 수정(닉네임, 주소, 전화번호)
+	public int set(AdminDTO dto) {
+	    final String SQL = "UPDATE tblAdmin SET adNick = ?, adAddress = ?, adTel = ? WHERE adId = ?";
 
-	//관리자 전화번호 변경
-	public int setTel(String adId, String adTel) {
-		
-	 	final String sql = "update tblAdmin set adTel = ? where adId = ?";
-		
-		try(
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(sql);
-			
-			) {
-			
-			pstat.setString(1, adTel);
-			pstat.setString(2, adId);
-			
-			return pstat.executeUpdate();
-			
-		} catch (Exception e) {
-			System.out.println("AdminDAO.| setPw");
-			e.printStackTrace();
-		}
-		
-		return 0;
-	}//setPw()
-	
-	
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
+
+	        pstat.setString(1, dto.getAdNick());
+	        pstat.setString(2, dto.getAdAddress());
+	        pstat.setString(3, dto.getAdTel());
+	        pstat.setString(4, dto.getAdId());
+
+	        int result = pstat.executeUpdate();
+	        
+	        return result;
+	    } catch (Exception e) {
+	        System.out.println("AdminDAO.| set");
+	        e.printStackTrace();
+	        
+	    }
+	    
+	    return 0;
+	    
+	}//set()
 	
 	
 }//End of class

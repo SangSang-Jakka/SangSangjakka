@@ -18,7 +18,7 @@ public class DBUtil {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			conn = DriverManager.getConnection(url, id, pw);
-			//conn.setAutoCommit(false);
+//			conn.setAutoCommit(false);
 			
 			return conn;			
 			
