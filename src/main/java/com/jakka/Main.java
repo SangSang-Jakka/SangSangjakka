@@ -1,16 +1,21 @@
 package com.jakka;
 
-import com.jakka.model.dao.board.NoticeDAO;
+
+import com.jakka.model.dao.board.BoardDAO;
+import com.jakka.model.dao.board.SuggestionDAO;
+import com.jakka.model.dto.board.BoardDTO;
+import com.jakka.model.dto.board.SuggestionDTO;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
-		NoticeDAO dao = new NoticeDAO();
 
-		int result =  dao.addNoticeCnt("7");
+		BoardDAO dao = new BoardDAO();
 		
-		System.out.println(result);
+		BoardDTO dto = dao.get("44");
+		
+		System.out.println(dto);
 		
 	}//main
 	

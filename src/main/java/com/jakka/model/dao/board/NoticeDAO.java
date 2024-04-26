@@ -117,7 +117,7 @@ public class NoticeDAO {
 		
 	}//setTitle()
 	
-	public int addNoticeCnt(String noticeSeq) {
+	public int addCnt(String noticeSeq) {
 		
 		final String SQL = "update tblNotice set noticeCnt = noticeCnt + 1 where noticeSeq = ?";
 		
@@ -141,9 +141,63 @@ public class NoticeDAO {
 		
 		return 0;
 		
-	}//addNoticeCnt()
+	}//addCnt()
 	
-	
+	public NoticeDTO get(String noticeSeq) {
+		
+		final String SQL = "select * from tblNotice where noticeSeq = ?";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+			){
+			
+			pstat.setString(1, noticeSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				
+				NoticeDTO dto = new NoticeDTO();
+				
+				dto.setAdId(rs.getString("adId"));
+				dto.setNoticeCnt(rs.getString("noticeCnt"));
+				dto.setNoticeContents(rs.getString("noticeContents"));
+				dto.setNoticeRegdate(rs.getString("noticeRegdate"));
+				dto.setNoticeSeq(rs.getString("noticeSeq"));
+				dto.setNoticeTitle(rs.getString("noticeTitle"));
+				
+				return dto;
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.| get");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}//get()
 	
 	
 }//End of class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
