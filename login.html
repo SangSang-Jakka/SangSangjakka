@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<script src="https://kit.fontawesome.com/e075b9b5dc.js" crossorigin="anonymous"></script>
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+		
+		.full {
+			box-sizing: border-box;
+			width: 100%;
+		}
+		
+		.full input[type="text"] {
+			flex-grow: 1;
+		}
+		
+		.flex {
+			display: flex;
+		}
+		
+		.containerLeft, .containerRight {
+			display: table; /* 부모를 table로 설정 */
+			height: 100%; /* 부모의 높이를 100%로 설정 */
+			width: 100%; /* 부모의 너비를 100%로 설정 */
+		}
+
+		.containerLeft > nav, .containerRight > nav {
+			display: table-cell; /* 자식을 table-cell로 설정 */
+			vertical-align: middle; /* 수직 중앙 정렬 */
+			text-align: center; /* 텍스트 수평 중앙 정렬 */
+		}
+		
+		.containerLeft nav a, .containerRight nav a {
+			display: inline-block;
+			margin: 0 1px;
+		}
+
+		#article {
+			display: grid;
+			grid-template-columns: 20% 60% 20%;
+			height: 100%;
+		}
+
+		.container {
+			height: 60%;
+			display: grid;
+			grid-template-columns: 10% 80% 10%;
+		}
+
+		.articleTitle {
+			text-align: center;
+		}
+
+		.buttonBox {
+			width: 100%;
+			display: inline-flex;
+			justify-content: space-between;
+			text-align: center;
+		}
+
+		.buttonItem {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 170px;
+			height: 60px;
+			font-weight: bold;
+			color: aliceblue;
+			font-size: 1.3rem;
+			font-family: Fredoka;
+			cursor: pointer;
+			vertical-align: middle;
+		}
+		
+		.pageOption > div:nth-child(1) {
+			width: 160px;
+			background-color: #0E9AFF;
+		}
+		
+		.pageOption > div:nth-child(2) {
+			width: 160px;
+			background-color: #FFA012;
+		}
+
+		.pageImage {
+			height: 70%;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.border {
+			border: 0px solid black;
+		}
+		
+		.buttonItem > i {
+			margin-top: 10px;
+			font-size: 1.5rem;
+		}
+		
+		.whitespacenormal {
+			font-size: 1rem;
+		}
+		
+		.whitespacebig {
+			font-size: 2rem;
+		}
+		
+		.pointer:hover {
+			opacity: 0.8;
+			cursor: pointer;
+		}
+		
+		.textbox {
+			height: 60px;
+			font-size: 1.3rem;
+		}
+		
+		.button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			color: aliceblue;
+			font-size: 1.3rem;
+			font-family: Fredoka;
+			cursor: pointer;
+			vertical-align: middle;
+		}
+		
+		.violet {
+			background-color: #C61FA1;
+		}
+		
+		.borderround {
+			border-radius: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="article">
+		<div class="articleLeft"></div>
+		<div class="articleCenter articleWrap">
+
+			<div class="articleTitle">
+				<h1>로그인</h1>
+			</div>
+
+			<div class="container">
+				<div class="containerLeft">
+				</div>
+				<div>
+					<div class="whitespacebig">&nbsp;</div>
+					<div class="whitespacebig">&nbsp;</div>
+					<div>
+						<div class="full">
+							<input type="text" name="id" id="id" class="full textbox" placeholder="아이디를 입력해 주세요">
+						</div>
+						<div class="whitespacenormal">&nbsp;</div>
+						<div class="full">
+							<input type="password" name="pw" id="pw" class="full textbox" placeholder="비밀번호를 입력해 주세요">
+						</div>
+						<div class="whitespacenormal">&nbsp;</div>
+						<div class="full">
+							<input type="button" class="full pointer textbox button violet borderround" value="로그인">
+						</div>
+						<div class="whitespacenormal">&nbsp;</div>
+						<div>
+							<input type="checkbox" name="idSave" id="idSave"><label>아이디 저장</label>
+						</div>
+					</div>
+					<div class="whitespacebig">&nbsp;</div>
+					<div class="pageOption buttonBox">
+						<div class="pageOptionItem buttonItem pointer borderround">아이디 찾기</div>
+						<div class="pageOptionItem buttonItem pointer borderround">회원가입</div>
+					</div>
+				</div>
+				</div>
+				<div class="containerRight">
+				</div>
+			</div>
+			
+		</div>
+		<div class="articleRight">
+		</div>
+	</article>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>
+		
+	</script>
+</body>
+
+</html>
