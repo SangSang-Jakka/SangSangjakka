@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public interface BasicDAO<T> {
 
-	public ArrayList<T> listAll ();
+	
+	public ArrayList<T> findAll();
+	public T findById(String id);
 	public int add(T dto);
-	public int set(T dto);
-	public T get(String seq);
+	public int save(T dto);
 	
 }//End of interface

@@ -11,6 +11,7 @@ import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.book.BookDTO;
+import com.jakka.model.enums.Genre;
 
 public class Main {
 	
@@ -21,7 +22,7 @@ public class Main {
 	
 //	int result = bookDAO.activation("157");
 	int result = bookDAO.disable("157");
-		
+
 	System.out.println(result);
 	
 	}//main

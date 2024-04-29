@@ -27,7 +27,7 @@ public class AdminDAO implements BasicDAO<AdminDTO>{
 	}//getInstance()
 
 	//전체 관리자 리스트(루트관리자 제외)
-	public ArrayList<AdminDTO> listAll() {
+	public ArrayList<AdminDTO> findAll() {
 		
 		final String SQL = "select * from tblAdmin where adLb = 2";
 		
@@ -67,7 +67,7 @@ public class AdminDAO implements BasicDAO<AdminDTO>{
 	}//list()
 	
 	//관리자 한명의 정보를 가져올때
-	public AdminDTO get(String adId) {
+	public AdminDTO findById(String Id) {
 		
 		final String SQL = "select * from tblAdmin where adId = ?";
 		
@@ -78,7 +78,7 @@ public class AdminDAO implements BasicDAO<AdminDTO>{
 				
 			){
 			
-			pstat.setString(1, adId);
+			pstat.setString(1, Id);
 			
 			ResultSet rs = pstat.executeQuery();
 			
@@ -142,7 +142,7 @@ public class AdminDAO implements BasicDAO<AdminDTO>{
 	}//add()
 	
 	//관리자 비밀번호 변경
-	public int setPw(AdminDTO dto) {
+	public int savePw(AdminDTO dto) {
 		
 	 	final String SQL = "update tblAdmin set adPw = ? where adId = ?";
 		
@@ -167,7 +167,7 @@ public class AdminDAO implements BasicDAO<AdminDTO>{
 	}//setPw()
 	
 	//관리자 개인정보 수정(닉네임, 주소, 전화번호)
-	public int set(AdminDTO dto) {
+	public int save(AdminDTO dto) {
 	    final String SQL = "UPDATE tblAdmin SET adNick = ?, adAddress = ?, adTel = ? WHERE adId = ?";
 
 	    try (Connection conn = DBUtil.open();

@@ -7,10 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dao.ActiveStatus;
 import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dto.user.UserDTO;
 
-public class UserDAO implements BasicDAO<UserDTO>{
+public class UserDAO implements BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 
 	private final static UserDAO DAO = new UserDAO();
 	
@@ -56,9 +57,9 @@ public class UserDAO implements BasicDAO<UserDTO>{
 	}
 	
 	@Override
-	public UserDTO get(String userSeq) {
+	public UserDTO findById(String id) {
 		
-		final String SQL = "select * from tblUser where userSeq = ?";
+		final String SQL = "select * from tblUser where userId = ?";
 		
 		try (
 			
@@ -67,7 +68,7 @@ public class UserDAO implements BasicDAO<UserDTO>{
 				
 			){
 			
-			pstat.setString(1, userSeq);
+			pstat.setString(1, id);
 			
 			ResultSet rs = pstat.executeQuery();
 			
@@ -103,9 +104,9 @@ public class UserDAO implements BasicDAO<UserDTO>{
 	}
 	
 	@Override
-	public ArrayList<UserDTO> listAll() {
+	public ArrayList<UserDTO> findAll() {
 		
-		final String SQL = "select * from tblUser";
+		final String SQL = "select * from tblUser order by userRegdate desc";
 		
 		try (
 			
@@ -147,7 +148,7 @@ public class UserDAO implements BasicDAO<UserDTO>{
 		return null;
 	}
 	
-	public ArrayList<UserDTO> listDisabled() {
+	public ArrayList<UserDTO> findAllBlack() {
 		
 		final String SQL = "select * from tblUser where userState = 'n'";
 		
@@ -191,7 +192,7 @@ public class UserDAO implements BasicDAO<UserDTO>{
 		return null;
 	}
 	
-public ArrayList<UserDTO> listActive() {
+public ArrayList<UserDTO> findAllWhite() {
 		
 		final String SQL = "select * from tblUser where userState = 'y'";
 		
@@ -237,7 +238,7 @@ public ArrayList<UserDTO> listActive() {
 	
 	//닉네임, 전화번호, 주소, 이메일, 용량 변경
 	@Override
-	public int set(UserDTO dto) {
+	public int save(UserDTO dto) {
 		
 		final String SQL = "UPDATE tblUser SET userNick = ?, userTel = ?, userAddress = ?, userEmail = ?, userLimitStorage = ? WHERE userId = ?";
 		
@@ -265,7 +266,7 @@ public ArrayList<UserDTO> listActive() {
 	}
 	
 	//비밀번호 변경
-	public int setPw(UserDTO dto) {
+	public int savePw(UserDTO dto) {
 		
 		final String SQL = "update tblUser set userPw = ? where userSeq = ?";
 		
