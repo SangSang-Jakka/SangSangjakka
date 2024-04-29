@@ -1,0 +1,22 @@
+@import url(/components/header.css);
+@import url(/components/banner.css);
+@import url(/components/mainArticle.css);
+@import url(/components/footer.css);
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-style: normal;
+}
+
+ #nav ul li{
+    font-family: 'SOYOMapleBoldTTF';
+ }
+
