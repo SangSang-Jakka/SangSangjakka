@@ -1,0 +1,237 @@
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-style: normal;
+}
+
+  body {
+      font-family: 'SOYOMapleBoldTTF';
+      font-size: 18px;
+  }
+
+
+  .pwInput {
+    position: relative;
+    width: 100%;
+  }
+
+  .togglePassword {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  #id, #passwordInputCheck{
+    font-size: 18px;
+    font-weight: bold;
+  } 
+
+  input::placeholder {
+      font-family: 'SOYOMapleBoldTTF';
+      font-size: 16px;
+  }
+
+  .signin__btn {
+      font-family: 'SOYOMapleBoldTTF';
+  }
+  
+  .container {
+    display: block;
+    max-width: 680px;
+    width: 80%;
+    margin: 120px auto;
+  }
+  
+  .headerLogo {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .links {
+    margin-top: 50px;
+    list-style-type: none;
+    li {
+      display: inline-block;
+      margin: 0 20px 0 0;
+      transition: 0.2s linear;
+      &:nth-child(2) {
+        opacity: 0.6;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      &:nth-child(2) {
+        opacity: 0.6;
+        float: right;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      a {
+        text-decoration: none;
+        color: #0f132a;
+        font-weight: bolder;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+  }
+  
+  form {
+    width: 100%;
+    max-width: 680px;
+    margin: 40px auto 10px;
+    .input__block {
+      margin: 20px auto;
+      display: block;
+      position: relative;
+      &.first-input__block {
+        &::before {
+          content: "";
+          position: absolute;
+          top: -15px;
+          left: 50px;
+          display: block;
+          width: 0;
+          height: 0;
+          background: transparent;
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-bottom: 15px solid rgba(15, 19, 42, 0.1);
+          transition: 0.2s linear;
+        }
+      }
+      &.signup-input__block {
+        &::before {
+          content: "";
+          position: absolute;
+          top: -15px;
+          left: 150px;
+          display: block;
+          width: 0;
+          height: 0;
+          background: transparent;
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-bottom: 15px solid rgba(15, 19, 42, 0.1);
+          transition: 0.2s linear;
+        }
+      }
+      input {
+        display: block;
+        width: 90%;
+        max-width: 680px;
+        height: 50px;
+        margin: 0 auto;
+        border-radius: 8px;
+        border: none;
+        background: rgba(15, 19, 42, 0.1);
+        color: rgba(15, 19, 42, 0.3);
+        padding: 0 0 0 15px;
+        &:focus,
+        &:active {
+          outline: none;
+          border: none;
+          color: rgba(15, 19, 42, 1);
+        }
+      }
+    }
+    .signin__btn {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      background: #e91e63;
+      color: white;
+      display: block;
+      width: 92.5%;
+      max-width: 680px;
+      height: 50px;
+      border-radius: 8px;
+      margin: 0 auto;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(233, 30, 99, 0.36);
+      transition: 0.2s linear;
+      &:hover {
+        box-shadow: 0 0 0 rgba(233, 30, 99, 0);
+      }
+    }
+  }
+
+
+  .signup__btn {
+      margin-top: 20px;
+      background: #e91e63; 
+      color: white;
+      display: block;
+      width: 92.5%;
+      max-width: 680px;
+      height: 50px;
+      border-radius: 8px;
+      margin: 0 auto;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(233, 30, 99, 0.36);
+      transition: 0.2s linear;
+      &:hover {
+        box-shadow: 0 0 0 rgba(233, 30, 99, 0);
+      }
+  }
+
+
+  .separator{
+    display:block;
+    margin:30px auto 30px;
+    text-align:center;
+    position:relative;
+    font-size:13px;
+    width:90%;
+  }
+
+  .separator a {
+    margin: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(83, 83, 83);
+  }
+
+  
+  footer {
+    p {
+       font-size: 14px;
+      text-align: center;
+      margin-bottom: 20px;
+      .fa {
+        color: #e91e63;
+      }
+      a {
+        text-decoration: none;
+        font-size: 17px;
+        margin: 0 5px;
+        .fa-facebook {
+          color: #3b5998;
+        }
+        .fa-twitter {
+          color: #1da1f2;
+        }
+        .fa-instagram {
+          color: #f77737;
+        }
+        .fa-linkedin {
+          color: #0077b5;
+        }
+        .fa-behance {
+          color: #1769ff;
+        }
+      }
+    }
+  }
+  
