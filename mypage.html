@@ -98,14 +98,14 @@
 
 		}
 
-		.tabnav li:first-child,
-		.tabnav li:first-child a {
+		.mainnav li:first-child,
+		.mainnav li:first-child a {
 			border-top-left-radius: 20px;
 			/* 첫 번째 탭의 왼쪽 상단 모서리 둥글게 */
 		}
 
-		.tabnav li:last-child,
-		.tabnav li:last-child a {
+		.mainnav li:last-child,
+		.mainnav li:last-child a {
 			border-top-right-radius: 20px;
 			/* 마지막 탭의 오른쪽 상단 모서리 둥글게 */
 			border-right: none;
@@ -239,6 +239,10 @@
 			width: 100px;
 		}
 
+		.w800p {
+			width: 800px;
+		}
+
 		.h30 {
 			height: 30px;
 		}
@@ -360,6 +364,15 @@
 			border: 1px solid #ccc;
 			cursor: pointer;
 		}
+		
+		.boxsizeCon {
+			box-sizing: content-box;
+		}
+		
+		#tab01 form {
+			display: flex;
+			justify-content: center;
+		}
 	</style>
 </head>
 
@@ -370,14 +383,14 @@
 			<h1>마이페이지</h1>
 		</div>
 		<div class="tab signUpForm">
-			<ul class="tabnav flex">
+			<ul class="mainnav tabnav flex">
 				<li><a href="#tab01">개인정보</a></li>
 				<li><a href="#tab02">내동화책</a></li>
 				<li><a href="#tab03">보관함</a></li>
 				<li><a href="#tab04">활동내역</a></li>
 				<li><a href="#tab05">포인트</a></li>
 			</ul>
-			<div class="tabcontent">
+			<div class="tabcontent full maintabcontent">
 				<div id="tab01">
 					<form method="POST">
 						<div class="member-container">
@@ -594,7 +607,22 @@
 					</figure>
 				</div>
 				<div id="tab04">
-					tab4 content
+					<ul class="subnav tabnav flex">
+						<li><a href="#tab06">출석</a></li>
+						<li><a href="#tab07">내 게시글</a></li>
+						<li><a href="#tab08">내 댓글</a></li>
+					</ul>
+					<div class="tabcontent subtabcontent">
+						<div id="tab06">
+							tab6 content
+						</div>
+						<div id="tab07">
+							tab7 content
+						</div>
+						<div id="tab08">
+							tab8 content
+						</div>
+					</div>
 				</div>
 				<div id="tab05">
 					tab5 content
@@ -607,13 +635,27 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>
 		$(function () {
-			$('.tabcontent > div').hide();
-			$('.tabnav a').click(function () {
-				$('.tabcontent > div').hide().filter(this.hash).fadeIn();
-				$('.tabnav a').removeClass('active');
+			$('.maintabcontent > div').hide();
+			$('.mainnav a:first').addClass('active').click();
+
+			$('.mainnav a').click(function () {
+				$('.maintabcontent > div').hide().filter(this.hash).fadeIn();
+				$('.mainnav a').removeClass('active');
+				$(this).addClass('active');
+				if (!$(this).closest('.subnav').length) {
+					$('.subtabcontent > div').hide();
+					$('.subnav a').removeClass('active');
+				}
+				return false;
+			});
+
+			$('.subnav a').click(function () {
+				$('.subtabcontent > div').hide().filter(this.hash).fadeIn();
+				$('.subnav a').removeClass('active');
 				$(this).addClass('active');
 				return false;
-			}).filter(':eq(0)').click();
+			});
+			
 			$('#changecompletebtn').click(function () {
 				$('.changecomplete').css('display', 'block');
 				$('.change').css('display', 'none');
