@@ -9,9 +9,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dao.board.BasicDAO;
 import com.jakka.model.dto.admin.AdminDTO;
 
-public class AdminDAO {
+public class AdminDAO implements BasicDAO<AdminDTO>{
+	
+	private final static AdminDAO DAO = new AdminDAO();
+	
+	private AdminDAO() {
+		//외부 생성 방지
+	}
+	
+	public static AdminDAO getInstance() {
+		
+		return DAO;
+		
+	}//getInstance()
 
 	//전체 관리자 리스트
 	public ArrayList<AdminDTO> list() {
@@ -70,7 +83,7 @@ public class AdminDAO {
 			ResultSet rs = pstat.executeQuery();
 			
 			
-			if (pstat.executeQuery().next()) {
+			if (rs.next()) {
 				
 				AdminDTO dto = new AdminDTO();
 				
@@ -131,12 +144,12 @@ public class AdminDAO {
 	//관리자 비밀번호 변경
 	public int setPw(AdminDTO dto) {
 		
-	 	final String sql = "update tblAdmin set adPw = ? where adId = ?";
+	 	final String SQL = "update tblAdmin set adPw = ? where adId = ?";
 		
 		try(
 			
 			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(sql);
+			PreparedStatement pstat = conn.prepareStatement(SQL);
 			
 			) {
 			

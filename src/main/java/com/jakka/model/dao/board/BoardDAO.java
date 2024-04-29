@@ -9,9 +9,22 @@ import java.util.ArrayList;
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.board.BoardDTO;
 
-public class BoardDAO {
+public class BoardDAO implements BasicDAO<BoardDTO>{
 
+	private static final BoardDAO DAO = new BoardDAO();
+	
+	private BoardDAO() {
+		//외부 생성 방지
+	}
+	
+	public static BoardDAO getInstance() {
+		
+		return DAO;
+		
+	}//getInstance()
+	
 	//자유게시판 전체글
+	@Override
 	public ArrayList<BoardDTO> list() {
 		
 		final String SQL = "select * from tblBoard";
@@ -54,6 +67,7 @@ public class BoardDAO {
 	}//list()
 	
 	//게시판 글 추가
+	@Override
 	public int add(BoardDTO dto) {
 		
 		final String SQL = "INSERT INTO tblBoard (boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq) VALUES ((SELECT NVL(MAX(boardSeq), 0) + 1 FROM tblBoard), ?, ?, DEFAULT, DEFAULT, DEFAULT, ?)";
@@ -83,6 +97,7 @@ public class BoardDAO {
 	}//add()
 	
 	//게시글 수정(이름, 내용)
+	@Override
 	public int set(BoardDTO dto) {
 		
 		final String SQL = "update tblBoard set boardTitle = ?, boardContents = ? where boardSeq = ?";
@@ -166,6 +181,7 @@ public class BoardDAO {
 	}//addReportCnt()
 	
 	//특정 게시글 정보 가져오기
+	@Override
 	public BoardDTO get(String boardSeq) {
 		
 		final String SQL = "select * from tblBoard where boardSeq = ?";

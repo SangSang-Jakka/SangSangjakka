@@ -9,9 +9,20 @@ import java.util.ArrayList;
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.board.NoticeDTO;
 
-public class NoticeDAO {
+public class NoticeDAO implements BasicDAO<NoticeDTO>{
+	
+	private final static NoticeDAO DAO = new NoticeDAO();
+	
+	private NoticeDAO() {
+		//외부 생성 방지
+	}
+	
+	public static NoticeDAO getInstance() {
+		return DAO;
+	}//getInstance()
 	
 	//전체 공지사항 리스트
+	@Override
 	public ArrayList<NoticeDTO> list() {
 		
 		final String sql = "select * from tblNotice";
@@ -53,6 +64,7 @@ public class NoticeDAO {
 	
 	
 	//공지사항글 추가
+	@Override
 	public int add(NoticeDTO dto) {
 		
 		final String SQL = "insert into tblNotice (noticeSeq, noticeTitle, noticeContents, noticeRegdate, noticeCnt, adId) values ((SELECT NVL(MAX(noticeSeq),0)+1 FROM tblNotice), ?, ?, default, default, ?)";
@@ -89,6 +101,7 @@ public class NoticeDAO {
 	}//list()
 
 	//게시글 수정(제목, 내용)
+	@Override
 	public int set(NoticeDTO dto) {
 		
 		final String sql = "update tblNotice set noticeTitle = ?, noticeContents = ? where noticeSeq = ?";
@@ -143,6 +156,7 @@ public class NoticeDAO {
 		
 	}//addCnt()
 	
+	@Override
 	public NoticeDTO get(String noticeSeq) {
 		
 		final String SQL = "select * from tblNotice where noticeSeq = ?";

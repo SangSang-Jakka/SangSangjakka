@@ -10,9 +10,20 @@ import com.jakka.model.DBUtil;
 import com.jakka.model.dto.board.NoticeDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
-public class SuggestionDAO {
+public class SuggestionDAO implements BasicDAO<SuggestionDTO>{
+	
+	private final static SuggestionDAO DAO = new SuggestionDAO();
+	
+	public SuggestionDAO() {
+		//외부 생성 방지
+	}
+	
+	public static SuggestionDAO getInstance() {
+		return DAO;
+	}//getInstance()
 
 	//건의사항 전체 리스트
+	@Override
 	public ArrayList<SuggestionDTO> list() {
 		
 		final String SQL = "select * from tblSuggestion";
@@ -54,6 +65,7 @@ public class SuggestionDAO {
 	}//list()
 	
 	//건의사항 추가
+	@Override
 	public int add(SuggestionDTO dto) {
 		
 		final String SQL = "INSERT INTO tblSuggestion (sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt) VALUES ((SELECT NVL(MAX(sgstSeq), 0) + 1 FROM tblSuggestion), ?, ?, DEFAULT, ?, ?, DEFAULT)";
@@ -84,6 +96,7 @@ public class SuggestionDAO {
 	}//add()
 	
 	//건의사항 수정(제목, 내용, 비밀글 여부)
+	@Override
 	public int  set(SuggestionDTO dto) {
 		
 		final String SQL = "update tblSuggestion set sgstTitle = ?, sgstContents = ?, sgstSecretYN = ? where sgstSeq = ?";
@@ -140,6 +153,7 @@ public class SuggestionDAO {
 		
 	}//addCnt()
 	
+	@Override
 	public SuggestionDTO get(String sgstSeq) {
 		
 		final String SQL = "select * from tblSuggestion where sgstSeq = ?";
