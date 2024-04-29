@@ -23,6 +23,8 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 		
 	}//getInstance()
 	
+	//댓글 추가
+	//유저번호, 부모글번호, 내용
 	@Override
 	public int add(BoardCommentDTO dto) {
 		
@@ -228,6 +230,50 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 		return 0;
 		
 	}//addReportCnt()
+	
+	public int disable(String cmntSeq) {
+		
+		final String SQL = "delete from tblBoardCommentWhiteList where cmntSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, cmntSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BoardCommentsDAO.| disable");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int activation(String cmntSeq) {
+		
+		final String SQL = "insert into tblBoardCommentWhiteList(cmntSeq) values(?)";
+		
+		try (
+			Connection conn = DBUtil.open();	
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, cmntSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BoardCommentsDAO.| activation");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 	
 	
 }//End of class

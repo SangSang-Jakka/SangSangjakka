@@ -195,6 +195,83 @@ public class NoticeDAO implements BasicDAO<NoticeDTO>{
 		return null;
 	}//get()
 	
+	public int fixed(String noticeSeq) {
+		
+		final String SQL = "insert into tblNoticeFix(noticeSeq) values(?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, noticeSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.| fixed");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int Unfixing(String noticeSeq) {
+		
+		final String SQL = "delete from tblNoticeFix where noticeSeq = ?";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+			){
+				
+				pstat.setString(1, noticeSeq);
+				
+				int result = pstat.executeUpdate();
+				
+				return result;
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.| Unfixing");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int remove(String noticeSeq) {
+		
+		final String noticeFixSQL = "delete from tblNoticeFix where noticeSeq = ?";
+		final String noticeSQL = "delete from tblNotice where noticeSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement fpstat = conn.prepareStatement(noticeFixSQL);
+			PreparedStatement npstat = conn.prepareStatement(noticeSQL);
+		){
+			
+			conn.setAutoCommit(false);
+			
+			fpstat.setString(1, noticeSeq);
+			npstat.setString(1, noticeSeq);
+			
+			//고정글 fpstat부터 실행, 이후 공지사항npstat실행
+			int result = (fpstat.executeUpdate() + npstat.executeUpdate());
+			
+			conn.commit();
+			
+			//고정글 + 공지사항 삭제 : 2반환
+			//공지사항만 삭제 : 1반환
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.| remove");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 	
 }//End of class
 

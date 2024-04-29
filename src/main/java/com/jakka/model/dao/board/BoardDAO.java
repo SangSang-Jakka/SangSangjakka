@@ -67,6 +67,7 @@ public class BoardDAO implements BasicDAO<BoardDTO>{
 	}//list()
 	
 	//게시판 글 추가
+	//제목, 내용, 작성자seq
 	@Override
 	public int add(BoardDTO dto) {
 		
@@ -84,6 +85,7 @@ public class BoardDAO implements BasicDAO<BoardDTO>{
 			pstat.setString(3, dto.getUserSeq());
 			
 			int result = pstat.executeUpdate();
+			
 			
 			return result;
 			
@@ -222,6 +224,49 @@ public class BoardDAO implements BasicDAO<BoardDTO>{
 		
 	}//get()
 	
+	public int disable(String boardSeq) {
+		
+		final String SQL = "delete from tblBoardWhiteList where boardSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, boardSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| disable");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int activation(String boardSeq) {
+		
+		final String SQL = "insert into tblBoardWhiteList(boardSeq) values(?)";
+		
+		try (
+			Connection conn = DBUtil.open();	
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, boardSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| activation");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 	
 }//End of class
 
