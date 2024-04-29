@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
-import com.jakka.model.dao.board.BasicDAO;
+import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dto.admin.AdminDTO;
 
 public class AdminDAO implements BasicDAO<AdminDTO>{
@@ -26,10 +26,10 @@ public class AdminDAO implements BasicDAO<AdminDTO>{
 		
 	}//getInstance()
 
-	//전체 관리자 리스트
-	public ArrayList<AdminDTO> list() {
+	//전체 관리자 리스트(루트관리자 제외)
+	public ArrayList<AdminDTO> listAll() {
 		
-		final String SQL = "select * from tblAdmin";
+		final String SQL = "select * from tblAdmin where adLb = 2";
 		
 		try (
 			

@@ -7,12 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
-import com.jakka.model.dao.board.BasicDAO;
+import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dto.user.UserDTO;
 
 public class UserDAO implements BasicDAO<UserDTO>{
 
-	public final static UserDAO DAO = new UserDAO();
+	private final static UserDAO DAO = new UserDAO();
 	
 	private UserDAO() {
 		//외부 생성 방지
@@ -103,7 +103,7 @@ public class UserDAO implements BasicDAO<UserDTO>{
 	}
 	
 	@Override
-	public ArrayList<UserDTO> list() {
+	public ArrayList<UserDTO> listAll() {
 		
 		final String SQL = "select * from tblUser";
 		
@@ -139,7 +139,95 @@ public class UserDAO implements BasicDAO<UserDTO>{
 			return list;
 			
 		} catch (Exception e) {
-			System.out.println("AdminDAO.| list");
+			System.out.println("AdminDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	public ArrayList<UserDTO> listDisabled() {
+		
+		final String SQL = "select * from tblUser where userState = 'n'";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<UserDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| listDisabled");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+public ArrayList<UserDTO> listActive() {
+		
+		final String SQL = "select * from tblUser where userState = 'y'";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<UserDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| listDisabled");
 			e.printStackTrace();
 		}
 		

@@ -6,13 +6,13 @@ import com.jakka.model.dao.board.BoardDAO;
 import com.jakka.model.dao.board.NoticeDAO;
 import com.jakka.model.dao.board.SuggestionAnswerDAO;
 import com.jakka.model.dao.board.SuggestionDAO;
+import com.jakka.model.dao.book.BookDAO;
+import com.jakka.model.dao.book.PageDAO;
+import com.jakka.model.dao.book.ReviewDAO;
 import com.jakka.model.dao.user.UserDAO;
 
 public class DAOManager {
 
-	public DAOManager() {
-		
-	}
 	
 	public static AdminDAO getAdminDAO() {
 		
@@ -55,6 +55,24 @@ public class DAOManager {
 		return UserDAO.getInstance();
 		
 	}//getUserDAO()
+	
+	public static BookDAO getBookDAO() {
+		
+		return BookDAO.getInstace();
+		
+	}//getBookDAO()
+	
+	public static PageDAO getPageDAO() {
+		
+		return PageDAO.getInstance();
+		
+	}//getPageDAO()
+	
+	public static ReviewDAO getReviewDAO() {
+		
+		return ReviewDAO.getInstance();
+		
+	}//getReviewDAO()
 	
 	
 }//End of class

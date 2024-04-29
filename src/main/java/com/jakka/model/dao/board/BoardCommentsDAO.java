@@ -7,9 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dao.ActiveStatus;
+import com.jakka.model.dao.BasicDAO;
+import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dto.board.BoardCommentDTO;
 
-public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
+public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>, ActiveStatus, ReportCnt{
 
 	private final static BoardCommentsDAO DAO = new BoardCommentsDAO();
 	
@@ -94,9 +97,9 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 	}
 	
 	@Override
-	public ArrayList<BoardCommentDTO> list() {
+	public ArrayList<BoardCommentDTO> listAll() {
 		
-		final String SQL = "select * from tblBoardComments";
+		final String SQL = "select * from tblBoardComments order by cmntRegdate desc";
 		
 		try (
 			
@@ -133,9 +136,49 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 		return null;
 	}
 	
-	public ArrayList<BoardCommentDTO> list(String parentBoardSeq) {
+	//블라인드 되지 않는 모든 댓글리스트
+	public ArrayList<BoardCommentDTO> list() {
 		
-		final String SQL = "select * from tblBoardComments where boardSeq = ?";
+		final String SQL = "select * from vwBoardComments";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<BoardCommentDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BoardCommentDTO dto = new BoardCommentDTO();
+				
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setCmntContents(rs.getString("cmntContents"));
+				dto.setCmntRegdate(rs.getString("cmntRegdate"));
+				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
+				dto.setCmntSeq(rs.getString("cmntSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BoardCommentDAO.| list");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<BoardCommentDTO> child(String parentBoardSeq) {
+		
+		final String SQL = "select * from vwBoardComments where boardSeq = ?";
 		
 		try (
 			
@@ -170,7 +213,7 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 			return list;
 			
 		} catch (Exception e) {
-			System.out.println("BoardCommentDAO.| list");
+			System.out.println("BoardCommentDAO.| child");
 			e.printStackTrace();
 		}
 		
@@ -179,6 +222,7 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 	}
 	
 	@Override
+	//댓글 내용 수정
 	public int set(BoardCommentDTO dto) {
 		
 		final String SQL = "update tblBoardComments set cmntContents = ? where cmntSeq = ?";
@@ -205,6 +249,7 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 		return 0;
 	}
 	
+	//신고횟수 증가
 	public int addReportCnt(String cmntSeq) {
 		
 		final String SQL = "update tblBoardComments set cmntReportCnt = cmntReportCnt + 1 where boardSeq = ?";
@@ -231,6 +276,7 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 		
 	}//addReportCnt()
 	
+	//비활성화
 	public int disable(String cmntSeq) {
 		
 		final String SQL = "delete from tblBoardCommentWhiteList where cmntSeq = ?";
@@ -253,6 +299,7 @@ public class BoardCommentsDAO implements BasicDAO<BoardCommentDTO>{
 		return 0;
 	}
 	
+	//활성화
 	public int activation(String cmntSeq) {
 		
 		final String SQL = "insert into tblBoardCommentWhiteList(cmntSeq) values(?)";

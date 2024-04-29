@@ -7,10 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dao.BasicDAO;
+import com.jakka.model.dao.Cnt;
 import com.jakka.model.dto.board.NoticeDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
-public class SuggestionDAO implements BasicDAO<SuggestionDTO>{
+public class SuggestionDAO implements BasicDAO<SuggestionDTO>, Cnt{
 	
 	private final static SuggestionDAO DAO = new SuggestionDAO();
 	
@@ -24,7 +26,7 @@ public class SuggestionDAO implements BasicDAO<SuggestionDTO>{
 
 	//건의사항 전체 리스트
 	@Override
-	public ArrayList<SuggestionDTO> list() {
+	public ArrayList<SuggestionDTO> listAll() {
 		
 		final String SQL = "select * from tblSuggestion";
 		

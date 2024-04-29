@@ -7,9 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dao.BasicDAO;
+import com.jakka.model.dao.Cnt;
 import com.jakka.model.dto.board.NoticeDTO;
 
-public class NoticeDAO implements BasicDAO<NoticeDTO>{
+public class NoticeDAO implements BasicDAO<NoticeDTO>, Cnt{
 	
 	private final static NoticeDAO DAO = new NoticeDAO();
 	
@@ -23,7 +25,7 @@ public class NoticeDAO implements BasicDAO<NoticeDTO>{
 	
 	//전체 공지사항 리스트
 	@Override
-	public ArrayList<NoticeDTO> list() {
+	public ArrayList<NoticeDTO> listAll() {
 		
 		final String sql = "select * from tblNotice";
 		
@@ -130,6 +132,7 @@ public class NoticeDAO implements BasicDAO<NoticeDTO>{
 		
 	}//setTitle()
 	
+	//조회수 증가
 	public int addCnt(String noticeSeq) {
 		
 		final String SQL = "update tblNotice set noticeCnt = noticeCnt + 1 where noticeSeq = ?";
@@ -195,6 +198,7 @@ public class NoticeDAO implements BasicDAO<NoticeDTO>{
 		return null;
 	}//get()
 	
+	//공지사항 고정
 	public int fixed(String noticeSeq) {
 		
 		final String SQL = "insert into tblNoticeFix(noticeSeq) values(?)";
@@ -218,6 +222,7 @@ public class NoticeDAO implements BasicDAO<NoticeDTO>{
 		return 0;
 	}
 	
+	//공지사항 고정 해제
 	public int Unfixing(String noticeSeq) {
 		
 		final String SQL = "delete from tblNoticeFix where noticeSeq = ?";
@@ -240,6 +245,7 @@ public class NoticeDAO implements BasicDAO<NoticeDTO>{
 		return 0;
 	}
 	
+	//공지사항 삭제
 	public int remove(String noticeSeq) {
 		
 		final String noticeFixSQL = "delete from tblNoticeFix where noticeSeq = ?";

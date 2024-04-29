@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dto.board.SuggestionCommentDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
@@ -90,7 +91,7 @@ public class SuggestionAnswerDAO implements BasicDAO<SuggestionCommentDTO>{
 	}
 	
 	@Override
-	public ArrayList<SuggestionCommentDTO> list() {
+	public ArrayList<SuggestionCommentDTO> listAll() {
 		
 		final String SQL = "select * from tblSuggestionAnswer";
 		

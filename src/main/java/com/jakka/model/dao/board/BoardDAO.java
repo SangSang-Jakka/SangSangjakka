@@ -7,9 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dao.BasicDAO;
+import com.jakka.model.dao.Cnt;
+import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dto.board.BoardDTO;
 
-public class BoardDAO implements BasicDAO<BoardDTO>{
+public class BoardDAO implements BasicDAO<BoardDTO>, Cnt, ReportCnt{
 
 	private static final BoardDAO DAO = new BoardDAO();
 	
@@ -25,9 +28,51 @@ public class BoardDAO implements BasicDAO<BoardDTO>{
 	
 	//자유게시판 전체글
 	@Override
+	public ArrayList<BoardDTO> listAll() {
+		
+		final String SQL = "select * from tblBoard order by boardRegdate desc";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<BoardDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBoardCnt(rs.getString("boardCnt"));
+				dto.setBoardContents(rs.getString("boardContents"));
+				dto.setBoardRegdate(rs.getString("boardRegdate"));
+				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setBoardTitle(rs.getString("boardTitle"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| list");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}//list()
+	
+	//블라인드 제외 전체글
 	public ArrayList<BoardDTO> list() {
 		
-		final String SQL = "select * from tblBoard";
+		final String SQL = "select * from vwBoard";
 		
 		try (
 			
@@ -224,6 +269,7 @@ public class BoardDAO implements BasicDAO<BoardDTO>{
 		
 	}//get()
 	
+	//비활성화
 	public int disable(String boardSeq) {
 		
 		final String SQL = "delete from tblBoardWhiteList where boardSeq = ?";
@@ -246,6 +292,7 @@ public class BoardDAO implements BasicDAO<BoardDTO>{
 		return 0;
 	}
 	
+	//활성화
 	public int activation(String boardSeq) {
 		
 		final String SQL = "insert into tblBoardWhiteList(boardSeq) values(?)";
