@@ -1,0 +1,585 @@
+
+@font-face {
+  font-family: 'SOYOMapleBoldTTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+  font-style: normal;
+}
+
+
+
+/* input 기본 스타일 초기화 */
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: none;
+}
+
+.title {
+  margin-top: 40px;
+}
+
+.info {
+  display: flex;
+  margin-top: 10px;
+}
+
+.info i {
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.infoContents {
+  font-size: 12px;
+}
+
+.inputBorder {
+  border-bottom: 1px solid #cfcfcf;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'SOYOMapleBoldTTF';
+    font-style: normal;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .container {
+    display: block;
+    max-width: 800px;
+    width: 80%;
+    margin: 120px auto;
+  }
+  
+  .headerLogo {
+    display: flex;
+    justify-content: center;
+  }
+
+
+  .signUpForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background: #ffffff;
+    border: 4px dashed #ffa500; /* 귀여운 주황색 점선 */
+    border-radius: 20px;
+}
+
+  .member-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    margin-top: 72px;
+    margin-bottom: 70px;
+  }
+  
+  .header {
+    width: 600px;
+    height: 94px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 47px;
+    color: #1f1f1f;
+  }
+  
+  .user-info {
+    margin-top: 39px;
+  }
+  
+
+
+  
+  .user-info input {
+    font-weight: 400;
+    height: 40px;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+  }
+  
+
+  .user-info-email input::placeholder {
+    text-align: center;
+  }
+
+  .emailWrap {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    height: 40px; /* input과 select의 높이와 동일하게 맞춤 */
+  }
+
+  .emailWrap input {
+    padding: 5px;
+    border-bottom: 1px solid #cfcfcf;
+  }
+
+
+  .userEmail {
+    width: 30%; /* 이메일 input 너비 조정 */
+    margin-right: 5px; /* 이메일 input과 @ 사이 간격 조정 */  
+  }
+
+  .userInputEmail {
+    width: 30%; /* 직접 입력 input 너비 조정 */
+    margin-left: 5px; /* @와 직접 입력 input 사이 간격 조정 */
+  }
+
+  select.box {
+    width: 40%; /* select 박스 너비 조정 */
+    height: 40px;
+    margin-left: 5px; /* select 박스와 직접 입력 input 사이 간격 조정 */
+    padding: 5px 0 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #d9d6d6;
+    color: #383838;
+    background-color: #ffffff;
+}
+
+
+  .userInputEmail {
+    width: 30%;
+  }
+
+
+
+
+  .nickWrap {
+    display: flex;
+  }
+
+  .nickWrap input {
+    width: 100%;
+  }
+
+  .nickInput {
+    width: 70%;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+ 
+  
+  .nickTest {
+    width: 30%
+  }
+
+  .nickTest input {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: orange;
+    color: white;
+  }
+
+  
+  .nickNameInfoContents {
+    font-size: 12px;
+  }
+
+
+
+
+  .idWrap {
+    display: flex;
+  }
+
+  .idWrap input {
+    width: 100%;
+  }
+
+  .idInput {
+    width: 70%;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+ 
+  
+  .idTest {
+    width: 30%
+  }
+
+  .idTest input {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: orange;
+    color: white;
+  }
+
+  
+
+
+
+
+  .idWrap input {
+    width: 100%;
+  }
+  
+
+  .pwWrap {
+    display: flex;
+    align-items: center;
+  }
+  .pwWrap input {
+    width: 100%;
+  }  
+
+  .pwInput {
+    position: relative;
+    width: 100%;
+  }
+
+  .togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+
+  
+  .ssnWrap input {
+    border-bottom: 1px solid #cfcfcf;
+  }
+  
+  .leftSsnCheck {
+    display: flex;
+    border-bottom: 1px solid #cfcfcf;
+  }
+
+
+  .ssnInput {
+    display: flex;
+    align-items: center;
+  }
+
+  .ssnInput span {
+    width: 5%;
+    text-align: center;
+  }
+
+  .leftSsn {
+    width: 47.5%;
+    margin-right: 10px;
+
+  }
+
+  .rightSsn {
+    width: 47.5%;
+  }
+
+  
+  .toggleSSN {
+    margin-left: 10px; /* 아이콘과 입력란 사이 간격 조절 */
+}
+
+  .ssnInput {
+      display: flex;
+      align-items: center;
+      position: relative; /* 아이콘을 위치시킬 기준으로 설정 */
+  }
+
+  .ssnInput > .toggleSSN {
+      position: absolute; /* 아이콘의 위치를 절대적으로 설정 */
+      right: 10px; /* 아이콘을 오른쪽 끝에 배치 */
+      top: 50%; /* 아이콘을 수직 중앙에 배치 */
+      transform: translateY(-50%); /* 아이콘을 수직으로 정확히 중앙에 배치 */
+  }
+
+  
+  .telWrap {
+    margin-top: 10px;
+  }
+
+  #phonePrefix {
+    margin-right: 20px;
+  }
+
+
+  .telWrap input {
+    border-bottom: 1px solid #cfcfcf;
+  }
+
+
+  .telInput {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .telInput span {
+      text-align: center;
+      width: 10%;
+  }
+
+  #phoneInput1 {
+    width: 50%;
+  }
+
+  #phoneInput2 {
+    width: 50%;
+  }
+
+
+  .addressWrap {
+    margin-top: 10px;
+  }
+
+  /* .addressWrap input {
+    border-bottom: 1px solid #cfcfcf;
+  } */
+
+
+  .addressInput {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .addressFind{
+    display: flex;
+  }
+
+  .postNum {
+    width: 70%;
+    margin-right: 20px;
+  }
+
+  #sample6_address {
+      width: 100%; /* 주소 입력란 너비 */
+  }
+
+  .addressTest {
+    width: 30%;
+  }
+
+  .addressTest input {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: orange;
+    color: white;
+  }
+
+  #sample6_detailAddress {
+    width: 100%;
+  }
+  
+
+  .childrenAgeWrap {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .childrenAgeWrap div {
+    margin-bottom: 10px;
+  }
+
+  .childrenAgeWrap input[type="checkbox"] {
+      display: none;
+  }
+
+  .childrenAgeWrap input[type="checkbox"] + label {
+      display: inline-block;
+      cursor: pointer;
+      padding-left: 25px;
+      position: relative;
+
+  }
+
+  .childrenAgeWrap input[type="checkbox"] + label:before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+      position: absolute;
+      left: 0;
+      top: 1px;
+  }
+
+  .childrenAgeWrap input[type="checkbox"]:checked + label:before {
+      background-color: orange;
+  }
+
+  .childrenAgeWrap input[type="checkbox"] + label:after {
+      content: '\2713';
+      color: #fff;
+      font-size: 12px;
+      position: absolute;
+      left: 3px;
+      top: -1px;
+      visibility: hidden;
+  }
+
+  .childrenAgeWrap input[type="checkbox"]:checked + label:after {
+      visibility: visible;
+  }
+  
+
+  .user-info-pw-check {
+    margin-top: 40px;
+  }
+
+
+
+  .inFlowWrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: space-between;
+  }
+
+  .inFlowWrap div {
+      width: 30%; /* 한 줄에 4개의 체크박스가 보이도록 설정 */
+      margin-bottom: 20px;
+  }
+
+  .inFlowWrap input[type="checkbox"] {
+      display: none;
+      
+  }
+
+  .inFlowWrap input[type="checkbox"] + label {
+      display: inline-block;
+      cursor: pointer;
+      padding-left: 25px;
+      position: relative;
+  }
+
+  .inFlowWrap input[type="checkbox"] + label:before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+      position: absolute;
+      left: 0;
+      top: 1px;
+  }
+
+  .inFlowWrap input[type="checkbox"]:checked + label:before {
+      background-color: orange;
+  }
+
+  .inFlowWrap input[type="checkbox"] + label:after {
+      content: '\2713';
+      color: #fff;
+      font-size: 12px;
+      position: absolute;
+      left: 3px;
+      top: -1px;
+      visibility: hidden;
+  }
+
+  .inFlowWrap input[type="checkbox"]:checked + label:after {
+      visibility: visible;
+  }
+
+
+
+  option {
+    font-size: 16px;
+  }
+
+
+
+  .gender {
+    display: flex;
+  }
+
+  .gender input[type="radio"] {
+      display: none;
+  }
+
+  .gender input[type="radio"] + label {
+      display: inline-block;
+      cursor: pointer;
+      padding-left: 25px;
+      position: relative;
+      margin-right: 10px;
+  }
+
+  .gender input[type="radio"] + label:before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 1px;
+  }
+
+  .gender input[type="radio"]:checked + label:before {
+      background-color: #007bff;
+  }
+
+  .gender input[type="radio"] + label:after {
+      content: '\25CF';
+      color: #fff;
+      font-size: 12px;
+      position: absolute;
+      left: 3px;
+      top: -1px;
+      visibility: hidden;
+  }
+
+  .gender input[type="radio"]:checked + label:after {
+      visibility: visible;
+  }
+  
+  .agree-check {
+    width: 454px;
+    height: 21.06px;
+    margin-top: 52.05px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+    text-align: center;
+  }
+  
+  .btn {
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    width: 400px;
+    padding: 10px;
+  }
+
+  .btn input {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: orange;
+    height: 40px;
+    color: white;
+    font-size: 18px;
+    border: none; /* 기본 border 없애기 */
+  }
+  
+  /* button {
+    margin-top: 30px;
+    width: 470px;
+    height: 75px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    color: #0068ff;
+    background: #ffffff;
+    border: 1px solid #0068ff;
+    border-radius: 10px;
+  } */
