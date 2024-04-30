@@ -13,8 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/wlgus/Desktop/code/eclipse_workspace/SangSangjakka/lib/lombok-1.18.30.jar"/>
-	<classpathentry kind="lib" path="C:/Users/wlgus/Desktop/code/eclipse_workspace/SangSangjakka/lib/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="lib/lombok-1.18.30.jar"/>
+	<classpathentry kind="lib" path="lib/ojdbc8.jar"/>
 	<classpathentry kind="src" path=".apt_generated">
 		<attributes>
 			<attribute name="optional" value="true"/>

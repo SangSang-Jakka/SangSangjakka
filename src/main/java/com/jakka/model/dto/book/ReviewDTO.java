@@ -11,5 +11,6 @@ public class ReviewDTO {
 	private String reviewReportCnt;
 	private String userSeq;
 	private String bookSeq;
+	private String reviewRegdate;
 	
 }//End of class

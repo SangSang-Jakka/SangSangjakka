@@ -336,4 +336,32 @@ public ArrayList<UserDTO> findAllWhite() {
 		return 0;
 	}
 	
+	@Override
+	public String findSeq(String id) {
+		
+		final String SQL = "select userSeq from tblUser where userId = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, id);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				
+				return rs.getString("userSeq");
+						
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.| findSeq");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 }//End of class

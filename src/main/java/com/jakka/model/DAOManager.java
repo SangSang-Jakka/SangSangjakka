@@ -13,8 +13,11 @@ import com.jakka.model.dao.board.SuggestionAnswerDAOImpl;
 import com.jakka.model.dao.board.SuggestionDAO;
 import com.jakka.model.dao.board.SuggestionDAOImpl;
 import com.jakka.model.dao.book.BookDAO;
+import com.jakka.model.dao.book.BookDAOImpl;
 import com.jakka.model.dao.book.PageDAO;
+import com.jakka.model.dao.book.PageDAOImpl;
 import com.jakka.model.dao.book.ReviewDAO;
+import com.jakka.model.dao.book.ReviewDAOImpl;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dao.user.UserDAOImpl;
 
@@ -65,19 +68,19 @@ public class DAOManager {
 	
 	public static BookDAO getBookDAO() {
 		
-		return BookDAO.getInstace();
+		return BookDAOImpl.getInstace();
 		
 	}//getBookDAO()
 	
 	public static PageDAO getPageDAO() {
 		
-		return PageDAO.getInstance();
+		return PageDAOImpl.getInstance();
 		
 	}//getPageDAO()
 	
 	public static ReviewDAO getReviewDAO() {
 		
-		return ReviewDAO.getInstance();
+		return ReviewDAOImpl.getInstance();
 		
 	}//getReviewDAO()
 	

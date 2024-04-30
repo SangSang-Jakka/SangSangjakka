@@ -1,5 +1,7 @@
 package com.jakka.model.dto.book;
 
+import java.util.HashMap;
+
 import lombok.Data;
 
 @Data
@@ -18,7 +20,8 @@ public class BookDTO {
 	private String userSeq;
 	private String parentBookSeq;
 	private String rcmAgeSeq;
+	private String userNick;
 	
-	
+	private HashMap<Integer, PageDTO> pages;
 	
 }//End of class

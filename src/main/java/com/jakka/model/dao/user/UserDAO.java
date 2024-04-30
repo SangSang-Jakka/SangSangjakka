@@ -7,5 +7,6 @@ import com.jakka.model.dto.user.UserDTO;
 public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	
 	public int savePw(UserDTO dto);
+	public String findSeq(String id);
 	
 }

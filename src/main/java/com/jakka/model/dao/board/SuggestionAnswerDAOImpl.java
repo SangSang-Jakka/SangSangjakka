@@ -74,7 +74,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 				SuggestionAnswerDTO dto = new SuggestionAnswerDTO();
 				
 				dto.setAdId(rs.getString("adId"));
-				dto.setAnswRegdate(rs.getString("answRegdate"));
+				dto.setSgstRegdate(rs.getString("sgstRegdate"));
 				dto.setAnswSeq(rs.getString("answSeq"));
 				dto.setSgstAnsw(rs.getString("sgstAnsw"));
 				dto.setSgstSeq(rs.getString("sgstSeq"));
@@ -110,7 +110,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 				SuggestionAnswerDTO dto = new SuggestionAnswerDTO();
 				
 				dto.setAdId(rs.getString("adId"));
-				dto.setAnswRegdate(rs.getString("answRegdate"));
+				dto.setSgstRegdate(rs.getString("sgstRegdate"));
 				dto.setAnswSeq(rs.getString("answSeq"));
 				dto.setSgstAnsw(rs.getString("sgstAnsw"));
 				dto.setSgstSeq(rs.getString("sgstSeq"));
@@ -152,7 +152,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 				SuggestionAnswerDTO dto = new SuggestionAnswerDTO();
 				
 				dto.setAdId(rs.getString("adId"));
-				dto.setAnswRegdate(rs.getString("answRegdate"));
+				dto.setSgstRegdate(rs.getString("sgstRegdate"));
 				dto.setAnswSeq(rs.getString("answSeq"));
 				dto.setSgstAnsw(rs.getString("sgstAnsw"));
 				dto.setSgstSeq(rs.getString("sgstSeq"));
