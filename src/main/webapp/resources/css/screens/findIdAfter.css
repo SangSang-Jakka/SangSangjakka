@@ -1,0 +1,108 @@
+@import url(/components/find.css);
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-style: normal;
+}
+
+ a {
+    text-decoration-line: none;
+    font-size: 16px;
+ }
+
+
+  
+ .findUserIdSuccess {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 30px;
+    height: 300px;
+    border: 4px dashed #ffa500; /* 귀여운 주황색 점선 */
+ }
+
+ .findUserIdSuccess span{
+    font-size: 22px;
+    background:linear-gradient(180deg,rgba(255,255,255,0) 50%, gold 50%);
+ }
+
+ .findUserId {
+    margin-bottom: 20px;
+ }
+
+ .successBtn{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+ }
+
+ .successBtn .login {
+    background-color: #0E9AFF;
+    width: 250px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid transparent; 
+    border-radius: 7px;
+}
+ 
+
+ .successBtn .login:hover {
+    background-color: #fdfdfd;
+    border: 2px solid #0E9AFF;
+ }
+
+ .successBtn .login a {
+    color: white; /* 링크의 기본 색상을 핑크색으로 설정합니다. */
+ }
+
+ .successBtn .login:hover a {
+    color: #0E9AFF  ;
+    font-size: 16px;
+ }
+
+ .successBtn .changePw {
+    background-color: #9CC624;
+    width: 250px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid transparent; 
+    border-radius: 7px;
+ }
+
+ .successBtn .changePw:hover {
+    background-color: #fdfdfd;
+    border: 2px solid #9CC624;
+ }
+
+ .successBtn .changePw a {
+    color: white; /* 링크의 기본 색상을 핑크색으로 설정합니다. */
+ }
+
+ .successBtn .changePw:hover a {
+    color: #9CC624  ;
+    font-size: 16px;
+ }
+
+
+
+ .login {
+    margin-right: 20px;
+    border-radius: 7px;
+  }
+
+  .changePw {
+    border-radius: 7px;
+  }
