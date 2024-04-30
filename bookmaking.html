@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
+	<link rel="stylesheet" type="text/css" href="css/bookblock.css" />
+	<script src="https://kit.fontawesome.com/e075b9b5dc.js" crossorigin="anonymous"></script>
+	<script src="js/modernizr.custom.js"></script>
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+		
+		.full {
+			width: 100%;
+		}
+		
+		.full input[type="text"] {
+			flex-grow: 1;
+		}
+		
+		.flex {
+			display: flex;
+		}
+		
+		.containerLeft, .containerRight {
+			display: table; /* 부모를 table로 설정 */
+			height: 100%; /* 부모의 높이를 100%로 설정 */
+			width: 100%; /* 부모의 너비를 100%로 설정 */
+		}
+
+		.containerLeft > nav, .containerRight > nav {
+			display: table-cell; /* 자식을 table-cell로 설정 */
+			vertical-align: middle; /* 수직 중앙 정렬 */
+			text-align: center; /* 텍스트 수평 중앙 정렬 */
+		}
+		
+		.containerLeft nav a, .containerRight nav a {
+			display: inline-block;
+			margin: 0 1px;
+		}
+
+		#article {
+			display: grid;
+			grid-template-columns: 20% 60% 20%;
+			height: 100%;
+		}
+
+		.container {
+			height: 60%;
+			display: grid;
+			grid-template-columns: 10% 80% 10%;
+		}
+
+		.bb-custom-wrapper {
+			height: 80vh;
+			vertical-align: middle;
+		}
+
+		.articleTitle {
+			text-align: center;
+		}
+
+		.buttonBox {
+			width: 100%;
+			display: inline-flex;
+			justify-content: space-between;
+			text-align: center;
+		}
+
+		.buttonItem {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 170px;
+			height: 60px;
+			border-radius: 10px;
+			font-weight: bold;
+			color: aliceblue;
+			margin-right: 20px;
+			font-size: 1.3rem;
+			font-family: Fredoka;
+			cursor: pointer;
+			vertical-align: middle;
+		}
+		
+		.pageOption > div:nth-child(1) {
+			width: 160px;
+			background-color: #0E9AFF;
+		}
+		
+		.pageOption > div:nth-child(2) {
+			width: 160px;
+			background-color: #FFA012;
+		}
+		
+		.pageOption > div:nth-child(3) {
+			width: 160px;
+			background-color: #C61FA1;
+		}
+		
+		.shortButton {
+			width: 40px;
+		}
+		
+		.middleButton {
+			width: 100px;
+		}
+
+		.pageImage {
+			height: 70%;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.border {
+			border: 0px solid black;
+		}
+
+		.pageMaker {
+			display: grid;
+			grid-template-columns: 49% 1% 1% 49%;
+			height: 50%;
+		}
+
+		.vDashed,
+		.vDashedRight {
+			height: 100%;
+			border: 0;
+		}
+
+		.vDashed {
+			border-right: 1px dashed black;
+		}
+
+		.vDashedRight {}
+		
+		.pageTextMakerItem > div {
+			display: flex;
+			justify-content: flex-end;
+		}
+		
+		.selectTextItem {
+			position: relative;
+			display: block;
+		}
+		
+		.pageTextMaker {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+		
+		.pageTextMakerItem {
+			align-items: start;
+			text-align: start;
+		}
+		
+		.pageImageMaker {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+		
+		.pageImageMakerBox {
+			margin-top: 16px;
+			display: grid;
+			grid-template-columns: 1fr 1fr; /* 두 열 모두 동일한 너비 */
+			grid-template-rows: 1fr 1fr; /* 두 행 모두 동일한 높이 */
+			gap: 10px;
+		}
+
+		.pageImageMakerItem {
+			width: 180px;
+			height: 180px;
+		}
+		
+		.pageImageMakerItemImg {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		
+		#bb-nav-first {
+			background: #03CB8F;
+		}
+		
+		#bb-nav-prev {
+			background: #9CC624;
+		}
+		
+		#bb-nav-next {
+			background: #9CC624;
+		}
+		
+		#bb-nav-last {
+			background: #03CB8F;
+		}
+		
+		.buttonItem > i {
+			margin-top: 10px;
+			font-size: 1.5rem;
+		}
+		
+		.orange {
+			background: #FF7223;
+		}
+		
+		.tomato {
+			background: #FE4848;
+		}
+		
+		.pageTextMakerItem > span {
+			font-size: 1.5rem;
+		}
+		
+		.whitespace {
+			font-size: 1.5rem;
+		}
+		
+		.bb-item > p {
+			font-size: 1.5rem;
+		}
+		
+		.pointer:hover {
+			opacity: 0.8;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="article">
+		<div class="articleLeft"></div>
+		<div class="articleCenter articleWrap">
+
+			<div class="articleTitle">
+				<h1>나만의 동화책 만들기</h1>
+			</div>
+
+			<div class="container">
+				<div class="containerLeft">
+					<nav class="border flex buttonBox">
+						<a id="bb-nav-first" href="#" class="bb-custom-icon buttonItem shortButton pointer"><i class="fa-solid fa-angles-left"></i></a>
+						<a id="bb-nav-prev" href="#" class="bb-custom-icon buttonItem shortButton pointer"><i class="fa-solid fa-angle-left"></i></a>
+					</nav>
+				</div>
+				<div class="bb-custom-wrapper">
+
+					<div id="bb-bookblock" class="bb-bookblock border">
+						<div class="bb-item">
+							<div class="pageImage border" style="background-image: url('images/demo1/1.jpg');"></div>
+							<p class="border">Pastry bear claw oat cake danish croissant jujubes danish. Wypas soufflé
+								muffin.
+								Liquorice
+								powder pastry danish. Candy toffee gummi bears chocolate bar lollipop applicake
+								chocolate
+								cake danish brownie.</p>
+						</div>
+						<div class="bb-item">
+							<div class="bb-custom-side">
+								<p>Soufflé tootsie roll jelly beans. Sweet icing croissant dessert bear claw. Brownie
+									dessert
+									cheesecake danish jelly pudding bear claw soufflé.</p>
+							</div>
+							<div class="bb-custom-side">
+								<p>Candy canes lollipop macaroon marshmallow gummi bears tiramisu. Dessert croissant
+									cupcake
+									candy canes. Bear claw faworki faworki lemon drops. Faworki marzipan sugar plum
+									jelly-o
+									marzipan jelly-o.</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="pageOption buttonBox">
+						<div class="pageOptionItem buttonItem pointer">수정</div>
+						<div class="pageOptionItem buttonItem pointer">완성</div>
+						<div class="pageOptionItem buttonItem pointer">삭제</div>
+					</div>
+				</div>
+				<div class="containerRight">
+					<nav class="border flex buttonBox">
+						<a id="bb-nav-next" href="#" class="bb-custom-icon buttonItem shortButton pointer"><i class="fa-solid fa-angle-right"></i></a>
+						<a id="bb-nav-last" href="#" class="bb-custom-icon buttonItem shortButton pointer"><i class="fa-solid fa-angles-right"></i></a>
+					</nav>
+				</div>
+			</div>
+			<div class="pageMaker">
+				<div class="pageTextMaker border flex">
+					<h3>책의 내용을 만들어요! <input type="checkbox" name="" id="" checked><label><small>ai의 도움을 받아요</small></label></h3>
+					<div class="full flex"><input type="text"><input type="submit" value="만들기" class="buttonItem middleButton orange pointer"></div>
+					<ul class="pageTextMakerBox">
+						<li class="pageTextMakerItem">
+							<span>1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
+							<div class="selectTextBox"><input type="submit" value="선택" class="selectTextItem buttonItem middleButton tomato pointer"></div>
+							<div class="whitespace">&nbsp;</div>
+						</li>
+						<li class="pageTextMakerItem">
+							<span>2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
+							<div class="selectTextBox"><input type="submit" value="선택" class="selectTextItem buttonItem middleButton tomato pointer"></div>
+							<div class="whitespace">&nbsp;</div>
+						</li>
+						<li class="pageTextMakerItem">
+							<span>3. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
+							<div class="selectTextBox"><input type="submit" value="선택" class="selectTextItem buttonItem middleButton tomato pointer"></div>
+							<div class="whitespace">&nbsp;</div>
+						</li>
+						<li class="pageTextMakerItem">
+							<span>4. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
+							<div class="selectTextBox"><input type="submit" value="선택" class="selectTextItem buttonItem middleButton tomato pointer"></div>
+							<div class="whitespace">&nbsp;</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="vDashed"></div>
+				<div class="vDashedRight"></div>
+
+				<div class="pageImageMaker border flex">
+					<h3>책의 그림을 만들어요! <input type="checkbox" name="" id="" checked><label><small>ai의 도움을 받아요</small></label></h3>
+					<div class="full flex"><input type="text"><input type="submit" value="만들기" class="buttonItem middleButton orange pointer"></div>
+					<div class="pageImageMakerBox">
+						<div class="pageImageMakerItem border pointer"><img src="images/demo1/1.jpg" class="pageImageMakerItemImg"></div>
+						<div class="pageImageMakerItem border pointer"><img src="images/demo1/1.jpg" class="pageImageMakerItemImg"></div>
+						<div class="pageImageMakerItem border pointer"><img src="images/demo1/1.jpg" class="pageImageMakerItemImg"></div>
+						<div class="pageImageMakerItem border pointer"><img src="images/demo1/1.jpg" class="pageImageMakerItemImg"></div>
+					</div>
+					<div><h4>그림을 선택해주세요!</h4></div>
+				</div>
+			</div>
+		</div>
+		<div class="articleRight"></div>
+	</article>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/jquerypp.custom.js"></script>
+	<script src="js/jquery.bookblock.js"></script>
+	<script>
+		var Page = (function () {
+
+			var config = {
+				$bookBlock: $('#bb-bookblock'),
+				$navNext: $('#bb-nav-next'),
+				$navPrev: $('#bb-nav-prev'),
+				$navFirst: $('#bb-nav-first'),
+				$navLast: $('#bb-nav-last')
+			},
+				init = function () {
+					config.$bookBlock.bookblock({
+						speed: 800,
+						shadowSides: 0.8,
+						shadowFlip: 0.7
+					});
+					initEvents();
+				},
+				initEvents = function () {
+
+					var $slides = config.$bookBlock.children();
+
+					// add navigation events
+					config.$navNext.on('click touchstart', function () {
+						config.$bookBlock.bookblock('next');
+						return false;
+					});
+
+					config.$navPrev.on('click touchstart', function () {
+						config.$bookBlock.bookblock('prev');
+						return false;
+					});
+
+					config.$navFirst.on('click touchstart', function () {
+						config.$bookBlock.bookblock('first');
+						return false;
+					});
+
+					config.$navLast.on('click touchstart', function () {
+						config.$bookBlock.bookblock('last');
+						return false;
+					});
+
+					// add swipe events
+					$slides.on({
+						'swipeleft': function (event) {
+							config.$bookBlock.bookblock('next');
+							return false;
+						},
+						'swiperight': function (event) {
+							config.$bookBlock.bookblock('prev');
+							return false;
+						}
+					});
+
+					// add keyboard events
+					$(document).keydown(function (e) {
+						var keyCode = e.keyCode || e.which,
+							arrow = {
+								left: 37,
+								up: 38,
+								right: 39,
+								down: 40
+							};
+
+						switch (keyCode) {
+							case arrow.left:
+								config.$bookBlock.bookblock('prev');
+								break;
+							case arrow.right:
+								config.$bookBlock.bookblock('next');
+								break;
+						}
+					});
+				};
+
+			return { init: init };
+
+		})();	</script>
+	<script>
+		Page.init();
+	</script>
+</body>
+
+</html>
