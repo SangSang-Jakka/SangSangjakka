@@ -4,9 +4,10 @@ package com.jakka;
 import java.util.ArrayList;
 
 import com.jakka.model.DAOManager;
-import com.jakka.model.dao.board.BoardCommentsDAO;
+import com.jakka.model.dao.board.BoardCommentsDAOImpl;
 import com.jakka.model.dao.board.BoardDAO;
-import com.jakka.model.dao.board.NoticeDAO;
+import com.jakka.model.dao.board.BoardDAOImpl;
+import com.jakka.model.dao.board.NoticeDAOImpl;
 import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
@@ -18,12 +19,11 @@ public class Main {
 	public static void main(String[] args) {
 		
 
-	BookDAO bookDAO = DAOManager.getBookDAO();
-	
-//	int result = bookDAO.activation("157");
-	int result = bookDAO.disable("157");
+	BoardDAO boardDAO = DAOManager.getBoardDAO();
 
-	System.out.println(result);
+	ArrayList<BoardDTO> list = boardDAO.findByContentsContains("여행");
+	
+	System.out.println(list);
 	
 	}//main
 	

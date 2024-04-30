@@ -1,58 +1,65 @@
 package com.jakka.model;
 
 import com.jakka.model.dao.admin.AdminDAO;
+import com.jakka.model.dao.admin.AdminDAOImpl;
 import com.jakka.model.dao.board.BoardCommentsDAO;
+import com.jakka.model.dao.board.BoardCommentsDAOImpl;
 import com.jakka.model.dao.board.BoardDAO;
+import com.jakka.model.dao.board.BoardDAOImpl;
 import com.jakka.model.dao.board.NoticeDAO;
+import com.jakka.model.dao.board.NoticeDAOImpl;
 import com.jakka.model.dao.board.SuggestionAnswerDAO;
+import com.jakka.model.dao.board.SuggestionAnswerDAOImpl;
 import com.jakka.model.dao.board.SuggestionDAO;
+import com.jakka.model.dao.board.SuggestionDAOImpl;
 import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dao.book.PageDAO;
 import com.jakka.model.dao.book.ReviewDAO;
 import com.jakka.model.dao.user.UserDAO;
+import com.jakka.model.dao.user.UserDAOImpl;
 
 public class DAOManager {
 
 	
 	public static AdminDAO getAdminDAO() {
 		
-		return AdminDAO.getInstance();
+		return AdminDAOImpl.getInstance();
 		
 	}//getBoardDAO()
 	
 	public static BoardDAO getBoardDAO() {
 		
-		return BoardDAO.getInstance();
+		return BoardDAOImpl.getInstance();
 		
 	}//getBoardDAO()
 	
 	public static NoticeDAO getNoticeDAO() {
 		
-		return NoticeDAO.getInstance();
+		return NoticeDAOImpl.getInstance();
 		
 	}//getBoardDAO()
 	
 	public static SuggestionDAO getSuggestionDAO() {
 		
-		return SuggestionDAO.getInstance();
+		return SuggestionDAOImpl.getInstance();
 		
 	}//getBoardDAO()
 	
 	public static BoardCommentsDAO getBoardCommentDAO() {
 		
-		return BoardCommentsDAO.getInstance();
+		return BoardCommentsDAOImpl.getInstance();
 		
 	}//BoardCommentDAO()
 	
 	public static SuggestionAnswerDAO getSuggestionCommentDAO() {
 		
-		return SuggestionAnswerDAO.getInstance();
+		return SuggestionAnswerDAOImpl.getInstance();
 		
 	}//SuggestionCommentDAO()
 	
 	public static UserDAO getUserDAO() {
 		
-		return UserDAO.getInstance();
+		return UserDAOImpl.getInstance();
 		
 	}//getUserDAO()
 	
