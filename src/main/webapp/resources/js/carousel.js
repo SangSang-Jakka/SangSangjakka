@@ -7,23 +7,23 @@ class Carousel {
     this.carouselData = [
         {
           'id': '1',
-          'src': 'img/book1.jpg', // 변경된 이미지 주소
+          'src': '/sangsangjakka/resources/img/book1.jpg', // 변경된 이미지 주소
         },
         {
           'id': '2',
-          'src': 'img/book2.jpg', // 변경된 이미지 주소
+          'src': '/sangsangjakka/resources/img/book2.jpg', // 변경된 이미지 주소
         },
         {
           'id': '3',
-          'src': 'img/book3.jpg', // 변경된 이미지 주소
+          'src': '/sangsangjakka/resources/img/book3.jpg', // 변경된 이미지 주소
         },
         {
           'id': '4',
-          'src': 'img/book4.jpg', // 변경된 이미지 주소
+          'src': '/sangsangjakka/resources/img/book4.jpg', // 변경된 이미지 주소
         },
         {
           'id': '5',
-          'src': 'img/book5.jpg', // 변경된 이미지 주소
+          'src': '/sangsangjakka/resources/img/book5.jpg', // 변경된 이미지 주소
         }
       ];
       

@@ -1,0 +1,133 @@
+
+.viewContainer {
+   
+    position: relative;
+    width: 100%;
+    background-color: white;
+    padding: 35px 25px 25px 35px;
+    margin: 0px 20px 20px 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+}
+
+/* Heading */
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    width: 100px;
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+td {
+    width: 500px;
+}
+
+/* Textarea */
+textarea {
+    
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+
+
+
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .viewContainer {
+        width: 90%;
+    }
+}
+
+.right {
+    float: right;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .greylist {
+    width: 50px;
+    height: 30px;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+    background: grey;
+    border: solid 2px white;
+    border-radius: 5px;
+  }
+  
+  .gradient {
+    width: 80px;
+    height: 30px;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+    background: linear-gradient(to bottom, grey, black);
+    border: solid 2px white;
+    border-radius: 5px;
+  }
+
+  /* 댓글 */
+.commentContainer {
+    margin-top : 20px;
+}
+
+.commentItem {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.commentWriter {
+    font-weight : bold;
+}
+
+.commentTime {
+    color: #666;
+    font-size: 12px;
+    float: right;
+}
+
+.commentContent {
+    margin-top : 5px;
+}
+
+.commentInput {
+    margin-top : 20px;
+    margin-bottom: 20px;
+}
+
+.commentInput input[type="text"] {
+    width: calc(100% - 80px);
+    height: 30px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+
+}
+

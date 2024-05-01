@@ -47,7 +47,7 @@
             </div>
             <div class="footerWebInfo">
                 <div class="headerLogo">
-                    <img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78">
+                    <img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" id="dashboard" class="jet-logo__img" alt="Funcare" width="205" height="78">
                 </div>
                 <div class="footerAddress">
                     서울시 역삼동 123-4번지 쌍용빌딩 8층

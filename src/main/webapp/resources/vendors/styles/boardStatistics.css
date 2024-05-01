@@ -1,0 +1,87 @@
+.postBox {
+
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.today, .yesterday, .accumulate {
+    flex-basis: calc(33.33% - 20px); /* 각 요소가 차지하는 공간을 균등하게 나눠줍니다. */
+    padding: 20px;
+    font-weight: bold;
+    color: #FFF;
+    background: #FFF;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.today {
+    background-color: #F37878;
+    color: black;
+
+}
+
+.yesterday {
+    background-color: #F9F9C5;
+    color: black;
+
+}
+
+.accumulate {
+    background-color: #D9F8C4;
+    color: black;
+
+}
+
+.postBox h4, .postBox p {
+    margin: 10px 0;
+}
+
+/*
+.boardTotal {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    background: #f0f7ff;
+    border: dashed 2px #5b8bd0;
+    border-radius: 10px;
+}
+*/
+
+.boardTotal {
+    padding: 10px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: #f0f7ff;
+    border: 2px dashed #5b8bd0;
+    border-radius: 10px;
+}
+
+.boardSection {
+    text-align: center;
+    padding: 20px;
+   
+}
+
+
+.boardSection h4 {
+    margin-bottom: 10px;
+    color: #5b8bd0;
+}
+
+.boardSection p {
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+
+.chartContainer {
+    margin-top: 50px;
+    padding-top: 50px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+}
+

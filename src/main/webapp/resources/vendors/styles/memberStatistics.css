@@ -1,0 +1,108 @@
+/*
+body {
+    color: #555;
+    background: #eeeeee;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+*/
+
+
+h1 {
+    padding: 50px 0;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+
+.main {
+  /*
+    min-width: 320px;
+    max-width: 800px;
+    padding: 50px;
+    margin: 0 auto;
+    background: #ffffff;
+*/
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    
+    padding-right: 15px;
+    padding-left: 15px;
+    
+    margin-bottom: 30px;
+    background: #ffffff;
+
+}
+
+section {
+    display: none;
+    padding: 20px 0 0;
+    border-top: 1px solid #ddd;
+}
+
+/*라디오버튼 숨김*/
+input {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 25px;
+    font-weight: 600;
+    text-align: center;
+    color: #bbb;
+    border: 1px solid transparent;
+}
+
+label:hover {
+    color: #2e9cdf;
+    cursor: pointer;
+}
+
+/*input 클릭시, label 스타일*/
+input:checked+label {
+    color: #555;
+    border: 1px solid #ddd;
+    border-top: 2px solid #2e9cdf;
+    border-bottom: 1px solid #ffffff;
+}
+
+#tab1:checked~#content1,
+#tab2:checked~#content2 {
+    display: block;
+}
+
+
+/* 페이징 */
+
+.page_wrap {
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+    
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+
+  .pagination a.active {
+    background-color: #4caf50;
+    color: white;
+    border: 1px solid #4caf50;
+  }
+
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;}
