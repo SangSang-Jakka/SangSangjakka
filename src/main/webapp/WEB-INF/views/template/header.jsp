@@ -19,10 +19,10 @@
         <nav id="nav">
             <ul>
                 <a href="/sangsangjakka/index.do"><li>메인화면</li></a>
-                <a href="#!"><li>동화나라</li></a>
-                <a href="/sangsangjakka/board/freeboard_list.do"><li>자유게시판</li></a>
-                <a href="/sangsangjakka/board/suggestion_list.do"><li>건의사항</li></a>
-                <a href="/sangsangjakka/board/notice_list.do"><li>공지사항</li></a>
+                <a href="/sangsangjakka/board/book/list.do"><li>동화나라</li></a>
+                <a href="/sangsangjakka/board/freeboard/list.do"><li>자유게시판</li></a>
+                <a href="/sangsangjakka/board/suggestion/list.do"><li>건의사항</li></a>
+                <a href="/sangsangjakka/board/notice/list.do"><li>공지사항</li></a>
                 <a href="/sangsangjakka/user/mypage.do"><li>마이페이지</li></a>
                 <a href="/sangsangjakka/introcude.do"><li>소개</li></a>
             </ul>
