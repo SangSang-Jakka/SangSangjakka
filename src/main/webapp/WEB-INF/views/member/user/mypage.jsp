@@ -563,11 +563,11 @@
 		}
 
 		function searchBooks() {
-		    const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+		    let searchTerm = document.getElementById('searchBox').value.toLowerCase();
 		    filteredBooks = bookData.filter(book => book.name.toLowerCase().includes(searchTerm));
 		    totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
 		    currentPage = Math.max(1, currentPage); // 검색 결과가 없어도 currentPage는 최소값 1
-		    renderBooks(filteredBooks);
+		    sortBooks();
 		    updatePagination();
 		    updatePaginationControls();
 		}
