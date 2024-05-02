@@ -42,49 +42,8 @@
 	               </div>
 	
 	
-	               <div class="row clearfix">
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 동화책</div>
-	                                   <div class="weight-600 font-14">Book</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 게시글</div>
-	                                   <div class="weight-600 font-14">Post</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 유저</div>
-	                                   <div class="weight-600 font-14">User</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 건의사항</div>
-	                                   <div class="weight-600 font-14">Suggestion</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-				</div>
-	
+	      <!-- 배너 -->
+        <%@include file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%>
 	
 				
 				<!-- Simple Datatable start -->
