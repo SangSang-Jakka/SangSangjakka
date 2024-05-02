@@ -103,7 +103,6 @@ select.notice{
   text-align: center;
 }
 
-
 .boardTable .thNum {
   width: 100px;
   text-align: center;
@@ -115,11 +114,6 @@ select.notice{
 
 .boardTable th, .boardTable td {
   padding: 14px 0;
-}
-
-th.thTitle{
-    text-align: left;
-    padding-left: 28px;
 }
 
 .boardTable tbody tr:nth-child(even) th,
@@ -208,7 +202,6 @@ th.thTitle{
 }
 
 .paging{
-    margin-top: 30px;
   text-align: center;
 }
 
