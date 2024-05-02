@@ -34,7 +34,8 @@
            </select>
        </form>
        </div>
-    <!-- board list area -->
+  
+  
       <div>
           <div>
               <table class="boardTable">
@@ -47,7 +48,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <tr class>
+                  <tr>
                       <td>공지</td>
                       <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
                       <td>2017.06.15</td>
