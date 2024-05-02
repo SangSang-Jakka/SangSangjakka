@@ -941,3 +941,7 @@ option {
 #cancelbtn {
 	background-color: #ccc;
 }
+
+.pagination {
+	user-select: none;
+}
