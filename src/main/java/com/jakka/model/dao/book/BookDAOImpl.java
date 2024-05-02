@@ -180,7 +180,7 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	
-	public int activation(String bookSeq) {
+	public int activation(String bookSeq, String adId) {
 		
 		final String SQL = "insert into tblBookWhiteList(bookSeq) values(?)";
 		
@@ -203,7 +203,7 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	@Override
-	public int disable(String bookSeq) {
+	public int disable(String bookSeq, String adId) {
 		
 		final String SQL = "delete from tblBookWhiteList where bookSeq = ?";
 		

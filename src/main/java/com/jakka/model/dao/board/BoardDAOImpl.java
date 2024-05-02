@@ -309,7 +309,7 @@ public class BoardDAOImpl implements BoardDAO{
 	}//get()
 	
 	//비활성화
-	public int disable(String boardSeq) {
+	public int disable(String boardSeq, String adId) {
 		
 		final String SQL = "delete from tblBoardWhiteList where boardSeq = ?";
 		
@@ -332,7 +332,7 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 	
 	//활성화
-	public int activation(String boardSeq) {
+	public int activation(String boardSeq, String adId) {
 		
 		final String SQL = "insert into tblBoardWhiteList(boardSeq) values(?)";
 		

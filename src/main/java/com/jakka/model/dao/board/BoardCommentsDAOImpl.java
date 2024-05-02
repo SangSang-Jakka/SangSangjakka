@@ -311,7 +311,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	}//addReportCnt()
 	
 	//비활성화
-	public int disable(String cmntSeq) {
+	public int disable(String cmntSeq, String adId) {
 		
 		final String SQL = "delete from tblBoardCommentWhiteList where cmntSeq = ?";
 		
@@ -334,7 +334,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	}
 	
 	//활성화
-	public int activation(String cmntSeq) {
+	public int activation(String cmntSeq, String adId) {
 		
 		final String SQL = "insert into tblBoardCommentWhiteList(cmntSeq) values(?)";
 		

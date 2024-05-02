@@ -208,7 +208,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public int activation(String seq) {
+	public int activation(String seq, String adId) {
 		
 		final String SQL = "INSERT INTO tblReviewWhiteList(reviewSeq) VALUES(?)";
 
@@ -230,7 +230,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public int disable(String seq) {
+	public int disable(String seq, String adId) {
 		
 		final String SQL = "DELETE FROM tblReviewWhiteList WHERE reviewSeq = ?";
 

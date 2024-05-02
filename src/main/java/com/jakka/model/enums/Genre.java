@@ -24,6 +24,7 @@ public enum Genre {
     COMEDY("20"),						//코믹
     FRIENDSHIP("21"),					//우정
     CREATIVITY("22");					//창의력
+    
 	
 	private final String value;
 	

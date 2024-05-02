@@ -8,5 +8,6 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	
 	public int savePw(UserDTO dto);
 	public String findSeq(String id);
+	public int saveStorage(UserDTO dto);
 	
 }
