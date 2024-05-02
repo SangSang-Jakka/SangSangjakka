@@ -4,17 +4,13 @@
   margin: 20px 30px 10px 30px;
   background-color: white;
   border-radius: 15px;
-/*  border: 2px solid #0b132b; */
   display: flex;
- /* justify-content: space-between; */
   align-items: center;
-  
   
 }
 
 .ImageBox {
   flex: none;
- /* text-align: left; */ 
   overflow: hidden; 
   margin-left: 200px;
 }
@@ -27,11 +23,6 @@
   border-top-left-radius: 15px; 
   border-bottom-left-radius: 15px; 
 
-  /*
-  max-width: none;
-  max-height: 200px;
-  */
-
 }
 
 .textBox {
@@ -42,127 +33,132 @@
 }
 
 
-/* 업데이트 박스들 */
-.updateContainer {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  margin-right: -10px;
-  margin-left: 5px;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-
-.mr {
-  flex: 1;
-  margin-right: 15px;
-}
-/*
-.updateBox {
-  position: relative;
-  width: calc(25% - 30px);
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 30px;
-  background-color: #FFF;
-  border-radius: 4px;
-}
-*/
-
-
-.widget-small {
-  display: flex;
-  border-radius: 4px;
-  color: #2a2a2a;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.widget-small .coloured-icon-a {
-  background-color: #04998c; /* 수정: 아이콘 배경색 */
-  padding: 15px; /* 수정: 아이콘과 텍스트 사이 간격 조정 */
-  border-top-left-radius: 4px; /* 수정: 아이콘 부분의 상단 좌우 모서리 둥글게 설정 */
-  border-bottom-left-radius: 4px;
+  /* 업데이트 박스들 */
+  .updateContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-right: -10px;
+    margin-left: 5px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
   
-}
-
-.coloured-icon-a i {
-  margin-top: 20px;
-  margin-left: 15px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
   
-}
+  .mr {
+    flex: 1;
+    margin-right: 15px;
+  }
 
-
-.widget-small .coloured-icon-b {
-  background-color: #009ebb; /* 수정: 아이콘 배경색 */
-  padding: 15px; /* 수정: 아이콘과 텍스트 사이 간격 조정 */
-  border-top-left-radius: 4px; /* 수정: 아이콘 부분의 상단 좌우 모서리 둥글게 설정 */
-  border-bottom-left-radius: 4px;
   
-}
-
-.coloured-icon-b i {
-  margin-top: 20px;
-  margin-left: 15px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
+  .widget-small {
+    display: flex;
+    border-radius: 4px;
+    color: #2a2a2a;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
   
-}
-
-.widget-small .coloured-icon-c {
-  background-color: #f8d204; /* 수정: 아이콘 배경색 */
-  padding: 15px; /* 수정: 아이콘과 텍스트 사이 간격 조정 */
-  border-top-left-radius: 4px; /* 수정: 아이콘 부분의 상단 좌우 모서리 둥글게 설정 */
-  border-bottom-left-radius: 4px;
+  .widget-small .coloured-icon-a {
+    background-color: #04998c; 
+    padding: 15px; 
+    border-top-left-radius: 4px; 
+    border-bottom-left-radius: 4px;
+    
+  }
   
-}
-
-.coloured-icon-c i {
-  margin-top: 20px;
-  margin-left: 15px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
+  .coloured-icon-a i {
+    margin-top: 26px;
+    margin-left: 15px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: center;
+    
+  }
   
-}
-
-
-.widget-small .coloured-icon-d {
-  background-color: #e30035; /* 수정: 아이콘 배경색 */
-  padding: 15px; /* 수정: 아이콘과 텍스트 사이 간격 조정 */
-  border-top-left-radius: 4px; /* 수정: 아이콘 부분의 상단 좌우 모서리 둥글게 설정 */
-  border-bottom-left-radius: 4px;
   
-}
-
-.coloured-icon-d i {
-  margin-top: 20px;
-  margin-left: 15px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
+  .widget-small .coloured-icon-b {
+    background-color: #009ebb; 
+    padding: 15px; 
+    border-top-left-radius: 4px; 
+    border-bottom-left-radius: 4px;
+    
+  }
   
-}
+  .coloured-icon-b i {
+    margin-top: 26px;
+    margin-left: 15px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .widget-small .coloured-icon-c {
+    background-color: #f8d204; 
+    padding: 15px; 
+    border-top-left-radius: 4px; 
+    border-bottom-left-radius: 4px;
+    
+  }
+  
+  .coloured-icon-c i {
+    margin-top: 26px;
+    margin-left: 15px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  
+  .widget-small .coloured-icon-d {
+    background-color: #e30035; 
+    padding: 15px; 
+    border-top-left-radius: 4px; 
+    border-bottom-left-radius: 4px;
+    
+  }
+  
+  .coloured-icon-d i {
+    margin-top: 26px;
+    margin-left: 15px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  
 
-
-
-
-
-.widget-small .info {
-
-  padding: 15px;
-
-}
-
-
-
-.widget-small i {
-  margin-right: 15px;
-}
+  .widget-small .info {
+  
+    padding: 15px;
+  
+  }
+  
+  
+  
+  .widget-small i {
+    margin-right: 15px;
+  }
+  
+  .titleElement {
+   
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+  
+  }
+  
+  .countElement {
+  
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 14px;
+  
+  
+  }
+ 
