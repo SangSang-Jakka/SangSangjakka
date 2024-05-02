@@ -36,11 +36,13 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="/sangsangjakka/admin/dashboard/book/stats.do">동화책 통계</a></li>
-                        <li><a href="#">동화책 관리</a></li>
-                        <li><a href="#">동화책 수상관리</a></li>
-                        <li><a href="#">신고동화책 관리</a></li>
-                        <li><a href="#">동화책 용량 관리</a></li>
-                        <li><a href="#">개인 저장소 기본 용량</a></li>
+                        <!-- <li><a href="#">동화책 관리</a></li> -->
+                        <!-- <li><a href="#">동화책 수상관리</a></li> -->
+                        <li><a href="/sangsangjakka/admin/dashboard/book/award.do">동화책 수상관리</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/book/report.do">신고동화책 관리</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/book/capacity.do">개인 저장소 기본 용량</a></li>
+                        
+
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -52,6 +54,7 @@
                         <li><a href="/sangsangjakka/admin/dashboard/notice/manage.do">공지사항</a></li>
                         <li><a href="/sangsangjakka/admin/dashboard/suggestion/manage.do">건의사항</a></li>
                         <li><a href="/sangsangjakka/admin/dashboard/freeboard/manage.do">자유게시판</a></li>
+                        <li><a href="#">동화 공유 게시판</a></li>
                     </ul>
                 </li>
 

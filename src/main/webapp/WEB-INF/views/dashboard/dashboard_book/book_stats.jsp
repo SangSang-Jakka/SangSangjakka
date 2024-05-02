@@ -26,7 +26,7 @@
 	                    <div class="row">
 	                        <div class="col-md-12 col-sm-12">
 	                            <div class="title">
-	                                <h4>동화책 통계</h4>
+	                                <h4>사용자 통계</h4>
 	                            </div>
 	                            <nav aria-label="breadcrumb" role="navigation">
 	                                <ol class="breadcrumb">
@@ -43,18 +43,18 @@
 	                    <div class="postBox">
 	                        <div class="today">
 	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>신규 가입자수</h4>
+	                            <h4>신규 등록된 동화책 수</h4>
 	                            <p>+13</p>
 	                        </div>
 	                        <div class="yesterday">
 	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>차단된 사용자수</h4>
+	                            <h4>신고된 동화책 수</h4>
 	                            <p>3</p>
 	                        </div>
 	                        <div class="accumulate">
 	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>누적 작성글</h4>
-	                            <p>300</p>
+	                            <h4>데이터 용량</h4>
+	                            <p>50GB/100GB</p>
 	                        </div>
 	                    </div>
 	                </div>

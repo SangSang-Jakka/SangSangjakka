@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/template/asset.jsp"%>
-	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookshare/bookshare_view.css">
+	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookshare/bookshare_list.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 	<style>
 	
 	
@@ -18,7 +19,6 @@
 			<!-- 동화책 공유 게시판 -->
 		    <h2>동화 공유 게시판</h2>
 		    <div class="boardContainer">
-		    	<a href="/sangsangjakka/board/book/view.do">
 			        <div class="boardBox1">
 			        <img src="/sangsangjakka/resources/img/book1.jpg" class="book1Items">
 			        <p class="userItems"><i class="fas fa-user"></i>예지공주 Dec 13, 2023</p>
@@ -42,7 +42,7 @@
 			        </div>
 		        </a>
 				
-				<a href="/sangsangjakka/board/book/view.do">
+
 		        <div class="boardBox2">
 			        <img src="/sangsangjakka/resources/img/book2.jpg" class="book1Items">
 			        <p class="userItems"><i class="fas fa-user"></i>예지공주 Dec 13, 2023</p>
@@ -66,7 +66,7 @@
 			        </div>
 				</a>
 				
-				<a href="/sangsangjakka/board/book/view.do">
+
 			        <div class="boardBox3">
 			            <img src="/sangsangjakka/resources/img/book3.jpg" class="book1Items">
 			            <p class="userItems"><i class="fas fa-user"></i>예지공주 Dec 13, 2023</p>
@@ -91,7 +91,7 @@
 			    </a>
 				
 				
-				<a href="/sangsangjakka/board/book/view.do">
+			
 			        <div class="boardBox4">
 			            <img src="/sangsangjakka/resources/img/book4.jpg" class="book1Items">
 			            <p class="userItems"><i class="fas fa-user"></i>예지공주 Dec 13, 2023</p>
@@ -127,6 +127,13 @@
 
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
+		var pics = document.querySelectorAll('img');
+	
+		pics.forEach(function(img) {
+		    img.addEventListener('click', function() {
+		        location.href = "/sangsangjakka/board/book/view.do";
+		    });
+		});
 	</script>
 	</body>
 </html>
