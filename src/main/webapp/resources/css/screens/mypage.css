@@ -340,7 +340,7 @@ option {
 }
 
 .inFlowWrap div {
-	width: 30%;
+	width: 32%;
 	/* 한 줄에 4개의 체크박스가 보이도록 설정 */
 	margin-bottom: 20px;
 }
@@ -617,7 +617,7 @@ li {
 .tab {
 	box-sizing: border-box;
 	float: left;
-	height: 1550px;
+	height: 1600px;
 }
 
 .tabnav {
