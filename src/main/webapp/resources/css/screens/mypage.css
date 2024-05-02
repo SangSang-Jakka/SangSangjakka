@@ -1,0 +1,943 @@
+body,
+select.notice,
+select.column,
+input#search,
+input.btnSearch {
+	font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+section.notice {
+	margin: auto;
+	padding: 0 10px;
+	max-width: 1080px;
+}
+
+.pageTitle {
+	margin-bottom: 60px;
+}
+
+.pageTitle h3 {
+	font-size: 28px;
+	color: #333333;
+	font-weight: 600;
+	text-align: center;
+}
+
+#boardSearch .searchWindow {
+	padding: 15px 0;
+	margin-bottom: 30px;
+}
+
+#boardSearch .searchWindow .searchWrap {
+	position: relative;
+	/*   padding-right: 124px; */
+	margin: 0 auto;
+	width: 100%;
+	max-width: 620px;
+}
+
+#boardSearch .searchWindow .searchWrap select {
+	height: 32px;
+	width: 65px;
+	text-align: center;
+
+}
+
+#boardSearch .searchWindow .searchWrap input {
+	height: 32px;
+	width: 75%;
+	font-size: 14px;
+	padding: 7px 14px;
+	border: 1px solid #ccc;
+}
+
+#boardSearch .searchWindow .searchWrap input:focus {
+	border-color: #333;
+	outline: 0;
+	border-width: 1px;
+}
+
+#boardSearch .searchWindow .searchWrap .btnSearch {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 80px;
+	height: 32px;
+	padding: 0;
+	font-size: 16px;
+	border-radius: 2px;
+}
+
+
+
+select.notice {
+	margin-bottom: 7px;
+	width: 70px;
+	height: 25px;
+	text-align: center;
+}
+
+
+.boardTable {
+	font-size: 13px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+
+.boardTable a:hover {
+	text-decoration: underline;
+}
+
+.boardTable a {
+	color: #333;
+	display: inline-block;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.boardTable th {
+	text-align: center;
+}
+
+.boardTable .thNum {
+	width: 100px;
+	text-align: center;
+}
+
+.boardTable .thDate {
+	width: 200px;
+}
+
+.boardTable th,
+.boardTable td {
+	padding: 14px 0;
+}
+
+.boardTable tbody tr:nth-child(even) th,
+.boardTable tbody tr:nth-child(even) td {
+	background-color: rgb(248, 248, 248);
+	/* 또는 원하는 다른 색상 */
+}
+
+
+
+.boardTable tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+}
+
+.boardTable tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+
+
+.boardTable tbody th p {
+	display: none;
+}
+
+.btnSearch {
+	display: inline-block;
+	padding: 0 30px;
+	font-size: 15px;
+	text-align: center;
+	white-space: nowrap;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btnSearch {
+	background: #f5956c;
+	color: #fff;
+}
+
+.btnSearch:hover,
+.btnDark:focus {
+	background: #e98358;
+	border-color: #e98358;
+	color: #fff;
+}
+
+
+/* reset */
+
+* {
+	list-style: none;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.blind {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	margin: -1px;
+	width: 1px;
+	height: 1px;
+}
+
+.paging {
+	text-align: center;
+}
+
+.paging a {
+	margin: 10px;
+	color: #333333;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'SOYOMapleBoldTTF';
+	font-style: normal;
+}
+
+input {
+	appearance: none;
+	outline: none;
+}
+
+
+option {
+	font-size: 16px;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+	min-width: 320px;
+	max-width: 660px;
+	margin: 1em auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #ebebeb;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+
+.highcharts-data-table caption {
+	padding: 1em 0;
+	font-size: 1.2em;
+	color: #555;
+}
+
+.highcharts-data-table th {
+	font-weight: 600;
+	padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+	padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+	background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+	background: #f1f7ff;
+}
+
+.childrenAgeWrap {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.childrenAgeWrap div {
+	margin-bottom: 10px;
+}
+
+.childrenAgeWrap input[type="checkbox"] {
+	display: none;
+}
+
+.childrenAgeWrap input[type="checkbox"]+label {
+	display: inline-block;
+	cursor: pointer;
+	padding-left: 25px;
+	position: relative;
+
+}
+
+.childrenAgeWrap input[type="checkbox"]+label:before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 1px solid #ccc;
+	position: absolute;
+	left: 0;
+	top: 1px;
+}
+
+.childrenAgeWrap input[type="checkbox"]:checked+label:before {
+	background-color: orange;
+}
+
+.childrenAgeWrap input[type="checkbox"]+label:after {
+	content: '\2713';
+	color: #fff;
+	font-size: 12px;
+	position: absolute;
+	left: 3px;
+	top: -1px;
+	visibility: hidden;
+}
+
+.childrenAgeWrap input[type="checkbox"]:checked+label:after {
+	visibility: visible;
+}
+
+.inFlowWrap {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 20px;
+	justify-content: space-between;
+}
+
+.inFlowWrap div {
+	width: 30%;
+	/* 한 줄에 4개의 체크박스가 보이도록 설정 */
+	margin-bottom: 20px;
+}
+
+.inFlowWrap input[type="checkbox"] {
+	display: none;
+
+}
+
+.inFlowWrap input[type="checkbox"]+label {
+	display: inline-block;
+	cursor: pointer;
+	padding-left: 25px;
+	position: relative;
+}
+
+.inFlowWrap input[type="checkbox"]+label:before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 1px solid #ccc;
+	position: absolute;
+	left: 0;
+	top: 1px;
+}
+
+.inFlowWrap input[type="checkbox"]:checked+label:before {
+	background-color: orange;
+}
+
+.inFlowWrap input[type="checkbox"]+label:after {
+	content: '\2713';
+	color: #fff;
+	font-size: 12px;
+	position: absolute;
+	left: 3px;
+	top: -1px;
+	visibility: hidden;
+}
+
+.inFlowWrap input[type="checkbox"]:checked+label:after {
+	visibility: visible;
+}
+
+.agree-check {
+	width: 454px;
+	height: 21.06px;
+	margin-top: 52.05px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 21px;
+	color: #000000;
+	text-align: center;
+}
+
+.title {
+	margin-top: 40px;
+}
+
+.inputBorder {
+	border-bottom: 1px solid #cfcfcf;
+}
+
+.userInfoContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 600px;
+	margin-top: 0px;
+	margin-bottom: 70px;
+}
+
+.userInfo {
+	margin-top: 39px;
+}
+
+.userInfo input {
+	font-weight: 400;
+	height: 40px;
+	font-size: 16px;
+	line-height: 24px;
+	border: none;
+}
+
+
+.userInfoEmail input::placeholder {
+	text-align: center;
+}
+
+.emailWrap {
+	display: flex;
+	align-items: center;
+	/* 수직 중앙 정렬 */
+	height: 40px;
+	/* input과 select의 높이와 동일하게 맞춤 */
+}
+
+.emailWrap input {
+	padding: 5px;
+	border-bottom: 1px solid #cfcfcf;
+}
+
+
+.userEmail {
+	width: 30%;
+	/* 이메일 input 너비 조정 */
+	margin-right: 5px;
+	/* 이메일 input과 @ 사이 간격 조정 */
+}
+
+.changableWrap {
+	display: flex;
+}
+
+.changableWrap input {
+	width: 100%;
+}
+
+.changableInput {
+	width: 70%;
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+.changebtnbox {
+	width: calc(30% - 20px);
+}
+
+.changebtnbox input {
+	width: 100%;
+	cursor: pointer;
+	border-radius: 4px;
+	background-color: orange;
+	color: white;
+}
+
+.idWrap {
+	display: flex;
+}
+
+.idWrap input {
+	width: 100%;
+}
+
+.idInput {
+	width: 70%;
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+.idTest input {
+	width: 100%;
+	cursor: pointer;
+	border-radius: 4px;
+	background-color: orange;
+	color: white;
+}
+
+.idWrap input {
+	width: 100%;
+}
+
+.pwWrap input {
+	width: 100%;
+}
+
+.ssnWrap input {
+	border-bottom: 1px solid #cfcfcf;
+}
+
+.ssnInput {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.ssnInput span {
+	width: 5%;
+	text-align: center;
+}
+
+.leftSsn {
+	width: 47.5%;
+	margin-right: 10px;
+
+}
+
+.rightSsn {
+	width: 47.5%;
+}
+
+.telWrap {
+	display: flex;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.telWrap input {
+	border-bottom: 1px solid #cfcfcf;
+}
+
+
+.telInput {
+	display: flex;
+	width: 70%;
+	align-items: center;
+	margin-right: 20px;
+}
+
+.telInput span {
+	text-align: center;
+	width: 10%;
+}
+
+.addressWrap {
+	margin-top: 10px;
+}
+
+.addressInput {
+	display: flex;
+	flex-direction: column;
+}
+
+.addressFind {
+	display: flex;
+}
+
+.postNum {
+	width: 70%;
+	margin-right: 20px;
+}
+
+#sample6_address {
+	width: 100%;
+	/* 주소 입력란 너비 */
+}
+
+.addressTest {
+	width: 30%;
+}
+
+#sample6_detailAddress {
+	width: 100%;
+}
+
+.formWrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 800px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: #ffffff;
+	border: 4px dashed #ffa500;
+	border-radius: 20px;
+}
+
+
+body {
+	font-size: 18px;
+}
+
+html,
+body {
+	width: 100%;
+}
+
+ul,
+li {
+	list-style: none;
+}
+
+.tab {
+	box-sizing: border-box;
+	float: left;
+	height: 1550px;
+}
+
+.tabnav {
+	box-sizing: border-box;
+	font-size: 0;
+	width: 100%;
+	border-radius: 20px;
+}
+
+.tabnav li {
+	flex: 1;
+	height: 46px;
+	text-align: center;
+
+}
+
+.mainnav li:first-child,
+.mainnav li:first-child a {
+	border-top-left-radius: 20px;
+	/* 첫 번째 탭의 왼쪽 상단 모서리 둥글게 */
+}
+
+.mainnav li:last-child,
+.mainnav li:last-child a {
+	border-top-right-radius: 20px;
+	/* 마지막 탭의 오른쪽 상단 모서리 둥글게 */
+	border-right: none;
+	/* 마지막 탭의 오른쪽 테두리 제거 */
+}
+
+.tabnav li a:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0px;
+	width: 100%;
+	height: 3px;
+}
+
+.tabnav li a {
+	position: relative;
+	display: block;
+	background: #f8f8f8;
+	color: #000;
+	padding: 0 30px;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 22px;
+}
+
+.tabnav li a:hover,
+.tabnav li a.active {
+	background: #fff;
+	color: #ffa500;
+}
+
+.tabcontent {
+	padding: 0px;
+	height: 600px;
+	border: none;
+}
+
+.full {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.buttonItem>i {
+	margin-top: 10px;
+	font-size: 1.5rem;
+}
+
+.pointer:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.w70pc {
+	width: 70%;
+}
+
+#changebtn,
+#changecompletebtn {
+	text-align: center;
+	/* 텍스트를 중앙 정렬합니다 */
+}
+
+.itemchangebtn input {
+	width: 100%;
+	cursor: pointer;
+	border-radius: 4px;
+	background-color: orange;
+	color: white;
+}
+
+.btn input {
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.change {
+	display: none;
+}
+
+.changecomplete {
+	display: flex;
+}
+
+.pwWrap input {
+	width: 70%;
+}
+
+.leftSsn,
+.rightSsn {
+	margin: 0;
+	width: 32.5%;
+}
+
+.telInput span {
+	width: 5%;
+}
+
+.phoneInput {
+	width: 30%;
+}
+
+.bookshelfControl {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px;
+	max-width: 800px;
+	margin: auto;
+}
+
+.bookshelf {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 16px;
+	padding: 16px;
+	max-width: 800px;
+	margin: auto;
+}
+
+.search-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.sorting-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.bookshelf {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 16px;
+	padding: 16px;
+	max-width: 800px;
+	margin: auto;
+}
+
+.book {
+	border: 1px solid #ccc;
+	padding: 16px;
+	text-align: center;
+	background-color: #f9f9f9;
+	/* Light background for the books */
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+	/* Adds a subtle shadow to each book for a 3D effect */
+	transition: transform 0.3s ease;
+	/* Smooth transformation on hover */
+	position: relative;
+	/* Needed for pseudo-elements and hover effects */
+	overflow: hidden;
+	/* Keeps pseudo-elements within the book div */
+}
+
+.book::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+	transform: rotate(25deg) translate(-150%, -50%);
+	transition: transform 0.3s ease;
+}
+
+.book:hover {
+	transform: scale(1.05);
+	cursor: pointer;
+}
+
+.book:hover::before {
+	transform: rotate(25deg) translate(150%, -50%);
+}
+
+.pagination {
+	text-align: center;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.pagination button,
+.pagination span {
+	padding: 5px 10px;
+	margin: 0 5px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	min-width: 50px;
+}
+
+.pagination span.active {
+	color: #ffa500;
+	font-weight: bold;
+	cursor: default;
+}
+
+.pagination button:hover,
+span span:hover {
+	color: #ffa500;
+}
+
+.searchWrapper {
+	display: flex;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#searchBox {
+	flex-grow: 1;
+	/* Allows the input box to take up the remaining space */
+	border: none;
+	background-color: transparent;
+	outline: none;
+	/* Removes focus outline to maintain the flat appearance */
+}
+
+.searchIcon {
+	color: #ccc;
+	/* You can adjust the color to fit your design */
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+#sortOptions {
+	margin-top: 3px;
+	margin-bottom: 3px;
+	height: 25px;
+	font-size: 16px;
+}
+
+option {
+	font-size: 16px;
+}
+
+.myMainContainer {
+	display: block;
+	max-width: 800px;
+	width: 80%;
+	margin: 60px auto;
+}
+
+.userInfoForm {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	max-width: 680px;
+	margin: 10px auto;
+}
+
+.changegroup {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.changebtncontainer {
+	width: 400px;
+	margin-top: 60px;
+}
+
+.changebtncontainer div {
+	height: 40px;
+}
+
+.changebtncontainer input {
+	font-size: 18px;
+	border: none;
+}
+
+.changegroup input {
+	font-size: 18px;
+	border: none;
+}
+
+.changegroup div {
+	display: flex;
+}
+
+.changegroup .changebtnbox {
+	width: 40%;
+}
+
+#cancelbtn {
+	background-color: #ccc;
+}

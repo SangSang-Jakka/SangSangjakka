@@ -1,0 +1,61 @@
+.textElement {
+  display: block;
+  margin-bottom: 10px;
+  /* 각 입력 요소 사이의 간격 조정 */
+}
+
+.buttonItem {
+
+  margin-top: 20px;
+}
+
+.buttonElement {
+
+  height: 40px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 15px;
+  margin-right: 10px;
+
+
+}
+
+
+.textItem {
+
+  display: flex;
+  margin-top: 20px;
+
+}
+
+.textElement {
+
+  height: 40px;
+  width: 500px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-right: 10px;
+
+}
+
+.editItem .buttonElement {
+  float: right;
+}
+
+
+/*
+.table {
+
+  position: relative;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  color:#212529;
+
+}
+
+*/
