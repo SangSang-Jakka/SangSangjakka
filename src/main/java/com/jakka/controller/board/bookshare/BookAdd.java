@@ -1,4 +1,4 @@
-package com.jakka.controller.dashboard;
+package com.jakka.controller.board.bookshare;
 
 import java.io.IOException;
 
@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/dashboard.do")
-public class Dashboard extends HttpServlet{
+@WebServlet("/board/book/add.do")
+public class BookAdd extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookshare/bookshare_add.jsp");
 		dispatcher.forward(req, resp);
 		
 	}
+	
 	
 }//End of class

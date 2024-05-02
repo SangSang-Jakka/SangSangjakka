@@ -24,6 +24,6 @@
                 <a href="/sangsangjakka/board/suggestion/list.do"><li>건의사항</li></a>
                 <a href="/sangsangjakka/board/notice/list.do"><li>공지사항</li></a>
                 <a href="/sangsangjakka/user/mypage.do"><li>마이페이지</li></a>
-                <a href="/sangsangjakka/introcude.do"><li>소개</li></a>
+                <a href="/sangsangjakka/board/award/list.do"><li>명예의 전당</li></a>
             </ul>
         </nav>

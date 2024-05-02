@@ -25,8 +25,8 @@
                         <span class="micon dw dw-user"></span><span class="mtext">회원 관리</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#">회원통계</a></li>
-                        <li><a href="#">회원관리</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/user/stats.do">회원통계</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/user/manage.do">회원관리</a></li>
                         <li><a href="#">차단회원 관리</a></li>
                     </ul>
                 </li>
@@ -35,7 +35,7 @@
                         <span class="micon dw dw-library"></span><span class="mtext">동화책 관리</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#">동화책 통계</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/book/stats.do">동화책 통계</a></li>
                         <li><a href="#">동화책 관리</a></li>
                         <li><a href="#">동화책 수상관리</a></li>
                         <li><a href="#">신고동화책 관리</a></li>
@@ -48,10 +48,10 @@
                         <span class="micon dw dw-clipboard1"></span><span class="mtext">게시판 관리</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#">게시판 통계</a></li>
-                        <li><a href="#">공지사항</a></li>
-                        <li><a href="#">건의사항</a></li>
-                        <li><a href="#">자유게시판</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/board/stats.do">게시판 통계</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/notice/manage.do">공지사항</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/suggestion/manage.do">건의사항</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/freeboard/manage.do">자유게시판</a></li>
                     </ul>
                 </li>
 
