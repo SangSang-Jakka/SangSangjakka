@@ -23,7 +23,7 @@
 		<div class="articleTitle">
 			<h1>마이페이지</h1>
 		</div>
-		<div class="tab formWrap">
+		<div class="tab tabFormWrap">
 			<ul class="mainnav tabnav flex">
 				<li><a href="#tab01">개인정보</a></li>
 				<li><a href="#tab02">내동화책</a></li>
@@ -304,6 +304,13 @@
 		        $(tabId).fadeIn();
 		        $('.mainnav a').removeClass('active');
 		        $(this).addClass('active');
+		        
+		        // 높이 변화
+		        if (tabId === '#tab01') {
+		        	$('.tab').css("height", "1600px");
+		        } else {
+		        	$('.tab').css("height", "900px");
+		        }
 		
 		        // 서브 탭 초기화
 		        if (tabId === '#tab04') {
