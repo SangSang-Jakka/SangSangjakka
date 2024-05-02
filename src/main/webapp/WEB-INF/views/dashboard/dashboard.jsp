@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/dashboard.css">
 </head>
 <body>
 	
@@ -16,109 +17,59 @@
     <!-- 컨텐츠 -->
     <div class="main-container">
 
-        <div class="card-box pd-20 height-100-p mb-30">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <img src="/sangsangjakka/resources/vendors/images/banner-img.png" alt="">
-                </div>
-                <div class="col-md-8">
-                    <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                        상상자까 <div class="weight-600 font-30 text-blue">관리자 페이지</div>
-                    </h4>
-                    <p class="font-18 max-width-600">관리자 페이지입니다.</p>
-                </div>
+        <div class="bannerBox">
+
+            <div class="ImageBox">
+                <img src="/sangsangjakka/resources/vendors/images/ai-generated-8725235_1280.jpg" alt="관리자">
+            </div>
+            <div class="textBox">
+                <p class="font-30 weight-600 mb-10 text-capitalize text-blue">상상자까 관리자 페이지</p>
+                <p class="font-18"><b>관리자 페이지입니다.</b></p>
             </div>
         </div>
-
-
 
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
 
-                <div class="row">
 
-                    <div class="col-xl-3 mb-30">
-                        <div class="card-box height-100-p widget-style1">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div class="widget-data">
-                                    <div class="h4 mb-0">새로운 동화책</div>
-                                    <div class="weight-600 font-14">Book</div>
-                                </div>
+                <div class="updateContainer">
+                    <div class="card-box mr">
+                        <div class="widget-small primary">
+                            <div class="coloured-icon-a"><i class="icon fa fa-book fa-3x" style="color: white"></i></div>
+                            <div class="info">
+                                <div class="h4">새로운 동화책</div>
+                                <div class="weight-600 font-14">10</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 mb-30">
-                        <div class="card-box height-100-p widget-style1">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div class="widget-data">
-                                    <div class="h4 mb-0">새로운 게시글</div>
-                                    <div class="weight-600 font-14">Post</div>
-                                </div>
+                    <div class="card-box mr">
+                        <div class="widget-small danger">
+                            <div class="coloured-icon-b"><i class="icon fa fa-star fa-3x" style="color: white"></i></div>
+                            <div class="info">
+                                <div class="h4">새로운 게시글</div>
+                                <div class="weight-600 font-14">10</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 mb-30">
-                        <div class="card-box height-100-p widget-style1">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div class="widget-data">
-                                    <div class="h4 mb-0">새로운 유저</div>
-                                    <div class="weight-600 font-14">User</div>
-                                </div>
+                    <div class="card-box mr">
+                        <div class="widget-small primary">
+                            <div class="coloured-icon-c"><i class="icon fa fa-users fa-3x" style="color: white"></i></div>
+                            <div class="info">
+                                <div class="h4">새로운 유저</div>
+                                <div class="weight-600 font-14">10</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 mb-30">
-                        <div class="card-box height-100-p widget-style1">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div class="widget-data">
-                                    <div class="h4 mb-0">새로운 건의사항</div>
-                                    <div class="weight-600 font-14">Suggestion</div>
-                                </div>
+                    <div class="card-box mr">
+                        <div class="widget-small primary">
+                            <div class="coloured-icon-d"><i class="icon fa fa-quora fa-3x" style="color: white"></i></div>
+                            <div class="info">
+                                <div class="h4">새로운 건의사항</div>
+                                <div class="weight-600 font-14">10</div>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
-
-
-                      <div class="row">
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-            <div class="info">
-              <h4>Users</h4>
-              <p><b>5</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small info coloured-icon"><i class="icon fa fa-thumbs-o-up fa-3x"></i>
-            <div class="info">
-              <h4>Likes</h4>
-              <p><b>25</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small warning coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
-            <div class="info">
-              <h4>Uploades</h4>
-              <p><b>10</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small danger coloured-icon"><i class="icon fa fa-star fa-3x"></i>
-            <div class="info">
-              <h4>Stars</h4>
-              <p><b>500</b></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
 
 
 
@@ -166,13 +117,14 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-wrap pd-20 mb-20">
-                copyrightⓒ 2024 All rights reserved by 상상자까
-            </div>
+            
+            <!-- 푸터 -->
+			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
         </div>
     </div>
     
     <!-- js -->
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
+	
 </body>
 </html>

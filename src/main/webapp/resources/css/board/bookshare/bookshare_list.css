@@ -1,0 +1,77 @@
+
+
+h2 {
+    margin-top:70px;
+    margin-bottom:50px;
+    font-size: 40px;
+    text-align: center;
+    font-weight: normal;
+
+}
+
+.boardContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* 이미지를 위로 정렬 */
+    flex-direction: column; 
+    margin-left:16%;
+    margin-right:16%;
+    
+}
+
+.boardBox1,
+.boardBox2,
+.boardBox3,
+.boardBox4 {
+    width: 100%; /* 부모 요소인 .boardContainer의 너비의 반 이상을 차지하도록 설정 */
+}
+
+.boardBox1 img,
+.boardBox2 img, 
+.boardBox3 img,
+.boardBox4 img {
+    float: right; /* 이미지를 오른쪽으로 정렬 */
+    width: 250px;
+    height: 250px;
+    margin-left: 20px; /* 이미지와 글 사이의 간격 설정 */
+    margin-bottom:100px;
+}
+
+.userItems {
+    font-size: 25px;
+    font-weight: lighter;
+}
+
+.titleItems {
+    font-size: 40px;
+}
+
+.contentItems {
+    font-size: 25px;
+    font-weight: lighter;
+}
+
+.iconItems {
+    display:flex;
+    align-items:center;
+}
+
+.subItems {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.pageItems {
+    margin-top:30px;
+    text-align: center;
+    font-size: 50px;
+}
+
+.pageItems i {
+    margin-top:100px;
+    margin-left:30px;
+    margin-right:30px;
+    margin-bottom:30px;
+}
