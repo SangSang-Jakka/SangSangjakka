@@ -29,19 +29,30 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 	public int add(SuggestionAnswerDTO dto) {
 		
 		final String SQL = "insert into tblSuggestionAnswer(answSeq, adId, sgstSeq, sgstAnsw, sgstRegdate) values((SELECT NVL(MAX(answSeq), 0) + 1 FROM tblSuggestionAnswer), ?, ?, ?, default)";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 4)";
 		
 		try (
-			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 				
 			){
+			
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getAdId());
 			pstat.setString(2, dto.getSgstSeq());
 			pstat.setString(3, dto.getSgstAnsw());
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+	            log.setString(1, dto.getAdId());
+	            log.setString(2, "'" + dto.getAdId() + "'이 건의사항 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'답변을 달았습니다.");
+	            log.executeUpdate();
+	        }
+			
+			conn.commit();
 			
 			return result;
 			

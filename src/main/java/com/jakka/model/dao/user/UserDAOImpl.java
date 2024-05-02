@@ -192,7 +192,7 @@ public class UserDAOImpl implements UserDAO{
 		return null;
 	}
 	
-public ArrayList<UserDTO> findAllWhite() {
+	public ArrayList<UserDTO> findAllWhite() {
 		
 		final String SQL = "select * from tblUser where userState = 'y'";
 		
@@ -266,21 +266,36 @@ public ArrayList<UserDTO> findAllWhite() {
 	
 	//용량 변경
 	@Override
-	public int saveStorage(UserDTO dto) {
+	public int saveStorage(UserDTO dto, String adId) {
 		
 		final String SQL = "UPDATE tblUser SET limitStorage = ? WHERE userId = ?";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 3)";
 		
 		try (
 			Connection conn = DBUtil.open();
-		    PreparedStatement pstat = conn.prepareStatement(SQL)
+		    PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 		) {
 
+				conn.setAutoCommit(false);
+			
 				pstat.setString(1, dto.getLimitStorage());
-		        pstat.setString(2, dto.getUserSeq());
-
+		        pstat.setString(2, dto.getUserId());
+		        
 		        int result = pstat.executeUpdate();
 		        
+		        if (result > 0) {
+		            log.setString(1, adId);
+		            log.setString(2, "'" + adId + "'이 사용자번호 '" + dto.getUserSeq() + "' 의 저장소 공간을 '" + dto.getLimitStorage() + "byte'로 변경했습니다.");
+		            log.executeUpdate();
+		        }
+
+		        
+		        
+		        conn.commit();
+		        
 		        return result;
+		        
 		    } catch (Exception e) {
 		        System.out.println("UserDAO.| saveStorage");
 		        e.printStackTrace();
@@ -329,10 +344,15 @@ public ArrayList<UserDTO> findAllWhite() {
 			
 			pstat.setString(1, userSeq);
 			
-			log.setString(1, adId);
-			log.setString(2, "'" + adId + "'이 사용자번호 '" + userSeq + "' 을(를) '비활성화' 했습니다.");
+			int result = pstat.executeUpdate();
 			
-			int result = pstat.executeUpdate() & log.executeUpdate();
+			if(result > 0) {
+				
+				log.setString(1, adId);
+				log.setString(2, "'" + adId + "'이 사용자번호 '" + userSeq + "' 을(를) '비활성화' 했습니다.");
+				log.executeUpdate();
+			}
+			
 			
 			conn.commit();
 			
@@ -349,15 +369,30 @@ public ArrayList<UserDTO> findAllWhite() {
 	public int activation(String userSeq, String adId) {
 		
 		final String SQL = "delete from tblBlackList where userSeq = ?";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 2)";
 		
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 				
 		){
+			conn.setAutoCommit(false);
+			
 			pstat.setString(1, userSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if(result > 0) {
+				
+				log.setString(1, adId);
+				log.setString(2, "'" + adId + "'이 사용자번호 '" + userSeq + "' 을(를) '활성화' 했습니다.");
+				log.executeUpdate();
+			}
+			
+			
+			
+			conn.commit();
 			
 			return result;
 			
