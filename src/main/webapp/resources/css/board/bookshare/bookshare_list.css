@@ -1,5 +1,4 @@
 
-
 h2 {
     margin-top:70px;
     margin-bottom:50px;
@@ -8,6 +7,7 @@ h2 {
     font-weight: normal;
 
 }
+
 
 .boardContainer {
     display: flex;
@@ -35,6 +35,7 @@ h2 {
     height: 250px;
     margin-left: 20px; /* 이미지와 글 사이의 간격 설정 */
     margin-bottom:100px;
+    cursor:pointer;
 }
 
 .userItems {
