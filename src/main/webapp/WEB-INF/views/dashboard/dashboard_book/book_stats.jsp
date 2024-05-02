@@ -4,174 +4,137 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
-	
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/suggestions.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
 	<style>
 	
 	
 	</style>
 	</head>
 	<body>
-		
+	
 		<!-- 헤더 -->
 		<%@include file="/WEB-INF/views/dashboard/dashboard_template/header.jsp"%>
 	
 	    <!-- 왼쪽 사이드바 -->
 		<%@include file="/WEB-INF/views/dashboard/dashboard_template/left_sidebar.jsp"%>
 	
-		<!-- 컨텐츠 -->
-		<div class="main-container">
-	       <div class="pd-ltr-20 xs-pd-20-10">
-	           <div class="min-height-200px">
-	               <div class="page-header">
-	                   <div class="row">
-	                       <div class="col-md-12 col-sm-12">
-	                           <div class="title">
-	                               <h4>공지사항</h4>
-	                           </div>
-	                           <nav aria-label="breadcrumb" role="navigation">
-	                               <ol class="breadcrumb">
-	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">동화책 신고 관리</li>
-	                               </ol>
-	                           </nav>
-	                       </div>
-	                   </div>
-	               </div>
+		<!-- 컨텐츠 시작 -->
+	    <div class="main-container">
+	        <div class="pd-ltr-20 xs-pd-20-10">
+	            <div class="min-height-200px">
+	                <div class="page-header">
+	                    <div class="row">
+	                        <div class="col-md-12 col-sm-12">
+	                            <div class="title">
+	                                <h4>사용자 통계</h4>
+	                            </div>
+	                            <nav aria-label="breadcrumb" role="navigation">
+	                                <ol class="breadcrumb">
+	                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+	                                    <li class="breadcrumb-item active" aria-current="page">동화책 통계</li>
+	                                </ol>
+	                            </nav>
+	                        </div>
+	                    </div>
+	                </div>
+	
+	                <div class="row">
+	
+	                    <div class="postBox">
+	                        <div class="today">
+	                            <i class="icon-copy dw dw-pencil "></i>
+	                            <h4>신규 등록된 동화책 수</h4>
+	                            <p>+13</p>
+	                        </div>
+	                        <div class="yesterday">
+	                            <i class="icon-copy dw dw-pencil "></i>
+	                            <h4>신고된 동화책 수</h4>
+	                            <p>3</p>
+	                        </div>
+	                        <div class="accumulate">
+	                            <i class="icon-copy dw dw-pencil "></i>
+	                            <h4>데이터 용량</h4>
+	                            <p>50GB/100GB</p>
+	                        </div>
+	                    </div>
+	                </div>
+	
+	                <div class="boardTotal">
+	                    <div class="boardSection">
+	                        <h4>동화공유게시판</h4>
+	                        <p>10</p>
+	                    </div>
+	                    <div class="boardSection">
+	                        <h4>자유게시판</h4>
+	                        <p>85</p>
+	                    </div>
+	                    <div class="boardSection">
+	                        <h4>건의사항</h4>
+	                        <p>5</p>
+	                    </div>
+	                </div>
+	
+	                <div class="chartContainer">
+	                    <div id="boardChart"></div>
+	                </div>
 	
 	
-	               <div class="row clearfix">
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 동화책</div>
-	                                   <div class="weight-600 font-14">Book</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 게시글</div>
-	                                   <div class="weight-600 font-14">Post</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 유저</div>
-	                                   <div class="weight-600 font-14">User</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 건의사항</div>
-	                                   <div class="weight-600 font-14">Suggestion</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-				</div>
-	
-	
+	            <!-- 푸터 -->
+				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 				
-				<!-- Simple Datatable start -->
-				<div class="card-box mb-30">
-					<div class="pd-20">
-						<h4 class="text-blue h4">동화책 통계</h4>
-					</div>
-					<div class="pb-20">
-						<table class="data-table table stripe hover nowrap" id="myTable">
-							<thead>
-								<tr>
-									<th class="table-plus datatable-nosort">번호</th>
-									<th>동화책명</th>
-									<th>사용자</th>
-									
-									<th>등록일자</th>
-                                    <th>조회수</th>
-                                    <th>저장횟수</th>
-                                    <th>좋아요수</th>
-                                    <th>소감수</th>
-                                    <th>총점</th>
-									
-								</tr>
-							</thead>
-						
-							<tbody>
-								<tr>
-									<td class="table-plus">1</td>
-									<td>신데렐라</td>
-									<td>tldnjs12</td>
-									<td>2024/04/01</td>
-									<td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>20</td>
-									
-								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td>피노키오</td>
-									<td>tjdwls1</td>
-									<td>2024/04/01</td>
-									<td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>19</td>
-									
-									
-								</tr>
-							</tbody>
-					
-						</table>
-					</div>
-				</div>
-			<!-- Simple Datatable End -->
+	        	</div>
+	    	</div>
+	    </div>
 	
-			</div>
-			<!-- 푸터 -->
-			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
-			
-		</div>
-	</div>
-
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-	
-	<!-- buttons for Export datatable -->
-	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/pdfmake.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
-	
-	<!-- Datatable Setting js -->
-	<script src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script>
+		
+	Highcharts.chart('boardChart', {
+
+	    title: {
+	    text: '인기 게시판 통계'
+	},
+
+	subtitle: {
+	    text: '최근 7일 기준'
+	},
+
+	yAxis: {
+	    title: {
+	        text: '작성수'
+	    }
+	},
+
+	xAxis: {
+	    title: {
+	        text: '날짜'
+	    },
+
+	    categories: ['4월 30일', '5월 1일', '5월 2일', '5월 3일', '5월 4일', '5월 5일', '5월 7일', '5월 8일']
+	},
+	    
+	/* 범례를 우측 세로로 정렬 */
+	legend: {
+	    layout: 'vertical',
+	    align: 'right',
+	    verticalAlign: 'middle'
+	},
+
+	series: [{
+	    name: '자유게시판',
+	    data: [10, 15, 30, 15, 10, 16, 11, 8]
+	}, {
+	    name: '동화 공유 게시판',
+	    data: [5, 8, 7, 10, 15, 11, 3, 6]
+	}, {
+	    name: '건의사항',
+	    data: [1, 0, 3, 2, 5, 1, 2, 1]
+	}],
+	});
+	
 	</script>
 	</body>
 </html>
