@@ -468,7 +468,7 @@
 
 				tooltip: {
 					formatter: function () {
-						return `\${this.y}`; // `this.y`는 호버된 데이터 포인트의 값
+						return this.y; // `this.y`는 호버된 데이터 포인트의 값
 					}
 				},
 
@@ -533,7 +533,7 @@
 
 				tooltip: {
 					formatter: function () {
-						return \${this.y}; // `this.y`는 호버된 데이터 포인트의 값
+						return this.y; // `this.y`는 호버된 데이터 포인트의 값
 					}
 				},
 
