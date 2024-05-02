@@ -90,51 +90,59 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">동화책 통계</h4>
+						<h4 class="text-blue h4">개인별 용량 관리</h4>
 					</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap" id="myTable">
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
-									<th>동화책명</th>
 									<th>사용자</th>
+									<th>등록된 동화책 수</th>
+									<th>용량</th>
 									
-									<th>등록일자</th>
-                                    <th>조회수</th>
-                                    <th>저장횟수</th>
-                                    <th>좋아요수</th>
-                                    <th>소감수</th>
-                                    <th>총점</th>
-									
+									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
 						
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
-									<td>신데렐라</td>
 									<td>tldnjs12</td>
-									<td>2024/04/01</td>
 									<td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>20</td>
+									<td>2GB/10GB</td>
 									
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
 								</tr>
 								<tr>
 									<td class="table-plus">2</td>
-									<td>피노키오</td>
 									<td>tjdwls1</td>
-									<td>2024/04/01</td>
-									<td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>19</td>
+									<td>10</td>
+									<td>4GB/10GB</td>
 									
-									
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
 								</tr>
 							</tbody>
 					
