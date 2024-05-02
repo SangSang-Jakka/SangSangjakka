@@ -98,6 +98,7 @@
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
 									<th>동화책명</th>
+									
 									<th>작성자</th>
 									
 									<th>신고누적횟수</th>
@@ -108,7 +109,9 @@
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
-									<td>신데렐라</td>
+									<td>
+									<a href ="/sangsangjakka/admin/dashboard/book/reportview.do">신데렐라</a>
+									</td>
 									<td>tldnjs12</td>
 									
 									<td>5</td>

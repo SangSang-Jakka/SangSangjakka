@@ -108,7 +108,8 @@
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
-									<td>tldnjs12</td>
+									<td>
+									<a href ="/sangsangjakka/admin/dashboard/book/capacityview.do">tlodnjs12</td>
 									<td>5</td>
 									<td>2GB/10GB</td>
 									
