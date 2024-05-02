@@ -63,8 +63,8 @@
                         <span class="micon dw dw-support-1"></span><span class="mtext">관리자 관리</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#">관리자 계정 목록</a></li>
-                        <li><a href="#">관리자 계정 생성</a></li>
+                        <li><a href="/sangsangjakka/admin/list.do">관리자 계정 목록</a></li>
+                        <!-- <li><a href="#">관리자 계정 생성</a></li> -->
                         <li><a href="#">관리자 계정 정지</a></li>
                         <li><a href="#">로그</a></li>
                     </ul>

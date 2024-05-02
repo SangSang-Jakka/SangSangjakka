@@ -52,100 +52,76 @@
 				<!-- Simple Datatable start -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
-						<h4 class="text-blue h4">사용자 용량 </h4>
-						
+						<h4 class="text-blue h4">관리자 정보</h4>
+                        <button type="button" class="btn btn-primary pull-right">등록</button>
 					</div>
 					<div class="wizard-content">
 						<form class="tab-wizard wizard-circle wizard">
 							
-							<section>
+						
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label >사용자</label>
+											<label >이름 :</label>
 											<input type="text" class="form-control">
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-6">
 										<div class="form-group">
-											<label >사용용량</label>
-											<input type="text" class="form-control" readonly>
-										</div>
-									</div>
-                                    <div class="col-md-3">
-										<div class="form-group">
-											<label >전체용량</label>
-											<input type="number" class="form-control">
+											<label >이메일 : </label>
+											<input type="text" class="form-control">
 										</div>
 									</div>
 								</div>
-								
-                                    <table class="table table-striped">
-                                        <p>동화책 목록</p>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">번호</th>
-                                                <th scope="col">동화책명</th>
-                                                <th scope="col">용량</th>
-                                                <th scope="col">관리</th>
-                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>신데렐라</td>
-                                                <td>150MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>피노키오</td>
-                                                <td>150MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>콩쥐팥쥐</td>
-                                                <td>350MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>알라딘</td>
-                                                <td>150MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>라푼젤</td>
-                                                <td>450MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>전화번호 :</label>
+											<input type="email" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Select City :</label>
+											<select class="custom-select form-control">
+												<option value="">등급</option>
+												<option value="Amsterdam">최고관리자</option>
+												<option value="Berlin">관리자</option>
+												
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >아이디 :</label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >비밀번호 : </label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
 							
-							
+							<!-- Step 2 -->
+                           
 						</form>
+                        
 					</div>
-					<button type="button" class="btn btn-primary">목록으로</button>
-				<button type="button" class="btn btn-primary pull-right" >확인</button>
 				</div>
-                
+			
 			<!-- Simple Datatable End -->
 	
-			</div>
+			
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			
-	
-	
+		</div>
+	</div>
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>

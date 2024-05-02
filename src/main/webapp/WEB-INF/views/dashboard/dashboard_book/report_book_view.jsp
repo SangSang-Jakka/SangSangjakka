@@ -79,11 +79,8 @@
 										</div>
 									</div>
 								</div>
-								<div class="pd-20 card-box mb-30">
-                                    <div class="clearfix mb-20">
-                                        
-                                       
-                                    </div>
+								
+                                    
                                     <table class="table table-striped">
                                         <p>신고내용</p>
                                         <thead>
@@ -132,12 +129,13 @@
 							
 						</form>
 					</div>
-				</div>
-                <button type="button" class="btn btn-primary">목록으로</button>
+					 <button type="button" class="btn btn-primary">목록으로</button>
 				<button type="button" class="btn btn-primary pull-right" >확인</button>
+				</div>
+               
 			<!-- Simple Datatable End -->
 	
-			</div>
+			
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			
