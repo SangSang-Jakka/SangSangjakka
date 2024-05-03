@@ -264,6 +264,29 @@ white-space: nowrap;
 
 .cell {
 width: 400px;
+
+}
+
+.cell3 {
+width: 400px;
+height:500px;  
+
+
+}
+.cell2 {
+width: 400px;
+height:500px;  
+word-break: keep-all;
+text-align : center;
+padding : 100px 0;
+
+}
+
+.textsize{
+	width: 400px;
+	font-size:20px;
+	margin:30px;
+	
 }
 
 .prevbuttonBox {
@@ -386,3 +409,4 @@ width: 400px;
 .section .statusBar {
     text-align:center;
 }
+

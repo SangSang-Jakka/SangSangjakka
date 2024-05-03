@@ -5,11 +5,30 @@ $(document).ready(function() {
 		$('.bookmakingOptionContainer').hide();
 		$('.bookmakingWrap').show();
 		Page.init();
+		if (this.id === 'customBook') {
+            $('#textAiSupport').prop('checked', false);
+            $('#imageAiSupport').prop('checked', false);
+        } else if (this.id === 'recommendedBook') {
+            $('#textAiSupport').prop('checked', true);
+            $('#imageAiSupport').prop('checked', true);
+		}
 	});
 	$('.bookmakingGridCenter h2').click(function() {
 		$('.bookmakingOptionContainer').show();
 		$('.bookmakingWrap').hide();
 	});
+	$('#textAiSupport').change(function() {
+        if ($(this).is(':checked')) {
+            $('.pageTextMakerBox').show();
+            $('.pageDescriptionBox').hide();
+        } else {
+            $('.pageTextMakerBox').hide();
+            $('.pageDescriptionBox').show();
+        }
+    });
+
+    // Trigger the change event on page load to set the initial visibility state
+    $('#textAiSupport').trigger('change');
 
 	var Page = (function() {
 

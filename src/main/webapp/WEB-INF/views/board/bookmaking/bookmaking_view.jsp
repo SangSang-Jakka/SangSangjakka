@@ -119,7 +119,7 @@
 					<div class="pageTextMaker columnFlex">
 						<h3>
 							책의 내용을 만들어요!
-							<input type="checkbox" name="" id="" checked>
+							<input type="checkbox" name="textAiSupport" id="textAiSupport" checked>
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
 						<div class="full flex">
@@ -155,6 +155,14 @@
 								</div>
 								<div class="whitespace">&nbsp;</div></li>
 						</ul>
+						<div class="pageDescriptionBox">
+							<div class="pageDescriptionItem">
+								<input type="text">
+							</div>
+							<div class="pageDescriptionItem">
+								<input type="submit" value="전송" />
+							</div>
+						</div>
 					</div>
 
 					<div class="vDashed"></div>
@@ -162,7 +170,7 @@
 
 					<div class="pageImageMaker columnFlex">
 						<h3> 책의 그림을 만들어요!
-							<input type="checkbox" name="" id="" checked>
+							<input type="checkbox" name="imageAiSupport" id="imageAiSupport" checked>
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
 						<div class="full flex">

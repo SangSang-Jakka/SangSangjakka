@@ -91,12 +91,20 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
+					
 						<h4 class="text-blue h4">관리자 멤버</h4>
-                        <button type="button" class="btn btn-primary pull-right" onclick="location.href='/sangsangjakka/admin/add.do'">멤버 추가하기</button>
+						
+                        <!-- <input type="button" value="멤버 추가하기" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/add.do'"> -->
+                        <span class="right">
+						 <!-- <button type="button" class="btn btn-primary pull-right" onclick="location.href='/sangsangjakka/admin/add.do'">멤버 추가하기</button> -->
+						 <input type="button" value="멤버 추가하기" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/add.do'">
+						 </span>
 					</div>
                     
 					<div class="pb-20">
+					 
 						<table class="data-table table stripe hover nowrap" id="myTable">
+						
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>

@@ -102,14 +102,11 @@
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
 									<th>동화책명</th>
-									<th>사용자</th>
+									<th>작성자</th>
 									
-									<th>등록일자</th>
-                                    <th>조회수</th>
-                                    <th>저장횟수</th>
-                                    <th>좋아요수</th>
-                                    <th>소감수</th>
-                                    <th>총점</th>
+									<th>수상일자</th>
+                                    <th>등수</th>
+                                    
 									
 								</tr>
 							</thead>
@@ -117,26 +114,22 @@
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
-									<td>신데렐라</td>
+									
+									
+									<td><a href="/sangsangjakka/admin/dashboard/book/awardview.do">신데렐라</a></td>
 									<td>tldnjs12</td>
-									<td>2024/04/01</td>
+									<td>2024년4월</td>
 									<td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>20</td>
+                                   
 									
 								</tr>
 								<tr>
 									<td class="table-plus">2</td>
 									<td>피노키오</td>
 									<td>tjdwls1</td>
-									<td>2024/04/01</td>
-									<td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>19</td>
+									<td>2024년4월</td>
+									<td>6</td>
+                                    
 									
 									
 								</tr>

@@ -20,7 +20,7 @@
 		
 		<div class="slideContainer">
         <div class="prevbuttonBox">
-            <div class="prev-button"><i class="fas fa-duotone fa-backward-step" style="font-size:70px;";></i></div>
+            <div class="prev-button"><i class="fas fa-duotone fa-backward-step" style="font-size:70px;"></i></div>
         </div>
         <div class="shareContainer">
             <div class="carousel">
@@ -30,9 +30,27 @@
                 <div class="cell"><img src="/sangsangjakka/resources/img/book4.jpg" alt="book4"></div>
                 <div class="cell"><img src="/sangsangjakka/resources/img/book5.jpg" alt="book5"></div>    
             </div>
+            
         </div>
+       
+          <div class="shareContainer">
+            <div class="carousel">
+                <div class="cell"><img src="/sangsangjakka/resources/img/book1.jpg" alt="book1"></div>
+                <div class="cell"><img src="/sangsangjakka/resources/img/book2.jpg" alt="book2"></div>
+                <div class="cell"><img src="/sangsangjakka/resources/img/book3.jpg" alt="book3"></div>
+                <div class="cell"><img src="/sangsangjakka/resources/img/book4.jpg" alt="book4"></div>
+                <div class="cell"><img src="/sangsangjakka/resources/img/book5.jpg" alt="book5"></div>    
+            </div>
+        </div>
+<!--       </div> -->
+      
+            
+              
+
+            
+        
         <div class="nextbuttonBox">
-            <div class="next-button"><i class="fas fa-duotone fa-forward-step" style="font-size:70px;";></i></div>
+            <div class="next-button"><i class="fas fa-duotone fa-forward-step" style="font-size:70px;"></i></div>
         </div>    
     </div>
         <!-- <div class="buttonBox">

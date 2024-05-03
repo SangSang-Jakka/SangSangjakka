@@ -4,11 +4,12 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
+
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/core.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/style.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardView.css">
 	
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/suggestions.css">
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
 	
 	<style>
 	
@@ -36,7 +37,7 @@
 	                           <nav aria-label="breadcrumb" role="navigation">
 	                               <ol class="breadcrumb">
 	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">동화책 신고 관리</li>
+	                                   <li class="breadcrumb-item active" aria-current="page">공지사항</li>
 	                               </ol>
 	                           </nav>
 	                       </div>
@@ -44,45 +45,35 @@
 	               </div>
 	
 	
-	              
-	
-	
-	
-	               
-				<!-- Simple Datatable start -->
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<h4 class="text-blue h4">신고 관리</h4>
-						
-					</div>
-					<div class="wizard-content">
-						<form class="tab-wizard wizard-circle wizard">
-							
-							<section>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label >사용자</label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label >동화책명</label>
-											<input type="text" class="form-control" readonly>
-										</div>
-									</div>
-                                    <div class="col-md-4">
-										<div class="form-group">
-											<label >신고횟수</label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-								</div>
-								
-                                    
-                                    <table class="table table-striped">
-                                        <p>신고내용</p>
+	    
+				<!-- 게시글 상세보기 -->
+				<div class="row">
+                    <div class="viewContainer">
+                        <h2>신고글 상세</h2>
+
+                        <span class="right">
+                        
+                        <input type="button" value="확인" class="btn btn-primary">
+                        </span>
+                
+                        <table>
+                        <tr>
+                            <th>동화책명</th>
+                            <td>신데렐라</td>
+                            <th>작성자</th>
+                            <td>tldnjs12</td>
+                        </tr>
+                        <tr>
+                            <th>누적횟수</th>
+                            <td>5</td>
+                            <th>작성일</th>
+                            <td>2024/04/29</td>
+                        </tr>
+                        
+                        </table>
+                        
+                        <table class="table table-striped">
+                                        	
                                         <thead>
                                             <tr>
                                                 <th scope="col">번호</th>
@@ -125,17 +116,18 @@
                                         </tbody>
                                     </table>
 
-							
-							
-						</form>
-					</div>
-					 <button type="button" class="btn btn-primary">목록으로</button>
-				<button type="button" class="btn btn-primary pull-right" >확인</button>
-				</div>
-               
-			<!-- Simple Datatable End -->
+                        <!-- 댓글 컨테이너 -->
+                       
+
+
+                        <span class="right">
+                            <input type="button" value="목록" class="btn btn-primary pull-right">
+                        </span>
+                    
+                </div>
+            </div>
 	
-			
+			</div>
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			
@@ -164,8 +156,6 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
-	
-	
 	</script>
 	</body>
 </html>
