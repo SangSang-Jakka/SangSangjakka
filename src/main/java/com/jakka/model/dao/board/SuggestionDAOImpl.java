@@ -11,6 +11,7 @@ import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dao.Cnt;
 import com.jakka.model.dto.board.NoticeDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
+import com.jakka.model.enums.UserLog;
 
 public class SuggestionDAOImpl implements SuggestionDAO{
 	
@@ -71,13 +72,17 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	public int add(SuggestionDTO dto) {
 		
 		final String SQL = "INSERT INTO tblSuggestion (sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt) VALUES ((SELECT NVL(MAX(sgstSeq), 0) + 1 FROM tblSuggestion), ?, ?, DEFAULT, ?, ?, DEFAULT)";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 		
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 				
 			){
+			
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getSgstTitle());
 			pstat.setString(2, dto.getSgstContents());
@@ -85,6 +90,15 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			pstat.setString(4, dto.getUserSeq());
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 작성했습니다.");
+				log.setString(3, UserLog.SuggestionCreated.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -102,13 +116,15 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	public int  save(SuggestionDTO dto) {
 		
 		final String SQL = "update tblSuggestion set sgstTitle = ?, sgstContents = ?, sgstSecretYN = ? where sgstSeq = ?";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 		
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
-				
+			PreparedStatement log = conn.prepareStatement(LOGSQL);	
 			){
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getSgstTitle());
 			pstat.setString(2, dto.getSgstContents());
@@ -116,6 +132,15 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			pstat.setString(4, dto.getSgstSeq());
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getSgstSeq() + "' 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 수정했습니다.");
+				log.setString(3, UserLog.SuggestionEdited.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			

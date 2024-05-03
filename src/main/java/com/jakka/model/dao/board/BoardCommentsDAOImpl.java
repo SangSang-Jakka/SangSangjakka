@@ -284,7 +284,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	}
 	
 	//신고횟수 증가
-	public int addReportCnt(String cmntSeq) {
+	public int addReportCnt(String cmntSeq, String userSeq) {
 		
 		final String SQL = "update tblBoardComments set cmntReportCnt = cmntReportCnt + 1 where boardSeq = ?";
 		

@@ -11,6 +11,7 @@ import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dao.Cnt;
 import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dto.board.BoardDTO;
+import com.jakka.model.enums.UserLog;
 
 public class BoardDAOImpl implements BoardDAO{
 
@@ -156,13 +157,16 @@ public class BoardDAOImpl implements BoardDAO{
 	public int add(BoardDTO dto) {
 		
 		final String SQL = "INSERT INTO tblBoard (boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq) VALUES ((SELECT NVL(MAX(boardSeq), 0) + 1 FROM tblBoard), ?, ?, DEFAULT, DEFAULT, DEFAULT, ?)";
-		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
-				
+			PreparedStatement log = conn.prepareStatement(LOGSQL);				
 			){
+			
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getBoardTitle());
 			pstat.setString(2, dto.getBoardContents());
@@ -170,6 +174,14 @@ public class BoardDAOImpl implements BoardDAO{
 			
 			int result = pstat.executeUpdate();
 			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글제목'" + dto.getBoardTitle() +"' 글내용'" + dto.getBoardContents() + "' 자유게시판글을 작성했습니다.");
+				log.setString(3, UserLog.BoardCreated.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -187,19 +199,32 @@ public class BoardDAOImpl implements BoardDAO{
 	public int save(BoardDTO dto) {
 		
 		final String SQL = "update tblBoard set boardTitle = ?, boardContents = ? where boardSeq = ?";
-		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);	
 				
 			){
+			
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getBoardTitle());
 			pstat.setString(2, dto.getBoardContents());
 			pstat.setString(3, dto.getBoardSeq());
-
+			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getBoardSeq() + "' 글제목'" + dto.getBoardTitle() +"' 글내용'" + dto.getBoardContents() + "' 자유게시판글을 수정했습니다.");
+				log.setString(3, UserLog.BoardEdited.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -240,20 +265,30 @@ public class BoardDAOImpl implements BoardDAO{
 	}//addCnt()
 	
 	//게시글 신고횟수 증가
-	public int addReportCnt(String boardSeq) {
+	public int addReportCnt(String boardSeq, String userSeq) {
 		
 		final String SQL = "update tblBoard set boardReportCnt = boardReportCnt + 1 where boardSeq = ?";
-		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 				
 			){
+			
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, boardSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				//작업중
+			}
+			
+			conn.commit();
 			
 			return result;
 			
