@@ -39,8 +39,10 @@
 			            <p>23</p>
 			            </div>
 			        </div>
-			        </div>
-		        </a>
+			        <hr>
+			  </div>
+
+		        
 				
 
 		        <div class="boardBox2">
@@ -63,9 +65,10 @@
 			            <p>23</p>
 			            </div> 
 			        </div>
-			        </div>
-				</a>
+			        <hr>
+			     </div>
 				
+					
 
 			        <div class="boardBox3">
 			            <img src="/sangsangjakka/resources/img/book3.jpg" class="book1Items">
@@ -87,8 +90,9 @@
 			                <p>23</p>
 			                </div>  
 			            </div>
+			            <hr>
 			        </div>
-			    </a>
+			    
 				
 				
 			
@@ -110,10 +114,11 @@
 			                <div class="subItems">
 			                <i class="fas fa-comments"></i>
 			                <p>23</p>
-			                </div>  
+			                </div>
 			            </div>
+			            <hr>
 			        </div>
-		        </a>
+		        
 		    
 		        
 		    </div>
