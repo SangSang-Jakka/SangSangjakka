@@ -54,7 +54,7 @@
                         <li><a href="/sangsangjakka/admin/dashboard/notice/manage.do">공지사항</a></li>
                         <li><a href="/sangsangjakka/admin/dashboard/suggestion/manage.do">건의사항</a></li>
                         <li><a href="/sangsangjakka/admin/dashboard/freeboard/manage.do">자유게시판</a></li>
-                        <li><a href="#">동화 공유 게시판</a></li>
+                        <li><a href="/sangsangjakka/admin/dashboard/bookshare/manage.do">동화 공유 게시판</a></li>
                     </ul>
                 </li>
 

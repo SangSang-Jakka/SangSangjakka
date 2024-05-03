@@ -29,12 +29,12 @@
 	                   <div class="row">
 	                       <div class="col-md-12 col-sm-12">
 	                           <div class="title">
-	                               <h4>자유게시판</h4>
+	                               <h4>동화책 공유 게시판</h4>
 	                           </div>
 	                           <nav aria-label="breadcrumb" role="navigation">
 	                               <ol class="breadcrumb">
 	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">자유게시판</li>
+	                                   <li class="breadcrumb-item active" aria-current="page">동화책 공유 게시판</li>
 	                               </ol>
 	                           </nav>
 	                       </div>
@@ -50,18 +50,20 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">자유 게시판</h4>
+						<h4 class="text-blue h4">동화책 공유 게시판</h4>
 					</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap" id="myTable">
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
-									<th>제목</th>
+									<th>동화책명</th>
 									<th>작성자</th>
 									<th>작성일</th>
 									<th>조회수</th>
-									<th>신고수</th>
+									<th>저장수</th>
+									<th>좋아요수</th>
+									<th>소감수</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
@@ -69,11 +71,13 @@
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
-									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do">제목입니다.</a></td>
-									<td>Gemini</td>
+									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do">이상하고 신비한 동물사전</a></td>
+									<td>공주</td>
 									<td>2024-05-01</td>
 									<td>15</td>
-									<td>0</td>
+									<td>20</td>
+									<td>22</td>
+									<td>23</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -89,11 +93,13 @@
 								</tr>
 								<tr>
 									<td class="table-plus">2</td>
-									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do">제목</a></td>
-									<td>관리자사칭</td>
-									<td>2024-03-28</td>
-									<td>35</td>
-									<td>1</td>
+									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do">이상하고 신비한 식물사전</a></td>
+									<td>왕자</td>
+									<td>2024-05-01</td>
+									<td>15</td>
+									<td>20</td>
+									<td>22</td>
+									<td>23</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
