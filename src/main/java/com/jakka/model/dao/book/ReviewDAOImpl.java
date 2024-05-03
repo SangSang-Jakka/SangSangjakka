@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.book.ReviewDTO;
+import com.jakka.model.enums.AdminLog;
+import com.jakka.model.enums.UserLog;
 
 public class ReviewDAOImpl implements ReviewDAO{
 
@@ -25,16 +27,29 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public int add(ReviewDTO dto) {
 		
 		final String SQL = "INSERT INTO tblReview (reviewSeq, reviewContents, userSeq, bookSeq, reviewRegdate) VALUES ((SELECT NVL(MAX(reviewSeq), 0) + 1 FROM tblReview), ?, ?, ?, default)";
-		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);	
 		){
+			conn.setAutoCommit(false);
+			
 			pstat.setString(1, dto.getReviewContents());
 			pstat.setString(2, dto.getUserSeq());
 			pstat.setString(3, dto.getBookSeq());
 
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBookSeq() +"' 글내용'" + dto.getReviewContents()  + "' 동화책 리뷰를 '작성'했습니다.");
+				log.setString(3, UserLog.BookReviewCreated.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -189,14 +204,28 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public int save(ReviewDTO dto) {
 		
 		final String SQL = "UPDATE tblReview SET reviewContents = ? WHERE reviewSeq = ?";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	         PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    	 PreparedStatement log = conn.prepareStatement(LOGSQL);
+	    ) {
+	    	
+	    	conn.setAutoCommit(false);
 	    	
 	        pstmt.setString(1, dto.getReviewContents());
 	        pstmt.setString(2, dto.getReviewSeq());
 
 	        int result = pstmt.executeUpdate(); 
+	        
+	        if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBookSeq() + "' 글번호'" + dto.getReviewSeq() +"' 글내용'" + dto.getReviewContents() + "' 동화책리뷰를 '수정'했습니다.");
+				log.setString(3, UserLog.BookReviewEdited.getValue());
+				log.executeUpdate();
+			}
+	        
+	        conn.commit();
 	        
 	        return result;
 	        
@@ -208,16 +237,30 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public int activation(String seq, String adId) {
+	public int activation(String reviewSeq, String adId) {
 		
 		final String SQL = "INSERT INTO tblReviewWhiteList(reviewSeq) VALUES(?)";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	         PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    	 PreparedStatement log = conn.prepareStatement(LOGSQL);
+	    ) {
 	    	
-	        pstmt.setString(1, seq);
+	    	conn.setAutoCommit(false);
+	    	
+	        pstmt.setString(1, reviewSeq);
 	        
 	        int result = pstmt.executeUpdate();
+	        
+	        if (result > 0) {
+	        	log.setString(1, adId);
+	        	log.setString(2, "'" + adId + "'이 동화책 리뷰번호'" + reviewSeq + "'을(를) '활성화'했습니다.");
+	        	log.setString(3, AdminLog.BookReviewEnabled.getValue());
+	        	log.executeUpdate();
+	        }
+	        
+	        conn.commit();
 	        
 	        return result; 
 	        
@@ -230,16 +273,30 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public int disable(String seq, String adId) {
+	public int disable(String reviewSeq, String adId) {
 		
 		final String SQL = "DELETE FROM tblReviewWhiteList WHERE reviewSeq = ?";
-
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
+		
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
+	         PreparedStatement pstat = conn.prepareStatement(SQL);
+	    	 PreparedStatement log = conn.prepareStatement(LOGSQL);
+	    ) {
 	    	
-	    	pstat.setString(1, seq);
+	    	conn.setAutoCommit(false);
+	    	
+	    	pstat.setString(1, reviewSeq);
 	        
 	        int result = pstat.executeUpdate();
+	        
+	        if (result > 0) {
+	        	log.setString(1, adId);
+	        	log.setString(2, "'" + adId + "'이 동화책 리뷰번호'" + reviewSeq + "'을(를) '비활성화'했습니다.");
+	        	log.setString(3, AdminLog.BookReviewDisabled.getValue());
+	        	log.executeUpdate();
+	        }
+	        
+	        conn.commit();
 	        
 	        return result;
 	        
@@ -252,16 +309,29 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public int addReportCnt(String seq, String userSeq) {
+	public int addReportCnt(String reviewSeq, String userSeq) {
 		
 		final String SQL = "UPDATE tblReview SET reviewReportCnt = reviewReportCnt + 1 WHERE reviewSeq = ?";
-
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
+		
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	         PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    	 PreparedStatement log = conn.prepareStatement(LOGSQL);
+	    ) {
+	    	conn.setAutoCommit(false);
 	    	
-	        pstmt.setString(1, seq);
+	        pstmt.setString(1, reviewSeq);
 	        
 	        int result =  pstmt.executeUpdate();
+	        
+	        if (result > 0) {
+				log.setString(1, userSeq);
+				log.setString(2, "사용자번호'" + userSeq + "'이 글번호'" + reviewSeq +"' 동화책리뷰를 '신고'했습니다.");
+				log.setString(3, UserLog.BoardReported.getValue());
+				log.executeUpdate();
+			}
+	        
+	        conn.commit();
 	        
 	        return result;
 	        
@@ -309,6 +379,54 @@ public class ReviewDAOImpl implements ReviewDAO{
 	    }
 	    
 	    return null;
+	}
+	
+	@Override
+	public int addLikeCnt(String reviewSeq, String userSeq) {
+		
+		final String SQL = "update tblReview set reviewLikeCnt = reviewLikeCnt + 1 where reviewSeq = ?";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL); 
+		){
+			conn.setAutoCommit(false);
+			
+			pstat.setString(1, reviewSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, userSeq);
+				log.setString(2, "사용자번호'" + userSeq + "'이  글번호'" + reviewSeq + "' 동화책 리뷰를 '좋아요'했습니다.");
+				log.setString(3, UserLog.BookLiked.getValue());
+				log.executeUpdate();
+			}
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("ReviewDAOImpl.| addLikeCnt");
+			e.printStackTrace();
+		}
+		
+		//좋아요 테이블 데이터 추가 + 로그 남겨야됨
+		
+		return 0;
+	}
+	
+	@Override
+	public boolean isLike(String seq, String userSeq) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean isReport(String seq, String userSeq) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }//End of class

@@ -93,7 +93,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			
 			if (result > 0) {
 				log.setString(1, dto.getUserSeq());
-				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 작성했습니다.");
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 '작성'했습니다.");
 				log.setString(3, UserLog.SuggestionCreated.getValue());
 				log.executeUpdate();
 			}
@@ -135,7 +135,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			
 			if (result > 0) {
 				log.setString(1, dto.getUserSeq());
-				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getSgstSeq() + "' 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 수정했습니다.");
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getSgstSeq() + "' 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 '수정'했습니다.");
 				log.setString(3, UserLog.SuggestionEdited.getValue());
 				log.executeUpdate();
 			}
