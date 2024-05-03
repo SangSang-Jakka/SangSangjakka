@@ -91,7 +91,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 			
 			if(result > 0) {
 				log.setString(1, dto.getAdId());
-				log.setString(2, "관리자'" + dto.getAdId() + "'이 글제목'" + dto.getNoticeTitle()  + "' 글내용'" + dto.getNoticeContents() + "' 공지사항을 작성했습니다.");
+				log.setString(2, "관리자'" + dto.getAdId() + "'이 글제목'" + dto.getNoticeTitle()  + "' 글내용'" + dto.getNoticeContents() + "' 공지사항을 '작성'했습니다.");
 				log.setString(3, AdminLog.NoticeCreated.getValue());
 				log.executeUpdate();
 			}
@@ -138,7 +138,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 			
 			if(result > 0) {
 				log.setString(1, dto.getAdId());
-				log.setString(2, "관리자'" + dto.getAdId() + "'이 글번호'" + dto.getNoticeSeq() + "' 글제목'" + dto.getNoticeTitle()  + "' 글내용'" + dto.getNoticeContents() + "' 공지사항을 수정했습니다.");
+				log.setString(2, "관리자'" + dto.getAdId() + "'이 글번호'" + dto.getNoticeSeq() + "' 글제목'" + dto.getNoticeTitle()  + "' 글내용'" + dto.getNoticeContents() + "' 공지사항을 '수정'했습니다.");
 				log.setString(3, AdminLog.NoticeEdited.getValue());
 				log.executeUpdate();
 			}
@@ -244,7 +244,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 			
 			if(result > 0) {
 				log.setString(1, adId);
-				log.setString(2, "관리자'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 고정했습니다.");
+				log.setString(2, "관리자'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 '고정'했습니다.");
 				log.setString(3, AdminLog.NoticeFixed.getValue());
 				log.executeUpdate();
 			}
@@ -281,7 +281,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 				
 				if(result > 0) {
 					log.setString(1, adId);
-					log.setString(2, "관리자'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 고정해제했습니다.");
+					log.setString(2, "관리자'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 '고정해제'했습니다.");
 					log.setString(3, AdminLog.NoticeUnfixed.getValue());
 					log.executeUpdate();
 				}
@@ -322,7 +322,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 			
 			if (result > 0) {
 				log.setString(1, adId);
-				log.setString(2, "관리자'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 삭제했습니다.");
+				log.setString(2, "관리자'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 '삭제'했습니다.");
 				log.setString(3, AdminLog.NoticeDeleted.getValue());
 				log.executeUpdate();
 			}

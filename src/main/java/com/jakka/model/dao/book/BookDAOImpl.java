@@ -369,7 +369,7 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	@Override
-	public int addLike(String bookSeq, String userSeq) {
+	public int addLikeCnt(String bookSeq, String userSeq) {
 		
 		final String SQL = "insert into tblLike(userSeq, bookSeq) values(?, ?)";
 		
@@ -763,6 +763,30 @@ public class BookDAOImpl implements BookDAO{
 	        e.printStackTrace();
 	    }
 	    return null;
+	}
+	
+	@Override
+	public boolean isLike(String seq, String userSeq) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public int addScrapCnt(String bookSeq, String userSeq) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public boolean isReport(String seq, String userSeq) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean isScrap(String bookSeq, String userSeq) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }//End of class

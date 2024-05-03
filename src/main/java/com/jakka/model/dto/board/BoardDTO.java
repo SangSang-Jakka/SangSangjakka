@@ -13,4 +13,6 @@ public class BoardDTO {
 	private String boardCnt;
 	private String userSeq;
 	
+	private String userNick;
+	
 }//End of class

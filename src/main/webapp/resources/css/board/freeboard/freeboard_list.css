@@ -1,0 +1,228 @@
+body , select.notice, select.column, input#search, input.btnSearch{
+    font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+section.notice {
+  margin: auto;
+  padding: 80px 0;
+  max-width: 1300px;
+}
+
+.pageTitle {
+  margin-bottom: 60px;
+}
+
+.pageTitle h3 {
+  font-size: 40px;
+  color: #333333;
+  font-weight:600;
+  text-align: center;
+}
+
+#boardSearch .searchWindow {
+  padding: 15px 0;
+  margin-bottom: 30px;
+}
+
+#boardSearch .searchWindow .searchWrap {
+  position: relative;
+/*   padding-right: 124px; */
+  margin: 0 auto;
+  width: 100%;
+  max-width: 620px;
+}
+
+#boardSearch .searchWindow .searchWrap select{
+  height: 40px;
+    width: 75px;
+    text-align: center;
+    font-size: 17px;
+
+}
+
+#boardSearch .searchWindow .searchWrap input {
+  height: 40px;
+  width: 75%;
+  font-size: 17px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+#boardSearch .searchWindow .searchWrap input:focus {
+  border-color: #333;
+  outline: 0;
+  border-width: 1px;
+}
+#boardSearch .searchWindow .searchWrap .btnSearch {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  height: 40px;
+  padding: 0;
+  font-size: 18px;
+  border-radius: 2px;
+}
+
+
+
+select.notice{
+  margin-bottom: 9px;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  font-size: 17px;
+}
+
+
+.boardTable {
+  font-size: 17px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+
+.boardTable a:hover {
+  text-decoration: underline;
+}
+
+.boardTable a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+
+.boardTable th {
+  text-align: center;
+}
+
+.boardTable .thNum {
+  width: 100px;
+  text-align: center;
+}
+
+.boardTable .thWriter {
+  width: 150px;
+  text-align: center;
+}
+
+
+.boardTable .thDate {
+  width: 150px;
+}
+
+.boardTable .thViews {
+  width: 120px;
+}
+
+.boardTable th, .boardTable td {
+  padding: 14px 0;
+}
+
+.boardTable tbody tr:nth-child(even) th,
+.boardTable tbody tr:nth-child(even) td {
+  background-color: rgb(248, 248, 248); /* 또는 원하는 다른 색상 */
+}
+
+
+
+.boardTable tbody td {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+}
+
+.boardTable tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+  height: 65px;
+}
+
+
+
+.boardTable tbody th p{
+  display: inline-block;
+  font-size: 15px;
+  margin-left: 3px;
+  color: red;
+}
+
+.btnSearch {
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 15px;
+  text-align: center;
+  white-space: nowrap;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btnSearch {
+  background: #f5956c;
+  color: #fff;
+}
+
+.btnSearch:hover, .btnDark:focus {
+  background: #e98358;
+  border-color: #e98358;
+  color: #fff;
+}
+
+
+/* reset */
+
+* {
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+.paging{
+  text-align: center;
+}
+
+.paging a{
+  margin: 10px;
+  color: #333333;
+  font-size: 20px;
+}

@@ -11,6 +11,7 @@ import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dao.Cnt;
 import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dto.board.BoardDTO;
+import com.jakka.model.enums.AdminLog;
 import com.jakka.model.enums.UserLog;
 
 public class BoardDAOImpl implements BoardDAO{
@@ -73,7 +74,7 @@ public class BoardDAOImpl implements BoardDAO{
 	//블라인드 제외 전체글
 	public ArrayList<BoardDTO> findAllWhite() {
 		
-		final String SQL = "select * from vwBoard";
+		final String SQL = "select * from vwBoard order by boardRegdate desc";
 		
 		try (
 			
@@ -96,6 +97,7 @@ public class BoardDAOImpl implements BoardDAO{
 				dto.setBoardSeq(rs.getString("boardSeq"));
 				dto.setBoardTitle(rs.getString("boardTitle"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 				list.add(dto);
 				
@@ -176,7 +178,7 @@ public class BoardDAOImpl implements BoardDAO{
 			
 			if (result > 0) {
 				log.setString(1, dto.getUserSeq());
-				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글제목'" + dto.getBoardTitle() +"' 글내용'" + dto.getBoardContents() + "' 자유게시판글을 작성했습니다.");
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글제목'" + dto.getBoardTitle() +"' 글내용'" + dto.getBoardContents() + "' 자유게시판글을 '작성'했습니다.");
 				log.setString(3, UserLog.BoardCreated.getValue());
 				log.executeUpdate();
 			}
@@ -219,7 +221,7 @@ public class BoardDAOImpl implements BoardDAO{
 			
 			if (result > 0) {
 				log.setString(1, dto.getUserSeq());
-				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getBoardSeq() + "' 글제목'" + dto.getBoardTitle() +"' 글내용'" + dto.getBoardContents() + "' 자유게시판글을 수정했습니다.");
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getBoardSeq() + "' 글제목'" + dto.getBoardTitle() +"' 글내용'" + dto.getBoardContents() + "' 자유게시판글을 '수정'했습니다.");
 				log.setString(3, UserLog.BoardEdited.getValue());
 				log.executeUpdate();
 			}
@@ -285,7 +287,10 @@ public class BoardDAOImpl implements BoardDAO{
 			int result = pstat.executeUpdate();
 			
 			if (result > 0) {
-				//작업중
+				log.setString(1, userSeq);
+				log.setString(2, "사용자번호'" + userSeq + "'이 글번호'" + boardSeq +"' 자유게시판글을 '신고'했습니다.");
+				log.setString(3, UserLog.BoardReported.getValue());
+				log.executeUpdate();
 			}
 			
 			conn.commit();
@@ -347,14 +352,27 @@ public class BoardDAOImpl implements BoardDAO{
 	public int disable(String boardSeq, String adId) {
 		
 		final String SQL = "delete from tblBoardWhiteList where boardSeq = ?";
-		
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
+
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 		){
+			conn.setAutoCommit(false);
+			
 			pstat.setString(1, boardSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, adId);
+				log.setString(2, "'" + adId + "'이 글번호'" + boardSeq + "'자유게시판글을 '비활성화'했습니다.");
+				log.setString(3, AdminLog.BoardDisabled.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -370,14 +388,27 @@ public class BoardDAOImpl implements BoardDAO{
 	public int activation(String boardSeq, String adId) {
 		
 		final String SQL = "insert into tblBoardWhiteList(boardSeq) values(?)";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 		try (
 			Connection conn = DBUtil.open();	
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 		){
+			conn.setAutoCommit(false);
+			
 			pstat.setString(1, boardSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, adId);
+				log.setString(2, "'" + adId + "'이 글번호'" + boardSeq + "'자유게시판글을' 활성화'했습니다.");
+				log.setString(3, AdminLog.BoardEnabled.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -430,7 +461,42 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	@Override
 	public ArrayList<BoardDTO> findByNick(String Nick) {
-		// TODO Auto-generated method stub
+		
+		final String SQL = "SELECT * FROM vwBook WHERE userNick = ? order by boardRegdate desc";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, Nick);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			
+			ArrayList<BoardDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+			
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBoardCnt(rs.getString("boardCnt"));
+				dto.setBoardContents(rs.getString("boardContents"));
+				dto.setBoardRegdate(rs.getString("boardRegdate"));
+				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setBoardTitle(rs.getString("boardTitle"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BoardDAOImpl.| findByNick");
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 	
@@ -589,6 +655,12 @@ public class BoardDAOImpl implements BoardDAO{
 	        e.printStackTrace();
 	    }
 	    return null;
+	}
+	
+	@Override
+	public boolean isReport(String seq, String userSeq) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }//End of class
