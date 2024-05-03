@@ -1,0 +1,97 @@
+.bannerbtn {
+    background-color: #FEE500;
+    border-radius: 10px;
+    border: 0;
+    color: #3C297B;
+    padding: 20px 10px;
+    cursor: pointer;
+    width: 500px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: Fredoka;
+}
+
+.topScroll .top {
+    position: fixed;
+    left: 80%;
+    transform: translate(400%, -150%);
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 1px 1px 1px 1px gray;
+    opacity: .5;
+    cursor: pointer;
+}
+
+.topScroll .bottom {
+    position: fixed;
+    left: 90%;
+    transform: translate(130%, -150%);
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 1px 1px 1px 1px gray;
+    opacity: .5;
+    cursor: pointer;
+}
+
+.award {
+    text-align: center;
+    font-weight: bolder;
+    font-size:60px;
+    color:#563CAB;
+}
+
+.bannerTitle {
+    font-size:70px;
+}
+
+.awardContainer {
+    display:flex;
+    flex-wrap: wrap;
+    margin:0 auto;
+    border:1px solid black;
+    width:1700px;
+    height:1150px;
+}
+
+.awardContainer .awardBox {
+    display:flex;
+    justify-content:space-around;
+    border:1px solid black;
+    margin:10px 0 25px 50px;
+    width:1600px;
+    height:550px;
+}
+
+.awardContainer .awardBox .awardItems {
+    box-shadow: 3px 3px 3px 3px rgb(182, 182, 182);
+    border-radius: 20px;
+    margin-top:20px;
+    width:450px;
+    height:520px;
+}
+
+.awardContainer .awardlistBox {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border:1px solid black;
+    margin:10px 0 25px 50px;
+    width: 1600px;
+    height: 550px;
+}
+
+.awardContainer .awardlistBox .secondline {
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px 3px rgb(182, 182, 182);
+    margin-top:20px;
+    width:450px;
+    height:520px;
+}
