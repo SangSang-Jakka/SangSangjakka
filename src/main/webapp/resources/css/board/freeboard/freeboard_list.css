@@ -110,8 +110,18 @@ select.notice{
   text-align: center;
 }
 
+.boardTable .thWriter {
+  width: 150px;
+  text-align: center;
+}
+
+
 .boardTable .thDate {
-  width: 200px;
+  width: 150px;
+}
+
+.boardTable .thViews {
+  width: 120px;
 }
 
 .boardTable th, .boardTable td {
@@ -141,7 +151,10 @@ select.notice{
 
 
 .boardTable tbody th p{
-  display: none;
+  display: inline-block;
+  font-size: 15px;
+  margin-left: 3px;
+  color: red;
 }
 
 .btnSearch {

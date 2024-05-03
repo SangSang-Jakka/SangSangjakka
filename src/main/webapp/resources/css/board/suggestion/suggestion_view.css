@@ -1,0 +1,318 @@
+body, input.btnList, .btnEdit,.btnDel,.btnReview, textarea, input{
+    font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+section.notice {
+  margin: auto;
+  padding: 80px 0;
+  max-width: 1300px;
+}
+
+.pageTitle {
+  margin-bottom: 80px;
+}
+
+.pageTitle h3 {
+  font-size: 40px;
+  color: #333333;
+  font-weight:600;
+  text-align: center;
+}
+
+.btnWrap{
+    text-align: right;
+    margin-left: 950px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+
+
+.btnEdit,.btnDel{
+    margin: 3px;
+    font-size: 20px;
+    width: 60px;
+    height: 30px;
+}
+
+
+ .btnListTable{
+  text-align: center;
+  margin-top: 20px;
+
+ }
+
+
+ .btnList {
+  width: 170px;
+  height: 50px;
+  padding: 0;
+  font-size: 16px;
+  border-radius: 2px;
+
+}
+
+
+
+.btnList {
+  display: inline-block;
+  font-size: 20px;
+  text-align: center;
+  white-space: nowrap;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btnList {
+  background: #f5956c;
+  color: #fff;
+}
+
+.btnList:hover, .btnList:focus {
+  background: #e98358;
+  border-color: #e98358;
+  color: #fff;
+}
+
+
+
+
+.boardTitle {
+  font-size: 20px;
+  font-weight: 600;
+  height: 65px;
+  width: 100%;
+  border-top: 1px solid #b6b6b6;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+
+.boardTitle .tdDate {
+  width: 180px;
+  text-align: left;
+}
+
+.boardTitle .tdViews {
+  width: 70px;
+  text-align: left;
+}
+
+.boardTitle .tdDate, .tdViews{
+  color: rgb(100, 100, 100);
+  font-size: 16px;
+
+}
+
+.boardTitle td {
+  padding: 14px 0;
+}
+
+td.tdTitle{
+    text-align: left;
+    padding-left: 40px;
+    height: 58px;
+}
+
+
+
+
+
+.boardTitle tbody th p{
+  display: none;
+}
+
+
+
+/* reset */
+
+* {
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+.file{
+  padding: 14px;
+  color: #838383;
+  padding-left: 40px;
+  font-size: 16px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+
+
+.boardMain{
+  width: 100%;
+  min-height: 200px;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 40px;
+  padding-bottom: 50px;
+  font-size: 18px;
+}
+
+.listWrap{
+  border-top: 1px solid #b6b6b6;
+  margin-top: 40px;
+}
+
+.listWrap tr{
+  height: 60px;
+  display: inline-block;
+  width: 100%;
+  padding-left: 40px;
+  padding:14px;
+  padding-top: 20px;
+}
+
+.listWrap th{
+  display: inline-block;
+}
+
+.listWrap th a {
+  color:black;
+  
+}
+
+.listWrap th a:hover {
+  text-decoration: underline;
+}
+
+.listOrder{
+  width: 100px ;
+  font-weight: 100;
+  font-size: 16px;
+  color:#838383;
+}
+
+
+.listTitle{
+  width: 850px;
+  text-align: left;
+  padding-left: 25px;
+  font-size: 18px;
+  font-weight: 500;
+
+}
+
+.listDate{
+  width: 200px;
+}
+
+
+.listViews{
+  width: 80px;
+}
+
+.listViews, .listDate{
+  font-size: 16px;
+  color:#838383;
+  font-weight: 100;
+}
+
+.preBox{
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.btnEdit, .btnDel{
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+.commentWrap{
+  
+  background-color:#f3f3f3;
+  font-size: 18px;
+  border-radius: 1%;
+}
+
+
+
+.commentArea{
+
+  height: 110px;
+  padding: 20px;
+}
+
+
+
+.commentNick{
+margin-bottom: 7px;
+font-weight: 600;
+display: inline-block;
+
+}
+
+
+
+.btnCommentEdit, .btnCommentDel{
+  background-color: #f3f3f3;
+  border-color: #d4d4d4;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 8%;
+}
+
+
+
+
+
+.commentArea{
+  border-bottom: 1px solid #ffffff;
+}
+
+.commentInfo{
+margin-top: 6px;
+font-size: 15px;
+color: #838383;
+
+}
+
+.commentInfo{
+  text-align: right;
+}
+
+
+.commentText{
+  display: inline-block;
+  width: 100%;
+}

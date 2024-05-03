@@ -5,16 +5,17 @@
 <html>
 	<%@include file="/WEB-INF/views/template/asset.jsp"%>
 	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/freeboard/freeboard_add.css">
-<style>
+	<style>
 	
-</style>
-</head>
-<body>
-	<!-- header -->
+	
+	</style>
+	</head>
+	<body>
+	
+		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 		
-		
-		<section class="freeBoard">
+<section class="freeBoard">
         <div class="pageTitle">
               <div>
                   <h3>자유 게시판
@@ -61,18 +62,18 @@
             <input type="hidden" name="thread" value="${thread}">
             <input type="hidden" name="depth" value="${depth}">
             </form>
-    
+      
+        
   
+
+
     </section>
-		
-	
-		
-	<!-- footer -->
+  
+  		<!-- footer -->
 		<%@include file="/WEB-INF/views/template/footer.jsp"%>
-		
+
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-		
 	</script>
-</body>
+	</body>
 </html>
