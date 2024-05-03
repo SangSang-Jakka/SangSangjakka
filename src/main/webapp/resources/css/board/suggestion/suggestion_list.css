@@ -1,4 +1,4 @@
-body , select.suggestion, select.column, input#search, input.btnSearch{
+body , select.suggestion, select.column, input#search, input.btnSearch, input.btnWritten{
     font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
 }
 
@@ -222,4 +222,53 @@ select.suggestion{
   margin: 10px;
   color: #333333;
   font-size: 20px;
+}
+
+
+/* 쓰기 */
+
+.WrittenBox {
+  
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnWritten {
+
+  width: 80px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 2px;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+
+.btnWritten {
+  background: #f5956c;
+  color: #fff;
+
+}
+
+.btnWritten:hover {
+  background: #e98358;
+  border-color: #e98358;
+  color: #fff;
 }
