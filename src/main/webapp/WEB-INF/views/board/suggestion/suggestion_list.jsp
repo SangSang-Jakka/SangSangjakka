@@ -28,7 +28,6 @@
            <select class="suggestion">
                <option value="recent">최신순</option>
                <option value="view">조회순</option>
-               <option value="comment">댓글순</option>
            </select>
        </form>
        </div>
@@ -47,9 +46,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <tr class>
+                  <tr>
                       <td>7</td>
-                      <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
+                      <th><a href="/sangsangjakka/board/suggestion/view.do"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
                       <td>홍길동</td>
                       <td>2017.06.15</td>
                       <td>23</td>

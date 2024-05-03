@@ -401,11 +401,17 @@ color: #838383;
 .reportIcon{
   color: rgb(230, 0, 0);
   font-size: 20px;
+  background-color:#fff;
+  border:none;
+  cursor: pointer;
 }
 
 .reportCount{
   font-weight: 800;
   margin-left: 3px;
+  background-color:#fff;
+  border:none;
+  cursor: pointer;
 
 }
 

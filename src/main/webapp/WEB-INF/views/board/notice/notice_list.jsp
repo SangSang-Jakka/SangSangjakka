@@ -28,7 +28,6 @@
            <select class="notice">
                <option value="recent">최신순</option>
                <option value="view">조회순</option>
-               <option value="comment">댓글순</option>
            </select>
        </form>
        </div>
@@ -47,7 +46,7 @@
                   <tbody>
                   <tr class>
                       <td>공지</td>
-                      <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
+                      <th><a href="/sangsangjakka/board/notice/view.do">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
                       <td>2017.06.15</td>
                       <td>23</td>
                   </tr>

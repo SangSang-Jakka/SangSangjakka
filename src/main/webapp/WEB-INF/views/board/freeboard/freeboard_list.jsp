@@ -49,7 +49,7 @@
                   <tbody>
                   <tr class>
                       <td>7</td>
-                      <th><a href="#!">날씨가 좋네요</a><p>[3]</p></th>
+                      <th><a href="/sangsangjakka/board/freeboard/view.do">날씨가 좋네요</a><p>[3]</p></th>
                       <td>홍길동</td>
                       <td>2017.06.15</td>
                       <td>23</td>
@@ -107,7 +107,7 @@
       <!-- 작성 -->
 
       <div class="WrittenBox">
-        <input type="button" class="btnWritten" value="쓰기">
+        <input type="button" class="btnWritten" value="쓰기" onclick="location.href='/sangsangjakka/board/freeboard/add.do'">
     </div>
 
 

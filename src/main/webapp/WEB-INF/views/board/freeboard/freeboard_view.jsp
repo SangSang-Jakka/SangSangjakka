@@ -50,7 +50,7 @@
                       
                       <div class="conditioneWrap">
                         <div class="condtionContainer">
-                          <span class="reportIcon"><i class="fa-regular fa-bell"></i></span>
+                          <button class="reportIcon"><i class="fa-regular fa-bell"></i></button>
                           <span class="reportName">신고</span>
                           <span class="reportCount">5</span>
                         </div>
@@ -58,7 +58,7 @@
   
 
                         <div class="condtionContainer">
-                          <span class="commentIcon"><i class="fa-regular fa-message"></i></span>
+                          <button class="commentIcon"><i class="fa-regular fa-message"></i></button>
                           <span class="commentName">댓글</span>
                           <span class="commentCount">5</span>
                         </div>
