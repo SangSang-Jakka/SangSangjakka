@@ -49,11 +49,7 @@ SELECT
     b.userNick
 FROM VWBOOK B
     INNER JOIN tblBookWhiteList bw 
-    ON b.bookSeq = bw.bookSeq
-        inner join tblUser u 
-        on b.userSeq = u.userSeq;
-
-
+    ON b.bookSeq = bw.bookSeq;
 
 -- 동화책 블랙리스트
 CREATE OR REPLACE VIEW vwBookBlack 
@@ -69,14 +65,9 @@ SELECT
     b.userSeq,
     b.parentBookSeq,
     b.rcmAgeSeq,
-    u.userNick
-FROM 
-    vwBook b
-    LEFT JOIN tblBookWhiteList bw 
-    ON b.bookSeq = bw.bookSeq
-        inner join tblUser u 
-        on b.userSeq = u.userSeq
-WHERE bw.bookSeq IS NULL;
+    b.userNick
+FROM vwBook b
+WHERE b.bookSeq NOT IN(SELECT bookSeq FROM tblBookWhiteList);
 
 
 create or replace view vwSuggestion
@@ -112,7 +103,6 @@ FROM tblBoard b
     LEFT JOIN (SELECT boardSeq, COUNT(*) AS boardReportCnt FROM tblBoardReport GROUP BY boardSeq) re
     ON b.boardSeq = re.boardSeq;
 
-    
 
 -- 자유게시판 차단 리스트
 CREATE OR REPLACE VIEW  vwBoardBlack
@@ -125,12 +115,9 @@ SELECT
     b.boardReportCnt,
     b.boardCnt,
     b.userSeq,
-    u.userNick
+    b.userNick
 FROM vwBoard b
-    inner join tblUser u
-    on b.userSeq = u.userSeq
-WHERE b.boardSeq 
-NOT IN (SELECT boardSeq FROM tblBoardWhiteList);
+WHERE b.boardSeq NOT IN (SELECT boardSeq FROM tblBoardWhiteList);
 
 -- 블라인드제외 자유게시판 글
 CREATE OR REPLACE VIEW vwBoardWhite
@@ -200,7 +187,7 @@ AS
 SELECT
     r.reviewSeq,
     r.reviewContents,
-    r.reviewLikeCnt,
+    COALESCE(li.reviewLikeCnt, 0) AS reviewLikeCnt,
     COALESCE(re.reviewReportCnt, 0) AS reviewReportCnt,
     r.userSeq,
     r.bookSeq,
@@ -210,7 +197,10 @@ FROM tblReview r
     inner join tblUser u
     on u.userSeq = r.userSeq    
         LEFT JOIN (SELECT reviewSeq, COUNT(*) AS reviewReportCnt FROM tblReviewReport GROUP BY reviewSeq) re
-        ON r.reviewSeq = re.reviewSeq;
+        ON r.reviewSeq = re.reviewSeq
+            LEFT JOIN (SELECT reviewSeq, COUNT(*) AS reviewLikeCnt FROM tblReviewLike GROUP BY reviewSeq) li
+            ON r.reviewSeq = li.reviewSeq;
+            
         
 
 -- 화이트 리뷰
@@ -242,10 +232,61 @@ SELECT
 FROM vwReview r
     LEFT JOIN tblReviewWhiteList rw 
     ON r.reviewSeq = rw.reviewSeq
-WHERE rw.reviewSeq IS NULL;
+WHERE rw.reviewSeq NOT IN(SELECT reviewSeq FROM tblReviewWhiteList);
 
+-- 좋아요 기록
+CREATE OR REPLACE VIEW vwLike
+as
+select 
+    u.userSeq as likeUserSeq,
+    u.userNick as likeUserNick,
+    u.userId as likeUserId,
+    b.bookSeq,
+    b.bookTitle,
+    b.bookInfo,
+    b.bookCover,
+    b.bookRegdate,
+    b.bookModDate,
+    b.likeCnt,
+    b.bookReviewCnt,
+    b.bookScrapCnt,
+    b.bookReportCnt,
+    b.userSeq,
+    b.parentBookSeq,
+    b.rcmAgeSeq,
+    b.userNick
+from tblLike l
+    inner join vwBook b
+    on l.bookSeq = b.bookSeq
+        inner join tblUser u
+        on l.userSeq = u.userSeq;
 
-
+-- 스크랩 기록
+CREATE OR REPLACE VIEW vwScrap
+as
+select 
+    u.userSeq as scrapUserSeq,
+    u.userNick as scrapUserNick,
+    u.userId as scrapUserId,
+    b.bookSeq,
+    b.bookTitle,
+    b.bookInfo,
+    b.bookCover,
+    b.bookRegdate,
+    b.bookModDate,
+    b.likeCnt,
+    b.bookReviewCnt,
+    b.bookScrapCnt,
+    b.bookReportCnt,
+    b.userSeq,
+    b.parentBookSeq,
+    b.rcmAgeSeq,
+    b.userNick
+from tblScrap s
+    inner join vwBook b
+    on s.bookSeq = b.bookSeq
+        inner join tblUser u
+        on s.userSeq = u.userSeq;
 
 
 

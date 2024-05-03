@@ -238,7 +238,6 @@ create table tblAward(
 create table tblReview(
     reviewSeq       number primary key,                             -- 동화책 리뷰 번호(PK)
     reviewContents  varchar2(2000) not null,                        -- 리뷰 내용
-    reviewLikeCnt   number default 0 not null,                      -- 좋아요수
     userSeq         number references tblUser(userSeq) not null,    -- 리뷰 작성 사용자 번호(FK)
     bookSeq         number references tblBook(BookSeq) not null,    -- 부모 동화책 공유 게시글 번호(FK)
     reviewRegdate   date default sysdate not null
@@ -296,6 +295,14 @@ create table tblReviewReport(
     userSeq number references tblUser(userSeq),      -- 사용자 번호(PK, FK)
     
     constraints tblReviewReport_pk primary key(reviewSeq, userSeq)
+);
+
+-- 동화책 리뷰 좋아요 기록
+create table tblReviewLike(
+    reviewSeq number references tblReview(reviewSeq), -- 동화책 리뷰 번호(PK, FK)
+    userSeq number references tblUser(userSeq),      -- 사용자 번호(PK, FK)
+    
+    constraints tblReviewLike_pk primary key(reviewSeq, userSeq)
 );
 
 ---------------------

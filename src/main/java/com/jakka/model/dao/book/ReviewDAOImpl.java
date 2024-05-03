@@ -62,14 +62,14 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public ReviewDTO findById(String seq) {
+	public ReviewDTO findById(String reviewSeq) {
 		
-		final String SQL = "SELECT * FROM tblReview WHERE reviewSeq = ?";
+		final String SQL = "SELECT * FROM vwReview WHERE reviewSeq = ?";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	    	
-	        pstmt.setString(1, seq);
+	        pstmt.setString(1, reviewSeq);
 	        
 	        ResultSet rs = pstmt.executeQuery();
 
@@ -98,7 +98,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public ArrayList<ReviewDTO> findAll() {
 		
-		final String SQL = "select * from tblReview";
+		final String SQL = "select * from vwReview order by reviewRegdate desc";
 		
 		try (
 			Connection conn = DBUtil.open();
@@ -167,7 +167,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public ArrayList<ReviewDTO> findAllBlack() {
 		
-		final String SQL = "SELECT * FROM vwBlackReview order by reviewRegdate desc";
+		final String SQL = "SELECT * FROM vwReviewBlack order by reviewRegdate desc";
 
 	    try (Connection conn = DBUtil.open();
 	         Statement stat = conn.createStatement();
@@ -311,7 +311,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public int addReportCnt(String reviewSeq, String userSeq) {
 		
-		final String SQL = "UPDATE tblReview SET reviewReportCnt = reviewReportCnt + 1 WHERE reviewSeq = ?";
+		final String SQL = "insert into tblReviewReport(reviewSeq, userSeq) values(?, ?)";
 		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 	    try (Connection conn = DBUtil.open();
@@ -321,6 +321,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	    	conn.setAutoCommit(false);
 	    	
 	        pstmt.setString(1, reviewSeq);
+	        pstmt.setString(2, userSeq);
 	        
 	        int result =  pstmt.executeUpdate();
 	        
@@ -345,7 +346,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public ArrayList<ReviewDTO> findChild(String parentSeq) {
 		
-		final String SQL = "SELECT * FROM tblReview WHERE bookSeq = ? order by reviewRegdate desc";
+		final String SQL = "SELECT * FROM vwReview WHERE bookSeq = ? order by reviewRegdate desc";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -384,7 +385,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public int addLikeCnt(String reviewSeq, String userSeq) {
 		
-		final String SQL = "update tblReview set reviewLikeCnt = reviewLikeCnt + 1 where reviewSeq = ?";
+		final String SQL = "insert into tblReviewLike(reviewSeq, userSeq) values(?, ?)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 		
 		try (
@@ -395,6 +396,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 			conn.setAutoCommit(false);
 			
 			pstat.setString(1, reviewSeq);
+			pstat.setString(2, userSeq);
 			
 			int result = pstat.executeUpdate();
 			
@@ -412,20 +414,63 @@ public class ReviewDAOImpl implements ReviewDAO{
 			e.printStackTrace();
 		}
 		
-		//좋아요 테이블 데이터 추가 + 로그 남겨야됨
-		
 		return 0;
 	}
 	
 	@Override
-	public boolean isLike(String seq, String userSeq) {
-		// TODO Auto-generated method stub
+	public boolean isLike(String reviewSeq, String userSeq) {
+		
+		final String SQL = "select count(*) from tblReviewLike where reviewSeq = ? and userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, reviewSeq);
+			pstat.setString(2, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("ReviewDAOImpl.| isLike");
+			e.printStackTrace();
+		}
+		
 		return false;
+		
 	}
 	
 	@Override
-	public boolean isReport(String seq, String userSeq) {
-		// TODO Auto-generated method stub
+	public boolean isReport(String reviewSeq, String userSeq) {
+		
+		final String SQL = "select count(*) from tblReviewReport where reviewSeq = ? and userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, reviewSeq);
+			pstat.setString(2, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("ReviewDAOImpl.| isReport");
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	

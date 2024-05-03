@@ -32,7 +32,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ArrayList<BoardDTO> findAll() {
 		
-		final String SQL = "select * from tblBoard order by boardRegdate desc";
+		final String SQL = "select * from vwBoard order by boardRegdate desc";
 		
 		try (
 			
@@ -74,7 +74,7 @@ public class BoardDAOImpl implements BoardDAO{
 	//블라인드 제외 전체글
 	public ArrayList<BoardDTO> findAllWhite() {
 		
-		final String SQL = "select * from vwBoard order by boardRegdate desc";
+		final String SQL = "select * from vwBoardWhite order by boardRegdate desc";
 		
 		try (
 			
@@ -158,7 +158,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public int add(BoardDTO dto) {
 		
-		final String SQL = "INSERT INTO tblBoard (boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq) VALUES ((SELECT NVL(MAX(boardSeq), 0) + 1 FROM tblBoard), ?, ?, DEFAULT, DEFAULT, DEFAULT, ?)";
+		final String SQL = "INSERT INTO tblBoard (boardSeq, boardTitle, boardContents, boardRegdate, boardCnt, userSeq) VALUES ((SELECT NVL(MAX(boardSeq), 0) + 1 FROM tblBoard), ?, ?, DEFAULT, DEFAULT, ?)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 
 		try (
@@ -269,7 +269,7 @@ public class BoardDAOImpl implements BoardDAO{
 	//게시글 신고횟수 증가
 	public int addReportCnt(String boardSeq, String userSeq) {
 		
-		final String SQL = "update tblBoard set boardReportCnt = boardReportCnt + 1 where boardSeq = ?";
+		final String SQL = "insert into tblBoardReport(boardSeq, userSeq) values(?, ?)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 
 		try (
@@ -283,6 +283,7 @@ public class BoardDAOImpl implements BoardDAO{
 			conn.setAutoCommit(false);
 			
 			pstat.setString(1, boardSeq);
+			pstat.setString(2, userSeq);
 			
 			int result = pstat.executeUpdate();
 			
@@ -310,7 +311,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public BoardDTO findById(String boardSeq) {
 		
-		final String SQL = "select * from tblBoard where boardSeq = ?";
+		final String SQL = "select * from vwBoard where boardSeq = ?";
 		
 		try (
 			
@@ -423,7 +424,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ArrayList<BoardDTO> findByContentsContains(String word) {
 		
-		final String SQL = "SELECT * FROM tblBoard WHERE boardContents LIKE ? order by boardRegdate desc";
+		final String SQL = "SELECT * FROM vwBoard WHERE boardContents LIKE ? order by boardRegdate desc";
 
 	    try (
 	    	Connection conn = DBUtil.open();
@@ -462,7 +463,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ArrayList<BoardDTO> findByNick(String Nick) {
 		
-		final String SQL = "SELECT * FROM vwBook WHERE userNick = ? order by boardRegdate desc";
+		final String SQL = "SELECT * FROM vwBoard WHERE userNick = ? order by boardRegdate desc";
 		
 		try (
 			Connection conn = DBUtil.open();
@@ -503,7 +504,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ArrayList<BoardDTO> findByRegdateAfter(String date) {
 		
-		final String SQL = "SELECT * FROM tblBoard WHERE boardRegdate > TO_DATE(?, 'YYYY-MM-DD') ORDER BY boardRegdate DESC";
+		final String SQL = "SELECT * FROM vwBoard WHERE boardRegdate > TO_DATE(?, 'YYYY-MM-DD') ORDER BY boardRegdate DESC";
 
 	    try (
 	    	Connection conn = DBUtil.open();
@@ -542,7 +543,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ArrayList<BoardDTO> findByRegdateBefore(String date) {
 		
-		final String SQL = "SELECT * FROM tblBoard WHERE boardRegdate < TO_DATE(?, 'YYYY-MM-DD') ORDER BY boardRegdate DESC";
+		final String SQL = "SELECT * FROM vwBoard WHERE boardRegdate < TO_DATE(?, 'YYYY-MM-DD') ORDER BY boardRegdate DESC";
 
 	    try (
 	    	Connection conn = DBUtil.open();
@@ -581,7 +582,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ArrayList<BoardDTO> findByRegdateBetween(String startDate, String endDate) {
 		
-		final String SQL = "SELECT * FROM tblBoard WHERE boardRegdate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ORDER BY boardRegdate DESC";
+		final String SQL = "SELECT * FROM vwBoard WHERE boardRegdate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ORDER BY boardRegdate DESC";
 
 	    try (
 	    	Connection conn = DBUtil.open();
@@ -621,7 +622,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public ArrayList<BoardDTO> findByTitleContains(String word) {
 		
-		final String SQL = "SELECT * FROM tblBoard WHERE boardTitle LIKE ? order by boardRegdate desc";
+		final String SQL = "SELECT * FROM vwBoard WHERE boardTitle LIKE ? order by boardRegdate desc";
 
 	    try (
 	    	Connection conn = DBUtil.open();
@@ -658,8 +659,30 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 	
 	@Override
-	public boolean isReport(String seq, String userSeq) {
-		// TODO Auto-generated method stub
+	public boolean isReport(String boardSeq, String userSeq) {
+		
+		final String SQL = "select count(*) from tblBoardReport where boardSeq = ? and userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, boardSeq);
+			pstat.setString(2, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| isReport");
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	

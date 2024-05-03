@@ -30,7 +30,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	@Override
 	public int add(BoardCommentDTO dto) {
 		
-		final String SQL = "insert into tblBoardComments (cmntSeq, userSeq, boardSeq, cmntContents, cmntReportCnt, cmntRegdate) values((SELECT NVL(MAX(cmntSeq), 0) + 1 FROM tblBoardComments), ?, ?, ?, default, default)";
+		final String SQL = "insert into tblBoardComments (cmntSeq, userSeq, boardSeq, cmntContents, cmntRegdate) values((SELECT NVL(MAX(cmntSeq), 0) + 1 FROM tblBoardComments), ?, ?, ?, default)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 		
 		try (
@@ -69,7 +69,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	@Override
 	public BoardCommentDTO findById(String cmntSeq) {
 		
-		final String SQL = "select * from tblBoardComments where cmntSeq = ?";
+		final String SQL = "select * from vwBoardComments where cmntSeq = ?";
 		
 		try (
 			
@@ -109,7 +109,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	@Override
 	public ArrayList<BoardCommentDTO> findAll() {
 		
-		final String SQL = "select * from tblBoardComments order by cmntRegdate desc";
+		final String SQL = "select * from vwBoardComments order by cmntRegdate desc";
 		
 		try (
 			
@@ -149,7 +149,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	//블라인드 되지 않는 모든 댓글리스트
 	public ArrayList<BoardCommentDTO> findAllWhite() {
 		
-		final String SQL = "select * from vwBoardComments order by cmntRegdate desc";
+		final String SQL = "select * from vwBoardCommentsWhite order by cmntRegdate desc";
 		
 		try (
 			
@@ -307,7 +307,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	//신고횟수 증가
 	public int addReportCnt(String cmntSeq, String userSeq) {
 		
-		final String SQL = "update tblBoardComments set cmntReportCnt = cmntReportCnt + 1 where boardSeq = ?";
+		final String SQL = "insert into tblBoardCommentsReport(cmntSeq, userSeq) values(?, ?)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 
 		try (
@@ -319,6 +319,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 			conn.setAutoCommit(false);
 			
 			pstat.setString(1, cmntSeq);
+			pstat.setString(2, userSeq);
 			
 			int result = pstat.executeUpdate();
 			
@@ -415,9 +416,29 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	}
 	
 	@Override
-	public boolean isReport(String seq, String userSeq) {
+	public boolean isReport(String cmntSeq, String userSeq) {
 		
-		final String SQL = "";
+		final String SQL = "select count(*) from tblBoardCommentsReport where cmntSeq = ? and userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, cmntSeq);
+			pstat.setString(2, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("BoardCommentsDAO.| isReport");
+			e.printStackTrace();
+		}
 		
 		return false;
 	}

@@ -32,7 +32,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public int add(BookDTO dto) {
 		
-		final String SQL = "INSERT INTO tblBook (bookSeq, bookTitle, bookInfo, bookCover, bookRegdate, bookModDate, likeCnt, bookReviewCnt, bookScrapCnt, bookReportCnt, userSeq, parentBookSeq, rcmAgeSeq) VALUES ((SELECT NVL(MAX(bookSeq), 0) + 1 FROM tblBook), ?, ?, ?, default, NULL, default, default, default, default, ?, ?, ?)";
+		final String SQL = "INSERT INTO tblBook (bookSeq, bookTitle, bookInfo, bookCover, bookRegdate, bookModDate, userSeq, parentBookSeq, rcmAgeSeq) VALUES ((SELECT NVL(MAX(bookSeq), 0) + 1 FROM tblBook), ?, ?, ?, default, NULL, ?, ?, ?)";
 		
 		try (
 			Connection conn = DBUtil.open();
@@ -60,7 +60,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public BookDTO findById(String bookSeq) {
 		
-		final String SQL = "select * from tblBook where bookseq = ?";
+		final String SQL = "select * from vwBook where bookseq = ?";
 		
 		try (
 			Connection conn = DBUtil.open();
@@ -226,6 +226,7 @@ public class BookDAOImpl implements BookDAO{
 		return 0;
 	}
 	
+	//조회수 메서드 다시 만들어야됨
 	@Override
 	public int addCnt(String bookSeq) {
 		
@@ -255,7 +256,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public int addReportCnt(String bookSeq, String userSeq) {
 		
-		final String SQL = "update tblBook set bookReportCnt = bookReportCnt + 1 where bookSeq = ?";
+		final String SQL = "insert into tblBookShareReport(bookSeq, userSeq) values(?, ?)";
 		
 		try (
 			
@@ -265,6 +266,7 @@ public class BookDAOImpl implements BookDAO{
 			){
 			
 			pstat.setString(1, bookSeq);
+			pstat.setString(2, userSeq);
 			
 			int result = pstat.executeUpdate();
 			
@@ -326,7 +328,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public ArrayList<BookDTO> findAllWhite() {
 		
-		final String SQL = "SELECT * FROM VWBOOK B INNER JOIN tblBookWhiteList bw ON b.bookSeq = bw.bookSeq order by bookRegdate desc";
+		final String SQL = "SELECT * FROM vwBookWhite order by bookRegdate desc";
 		
 		try (
 				Connection conn = DBUtil.open();
@@ -421,7 +423,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public ArrayList<BookDTO> findByContentsContains(String word) {
 		
-		final String SQL = "SELECT * FROM vwBookWhite WHERE bookInfo LIKE ? ORDER BY bookRegdate DESC";
+		final String SQL = "SELECT * FROM vwBook WHERE bookInfo LIKE ? ORDER BY bookRegdate DESC";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -465,7 +467,7 @@ public class BookDAOImpl implements BookDAO{
 	
 	@Override
 	public ArrayList<BookDTO> findByNick(String Nick) {
-		final String SQL = "SELECT * FROM vwBookWhite WHERE userNick = ? ORDER BY bookRegdate DESC";
+		final String SQL = "SELECT * FROM vwBook WHERE userNick = ? ORDER BY bookRegdate DESC";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -508,7 +510,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public ArrayList<BookDTO> findByRegdateAfter(String date) {
 		
-		final String SQL = "SELECT * FROM vwBookWhite WHERE bookRegdate > TO_DATE(?, 'YYYY-MM-DD') ORDER BY bookRegdate DESC";
+		final String SQL = "SELECT * FROM vwBook WHERE bookRegdate > TO_DATE(?, 'YYYY-MM-DD') ORDER BY bookRegdate DESC";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -553,7 +555,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public ArrayList<BookDTO> findByRegdateBefore(String date) {
 		
-		final String SQL = "SELECT * FROM vwBookWhite WHERE bookRegdate < TO_DATE(?, 'YYYY-MM-DD') ORDER BY bookRegdate DESC";
+		final String SQL = "SELECT * FROM vwBook WHERE bookRegdate < TO_DATE(?, 'YYYY-MM-DD') ORDER BY bookRegdate DESC";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -598,7 +600,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public ArrayList<BookDTO> findByRegdateBetween(String startDate, String endDate) {
 		
-		final String SQL = "SELECT * FROM vwBookWhite WHERE bookRegdate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ORDER BY bookRegdate DESC";
+		final String SQL = "SELECT * FROM vwBook WHERE bookRegdate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ORDER BY bookRegdate DESC";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -643,7 +645,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public ArrayList<BookDTO> findByTitleContains(String word) {
 		
-		final String SQL = "SELECT * FROM vwBookWhite WHERE bookTitle LIKE ? order by bookRegdate desc";
+		final String SQL = "SELECT * FROM vwBook WHERE bookTitle LIKE ? order by bookRegdate desc";
 		
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -684,16 +686,19 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	@Override
-	public ArrayList<BookDTO> findAllLike(String mySeq) {
+	public ArrayList<BookDTO> findAllLike(String likeUserSeq) {
 		
-		final String SQL = "SELECT * FROM vwLike WHERE mySeq = ? order by bookRegdate desc";
+		final String SQL = "SELECT * FROM vwLike WHERE likeUserSeq = ?";
 
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-	        pstmt.setString(1, mySeq);
+	         PreparedStatement pstmt = conn.prepareStatement(SQL)
+	    ) {
+	        pstmt.setString(1, likeUserSeq);
+	        
 	        ResultSet rs = pstmt.executeQuery();
 
 	        ArrayList<BookDTO> list = new ArrayList<>();
+	        
 	        while (rs.next()) {
 	            BookDTO dto = new BookDTO();
 	            dto.setBookSeq(rs.getString("bookSeq"));
@@ -712,8 +717,11 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setUserNick(rs.getString("userNick"));
 	            list.add(dto);
 	        }
+	        
 	        return list;
+	        
 	    } catch (Exception e) {
+	    	
 	        System.out.println("BookDAO.| findAllLike");
 	        e.printStackTrace();
 	    }
@@ -721,14 +729,14 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	@Override
-	public ArrayList<BookDTO> findAllScrap(String mySeq) {
+	public ArrayList<BookDTO> findAllScrap(String scrapUserSeq) {
 		
-		final String SQL = "SELECT * FROM vwScrap WHERE mySeq = ? order by bookRegdate desc";
+		final String SQL = "SELECT * FROM vwScrap WHERE scrapUserSeq = ?";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	    	
-	        pstmt.setString(1, mySeq);
+	        pstmt.setString(1, scrapUserSeq);
 	        
 	        ResultSet rs = pstmt.executeQuery();
 
@@ -766,26 +774,111 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	@Override
-	public boolean isLike(String seq, String userSeq) {
-		// TODO Auto-generated method stub
+	public boolean isLike(String bookSeq, String userSeq) {
+		
+		final String SQL = "select count(*) from tblLike where bookSeq = ? and userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, bookSeq);
+			pstat.setString(2, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| isLike");
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	
 	@Override
 	public int addScrapCnt(String bookSeq, String userSeq) {
-		// TODO Auto-generated method stub
+		
+		final String SQL = "inser into tblScrap(userSeq, bookSeq) values(?, ?)";
+
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+		){
+			pstat.setString(1, userSeq);
+			pstat.setString(2, bookSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| addScrapCnt");
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 	
 	@Override
-	public boolean isReport(String seq, String userSeq) {
-		// TODO Auto-generated method stub
+	public boolean isReport(String bookSeq, String userSeq) {
+		
+		final String SQL = "select count(*) from tblBookShareReport where bookSeq = ? and userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, bookSeq);
+			pstat.setString(2, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| isReport");
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	
 	@Override
 	public boolean isScrap(String bookSeq, String userSeq) {
-		// TODO Auto-generated method stub
+		
+		final String SQL = "select count(*) from tblScrap where bookSeq = ? and userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, bookSeq);
+			pstat.setString(2, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| isScrap");
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	
