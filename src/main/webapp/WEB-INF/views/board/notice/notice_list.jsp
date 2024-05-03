@@ -16,16 +16,14 @@
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 	
 		<section class="notice">
-    	<div class="pageTitle">
+    <div class="pageTitle">
           <div>
               <h3>공지사항</h3>
           </div>
-      	</div>
+      </div>
 
      
-      
-    	<!-- board list area -->
-	   <div>
+      <div>
         <form>
            <select class="notice">
                <option value="recent">최신순</option>
@@ -34,8 +32,7 @@
            </select>
        </form>
        </div>
-  
-  
+    <!-- board list area -->
       <div>
           <div>
               <table class="boardTable">
@@ -48,7 +45,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                  <tr class>
                       <td>공지</td>
                       <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
                       <td>2017.06.15</td>

@@ -75,4 +75,5 @@ td .content {
     padding: 8px;
     height: 35px;
     margin: 5px;
+    cursor: pointer;
 }
