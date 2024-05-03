@@ -16,7 +16,7 @@
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 		
 		
-		<section class="notice">
+	<section class="notice">
     <div class="pageTitle">
           <div>
               <h3>자유 게시판</h3>
@@ -103,6 +103,12 @@
               </table>
           </div>
       </div>
+
+      <!-- 작성 -->
+
+      <div class="WrittenBox">
+        <input type="button" class="btnWritten" value="쓰기">
+    </div>
 
 
       <!-- board seach area -->

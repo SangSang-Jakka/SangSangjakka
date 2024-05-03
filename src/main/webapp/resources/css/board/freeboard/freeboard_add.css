@@ -1,4 +1,4 @@
-body, input.btnBack, input, textarea{
+body, input.btnBack, input, textarea, button{
     font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
 }
 
@@ -54,14 +54,14 @@ td .content {
   text-align: center;
 }
 
-.subject, .content, .tag, .attatch{
+.subject, .content, .attatch{
     min-width:809px;
     min-height: 41px;
     border: 1px solid #b6b6b6;
     font-size: 15px;
 }
 
-.subject, .content, .tag {
+.subject, .content {
     padding: 10px;
 }
 

@@ -38,7 +38,8 @@
                   </table>
 
                   <div class="file">
-                    @ 파일이 없습니다
+                    <i class="fa-regular fa-file"></i>
+                    파일이 없습니다
                   </div>
 
                       <div class="boardMain">
@@ -49,15 +50,17 @@
                       
                       <div class="conditioneWrap">
                         <div class="condtionContainer">
-                          <span class="reportIcon">@</span>
+                          <span class="reportIcon"><i class="fa-regular fa-bell"></i></span>
                           <span class="reportName">신고</span>
                           <span class="reportCount">5</span>
                         </div>
-                      
+
+  
+
                         <div class="condtionContainer">
-                          <span class="commentIcon">@</span>
+                          <span class="commentIcon"><i class="fa-regular fa-message"></i></span>
                           <span class="commentName">댓글</span>
-                          <span class="comment ">5</span>
+                          <span class="commentCount">5</span>
                         </div>
                       </div>
                   
@@ -74,10 +77,14 @@
                           <ul class="commentArea">
                             <li>
                               <div class="commentNick">김뫄뫄</div>
-                              <span class="commentText">너무 좋네요~</span>
+                                <div class="commentBtnBlock">
+                                  <input type="button" class="btnCommentEdit" value="수정">
+                                  <input type="button" class="btnCommentDel" value="삭제">
+                                </div>
+                           
+                              <div class="commentText">너무 좋네요~</div>
                               <div class="commentInfo">
                                 <span class="commentInfoDate">2024.05.03</span>
-                                <a href="" class="btnReply">답글쓰기</a>
                               </div>
                             </li>
                             
@@ -89,7 +96,6 @@
                               <span class="commentText">짱!</span>
                               <div class="commentInfo">
                                 <span class="commentInfoDate">2024.05.03</span>
-                                <a href="" class="btnReply">답글쓰기</a>
                               </div>
                             </li>
                           </ul>
@@ -101,10 +107,12 @@
                             <div class="commentAddNick">홍라라</div>
                             <textarea class="commentAddText"></textarea>
                           </div>
-                            <div class="btnCommentAdd">
-                              <a href=" ">등록</a>
-                            </div>
+                     
+                            <input type="button" value="등록" class="btnCommentAdd">
+                        
+                     
                         </div>
+                      </div>
                   </div>
 
 
@@ -135,16 +143,20 @@
 
                         </table>
                       </div>
-                
+                   
+
+
      
 
   </section>
-	
+
+		
 	  <!-- footer -->
 	<%@include file="/WEB-INF/views/template/footer.jsp"%>
 		
 	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://kit.fontawesome.com/8a0ce49d35.js" crossorigin="anonymous"></script>
 	
 	<script>
 		

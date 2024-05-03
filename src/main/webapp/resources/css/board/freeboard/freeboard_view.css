@@ -1,4 +1,4 @@
-body, input.btnList, .btnEdit,.btnDel,.btnReview{
+body, input.btnList, .btnEdit,.btnDel,.btnReview, textarea, input{
     font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
 }
 
@@ -269,11 +269,10 @@ td.tdTitle{
   
   background-color:#f3f3f3;
   font-size: 18px;
+  border-radius: 1%;
 }
 
-.commentcontainer{
 
-}
 
 .commentArea{
 
@@ -282,52 +281,137 @@ td.tdTitle{
 }
 
 .commentAdd{
-  margin: 10px;
+  margin: 20px;
+  margin-bottom: 0;
   width: 500px;
   height: 100px;
 }
 
 .commentNick{
-margin-bottom: 5px;
+margin-bottom: 7px;
 font-weight: 600;
+display: inline-block;
+
 }
 
-.commentText{
+.commentBtnBlock{
+  display: inline-block;
+  margin-right: 0;
+  margin-left: 85%;
+}
 
+.btnCommentEdit, .btnCommentDel{
+  background-color: #f3f3f3;
+  border-color: #d4d4d4;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 8%;
+}
+
+
+
+
+
+.commentArea{
+  border-bottom: 1px solid #ffffff;
 }
 
 .commentInfo{
 margin-top: 6px;
 font-size: 15px;
 color: #838383;
-}
 
-.btnReply{
-  margin-left: 10px;
-  color:#838383;
-}
-
-.commentAddBox{
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 30px;
 }
 
 .commentAdd{
-  
-  background-color: #ffffff;
+  height: auto;
+  width: 90%;
+}
 
-  width: 95%;
-  height: 100%;
+
+
+.commentAddNick{
+  color: #5a2f00;
+  font-weight: 600;
+  font-size: 20px;
+  display: inline-block;
 }
 
 .commentAddText{
+  margin-top: 9px;
+  height: 150px;
+  width: 100%;
+  font-size: 17px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-color: #dadada;
 
-  width: 90%;
-  height: auto;
 }
 
 .btnCommentAdd{
-  background-color: #ffffff;
+  width: 60px;
+  height: 33px;
+  font-size: 17px;
+  background-color: #f2a654;
+  border-color: #f2a654;
+  color: #fff;
+  border-radius: 8%;
+  border-style: none;
+  cursor: pointer;
 }
+
+.btnCommentAdd:hover{
+  background-color: #e79f51;
+}
+
+.commentAddBox {
+  position: relative; /* 부모 요소에 position: relative; 설정 */
+}
+
+
+
+.commentInfo{
+  text-align: right;
+}
+
+
+.btnCommentAdd {
+  position: absolute;
+  top: 73%;
+  right: 3%;
+  margin: 0;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.commentText{
+  display: inline-block;
+  width: 100%;
+}
+
+
+.commentIcon{
+  color: rgb(0, 68, 255);
+  font-size: 18px;
+}
+
+.reportIcon{
+  color: rgb(230, 0, 0);
+  font-size: 20px;
+}
+
+.reportCount{
+  font-weight: 800;
+  margin-left: 3px;
+
+}
+
+.commentCount{
+  font-weight: 800;
+  margin-left: 3px;
+}
+
 
