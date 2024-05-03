@@ -49,7 +49,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 			
 			if (result > 0) {
 	            log.setString(1, dto.getAdId());
-	            log.setString(2, "관리자'" + dto.getAdId() + "'이 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'건의사항 답변을 달았습니다.");
+	            log.setString(2, "관리자'" + dto.getAdId() + "'이 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'건의사항 답변을 '작성'했습니다.");
 	            log.setString(3, AdminLog.SuggestionAnswered.getValue());
 	            log.executeUpdate();
 	        }
@@ -207,7 +207,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 			
 			if (result > 0) {
 				log.setString(1, dto.getAdId());
-				log.setString(2, "관리자'" + dto.getAdId() + "'이 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'건의사항 답변을 수정했습니다.");
+				log.setString(2, "관리자'" + dto.getAdId() + "'이 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'건의사항 답변을 '수정'했습니다.");
 				log.setString(3, AdminLog.SuggestionAnsweredEdited.getValue());
 				log.executeUpdate();
 			}

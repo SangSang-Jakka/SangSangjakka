@@ -7,10 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
-import com.jakka.model.dao.ActiveStatus;
-import com.jakka.model.dao.BasicDAO;
-import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dto.board.BoardCommentDTO;
+import com.jakka.model.enums.AdminLog;
+import com.jakka.model.enums.UserLog;
 
 public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 
@@ -32,19 +31,30 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	public int add(BoardCommentDTO dto) {
 		
 		final String SQL = "insert into tblBoardComments (cmntSeq, userSeq, boardSeq, cmntContents, cmntReportCnt, cmntRegdate) values((SELECT NVL(MAX(cmntSeq), 0) + 1 FROM tblBoardComments), ?, ?, ?, default, default)";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 		
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
-				
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 			){
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getUserSeq());
 			pstat.setString(2, dto.getBoardSeq());
 			pstat.setString(3, dto.getCmntContents());
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBoardSeq() + "' 글번호'" + dto.getCmntSeq() + "' 글내용'" + dto.getCmntContents() + "'에 자유게시판 댓글을 '작성'했습니다.");
+				log.setString(3, UserLog.BoardCommentCreated.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -260,17 +270,28 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	public int save(BoardCommentDTO dto) {
 		
 		final String SQL = "update tblBoardComments set cmntContents = ? where cmntSeq = ?";
-		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
-				
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 			){
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getCmntContents());
 
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBoardSeq() + "' 글번호'" + dto.getCmntSeq() + "' 글내용'" + dto.getCmntContents() + "'에 자유게시판 댓글을 '수정'했습니다.");
+				log.setString(3, UserLog.BoardCommentEdited.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -287,16 +308,28 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	public int addReportCnt(String cmntSeq, String userSeq) {
 		
 		final String SQL = "update tblBoardComments set cmntReportCnt = cmntReportCnt + 1 where boardSeq = ?";
-		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 			){
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, cmntSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, userSeq);
+				log.setString(2, "사용자번호'" + userSeq + "'이 글번호'" + cmntSeq +"' 자유게시판글을 댓글을 '신고'했습니다.");
+				log.setString(3, UserLog.BoardCreated.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -313,7 +346,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	public int disable(String cmntSeq, String adId) {
 		
 		final String SQL = "delete from tblBoardCommentWhiteList where cmntSeq = ?";
-		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 16)";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 
 		try (
 			Connection conn = DBUtil.open();
@@ -330,6 +363,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 			if (result > 0) {
 			       log.setString(1, adId);
 			       log.setString(2, "'" + adId + "'이 자유게시판 댓글번호'" + cmntSeq + "'을(를) '비활성화'했습니다.");
+			       log.setString(3, AdminLog.BoardCommentDisabled.getValue());
 			       log.executeUpdate();
 			}
 			
@@ -349,14 +383,26 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	public int activation(String cmntSeq, String adId) {
 		
 		final String SQL = "insert into tblBoardCommentWhiteList(cmntSeq) values(?)";
-		
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		try (
 			Connection conn = DBUtil.open();	
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 		){
+			conn.setAutoCommit(false);
+			
 			pstat.setString(1, cmntSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+			       log.setString(1, adId);
+			       log.setString(2, "'" + adId + "'이 자유게시판 댓글번호'" + cmntSeq + "'을(를) '활성화'했습니다.");
+			       log.setString(3, AdminLog.BoardCommentEnabled.getValue());
+			       log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -368,6 +414,12 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 		return 0;
 	}
 	
-	
+	@Override
+	public boolean isReport(String seq, String userSeq) {
+		
+		final String SQL = "";
+		
+		return false;
+	}
 	
 }//End of class

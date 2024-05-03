@@ -1,38 +1,4 @@
 --SELECT 'DROP TABLE "' || TABLE_NAME || '" CASCADE CONSTRAINTS;' FROM user_tables;
---
---DROP TABLE "TBLUSER" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBLACKLIST" CASCADE CONSTRAINTS;
---DROP TABLE "TBLUSERCAT" CASCADE CONSTRAINTS;
---DROP TABLE "TBLUSERLOG" CASCADE CONSTRAINTS;
---DROP TABLE "TBLAGECAT" CASCADE CONSTRAINTS;
---DROP TABLE "TBLCHILDAGE" CASCADE CONSTRAINTS;
---DROP TABLE "TBLADMIN" CASCADE CONSTRAINTS;
---DROP TABLE "TBLNOTICE" CASCADE CONSTRAINTS;
---DROP TABLE "TBLNOTCIEFIX" CASCADE CONSTRAINTS;
---DROP TABLE "TBLADCAT" CASCADE CONSTRAINTS;
---DROP TABLE "TBLADLOG" CASCADE CONSTRAINTS;
---DROP TABLE "TBLSUGGESTION" CASCADE CONSTRAINTS;
---DROP TABLE "TBLSUGGESTIONANSWER" CASCADE CONSTRAINTS;
---DROP TABLE "TBLINFLOWCAT" CASCADE CONSTRAINTS;
---DROP TABLE "USERINFLOW" CASCADE CONSTRAINTS;
---DROP TABLE "TBLGENRE" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBOARD" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBOARDWHITELIST" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBOARDCOMMENTS" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBOARDCOMMENTWHITELIST" CASCADE CONSTRAINTS;
---DROP TABLE "TBLRECOMMENDAGE" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBOOK" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBOOKWHITELIST" CASCADE CONSTRAINTS;
---DROP TABLE "TBLGENREINFO" CASCADE CONSTRAINTS;
---DROP TABLE "TBLPAGE" CASCADE CONSTRAINTS;
---DROP TABLE "TBLSCRAP" CASCADE CONSTRAINTS;
---DROP TABLE "TBLBOOKSHARE" CASCADE CONSTRAINTS;
---DROP TABLE "TBLAWARD" CASCADE CONSTRAINTS;
---DROP TABLE "TBLUSERGENREPREFERENCE" CASCADE CONSTRAINTS;
---DROP TABLE "TBLREVIEW" CASCADE CONSTRAINTS;
---DROP TABLE "TBLREVIEWWHITELIST" CASCADE CONSTRAINTS;
---DROP TABLE "TBLLIKE" CASCADE CONSTRAINTS;
---
 --commit;
 
 -- 회원 테이블
@@ -62,7 +28,7 @@ create table tblBlackList(
 -- 사용자 행동로그 카테고리
 create table tblUserCat(
     userCatSeq     number not null primary key, -- 카테고리 번호(PK)
-    userCatContent varchar2(200) not null       -- 내용
+    userCatContents varchar2(200) not null       -- 내용
 );
 
 -- 사용자 행동 로그 테이블
@@ -70,7 +36,7 @@ create table tblUserLog(
     userLogSeq      number primary key,                                 -- 사용자 로그 번호(PK)
     userLogDate     date default sysdate not null,                      -- 날짜
     userSeq         number references tblUser(userSeq) not null,        -- 사용자 번호(FK)
-    userLogContents varchar2(300) not null,                             -- 로그 내용
+    userLogContents varchar2(2000) not null,                             -- 로그 내용
     userCatSeq      number references tblUserCat(userCatSeq) not null   -- 카테고리 번호(FK)
 );
 
@@ -126,9 +92,10 @@ create table tblAdLog(
     adLogSeq number primary key,                            -- 관리자 로그 번호(PK)
     adLogDate date default sysdate not null,                -- 로그 날짜
     adId varchar2(20) references tblAdmin(adId) not null,   -- 관리자 아이디(FK)
-    adLogContent varchar2(300) not null,                    -- 로그 내용
+    adLogContents varchar2(2000) not null,                    -- 로그 내용
     adCatSeq number references tblAdCat(adCatSeq)           -- 관리자 행동 카테고리 번호(FK)
 );
+
 
 -- 건의사항 게시판 테이블
 create table tblSuggestion(
@@ -145,7 +112,7 @@ create table tblSuggestion(
 create table tblSuggestionAnswer(
     answSeq     number primary key,                                     -- 건의사항 답변 번호(PK)
     adId        varchar2(20) references tblAdmin(adId) not null,        -- 관리자 아이디(FK)
-    sgsSeq      number references tblSuggestion(sgstSeq) not null,      -- 부모글 번호(FK)
+    sgstSeq      number references tblSuggestion(sgstSeq) not null,      -- 부모글 번호(FK)
     sgstAnsw    varchar2(2000) not null,                                -- 답변 내용
     sgstRegdate date default sysdate not null                           -- 등록 날짜
 );
@@ -176,7 +143,6 @@ create table tblBoard(
     boardTitle      varchar2(100) not null,                     -- 제목
     boardContents   varchar2(2000) not null,                    -- 내용
     boardRegdate    date default sysdate not null,              -- 작성일
-    boardReportCnt  number default 0 not null,                  -- 신고횟수
     boardCnt        number default 0 not null,                  -- 조회수
     userSeq         number references tblUser(userSeq) not null -- 사용자 번호(FK)
 ); 
@@ -192,7 +158,6 @@ create table tblBoardComments(
     userSeq         number references tblUser(userSeq) not null,       -- 작성자 번호(FK)
     boardSeq        number references tblBoard(boardSeq) not null,     -- 부모 게시글 번호(FK)
     cmntContents    varchar2(2000) not null,                           -- 내용
-    cmntReportCnt   number default 0 not null,                         -- 신고횟수
     cmntRegdate     date default sysdate not null                      -- 작성날짜
 );
 
@@ -216,7 +181,6 @@ create table tblBook(
     bookCover       varchar2(3000) not null,                                -- 표지 url
     bookRegdate     date default sysdate not null,                          -- 등록일
     bookModDate     date default null,                                      -- 수정일
-    bookReportCnt   number default 0 not null,                              -- 신고횟수
     userSeq         number references tblUser(userSeq) not null,            -- 회원번호(FK)
     parentBookSeq   number default null references tblBook(bookSeq),        -- 부모 동화책 번호(FK)
     rcmAgeSeq       number references tblRecommendAge(rcmAgeSeq) not null   -- 추천 연령 번호(FK)
@@ -275,7 +239,6 @@ create table tblReview(
     reviewSeq       number primary key,                             -- 동화책 리뷰 번호(PK)
     reviewContents  varchar2(2000) not null,                        -- 리뷰 내용
     reviewLikeCnt   number default 0 not null,                      -- 좋아요수
-    reviewReportCnt number default 0 not null,                      -- 신고횟수
     userSeq         number references tblUser(userSeq) not null,    -- 리뷰 작성 사용자 번호(FK)
     bookSeq         number references tblBook(BookSeq) not null,    -- 부모 동화책 공유 게시글 번호(FK)
     reviewRegdate   date default sysdate not null
@@ -302,5 +265,141 @@ create table tblLike(
     
     constraints tblLike_pk primary key(userSeq, bookSeq)
 );
+
+-- 자유게시판 신고 기록
+create table tblBoardReport(
+    boardSeq number references tblBoard(boardSeq), -- 게시글 번호(PK, FK)
+    userSeq number references tblUser(userSeq), -- 사용자 번호(PK, FK)
+    
+    constraints tblBoardReport_pk primary key(boardSeq, userSeq)
+);
+
+-- 자유게시판 댓글 신고 기록
+create table tblBoardCommentsReport(
+    cmntSeq number references tblBoardComments(cmntSeq), -- 댓글 번호(PK, FK)
+    userSeq number references tblUser(userSeq),         -- 사용자 번호(PK, FK)
+    
+    constraints tblBoardCommentsReport_pk primary key(cmntSeq, userSeq)
+);
+
+-- 동화책 신고 기록
+create table tblBookShareReport(
+    bookSeq number references tblBookShare(bookSeq), -- 동화책 공유글 번호(PK, FK)
+    userSeq number references tblUser(userSeq),      -- 사용자 번호(PK, FK)
+    
+    constraints tblBookShareReport_pk primary key(bookSeq, userSeq)
+);
+
+-- 동화책 리뷰 신고 기록
+create table tblReviewReport(
+    reviewSeq number references tblReview(reviewSeq), -- 동화책 리뷰 번호(PK, FK)
+    userSeq number references tblUser(userSeq),      -- 사용자 번호(PK, FK)
+    
+    constraints tblReviewReport_pk primary key(reviewSeq, userSeq)
+);
+
+---------------------
+-- insert Category --
+---------------------
+
+-- tblAgeCat 나이 카테고리
+insert into tblAgeCat(ageCatSeq, ageRange) values(1, '1세이상');
+insert into tblAgeCat(ageCatSeq, ageRange) values(2, '3세이상');
+insert into tblAgeCat(ageCatSeq, ageRange) values(3, '5세이상');
+insert into tblAgeCat(ageCatSeq, ageRange) values(4, '7세이상');
+insert into tblAgeCat(ageCatSeq, ageRange) values(5, '10세이상');
+
+-- tblInflowCat 유입경로 카테고리
+insert into tblInflowCat(inflowCatSeq, inflowName) values(1, '인터넷 검색');
+insert into tblInflowCat(inflowCatSeq, inflowName) values(2, '지인 소개');
+insert into tblInflowCat(inflowCatSeq, inflowName) values(3, '카페');
+insert into tblInflowCat(inflowCatSeq, inflowName) values(4, '블로그');
+insert into tblInflowCat(inflowCatSeq, inflowName) values(5, '소셜 미디어 플랫폼(인스타그램, 페이스북 등)');
+insert into tblInflowCat(inflowCatSeq, inflowName) values(6, '광고지');
+insert into tblInflowCat(inflowCatSeq, inflowName) values(7, '기타');
+
+-- tblGenre 동화책 장르정보
+insert into tblGenre(genreSeq, genreName) values(1, '예술');
+insert into tblGenre(genreSeq, genreName) values(2, '공상과학');
+insert into tblGenre(genreSeq, genreName) values(3, '판타지');
+insert into tblGenre(genreSeq, genreName) values(4, '공포');
+insert into tblGenre(genreSeq, genreName) values(5, '교육');
+insert into tblGenre(genreSeq, genreName) values(6, '역사');
+insert into tblGenre(genreSeq, genreName) values(7, '자연생태');
+insert into tblGenre(genreSeq, genreName) values(8, '미스테리');
+insert into tblGenre(genreSeq, genreName) values(9, '인공지능');
+insert into tblGenre(genreSeq, genreName) values(10, '동화');
+insert into tblGenre(genreSeq, genreName) values(11, '스포츠');
+insert into tblGenre(genreSeq, genreName) values(12, '수수께끼');
+insert into tblGenre(genreSeq, genreName) values(13, '로맨틱');
+insert into tblGenre(genreSeq, genreName) values(14, '따뜻한');
+insert into tblGenre(genreSeq, genreName) values(15, '우주');
+insert into tblGenre(genreSeq, genreName) values(16, '건강');
+insert into tblGenre(genreSeq, genreName) values(17, '창조적');
+insert into tblGenre(genreSeq, genreName) values(18, '신비');
+insert into tblGenre(genreSeq, genreName) values(19, '고전적');
+insert into tblGenre(genreSeq, genreName) values(20, '코믹');
+insert into tblGenre(genreSeq, genreName) values(21, '우정');
+insert into tblGenre(genreSeq, genreName) values(22, '창의력');
+
+-- tblRecommendAge 추천연령 
+insert into tblRecommendAge(rcmAgeSeq, rcmAge) values(1, '1세이상');
+insert into tblRecommendAge(rcmAgeSeq, rcmAge) values(2, '3세이상');
+insert into tblRecommendAge(rcmAgeSeq, rcmAge) values(3, '5세이상');
+insert into tblRecommendAge(rcmAgeSeq, rcmAge) values(4, '7세이상');
+insert into tblRecommendAge(rcmAgeSeq, rcmAge) values(5, '10세이상');
+
+-- tblAdCat 관리자 행동로그 카테고리
+insert into tblAdcat(adCatSeq, adCatContents) values(1, '사용자 비활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(2, '사용자 활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(3, '저장소 용량 변경');
+insert into tblAdcat(adCatSeq, adCatContents) values(4, '건의사항 답변');
+insert into tblAdcat(adCatSeq, adCatContents) values(5, '자유게시판 게시글 비활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(6, '자유게시판 게시글 활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(7, '공지사항 작성');
+insert into tblAdcat(adCatSeq, adCatContents) values(8, '공지사항 삭제');
+insert into tblAdcat(adCatSeq, adCatContents) values(9, '공지사항 고정');
+insert into tblAdcat(adCatSeq, adCatContents) values(10, '공지사항 고정해제');
+insert into tblAdcat(adCatSeq, adCatContents) values(11, '동화책 비활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(12, '동화책 활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(13, '동화책 감상 비활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(14, '동화책 감상 활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(15, '동화책 수상');
+insert into tblAdcat(adCatSeq, adCatContents) values(16, '자유게시판 댓글 비활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(17, '자유게시판 댓글 활성화');
+insert into tblAdcat(adCatSeq, adCatContents) values(18, '공지사항 수정');
+insert into tblAdcat(adCatSeq, adCatContents) values(19, '건의사항 답변 수정');
+
+-- 사용자 행동로그 카테고리
+select * from tblUserCat;
+insert into tblUserCat(userCatSeq, userCatContents) values(1, '회원가입');
+insert into tblUserCat(userCatSeq, userCatContents) values(2, '탈퇴');
+insert into tblUserCat(userCatSeq, userCatContents) values(3, '로그인');
+insert into tblUserCat(userCatSeq, userCatContents) values(4, '자유게시판 글작성');
+insert into tblUserCat(userCatSeq, userCatContents) values(5, '자유게시판 글수정');
+insert into tblUserCat(userCatSeq, userCatContents) values(6, '자유게시판 글 신고누적');
+insert into tblUserCat(userCatSeq, userCatContents) values(7, '자유게시판 댓글 작성');
+insert into tblUserCat(userCatSeq, userCatContents) values(8, '자유게시판 댓글 수정');
+insert into tblUserCat(userCatSeq, userCatContents) values(10, '자유게시판 댓글 신고누적');
+insert into tblUserCat(userCatSeq, userCatContents) values(11, '동화책 공유 등록');
+insert into tblUserCat(userCatSeq, userCatContents) values(12, '동화책 조회');
+insert into tblUserCat(userCatSeq, userCatContents) values(13, '동화책 수정');
+insert into tblUserCat(userCatSeq, userCatContents) values(14, '동화책 스크랩');
+insert into tblUserCat(userCatSeq, userCatContents) values(15, '동화책 좋아요');
+insert into tblUserCat(userCatSeq, userCatContents) values(16, '동화책 신고');
+insert into tblUserCat(userCatSeq, userCatContents) values(17, '동화책 신고누적');
+insert into tblUserCat(userCatSeq, userCatContents) values(18, '동화책 감상 작성');
+insert into tblUserCat(userCatSeq, userCatContents) values(19, '동화책 감상 수정');
+insert into tblUserCat(userCatSeq, userCatContents) values(20, '동화책 감상 좋아요');
+insert into tblUserCat(userCatSeq, userCatContents) values(21, '동화책 감상 신고누적');
+insert into tblUserCat(userCatSeq, userCatContents) values(22, '남의 동화책 이야기 바꾸기');
+insert into tblUserCat(userCatSeq, userCatContents) values(23, '건의사항 작성');
+insert into tblUserCat(userCatSeq, userCatContents) values(24, '건의사항 수정');
+
+--------------------
+-- 최고관리자 계정--
+--------------------
+insert into tblAdmin(adId, adPw, adName, adNick, adAddress, adTel, adLv)
+values('super', '1111', '최고관리자', '최고관리자', ' ', ' ', 3);
 
 commit;

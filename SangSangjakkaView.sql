@@ -24,7 +24,7 @@ FROM
     LEFT JOIN (SELECT bookSeq, COUNT(*) AS reviewCnt FROM tblReview GROUP BY bookSeq) r ON b.bookSeq = r.bookSeq
     LEFT JOIN (SELECT bookSeq, COUNT(*) AS scrapCnt FROM tblScrap GROUP BY bookSeq) s ON b.bookSeq = s.bookSeq;
     
-    
+select * from vwBookBlack;
 -- 동화책 화이트리스트
 CREATE OR REPLACE VIEW vwBookWhite
 AS
@@ -45,7 +45,9 @@ SELECT
     b.userNick
 FROM VWBOOK B
     INNER JOIN tblBookWhiteList bw 
-    ON b.bookSeq = bw.bookSeq;
+    ON b.bookSeq = bw.bookSeq
+        inner join tblUser u 
+        on b.userSeq = u.userSeq;
 
 
 
@@ -62,10 +64,14 @@ SELECT
     b.bookReportCnt,
     b.userSeq,
     b.parentBookSeq,
-    b.rcmAgeSeq
+    b.rcmAgeSeq,
+    u.userNick
 FROM 
     tblBook b
-    LEFT JOIN tblBookWhiteList bw ON b.bookSeq = bw.bookSeq
+    LEFT JOIN tblBookWhiteList bw 
+    ON b.bookSeq = bw.bookSeq
+        inner join tblUser u 
+        on b.userSeq = u.userSeq;
 WHERE
     bw.bookSeq IS NULL;
 
@@ -95,9 +101,12 @@ SELECT
     b.boardRegdate,
     b.boardReportCnt,
     b.boardCnt,
-    b.userSeq
+    b.userSeq,
+    u.userNick
 FROM
     tblBoard b
+    inner join tblUser u
+    on b.userSeq = u.userSeq
 WHERE
     b.boardSeq NOT IN (
         SELECT
@@ -116,13 +125,16 @@ SELECT
     b.boardRegdate,
     b.boardReportCnt,
     b.boardCnt,
-    b.userSeq
+    b.userSeq,
+    u.userNick
 FROM tblBoard b
     inner JOIN tblBoardWhiteList w
     on b.boardSeq = w.boardSeq
+        inner join tblUser u
+        on u.userSeq = b.userSeq
 order by b.boardRegdate desc;
 
-
+select * from vwBoard;
 -- 블라인드제외 자유게시판 댓글
 create or replace view vwBoardComments
 as
@@ -132,10 +144,13 @@ select
     c.boardSeq,
     c.cmntContents,
     c.cmntReportCnt,
-    c.cmntRegdate
+    c.cmntRegdate,
+    u.userNick
 from tblBoardComments c
     inner join tblBoardCommentWhiteList w
     on c.cmntSeq = w.cmntSeq
+        inner join tblUser u
+        on u.userSeq = c.userSeq
 order by c.cmntRegdate;
 
 -- 자유게시판 댓글 블랙리스트
@@ -147,9 +162,12 @@ SELECT
     c.boardSeq,
     c.cmntContents,
     c.cmntReportCnt,
-    c.cmntRegdate
+    c.cmntRegdate,
+    u.userNick
 FROM
     tblBoardComments c
+        inner join tblUser u
+        on c.userSeq = u.userSeq
 WHERE
     c.cmntSeq NOT IN (
         SELECT
@@ -179,7 +197,8 @@ SELECT
     s.userSeq as mySeq
 FROM 
     vwBookWhite b
-    INNER JOIN tblScrap s ON b.bookSeq = s.bookSeq;
+    INNER JOIN tblScrap s 
+    ON b.bookSeq = s.bookSeq;
 
 -- 화이트리스트 좋아요 내역
 CREATE OR REPLACE VIEW vwLike 
