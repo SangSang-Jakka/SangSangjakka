@@ -49,77 +49,46 @@
 				<!-- 게시글 상세보기 -->
 				<div class="row">
                     <div class="viewContainer">
-                        <h2>개인 용량 관리</h2>
+                        <h2>동화책 상세</h2>
 
                         <span class="right">
-                        <input type="button" value="수정" class="btn btn-primary">
+                        
                         <input type="button" value="확인" class="btn btn-primary">
                         </span>
                 
                         <table>
                         <tr>
-                            <th>사용자</th>
+                            <th>동화책명</th>
+                            <td>신데렐라</td>
+                            <th>작성자</th>
                             <td>tldnjs12</td>
-                            <th>용량</th>
-                            <td>2GB/10GB</td>
                         </tr>
-                     
-                        
-                        </table>
-                        
-                       <table class="table table-striped">
-                                        
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">번호</th>
-                                                <th scope="col">동화책명</th>
-                                                <th scope="col">용량</th>
-                                                <th scope="col">관리</th>
-                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>신데렐라</td>
-                                                <td>150MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>피노키오</td>
-                                                <td>150MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>콩쥐팥쥐</td>
-                                                <td>350MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>알라딘</td>
-                                                <td>150MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>라푼젤</td>
-                                                <td>450MB</td>
-                                                <td></td>
-                                                
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
+                        <tr>
+                            <th>등록일자</th>
+                            <td>2024/04/01</td>
+                            <th>조회수</th>
+                            <td>150</td>
+                        </tr>
+                        <tr>
+                            <th>저장횟수</th>
+                            <td>30</td>
+                            <th>좋아요수</th>
+                            <td>55</td>
+                        </tr>
+                        <tr>
+                            <th>소감수</th>
+                            <td>25</td>
+                            <th>총점</th>
+                            <td>55</td>
+                        </tr>
                        
-                       
+</table>
+                        
 
+                        <span class="left">
+                            <input type="button" value="이전" class="btn btn-primary">
+                            <input type="button" value="다음" class="btn btn-primary">
+                        </span>
 
                         <span class="right">
                             <input type="button" value="목록" class="btn btn-primary pull-right">

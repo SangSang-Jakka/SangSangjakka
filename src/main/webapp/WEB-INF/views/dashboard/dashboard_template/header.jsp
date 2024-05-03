@@ -61,7 +61,7 @@
                     <span class="user-name">관리자</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="/sangsangjakka/admin/mypage.do"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="/sangsangjakka/admin/login.do"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
