@@ -59,6 +59,7 @@
 						<form class="tab-wizard wizard-circle wizard">
 							
 						
+								
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -68,21 +69,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label >이메일 : </label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>전화번호 :</label>
-											<input type="email" class="form-control">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Select City :</label>
+											<label>닉네임 :</label>
 											<select class="custom-select form-control">
 												<option value="">등급</option>
 												<option value="Amsterdam">최고관리자</option>
@@ -92,6 +79,7 @@
 										</div>
 									</div>
 								</div>
+								
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -106,7 +94,10 @@
 										</div>
 									</div>
 								</div>
-							
+							 <div>
+
+                       
+                    </div>
 							<!-- Step 2 -->
                            
 						</form>

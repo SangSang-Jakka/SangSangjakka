@@ -65,7 +65,7 @@
                     <ul class="submenu">
                         <li><a href="/sangsangjakka/admin/list.do">관리자 계정 목록</a></li>
                         <!-- <li><a href="#">관리자 계정 생성</a></li> -->
-                        <li><a href="#">관리자 계정 정지</a></li>
+                        <li><a href="/sangsangjakka/admin/mypage.do">관리자 마이페이지</a></li>
                         <li><a href="#">로그</a></li>
                     </ul>
                 </li>

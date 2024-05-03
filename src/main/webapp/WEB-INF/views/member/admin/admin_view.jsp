@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/suggestions.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
+	
 	<style>
 	
 	
@@ -42,99 +44,84 @@
 	               </div>
 	
 	
-	               <div class="row clearfix">
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 동화책</div>
-	                                   <div class="weight-600 font-14">Book</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 게시글</div>
-	                                   <div class="weight-600 font-14">Post</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 유저</div>
-	                                   <div class="weight-600 font-14">User</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 건의사항</div>
-	                                   <div class="weight-600 font-14">Suggestion</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-				</div>
+	              
 	
 	
-				
+	
+	               
 				<!-- Simple Datatable start -->
-				<!-- Simple Datatable start -->
-				<div class="card-box mb-30">
-					<div class="pd-20">
-						<h4 class="text-blue h4">관리자 멤버</h4>
-                        <button type="button" class="btn btn-primary pull-right" onclick="location.href='/sangsangjakka/admin/add.do'">멤버 추가하기</button>
-					</div>
-                    
-					<div class="pb-20">
-						<table class="data-table table stripe hover nowrap" id="myTable">
-							<thead>
-								<tr>
-									<th class="table-plus datatable-nosort">번호</th>
-									<th>관리자명</th>
-									<th>역할</th>
-									
-									<th>등록일</th>
-									
-								</tr>
-							</thead>
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<h4 class="text-blue h4">관리자 정보</h4>
 						
-							<tbody>
-								<tr>
-									<td class="table-plus">1</td>
-									<td>
-									
-									
-									<a href ="/sangsangjakka/admin/view.do">
-									ghkdtl12</td>
-									<td>관리자</td>
-									
-									<td>2024/03/01</td>
-									
-								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td>tldnjs33</td>
-									<td>관리자</td>
-									
-									<td>2024/03/28</td>
-									
-								</tr>
-							</tbody>
-					
-						</table>
+					<a href="/sangsangjakka/admin/viewok.do" class="btn btn-primary pull-right">수정</a>
+					</div>
+					<div class="wizard-content">
+						<form class="tab-wizard wizard-circle wizard">
+							
+						
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >이름 :</label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >주소 : </label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>전화번호 :</label>
+											<input type="email" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>닉네임 :</label>
+											<select class="custom-select form-control">
+												<option value="">등급</option>
+												<option value="Amsterdam">최고관리자</option>
+												<option value="Berlin">관리자</option>
+												
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >아이디 :</label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >비밀번호 : </label>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							 <div>
+
+                       
+                        
+                    </div>
+							<!-- Step 2 -->
+                           
+						</form>
+                        
 					</div>
 				</div>
+			
 			<!-- Simple Datatable End -->
+	
+			
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			
@@ -163,6 +150,8 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
+	
+	
 	</script>
 	</body>
 </html>
