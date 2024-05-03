@@ -1,5 +1,4 @@
-
-body , select.suggestion, select.column, input#search, input.btnSearch, input.btnWritten {
+body , select.suggestion, select.column, input#search, input.btnSearch{
     font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
 }
 
@@ -12,7 +11,7 @@ table {
 section.suggestion {
   margin: auto;
   padding: 80px 0;
-  max-width: 1080px;
+  max-width: 1300px;
 }
 
 .pageTitle {
@@ -20,7 +19,7 @@ section.suggestion {
 }
 
 .pageTitle h3 {
-  font-size: 28px;
+  font-size: 40px;
   color: #333333;
   font-weight:600;
   text-align: center;
@@ -40,16 +39,17 @@ section.suggestion {
 }
 
 #boardSearch .searchWindow .searchWrap select{
-  height: 32px;
-    width: 65px;
+  height: 40px;
+    width: 75px;
     text-align: center;
+    font-size: 17px;
 
 }
 
 #boardSearch .searchWindow .searchWrap input {
-  height: 32px;
+  height: 40px;
   width: 75%;
-  font-size: 14px;
+  font-size: 17px;
   padding: 7px 14px;
   border: 1px solid #ccc;
 }
@@ -64,25 +64,25 @@ section.suggestion {
   top: 0;
   bottom: 0;
   width: 80px;
-  height: 32px;
+  height: 40px;
   padding: 0;
-  font-size: 16px;
+  font-size: 18px;
   border-radius: 2px;
 }
 
 
 
 select.suggestion{
-  margin-bottom: 7px;
-  width: 70px;
-  height: 25px;
+  margin-bottom: 9px;
+  width: 80px;
+  height: 30px;
   text-align: center;
-
+  font-size: 17px;
 }
 
 
 .boardTable {
-  font-size: 13px;
+  font-size: 17px;
   width: 100%;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -117,7 +117,7 @@ select.suggestion{
 
 
 .boardTable .thDate {
-  width: 200px;
+  width: 150px;
 }
 
 .boardTable .thViews {
@@ -145,16 +145,13 @@ select.suggestion{
   padding-right: 14px;
   border-top: 1px solid #e7e7e7;
   text-align: left;
-  
+  height: 65px;
 }
 
 
 
 .boardTable tbody th p{
-  display: inline-block;
-  font-size: 15px;
-  margin-left: 3px;
-  color: red;
+  display: none;
 }
 
 .btnSearch {
@@ -224,55 +221,5 @@ select.suggestion{
 .paging a{
   margin: 10px;
   color: #333333;
+  font-size: 20px;
 }
-
-
-
-/* 쓰기 */
-
-.WrittenBox {
-  
-  margin-top: 15px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btnWritten {
-
-  width: 80px;
-  height: 32px;
-  font-size: 15px;
-  border-radius: 2px;
-  display: inline-block;
-  text-align: center;
-  white-space: nowrap;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-
-.btnWritten {
-  background: #f5956c;
-  color: #fff;
-
-}
-
-.btnWritten:hover {
-  background: #e98358;
-  border-color: #e98358;
-  color: #fff;
-}
-
