@@ -49,7 +49,7 @@
                   <tbody>
                   <tr class>
                       <td>7</td>
-                      <th><a href="#!">@비밀글입니다</a><p>[3]</p></th>
+                      <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
                       <td>홍길동</td>
                       <td>2017.06.15</td>
                       <td>23</td>
@@ -63,21 +63,21 @@
                   </tr>
                   <tr>
                       <td>5</td>
-                      <th><a href="#!">@비밀글입니다</a></th>
+                      <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a></th>
                       <td>홍길동</td>
                       <td>2017.06.15</td>
                       <td>0</td>
                   </tr>
                   <tr>
                     <td>4</td>
-                    <th><a href="#!">@비밀글입니다</a><p>[3]</p></th>
+                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
                     <td>홍길동</td>
                     <td>2017.06.15</td>
                     <td>0</td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <th><a href="#!">@비밀글입니다</a></th>
+                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a></th>
                     <td>홍길동</td>
                     <td>2017.06.15</td>
                     <td>0</td>
@@ -85,7 +85,7 @@
   
                 <tr>
                     <td>2</td>
-                    <th><a href="#!">@비밀글입니다</a><p>[5]</p></th>
+                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[5]</p></th>
                     <td>홍길동</td>
                     <td>2017.06.15</td>
                     <td>0</td>
@@ -93,7 +93,7 @@
   
                 <tr>
                     <td>1</td>
-                    <th><a href="#!">@비밀글입니다</a><p>[1]</p></th>
+                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[1]</p></th>
                     <td>홍길동</td>
                     <td>2017.06.15</td>
                     <td>0</td>
@@ -102,8 +102,13 @@
               </table>
           </div>
       </div>
+      
+     <!-- 작성 -->
 
-
+      <div class="WrittenBox">
+          <input type="button" class="btnWritten" value="쓰기" onclick="location.href='/sangsangjakka/board/suggestion/add.do'">
+      </div>
+      
       <!-- board seach area -->
       <div id="boardSearch">
         <div>
@@ -146,6 +151,7 @@
 		<%@include file="/WEB-INF/views/template/footer.jsp"%>
 		
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	 <script src="https://kit.fontawesome.com/8a0ce49d35.js" crossorigin="anonymous"></script>
 	<script>
 	</script>
 	</body>
