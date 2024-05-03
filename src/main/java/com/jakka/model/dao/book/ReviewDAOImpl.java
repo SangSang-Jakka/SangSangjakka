@@ -252,7 +252,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public int addReportCnt(String seq) {
+	public int addReportCnt(String seq, String userSeq) {
 		
 		final String SQL = "UPDATE tblReview SET reviewReportCnt = reviewReportCnt + 1 WHERE reviewSeq = ?";
 

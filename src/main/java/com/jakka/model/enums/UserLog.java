@@ -22,8 +22,9 @@ public enum UserLog {
 	BookReviewEdited("19"),       // 동화책 감상 수정
 	BookReviewLiked("20"),        // 동화책 감상 좋아요
 	BookReviewReported("21"),     // 동화책 감상 신고누적
-	BookStoryChanged("22");       // 남의 동화책 이야기 바꾸기
-    
+	BookStoryChanged("22"),       // 남의 동화책 이야기 바꾸기
+	SuggestionCreated("23"),		// 건의사항 작성
+	SuggestionEdited("24");		// 건의사항 수정
 	
 	private final String value;
 	

@@ -253,7 +253,7 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	@Override
-	public int addReportCnt(String bookSeq) {
+	public int addReportCnt(String bookSeq, String userSeq) {
 		
 		final String SQL = "update tblBook set bookReportCnt = bookReportCnt + 1 where bookSeq = ?";
 		
