@@ -29,12 +29,12 @@
 	                   <div class="row">
 	                       <div class="col-md-12 col-sm-12">
 	                           <div class="title">
-	                               <h4>공지사항</h4>
+	                               <h4>건의사항</h4>
 	                           </div>
 	                           <nav aria-label="breadcrumb" role="navigation">
 	                               <ol class="breadcrumb">
 	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">동화책 신고 관리</li>
+	                                   <li class="breadcrumb-item active" aria-current="page">건의사항 게시판</li>
 	                               </ol>
 	                           </nav>
 	                       </div>
@@ -56,6 +56,7 @@
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
+									<th>구분</th>
 									<th>제목</th>
 									<th>작성자</th>
 									<th>작성일</th>
@@ -67,8 +68,9 @@
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
-									<td>제목입니다.</td>
-									<td>Gemini</td>
+									<td>일반</td>
+									<td>문의드립니다.</td>
+									<td>왕자</td>
 									<td>2024-05-01</td>
 									<td>15</td>
 									<td>
@@ -86,8 +88,9 @@
 								</tr>
 								<tr>
 									<td class="table-plus">2</td>
-									<td>제목인데요.</td>
-									<td>관리자</td>
+									<td>비밀</td>
+									<td>어떻게 해야 합니까?</td>
+									<td>공주</td>
 									<td>2024-03-28</td>
 									<td>35</td>
 									<td>
