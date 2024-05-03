@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/suggestions.css">
+	
 	<style>
 	
 	
@@ -34,7 +35,7 @@
 	                           <nav aria-label="breadcrumb" role="navigation">
 	                               <ol class="breadcrumb">
 	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">동화책 신고 관리</li>
+	                                   <li class="breadcrumb-item active" aria-current="page">공지사항</li>
 	                               </ol>
 	                           </nav>
 	                       </div>
@@ -67,7 +68,7 @@
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
-									<td>제목입니다.</td>
+									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">제목입니다.</a></td>
 									<td>Gemini</td>
 									<td>2024-05-01</td>
 									<td>15</td>
@@ -77,7 +78,7 @@
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do"><i class="dw dw-eye"></i> View</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
@@ -86,7 +87,7 @@
 								</tr>
 								<tr>
 									<td class="table-plus">2</td>
-									<td>제목인데요.</td>
+									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">제목인데요.</a></td>
 									<td>관리자</td>
 									<td>2024-03-28</td>
 									<td>35</td>
@@ -96,7 +97,7 @@
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do"><i class="dw dw-eye"></i> View</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
 											</div>

@@ -14,7 +14,7 @@
 
 /* Heading */
 h2 {
-    color: #333;
+    color: #1B00FF;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -28,13 +28,13 @@ table {
 
 th, td {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #DEE2E6;
 }
 
 th {
     width: 100px;
     text-align: center;
-    background-color: #f2f2f2;
+    background-color: #EAEEF2;
 }
 
 td {
@@ -47,7 +47,7 @@ textarea {
     width: 100%;
     height: 150px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #DEE2E6;
     border-radius: 5px;
     resize: vertical;
 }
@@ -71,27 +71,7 @@ textarea {
     float: left;
   }
 
-  .greylist {
-    width: 50px;
-    height: 30px;
-    font-weight: 900;
-    color: white;
-    text-align: center;
-    background: grey;
-    border: solid 2px white;
-    border-radius: 5px;
-  }
-  
-  .gradient {
-    width: 80px;
-    height: 30px;
-    font-weight: 900;
-    color: white;
-    text-align: center;
-    background: linear-gradient(to bottom, grey, black);
-    border: solid 2px white;
-    border-radius: 5px;
-  }
+
 
   /* 댓글 */
 .commentContainer {
@@ -99,7 +79,7 @@ textarea {
 }
 
 .commentItem {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #DEE2E6;
     padding: 10px;
 }
 
@@ -124,10 +104,12 @@ textarea {
 
 .commentInput input[type="text"] {
     width: calc(100% - 80px);
-    height: 30px;
+    height: 40px;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #DEE2E6;
     border-radius: 5px 0 0 5px;
 
 }
+
+
 
