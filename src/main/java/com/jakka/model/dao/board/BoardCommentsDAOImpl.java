@@ -292,7 +292,6 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
-				
 			){
 			
 			pstat.setString(1, cmntSeq);
@@ -314,14 +313,27 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	public int disable(String cmntSeq, String adId) {
 		
 		final String SQL = "delete from tblBoardCommentWhiteList where cmntSeq = ?";
-		
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 16)";
+
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
+				
 		){
+			conn.setAutoCommit(false);
+			
 			pstat.setString(1, cmntSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+			       log.setString(1, adId);
+			       log.setString(2, "'" + adId + "'이 자유게시판 댓글번호'" + cmntSeq + "'을(를) '비활성화'했습니다.");
+			       log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			

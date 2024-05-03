@@ -11,6 +11,7 @@ import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dao.Cnt;
 import com.jakka.model.dao.Search;
 import com.jakka.model.dto.board.NoticeDTO;
+import com.jakka.model.enums.AdminLog;
 
 public class NoticeDAOImpl implements NoticeDAO{
 	
@@ -71,19 +72,31 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public int add(NoticeDTO dto) {
 		
 		final String SQL = "insert into tblNotice (noticeSeq, noticeTitle, noticeContents, noticeRegdate, noticeCnt, adId) values ((SELECT NVL(MAX(noticeSeq),0)+1 FROM tblNotice), ?, ?, default, default, ?)";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 				
 			){
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getNoticeTitle());
 			pstat.setString(2, dto.getNoticeContents());
 			pstat.setString(3, dto.getAdId());
 			
 			int result = pstat.executeUpdate(); 
+			
+			if(result > 0) {
+				log.setString(1, dto.getAdId());
+				log.setString(2, "'" + dto.getAdId() + "'이 글제목'" + dto.getNoticeTitle()  + "' 글내용'" + dto.getNoticeContents() + "' 공지사항을 작성했습니다.");
+				log.setString(3, AdminLog.NoticeCreated.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -108,19 +121,29 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public int save(NoticeDTO dto) {
 		
 		final String sql = "update tblNotice set noticeTitle = ?, noticeContents = ? where noticeSeq = ?";
-		
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		try(
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(sql);
-			
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 			) {
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getNoticeTitle());
 			pstat.setString(2, dto.getNoticeContents());
 			pstat.setString(3, dto.getNoticeSeq());
 			
 			int result = pstat.executeUpdate(); 
+			
+			if(result > 0) {
+				log.setString(1, dto.getAdId());
+				log.setString(2, "'" + dto.getAdId() + "'이 글번호'" + dto.getNoticeSeq() + "' 글제목'" + dto.getNoticeTitle()  + "' 글내용'" + dto.getNoticeContents() + "' 공지사항을 수정했습니다.");
+				log.setString(3, AdminLog.NoticeEdited.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -202,18 +225,31 @@ public class NoticeDAOImpl implements NoticeDAO{
 	
 	//공지사항 고정
 	@Override
-	public int fixed(String noticeSeq) {
+	public int fixed(String noticeSeq, String adId) {
 		
 		final String SQL = "insert into tblNoticeFix(noticeSeq) values(?)";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 		){
+			
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, noticeSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if(result > 0) {
+				log.setString(1, adId);
+				log.setString(2, "'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 고정했습니다.");
+				log.setString(3, AdminLog.NoticeFixed.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -226,20 +262,34 @@ public class NoticeDAOImpl implements NoticeDAO{
 	}
 	
 	//공지사항 고정 해제
-	public int Unfixing(String noticeSeq) {
+	public int Unfixing(String noticeSeq, String adId) {
 		
 		final String SQL = "delete from tblNoticeFix where noticeSeq = ?";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 		try (
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
+				PreparedStatement log = conn.prepareStatement(LOGSQL);
 			){
 				
+				conn.setAutoCommit(false);
+			
 				pstat.setString(1, noticeSeq);
 				
 				int result = pstat.executeUpdate();
 				
+				if(result > 0) {
+					log.setString(1, adId);
+					log.setString(2, "'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 고정해제했습니다.");
+					log.setString(3, AdminLog.NoticeUnfixed.getValue());
+					log.executeUpdate();
+				}
+				
+				conn.commit();
+				
 				return result;
+				
 		} catch (Exception e) {
 			System.out.println("NoticeDAO.| Unfixing");
 			e.printStackTrace();
@@ -249,15 +299,17 @@ public class NoticeDAOImpl implements NoticeDAO{
 	}
 	
 	//공지사항 삭제
-	public int remove(String noticeSeq) {
+	public int remove(String noticeSeq, String adId) {
 		
 		final String noticeFixSQL = "delete from tblNoticeFix where noticeSeq = ?";
 		final String noticeSQL = "delete from tblNotice where noticeSeq = ?";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement fpstat = conn.prepareStatement(noticeFixSQL);
 			PreparedStatement npstat = conn.prepareStatement(noticeSQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 		){
 			
 			conn.setAutoCommit(false);
@@ -267,6 +319,13 @@ public class NoticeDAOImpl implements NoticeDAO{
 			
 			//고정글 fpstat부터 실행, 이후 공지사항npstat실행
 			int result = (fpstat.executeUpdate() + npstat.executeUpdate());
+			
+			if (result > 0) {
+				log.setString(1, adId);
+				log.setString(2, "'" + adId + "'이 글번호'" + noticeSeq + "' 공지사항을 삭제했습니다.");
+				log.setString(3, AdminLog.NoticeDeleted.getValue());
+				log.executeUpdate();
+			}
 			
 			conn.commit();
 			

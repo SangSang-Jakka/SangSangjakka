@@ -54,7 +54,7 @@ public class DAOManager {
 		
 	}//BoardCommentDAO()
 	
-	public static SuggestionAnswerDAO getSuggestionCommentDAO() {
+	public static SuggestionAnswerDAO getSuggestionAnswerDAO() {
 		
 		return SuggestionAnswerDAOImpl.getInstance();
 		

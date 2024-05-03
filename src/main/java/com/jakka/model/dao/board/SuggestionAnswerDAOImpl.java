@@ -10,6 +10,7 @@ import com.jakka.model.DBUtil;
 import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dto.board.SuggestionAnswerDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
+import com.jakka.model.enums.AdminLog;
 
 public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 
@@ -29,7 +30,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 	public int add(SuggestionAnswerDTO dto) {
 		
 		final String SQL = "insert into tblSuggestionAnswer(answSeq, adId, sgstSeq, sgstAnsw, sgstRegdate) values((SELECT NVL(MAX(answSeq), 0) + 1 FROM tblSuggestionAnswer), ?, ?, ?, default)";
-		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 4)";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 		try (
 			Connection conn = DBUtil.open();
@@ -48,7 +49,8 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 			
 			if (result > 0) {
 	            log.setString(1, dto.getAdId());
-	            log.setString(2, "'" + dto.getAdId() + "'이 건의사항 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'답변을 달았습니다.");
+	            log.setString(2, "'" + dto.getAdId() + "'이 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'건의사항 답변을 달았습니다.");
+	            log.setString(3, AdminLog.SuggestionAnswered.getValue());
 	            log.executeUpdate();
 	        }
 			
@@ -187,17 +189,30 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 	public int save(SuggestionAnswerDTO dto) {
 		
 		final String SQL = "update tblSuggestionAnswer set sgstAnsw = ? where answSeq = ?";
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
 		
 		try (
 			
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
 				
 			){
+			
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getSgstAnsw());
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getAdId());
+				log.setString(2, "'" + dto.getAdId() + "'이 글번호'" + dto.getSgstSeq() + "'에 '" + dto.getSgstAnsw() + "'건의사항 답변을 수정했습니다.");
+				log.setString(3, AdminLog.SuggestionAnsweredEdited.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
