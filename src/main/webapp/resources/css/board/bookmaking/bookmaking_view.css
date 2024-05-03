@@ -1,0 +1,233 @@
+/* bookmaking_view.css */
+.flex {
+	display: flex;
+}
+
+.full {
+	width: 100%;
+}
+
+.full input[type="text"] {
+	flex-grow: 1;
+}
+
+.full.flex input[type="text"] {
+	border-radius: 10px;
+}
+
+.full.flex input[type="submit"] {
+	margin-left: 10px;
+}
+
+.whitespace {
+	font-size: 1.5rem;
+}
+
+.orange {
+	background: #FF7223;
+}
+
+.tomato {
+	background: #FE4848;
+}
+
+#bookmakingGrid {
+	display: grid;
+	grid-template-columns: auto 1200px auto;
+}
+
+.bookmakingGridCenter {
+	width: 1200px;
+	margin: 120px auto;
+	padding: 20px;
+	background-color: #f8f8f8;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bookmakingGridCenter h2 {
+	text-align: center;
+	font-size: 24px;
+	color: #333;
+	margin-bottom: 40px;
+}
+
+.bookmakingOptionWrap {
+	display: flex;
+	justify-content: space-around;
+}
+
+.bookmakingOptionContainer {
+	width: 45%;
+	padding: 15px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.bookmakingOptionContainer h3 {
+	font-size: 20px;
+	color: #555;
+}
+
+.bookmakingOptionContainer p {
+	font-size: 16px;
+	color: #666;
+	line-height: 1.5;
+}
+
+.bb-custom-wrapper {
+	height: 800px;
+	vertical-align: middle;
+	margin-bottom: 100px;
+}
+
+.makedPageViewer {
+	height: 60%;
+	display: grid;
+	grid-template-columns: 10% 80% 10%;
+}
+
+.containerLeft, .containerRight {
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+
+.containerLeft>nav, .containerRight>nav {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.containerLeft nav a, .containerRight nav a {
+	display: inline-block;
+	margin: 0 1px;
+}
+
+#bb-nav-first, #bb-nav-last {
+	background: #03CB8F;
+}
+
+#bb-nav-prev, #bb-nav-next {
+	background: #9CC624;
+}
+
+.pageImage {
+	height: 70%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pageOptionBox {
+	margin-top: 10px;
+}
+
+.pageOptionBox>div:nth-child(1) {
+	width: 160px;
+	background-color: #0E9AFF;
+}
+
+.pageOptionBox>div:nth-child(2) {
+	width: 160px;
+	background-color: #FFA012;
+}
+
+.pageOptionBox>div:nth-child(3) {
+	width: 160px;
+	background-color: #C61FA1;
+}
+
+.btnBox {
+	width: 100%;
+	display: inline-flex;
+	justify-content: space-between;
+	text-align: center;
+}
+
+.btnItem {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 170px;
+	height: 60px;
+	border-radius: 10px;
+	font-weight: bold;
+	color: aliceblue;
+	font-size: 1.3rem;
+	font-family: Fredoka;
+	vertical-align: middle;
+}
+
+.smallBtn {
+	width: 40px;
+}
+
+.middleBtn {
+	width: 100px;
+}
+
+.pointer:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.columnFlex {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	flex-direction: column;
+}
+
+.pageMaker {
+	display: grid;
+	grid-template-columns: 49% 1% 1% 49%;
+	height: 50%;
+}
+
+.vDashed, .vDashedRight {
+	height: 100%;
+	border: 0;
+}
+
+.vDashed {
+	border-right: 1px dashed black;
+}
+
+.pageTextMakerBox {
+	margin-top: 16px;
+}
+
+.pageTextMakerItem {
+	text-align: start;
+}
+
+.pageTextMakerItem>span {
+	font-size: 1.5rem;
+}
+
+.pageTextMakerItem>div {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.pageImageMakerBox {
+	margin-top: 16px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 10px;
+}
+
+.pageImageMakerItem {
+	width: 180px;
+}
+
+.pageImageMakerItemImg {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

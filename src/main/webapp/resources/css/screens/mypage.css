@@ -34,22 +34,22 @@ section.notice {
 	margin-bottom: 30px;
 }
 
-#boardSearch .searchWindow .searchWrap {
+#boardSearch .searchWindow .searchContainer {
 	position: relative;
-	/*   padding-right: 124px; */
+	/*	 padding-right: 124px; */
 	margin: 0 auto;
 	width: 100%;
 	max-width: 620px;
 }
 
-#boardSearch .searchWindow .searchWrap select {
+#boardSearch .searchWindow .searchContainer select {
 	height: 32px;
 	width: 65px;
 	text-align: center;
 
 }
 
-#boardSearch .searchWindow .searchWrap input {
+#boardSearch .searchWindow .searchContainer input {
 	height: 32px;
 	width: 75%;
 	font-size: 14px;
@@ -57,13 +57,13 @@ section.notice {
 	border: 1px solid #ccc;
 }
 
-#boardSearch .searchWindow .searchWrap input:focus {
+#boardSearch .searchWindow .searchContainer input:focus {
 	border-color: #333;
 	outline: 0;
 	border-width: 1px;
 }
 
-#boardSearch .searchWindow .searchWrap .btnSearch {
+#boardSearch .searchWindow .searchContainer .btnSearch {
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -154,7 +154,7 @@ select.notice {
 	padding: 0 30px;
 	font-size: 15px;
 	text-align: center;
-	white-space: nowrap;
+	white-space: noContainer;
 	-ms-touch-action: manipulation;
 	touch-action: manipulation;
 	cursor: pointer;
@@ -281,21 +281,21 @@ option {
 	background: #f1f7ff;
 }
 
-.childrenAgeWrap {
+.childrenAgeContainer {
 	margin-top: 20px;
 	display: flex;
 	justify-content: space-between;
 }
 
-.childrenAgeWrap div {
+.childrenAgeContainer div {
 	margin-bottom: 10px;
 }
 
-.childrenAgeWrap input[type="checkbox"] {
+.childrenAgeContainer input[type="checkbox"] {
 	display: none;
 }
 
-.childrenAgeWrap input[type="checkbox"]+label {
+.childrenAgeContainer input[type="checkbox"]+label {
 	display: inline-block;
 	cursor: pointer;
 	padding-left: 25px;
@@ -303,7 +303,7 @@ option {
 
 }
 
-.childrenAgeWrap input[type="checkbox"]+label:before {
+.childrenAgeContainer input[type="checkbox"]+label:before {
 	content: '';
 	display: inline-block;
 	width: 16px;
@@ -314,11 +314,11 @@ option {
 	top: 1px;
 }
 
-.childrenAgeWrap input[type="checkbox"]:checked+label:before {
+.childrenAgeContainer input[type="checkbox"]:checked+label:before {
 	background-color: orange;
 }
 
-.childrenAgeWrap input[type="checkbox"]+label:after {
+.childrenAgeContainer input[type="checkbox"]+label:after {
 	content: '\2713';
 	color: #fff;
 	font-size: 12px;
@@ -328,36 +328,36 @@ option {
 	visibility: hidden;
 }
 
-.childrenAgeWrap input[type="checkbox"]:checked+label:after {
+.childrenAgeContainer input[type="checkbox"]:checked+label:after {
 	visibility: visible;
 }
 
-.inFlowWrap {
+.inFlowContainer {
 	display: flex;
-	flex-wrap: wrap;
+	flex-Container: Container;
 	margin-top: 20px;
 	justify-content: space-between;
 }
 
-.inFlowWrap div {
+.inFlowContainer div {
 	width: 32%;
 	/* 한 줄에 4개의 체크박스가 보이도록 설정 */
 	margin-bottom: 20px;
 }
 
-.inFlowWrap input[type="checkbox"] {
+.inFlowContainer input[type="checkbox"] {
 	display: none;
 
 }
 
-.inFlowWrap input[type="checkbox"]+label {
+.inFlowContainer input[type="checkbox"]+label {
 	display: inline-block;
 	cursor: pointer;
 	padding-left: 25px;
 	position: relative;
 }
 
-.inFlowWrap input[type="checkbox"]+label:before {
+.inFlowContainer input[type="checkbox"]+label:before {
 	content: '';
 	display: inline-block;
 	width: 16px;
@@ -368,11 +368,11 @@ option {
 	top: 1px;
 }
 
-.inFlowWrap input[type="checkbox"]:checked+label:before {
+.inFlowContainer input[type="checkbox"]:checked+label:before {
 	background-color: orange;
 }
 
-.inFlowWrap input[type="checkbox"]+label:after {
+.inFlowContainer input[type="checkbox"]+label:after {
 	content: '\2713';
 	color: #fff;
 	font-size: 12px;
@@ -382,7 +382,7 @@ option {
 	visibility: hidden;
 }
 
-.inFlowWrap input[type="checkbox"]:checked+label:after {
+.inFlowContainer input[type="checkbox"]:checked+label:after {
 	visibility: visible;
 }
 
@@ -431,7 +431,7 @@ option {
 	text-align: center;
 }
 
-.emailWrap {
+.emailContainer {
 	display: flex;
 	align-items: center;
 	/* 수직 중앙 정렬 */
@@ -439,7 +439,7 @@ option {
 	/* input과 select의 높이와 동일하게 맞춤 */
 }
 
-.emailWrap input {
+.emailContainer input {
 	padding: 5px;
 	border-bottom: 1px solid #cfcfcf;
 }
@@ -452,11 +452,11 @@ option {
 	/* 이메일 input과 @ 사이 간격 조정 */
 }
 
-.changableWrap {
+.changableContainer {
 	display: flex;
 }
 
-.changableWrap input {
+.changableContainer input {
 	width: 100%;
 }
 
@@ -478,11 +478,11 @@ option {
 	color: white;
 }
 
-.idWrap {
+.idContainer {
 	display: flex;
 }
 
-.idWrap input {
+.idContainer input {
 	width: 100%;
 }
 
@@ -500,15 +500,15 @@ option {
 	color: white;
 }
 
-.idWrap input {
+.idContainer input {
 	width: 100%;
 }
 
-.pwWrap input {
+.pwContainer input {
 	width: 100%;
 }
 
-.ssnWrap input {
+.ssnContainer input {
 	border-bottom: 1px solid #cfcfcf;
 }
 
@@ -533,13 +533,13 @@ option {
 	width: 47.5%;
 }
 
-.telWrap {
+.telContainer {
 	display: flex;
 	width: 100%;
 	margin-top: 10px;
 }
 
-.telWrap input {
+.telContainer input {
 	border-bottom: 1px solid #cfcfcf;
 }
 
@@ -556,7 +556,7 @@ option {
 	width: 10%;
 }
 
-.addressWrap {
+.addressContainer {
 	margin-top: 10px;
 }
 
@@ -587,7 +587,7 @@ option {
 	width: 100%;
 }
 
-.tabFormWrap {
+.tabFormContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -734,7 +734,7 @@ li {
 	display: flex;
 }
 
-.pwWrap input {
+.pwContainer input {
 	width: 70%;
 }
 
@@ -753,11 +753,63 @@ li {
 }
 
 .bookshelfControl {
-	display: flex;
-	justify-content: space-between;
-	padding: 10px;
-	max-width: 800px;
-	margin: auto;
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: auto;
+    padding: 10px;
+    height: 50px;
+}
+
+.searchContainer, .makingContainer, .sortingContainer {
+    flex: 1; /* Ensures equal width distribution */
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.sortingContainer {
+	justify-content: end;
+}
+
+.makingContainer {
+	justify-content: center;
+}
+
+.searchBox, .makingBox, .sortingBox {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    height: 40px;
+}
+
+.searchIcon, .makingBox i {
+    margin-left: 10px; /* Consistent spacing for icons */
+    cursor: pointer; /* Pointer cursor for clickable icons */
+}
+
+#searchInput, #bookmakeBtn, #sortOptions {
+    flex-grow: 1;
+    border: none; /* Removes border for inputs */
+    background-color: transparent; /* Transparent background */
+    outline: none; /* Removes focus outline */
+}
+
+#bookmakeBtn {
+    cursor: pointer; /* Pointer cursor for the button */
+}
+
+#sortOptions {
+    margin-top: 3px; /* Adjusts margin for better alignment */
+    margin-bottom: 3px;
+    height: 25px; /* Specific height for select */
+    font-size: 16px; /* Uniform font size */
+}
+
+option {
+    font-size: 16px; /* Uniform font size for options */
 }
 
 .bookshelf {
@@ -767,16 +819,6 @@ li {
 	padding: 16px;
 	max-width: 800px;
 	margin: auto;
-}
-
-.search-wrapper {
-	display: flex;
-	align-items: center;
-}
-
-.sorting-wrapper {
-	display: flex;
-	align-items: center;
 }
 
 .bookshelf {
@@ -843,7 +885,7 @@ li {
 	min-width: 50px;
 }
 
-.pagination button{
+.pagination button {
 	font-size: 1.3rem;
 }
 
@@ -858,43 +900,7 @@ span span:hover {
 	color: #ffa500;
 }
 
-.searchWrapper {
-	display: flex;
-	align-items: center;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px;
-}
-
-#searchBox {
-	flex-grow: 1;
-	/* Allows the input box to take up the remaining space */
-	border: none;
-	background-color: transparent;
-	outline: none;
-	/* Removes focus outline to maintain the flat appearance */
-}
-
-.searchIcon {
-	color: #ccc;
-	/* You can adjust the color to fit your design */
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-#sortOptions {
-	margin-top: 3px;
-	margin-bottom: 3px;
-	height: 25px;
-	font-size: 16px;
-}
-
-option {
-	font-size: 16px;
-}
-
-.myMainContainer {
+.myMainWrap {
 	height: auto;
 	display: block;
 	max-width: 800px;
