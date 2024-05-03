@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/template/asset.jsp"%>
-<link rel="stylesheet" href="/sangsangjakka/resources/css/board/notice/suggestion_view.css">
+<link rel="stylesheet" href="/sangsangjakka/resources/css/board/suggestion/suggestion_view.css">
 <style>
 	
 </style>
