@@ -66,12 +66,18 @@
 							</thead>
 						
 							<tbody>
+								<c:if test="${list.size() == 0}">
 								<tr>
-									<td class="table-plus">1</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">제목입니다.</a></td>
-									<td>Gemini</td>
-									<td>2024-05-01</td>
-									<td>15</td>
+									<td colspan="5">게시물이 없습니다.</td>
+								</tr>
+								</c:if>
+								<c:forEach items="${list}" var="dto">
+								<tr>
+									<td class="table-plus">${dto.seq}</td>
+									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">${dto.title}</a></td>
+									<td>${dto.name}</td>
+									<td>${dto.regdate}</td>
+									<td>${dto.readcount}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -85,27 +91,8 @@
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">제목인데요.</a></td>
-									<td>관리자</td>
-									<td>2024-03-28</td>
-									<td>35</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
+								</c:forEach>
 							</tbody>
-					
 						</table>
 					</div>
 				</div>

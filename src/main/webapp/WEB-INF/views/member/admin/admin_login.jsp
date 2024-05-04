@@ -36,7 +36,7 @@
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
-				<img src="/sangsangjakka/resources/vendors/images/deskapp-logo.svg" alt="">
+				<img src="/sangsangjakka/resources/vendors/images/admin_logo.png" alt="">
 			</div>
 			<div class="login-menu">
 				<ul>
@@ -49,12 +49,12 @@
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-md-6 col-lg-7">
-					<img src="/sangsangjakka/resources/vendors/images/login-page-img.png" alt="">
+					<img src="/sangsangjakka/resources/vendors/images/admin_login_page.png" alt="">
 				</div>
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h2 class="text-center text-primary">SangSangJakka<br><br>Admin Login</h2>
+							<h2 class="text-center text-primary">상상자까<br>관리자 Login</h2>
 						</div>
 						<form action="" method="post">
 							
