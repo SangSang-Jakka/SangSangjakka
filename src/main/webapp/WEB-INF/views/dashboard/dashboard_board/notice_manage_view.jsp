@@ -51,55 +51,33 @@
                     <div class="viewContainer">
                         <h2>게시글 상세</h2>
 
+
+
                         <span class="right">
-                        <input type="button" value="수정" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/notice/manageedit.do?seq=${dto.noticeSeq}';">수정</button>
                         <input type="button" value="삭제" class="btn btn-primary">
                         </span>
                 
                         <table>
                         <tr>
                             <th>제목</th>
-                            <td>제목입니다.</td>
+                            <td>${dto.noticeTitle}</td>
                             <th>조회수</th>
-                            <td>100</td>
+                            <td>${dto.noticeCnt}</td>
                         </tr>
                         <tr>
                             <th>작성자</th>
-                            <td>adbsdfjlfsdjksfjk</td>
+                            <td>${dto.adId}</td>
                             <th>작성일</th>
-                            <td>2024/04/29</td>
+                            <td>${dto.noticeRegdate}</td>
                         </tr>
                         <tr>
                             <th>내용</th>
                             <td colspan="3">
-                                <textarea>내용 어쩌구저쩌구입니다</textarea>
+                                <textarea>${dto.noticeContents}</textarea>
                             </td>
                         </tr>
                         </table>
-
-                        <!-- 댓글 컨테이너 -->
-                        <div class="commentContainer">
-                        <div class="commentItem">
-                            <div>
-                                <div class="commentWriter">작성자 닉네임</div>
-                                <div class="commentTime">2024-04-30</div>
-                            </div>
-                            <div class="commentContent">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용....</div>
-                        </div>
-                        <div class="commentItem">
-                            <div>
-                                <div class="commentWriter">작성자 닉네임</div>
-                                <div class="commentTime">2024-04-30</div>
-                            </div>
-                            <div class="commentContent">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용....</div>
-                        </div>
-                        
-                        <!-- 댓글 입력 폼 -->
-                        <div class="commentInput">
-                            <input type="text" placeholder="댓글을 입력하세요.">
-                            <input type="button" class="btn btn-primary" value="작성">
-                        </div>
-                    </div>
 
                         <span class="left">
                             <input type="button" value="이전" class="btn btn-primary">
@@ -107,7 +85,9 @@
                         </span>
 
                         <span class="right">
-                            <input type="button" value="목록" class="btn btn-primary pull-right">
+                        <button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/notice/manage.do'">
+                        목록
+                    </button>
                         </span>
                     
                 </div>

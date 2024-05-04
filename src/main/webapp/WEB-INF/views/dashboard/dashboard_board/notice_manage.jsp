@@ -68,7 +68,7 @@
 								<c:forEach var="notice" items="${noticeList}">
 								<tr>
 									<td class="table-plus">${notice.noticeSeq}</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">${notice.noticeTitle}</a></td>
+									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=${notice.noticeSeq}">${notice.noticeTitle}</a></td>
 									<td>${notice.adId}</td>
 									<td>${notice.noticeRegdate}</td>
 									<td>${notice.noticeCnt}</td>
@@ -78,7 +78,7 @@
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=${notice.noticeSeq}"><i class="dw dw-eye"></i> View</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
