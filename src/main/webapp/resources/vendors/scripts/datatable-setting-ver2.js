@@ -9,7 +9,7 @@ $('document').ready(function(){
         }],
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
         language: {
-            emptyTable: "데이터 없음",
+            emptyTable: "게시물이 없습니다.",
             info: "현재 _START_-_END_ of _TOTAL_ 건",
             infoEmpty: "데이터 없음",
             lengthMenu: "페이지당 _MENU_ 개씩 보기",

@@ -7,7 +7,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/suggestions.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/notice.css">
 	
 	<style>
 	
@@ -66,18 +66,13 @@
 							</thead>
 						
 							<tbody>
-								<c:if test="${list.size() == 0}">
-								<tr>
-									<td colspan="5">게시물이 없습니다.</td>
-								</tr>
-								</c:if>
 								<c:forEach items="${list}" var="dto">
 								<tr>
-									<td class="table-plus">${dto.seq}</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">${dto.title}</a></td>
-									<td>${dto.name}</td>
-									<td>${dto.regdate}</td>
-									<td>${dto.readcount}</td>
+									<td class="table-plus">${dto.noticeSeq}</td>
+									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">${dto.noticeTitle}</a></td>
+									<td>${dto.adId}</td>
+									<td>${dto.noticeRegdate}</td>
+									<td>${dto.noticeCnt}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -97,6 +92,11 @@
 					</div>
 				</div>
 			<!-- Simple Datatable End -->
+				<span class="buttonItem">
+				    <button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/notice/manageadd.do'">
+                        <i class="fa-solid fa-pencil"></i> 작성
+                    </button>
+				</span>
 	
 			</div>
 			<!-- 푸터 -->
@@ -124,8 +124,9 @@
 	
 	<!-- Datatable Setting js -->
 	<script src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	
+	<script src="https://kit.fontawesome.com/8a0ce49d35.js" crossorigin="anonymous"></script>
 	<script>
 	</script>
 	</body>
