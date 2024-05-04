@@ -54,18 +54,29 @@ public class Dummy {
 		
 		final String userlist = "select * from tblUser";
 		
+		//자유게시판 글
 		final String boardSql = "";
-		final String boardLogSQL = "";
+		final String boardLogSql = "";
 		final String boardReportSql = "";
 		final String boardReportLogSql = "";
 		final String boardWhiteSql = "";
 		final String boardWhiteLogSql = "";
 		
+		//신고당한글중에 무고글 풀어주기
+		final String boardactiveSql = "";
+		final String boardactiveLogSql = "";
 		
+		//자유게시판 댓글
 		final String cmmtSql = "";
 		final String cmmtLogSql = "";
+		final String cmmtReportSql = "";
+		final String cmmtReportLogSql = "";
+		final String cmmtWhiteSql = "";
+		final String cmmtWhiteLogSql = "";
 		
-		
+		//신고당한댓글중에 무고글 풀어주기
+		final String cmmtactiveSql = "";
+		final String cmmtactiveLogSql = "";
 		
 		try (
 			Connection conn = DBUtil.open();
