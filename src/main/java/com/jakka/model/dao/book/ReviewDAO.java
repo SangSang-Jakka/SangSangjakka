@@ -10,4 +10,6 @@ import com.jakka.model.dto.book.ReviewDTO;
 public interface ReviewDAO extends BasicDAO<ReviewDTO>, ReportCnt, ActiveStatus<ReviewDTO>
 								, Comments<ReviewDTO>, LikeCnt{
 	
+	
+	
 }

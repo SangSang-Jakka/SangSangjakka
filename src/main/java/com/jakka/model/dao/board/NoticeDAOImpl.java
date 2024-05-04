@@ -20,7 +20,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 	private NoticeDAOImpl() {
 		//외부 생성 방지
 	}
-	
+
 	public static NoticeDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()

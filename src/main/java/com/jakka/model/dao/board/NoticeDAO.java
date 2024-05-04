@@ -11,4 +11,5 @@ public interface NoticeDAO extends BasicDAO<NoticeDTO>, Cnt, Search<NoticeDTO>{
 	public int Unfixing(String noticeSeq, String adId);
 	public int remove(String noticeSeq, String adId);
 	
+	
 }

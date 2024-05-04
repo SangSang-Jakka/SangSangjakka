@@ -18,6 +18,12 @@ public class BoardDAOImpl implements BoardDAO{
 
 	private static final BoardDAOImpl DAO = new BoardDAOImpl();
 	
+	@Override
+	public double myMethod(String boardSeq) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	private BoardDAOImpl() {
 		//외부 생성 방지
 	}

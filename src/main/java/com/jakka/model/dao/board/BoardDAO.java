@@ -10,4 +10,6 @@ import com.jakka.model.dto.board.BoardDTO;
 public interface BoardDAO extends BasicDAO<BoardDTO>, Cnt, ReportCnt
 								, ActiveStatus<BoardDTO>, Search<BoardDTO>{
 	
+	public double myMethod(String boardSeq);
+	
 }
