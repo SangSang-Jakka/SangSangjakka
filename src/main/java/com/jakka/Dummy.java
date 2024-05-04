@@ -3,10 +3,13 @@ package com.jakka;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,9 +38,205 @@ public class Dummy {
 		//addNotice();
 		
 		//3. 사용자 계정 생성
-		addUser();
+		//addUser();
+		
+		//4. 건의사항 생성
+		//addSuggestion();
+		
+		//5. 자유게시판 게시글 + 답변 생성
+		addFreeboard();
+		
 	}
 	
+	
+	
+	private static void addFreeboard() {
+		
+		final String userlist = "select * from tblUser";
+		
+		final String boardSql = "";
+		final String boardLogSQL = "";
+		final String boardReportSql = "";
+		final String boardReportLogSql = "";
+		final String boardWhiteSql = "";
+		final String boardWhiteLogSql = "";
+		
+		
+		final String cmmtSql = "";
+		final String cmmtLogSql = "";
+		
+		
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(userlist);
+			
+			PreparedStatement board = conn.prepareStatement(userlist);
+				
+		){
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+
+	private static void addSuggestion() {
+		
+		int sugCount = 0;
+		
+		final String[] ADMIN_RESPONSES = {
+			    "귀하의 건의사항을 검토하였습니다. 제안해 주신 내용을 반영하도록 노력하겠습니다.",
+			    "말씀해 주신 내용을 개발팀에 전달하여 향후 업데이트에 반영할 수 있도록 하겠습니다.",
+			    "건의해 주신 기능 개선 및 추가 사항을 확인하였습니다. 개발 계획에 포함시켜 논의하겠습니다.",
+			    "제안해 주신 디자인 변경 사항을 검토하였으며, 긍정적으로 고려하고 있습니다.",
+			    "보안 강화를 위한 귀하의 제안 사항을 주의 깊게 살펴보았습니다. 적극 반영하도록 하겠습니다.",
+			    "성능 개선을 위해 제시해 주신 의견을 참고하여 시스템 최적화 작업을 진행하겠습니다.",
+			    "접근성 향상을 위한 귀하의 건의사항을 검토하였습니다. 향후 개선 계획에 포함시키겠습니다.",
+			    "고객 경험 향상을 위해 제안해 주신 아이디어를 적극적으로 고려하고 있습니다.",
+			    "새로운 서비스 제안에 대해 감사드립니다. 시장 조사 및 타당성 검토 후 결과를 알려드리겠습니다.",
+			    "기존 서비스 변경 건의사항을 확인하였습니다. 개선 방안을 마련하여 적용하도록 하겠습니다.",
+			    "커뮤니티 활성화를 위한 귀하의 의견을 귀담아 듣겠습니다. 실제 반영될 수 있도록 노력하겠습니다.",
+			    "고객 지원 강화를 위해 제안해 주신 사항을 면밀히 검토하여 개선책을 마련하겠습니다.",
+			    "결제 시스템 개선 제안에 대해 감사드립니다. 보안성과 편의성을 고려하여 반영하도록 하겠습니다.",
+			    "귀하의 건의사항을 받아들여 모바일 앱 최적화 작업을 진행하겠습니다.",
+			    "웹사이트 개편 제안을 적극 수용하여, 사용자 경험 향상을 위해 노력하겠습니다.",
+			    "UI/UX 디자인 변경 요청을 검토하였으며, 전문가 의견을 수렴하여 반영하도록 하겠습니다.",
+			    "데이터 관리 개선 방안에 대해 감사드립니다. 보안성과 효율성을 고려하여 적용하겠습니다.",
+			    "개인정보 보호 강화 제안을 주의 깊게 살펴보았습니다. 관련 정책 및 시스템을 점검하겠습니다.",
+			    "고객 의견 반영을 위해 노력하고 있습니다. 제안해 주신 사항을 충분히 고려하겠습니다.",
+			    "광고 정책 변경 건의에 대해 관심 있게 검토하겠습니다. 사용자 경험 향상을 최우선으로 하겠습니다."
+			};
+		
+		final String[] SUGGESTION_TITLES = {
+			    "기능 개선 요청", "새로운 기능 추가 건의", "디자인 변경 제안", "사용성 향상 방안", "버그 수정 요청",
+			    "보안 강화 제안", "성능 최적화 필요", "접근성 개선 방안", "사용자 경험 향상 방법", "서비스 품질 개선 아이디어",
+			    "새로운 서비스 제안", "기존 서비스 변경 건의", "커뮤니티 활성화 방안", "고객 지원 강화 요청", "결제 시스템 개선 제안",
+			    "모바일 앱 최적화 필요", "웹사이트 개편 제안", "UI/UX 디자인 변경 요청", "데이터 관리 개선 방안", "개인정보 보호 강화 제안",
+			    "고객 의견 반영 요청", "광고 정책 변경 건의", "회원 등급 제도 개선 아이디어", "검색 기능 최적화 필요", "알림 시스템 개선 방안",
+			    "SNS 연동 기능 추가 제안", "콘텐츠 관리 시스템 개선 요청", "분석 및 통계 기능 강화 필요", "사용자 피드백 반영 방안", "다국어 지원 확대 제안",
+			    "친구 초대 기능 추가 요청", "게시판 기능 개선 아이디어", "계정 보안 강화 필요", "알고리즘 최적화 요청", "데이터 백업 시스템 구축 제안"
+			};
+		
+		final String[] SUBJECTS = {"회원", "게시판", "서비스", "앱", "웹사이트", "기능", "디자인", "보안", "성능", "접근성"};
+		final String[] OBJECTS = {"개선", "추가", "변경", "수정", "삭제", "강화", "확대", "축소", "통합", "분리"};
+		final String[] VERBS = {"되었으면", "했으면", "할 수 있었으면", "좋겠다", "바랍니다", "필요합니다", "요청합니다", "건의합니다", "제안합니다", "권장합니다"};
+		
+		final String[] ADMIN = {"admin1", "admin2", "admin3", "admin4", "admin5"};
+		
+		final boolean[] SECRET = { true, true, false, false, false, false, false, false, false, false };
+		
+		final String USER = "select * from tblUser";
+		
+		final String sugg = "INSERT INTO tblSuggestion (sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt) "
+				+ "VALUES ((SELECT NVL(MAX(sgstSeq), 0) + 1 FROM tblSuggestion), ?, ?, ?, ?, ?, ?)";
+		
+		final String userlog = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), ?, ?, ?, ?)";
+		
+		final String answ = "insert into tblSuggestionAnswer(answSeq, adId, sgstSeq, sgstAnsw, sgstRegdate) "
+				+ "values((SELECT NVL(MAX(answSeq), 0) + 1 FROM tblSuggestionAnswer), ?, ?, ?, ?)";
+		
+		final String adminlog = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) "
+				+ "values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), ?, ?, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+				
+			PreparedStatement pstat = conn.prepareStatement(sugg);
+			PreparedStatement userpstat = conn.prepareStatement(userlog);
+				
+			PreparedStatement answpstat = conn.prepareStatement(answ);
+			PreparedStatement adminpsat = conn.prepareStatement(adminlog);
+				
+			ResultSet rs = stat.executeQuery(USER);
+		){
+			
+			while(rs.next()) {
+				
+				String userSeq = rs.getString("userSeq");
+                Timestamp userRegdate = rs.getTimestamp("userRegdate");
+				
+                //건의사항 0 ~ 5개 사이 작성
+                for(int i = 0; i < rnd.nextInt(6); i++) {
+                	
+                	String title = SUGGESTION_TITLES[rnd.nextInt(SUGGESTION_TITLES.length)];
+                	String contents = SUBJECTS[rnd.nextInt(SUBJECTS.length)] + OBJECTS[rnd.nextInt(OBJECTS.length)] + VERBS[rnd.nextInt(VERBS.length)];
+                	
+                	LocalDateTime randomDateTime = generateRandomDateTimeAfter(userRegdate.toLocalDateTime());
+                	Timestamp randomTimestamp = Timestamp.valueOf(randomDateTime);
+                	
+                	pstat.setString(1, title);
+                	pstat.setString(2, contents);
+                	pstat.setTimestamp(3, randomTimestamp);
+                	pstat.setString(4, SECRET[rnd.nextInt(SECRET.length)] ? "y" : "n");	//일반글 : 비밀글 = 8 : 2
+                	pstat.setString(5, userSeq);
+                	pstat.setString(6, rnd.nextInt(6) + "");
+                	
+                	pstat.executeUpdate();
+                	
+                	//로그 추가
+                	//날짜 사용자번호, 내용, 카테고리
+                	userpstat.setTimestamp(1, randomTimestamp);
+                	userpstat.setString(2, userSeq);
+                	userpstat.setString(3, "사용자번호'" + userSeq + "'이 글제목'" + title + "' 글내용'" + contents + "' 건의사항을 '작성'했습니다.");
+                	userpstat.setString(4, UserLog.SuggestionCreated.getValue());
+                	
+                	userpstat.executeUpdate();
+                	
+                	sugCount += 1;
+                	
+                	if(rnd.nextBoolean()) {
+                		
+                		LocalDateTime answerDateTime = generateRandomDateTimeAfter(randomTimestamp.toLocalDateTime());
+                    	Timestamp anwserTimestamp = Timestamp.valueOf(answerDateTime);
+                		
+                		String answer = ADMIN_RESPONSES[rnd.nextInt(ADMIN_RESPONSES.length)];
+                		
+                		String adId = ADMIN[rnd.nextInt(ADMIN.length)];
+                		
+                		answpstat.setString(1, adId);
+                		answpstat.setString(2, sugCount + "");
+                		answpstat.setString(3, answer);
+                		answpstat.setTimestamp(4, anwserTimestamp);
+                		
+                		answpstat.executeUpdate();
+                		
+                		adminpsat.setTimestamp(1, anwserTimestamp);
+                		adminpsat.setString(2, adId);
+                		adminpsat.setString(3, "관리자'" + adId + "'이 글번호'" + sugCount + "'에 '" + answer + "'건의사항 답변을 '작성'했습니다.");
+                		adminpsat.setString(4, AdminLog.SuggestionAnswered.getValue());
+
+                		adminpsat.executeUpdate();
+                	}
+                	
+                	
+                }
+				
+				
+			}//유저 검색 종료
+			
+			System.out.println("건의사항 + 답변 + 로그완료");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	private static LocalDateTime generateRandomDateTimeAfter(LocalDateTime dateTime) {
+	    long startEpochSecond = dateTime.atZone(ZoneId.systemDefault()).toEpochSecond();
+	    long endEpochSecond = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
+	    long randomEpochSecond = startEpochSecond + rnd.nextInt((int) (endEpochSecond - startEpochSecond));
+	    return LocalDateTime.ofEpochSecond(randomEpochSecond, 0, ZoneId.systemDefault().getRules().getOffset(LocalDateTime.now()));
+	}
+
 	private static void addUser() {
 		
 		final String[] LASTEMAIL = {"@naver.com", "@daum.net", "@gmail.com", "@nate.com"};

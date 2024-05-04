@@ -77,7 +77,7 @@ END;
 -- 자유게시판 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblBoard_report
-AFTER UPDATE OF boardReportCnt ON tblBoard
+AFTER UPDATE ON vwBoard
 FOR EACH ROW
 WHEN (NEW.boardReportCnt = 5)
 DECLARE
@@ -120,7 +120,7 @@ END;
 -- 자유게시판 댓글이 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblBoardComments_report
-AFTER UPDATE OF cmntReportCnt ON tblBoardComments
+AFTER UPDATE ON vwBoardComments
 FOR EACH ROW
 WHEN (NEW.cmntReportCnt = 5)
 DECLARE
@@ -161,7 +161,7 @@ END;
 -- 동화책공유글이 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblBook_report
-AFTER UPDATE OF bookReportCnt ON tblBook
+AFTER UPDATE ON vwBook
 FOR EACH ROW
 WHEN (NEW.bookReportCnt = 5)
 DECLARE
@@ -202,7 +202,7 @@ END;
 -- 동화책리뷰가 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblReview_report
-AFTER UPDATE OF reviewReportCnt ON tblReview
+AFTER UPDATE ON vwReview
 FOR EACH ROW
 WHEN (NEW.reviewReportCnt = 5)
 DECLARE
