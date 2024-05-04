@@ -64,15 +64,14 @@
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
-						
-							<tbody>
-								<c:forEach items="${list}" var="dto">
+						 
+								<c:forEach var="notice" items="${noticeList}">
 								<tr>
-									<td class="table-plus">${dto.noticeSeq}</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">${dto.noticeTitle}</a></td>
-									<td>${dto.adId}</td>
-									<td>${dto.noticeRegdate}</td>
-									<td>${dto.noticeCnt}</td>
+									<td class="table-plus">${notice.noticeSeq}</td>
+									<td><a href ="/sangsangjakka/admin/dashboard/notice/manageview.do">${notice.noticeTitle}</a></td>
+									<td>${notice.adId}</td>
+									<td>${notice.noticeRegdate}</td>
+									<td>${notice.noticeCnt}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -104,7 +103,7 @@
 			
 		</div>
 	</div>
-
+	
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
@@ -127,7 +126,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	
 	<script src="https://kit.fontawesome.com/8a0ce49d35.js" crossorigin="anonymous"></script>
-	<script>
-	</script>
+
 	</body>
 </html>
