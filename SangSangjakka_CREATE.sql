@@ -124,7 +124,7 @@ create table tblInflowCat(
 );
 
 -- 회원 유입경로
-create table userInflow(
+create table tblUserInflow(
     userSeq         number references tblUser(userSeq),             -- 사용자 번호(PK)
     inflowCatSeq    number references tblInflowCat(inflowCatSeq),   -- 유입경로 카테고리 seq(PK)
     

@@ -14,6 +14,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.enums.AdminLog;
+import com.jakka.model.enums.Inflow;
+import com.jakka.model.enums.RecommendAge;
+import com.jakka.model.enums.UserLog;
+import com.jakka.model.enums.UserState;
 
 public class Dummy {
 
@@ -35,6 +39,11 @@ public class Dummy {
 	}
 	
 	private static void addUser() {
+		
+		final String[] LASTEMAIL = {"@naver.com", "@daum.net", "@gmail.com", "@nate.com"};
+		
+		final String[] INFLOW = {Inflow.ACQUAINTANCE.getValue(), Inflow.BLOG.getValue(), Inflow.CAFFE.getValue(), Inflow.ECT.getValue()
+								, Inflow.FLYER.getValue(), Inflow.Internet_Search.getValue(), Inflow.SOCIAL_MEDIA_PLATFORM.getValue()};
 		
 		final String[] LASTNAMES = {
 			    "김", "이", "박", "최", "정", "강", "조", "윤", "장", "임",
@@ -65,8 +74,8 @@ public class Dummy {
 			       "대전시 유성구 봉명동", "울산시 남구 무거동", "경기도 성남시 분당구 정자동", "강원도 원주시 무실동", "충청북도 청주시 흥덕구 가경동"
 		 };
 		
-		String sql = "INSERT INTO tblUser (userSeq, userId, userPw, , userName, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, userLimitStorage) "
-				+ "VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser), ?, ?, ?, ?, ?, ?, ?, ?, ?, default, default, ?, default)";
+		String sql = "INSERT INTO tblUser (userSeq, userId, userPw, userName, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, LimitStorage) "
+				+ "VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default, ?, default)";
 		
 		String log = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)"
 				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), ?, ?, ?, ?)";
@@ -100,15 +109,62 @@ public class Dummy {
 				
 			    String id = String.format("user%04d", i);
 			    
+			    // 랜덤 생년월일 생성
+		        int year = rnd.nextInt(56) + 1965; // 1965 ~ 2020년 사이
+		        int month = rnd.nextInt(12) + 1;
+		        int day = rnd.nextInt(28) + 1; // 일수는 28일까지만 고려
+
+		        boolean isMale = rnd.nextBoolean(); // 성별 (true: 남자, false: 여자)
+
+		        String ssn = generateRandomSsn(year, month, day, isMale);
+		        String ssnFront = ssn.substring(0, 6);
+		        String ssnBack = ssn.substring(6);
+			    String name = LASTNAMES[rnd.nextInt(LASTNAMES.length)] + NAMES[rnd.nextInt(NAMES.length)];
+		        
+		        
 				pstat.setString(1, id);
 				pstat.setString(2, "1111");
-				pstat.setString(3, "닉네임");
-				pstat.setString(4, generateUniquePhoneNumber());
-				pstat.setString(5, ADDRESSES[rnd.nextInt(ADDRESSES.length)]);
-				pstat.setString(6, child);
-				pstat.setString(7, child);
-				pstat.setString(8, child);
+				pstat.setString(3, name);
+				pstat.setString(4, id + "NICK");
+				pstat.setString(5, generateUniquePhoneNumber());
+				pstat.setString(6, ADDRESSES[rnd.nextInt(ADDRESSES.length)]);
+				pstat.setString(7, id + LASTEMAIL[rnd.nextInt(LASTEMAIL.length)]);
+				pstat.setString(8, ssnFront);
+		        pstat.setString(9, ssnBack);
+		        pstat.setString(10, UserState.ACTIVE.getValue());
+				pstat.setTimestamp(11, regdatetimestamp);
 			    
+				pstat.executeUpdate();
+				
+				createUserFolder(id);
+				
+				//로그 추가
+				plog.setTimestamp(1, regdatetimestamp);
+				plog.setString(2, (i + 1) + "");
+				plog.setString(3, "사용자'" + name + "'님이 아이디'" + id +"' 닉네임'" + id + "NICK" + "'으로  '회원가입'했습니다.");
+				plog.setString(4, UserLog.SignUp.getValue());
+				
+				plog.executeUpdate();
+				
+				//유입경로 추가
+				pinflow.setString(1, (i + 1) + "");
+				pinflow.setString(2, INFLOW[rnd.nextInt(INFLOW.length)]);
+				pinflow.executeUpdate();
+				
+				//자녀 추가
+				if(Integer.parseInt(ssnFront.substring(0, 2)) >= 65 && Integer.parseInt(ssnFront.substring(0, 2)) <= 98 && rnd.nextBoolean()) {
+					
+					int childYear = rnd.nextInt(20) + 2004; // 2004년부터 2023년 사이의 랜덤 출생년도
+				    int childMonth = rnd.nextInt(12) + 1;
+				    int childDay = rnd.nextInt(28) + 1;
+				    
+				    String birthDate = String.format("%04d%02d%02d", childYear, childMonth, childDay);
+				    
+				    pchild.setString(1, birthDate);
+				    pchild.setString(2, (i + 1) + "");
+				    pchild.setString(3, RecommendAge.ODER_5YEARS.getValue());
+				    pchild.executeUpdate();
+				}
 				
 			}
 			
@@ -262,7 +318,7 @@ public class Dummy {
 		
 	}
 
-	private void createUserFolder(String userId) {
+	private static void createUserFolder(String userId) {
 		
 		final String BASE_DIRECTORY = "src/main/webapp/generated/";
 		
@@ -291,7 +347,26 @@ public class Dummy {
 
 	       USED_PHONE_NUMBERS.add(phoneNumber);
 	       return phoneNumber;
-	   }
+	}
+	
+	private static String generateRandomSsn(int year, int month, int day, boolean isMale) {
+	    StringBuilder ssn = new StringBuilder();
+
+	    // 생년월일 6자리
+	    ssn.append(String.format("%02d", year % 100));
+	    ssn.append(String.format("%02d", month));
+	    ssn.append(String.format("%02d", day));
+
+	    // 성별 코드 (1: 1900년대 남자, 2: 1900년대 여자, 3: 2000년대 남자, 4: 2000년대 여자)
+	    int genderCode = isMale ? (year < 2000 ? 1 : 3) : (year < 2000 ? 2 : 4);
+	    ssn.append(genderCode);
+
+	    // 뒷자리 6자리 (000001 ~ 999999)
+	    int lastDigits = rnd.nextInt(1000000);
+	    ssn.append(String.format("%06d", lastDigits));
+
+	    return ssn.toString();
+	}
 	
 }
 
