@@ -6,6 +6,7 @@ create table tblUser(
     userSeq         number primary key,                                     -- 사용자 번호(PK)
     userId          varchar(20)  unique not null,                           -- 아이디(UQ)
     userPw          varchar2(20) not null,                                  -- 비밀번호
+    userName        varchar2(20) not null,                                  -- 이름
     userNick        varchar2(50) not null unique,                           -- 닉네임(UQ)
     userTel         varchar2(30) not null unique,                           -- 전화번호(UQ)
     userAddress     varchar2(500) not null,                                 -- 주소
@@ -17,7 +18,6 @@ create table tblUser(
     userRegdate     date default sysdate not null,                          -- 가입일
     limitStorage    number default 10737418240 not null                     -- 제한용량 (기본 10Gb, 10737418240byte)
 );
-
 
 -- 차단 계정 테이블
 create table tblBlackList(

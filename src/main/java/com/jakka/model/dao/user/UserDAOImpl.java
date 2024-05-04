@@ -1,5 +1,6 @@
 package com.jakka.model.dao.user;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public int add(UserDTO dto) {
 		
-		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, userLimitStorage) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser), ?, ?, ?, ?, ?, ?, ?, ?, default, default, SYSDATE, default)";
+		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userName, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, userLimitStorage) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser), ?, ?, ?, ?, ?, ?, ?, ?, ?, default, default, SYSDATE, default)";
 		
 		try (
 			
@@ -37,14 +38,17 @@ public class UserDAOImpl implements UserDAO{
 			
 			pstat.setString(1, dto.getUserId());
 			pstat.setString(2, dto.getUserPw());
-			pstat.setString(3, dto.getUserNick());
-			pstat.setString(4, dto.getUserTel());
-			pstat.setString(5, dto.getUserAddress());
-			pstat.setString(6, dto.getUserEmail());
-			pstat.setString(7, dto.getUserLeftSsn());
-			pstat.setString(8, dto.getUserRightSsn());
+			pstat.setString(3, dto.getUserName());
+			pstat.setString(4, dto.getUserNick());
+			pstat.setString(5, dto.getUserTel());
+			pstat.setString(6, dto.getUserAddress());
+			pstat.setString(7, dto.getUserEmail());
+			pstat.setString(8, dto.getUserLeftSsn());
+			pstat.setString(9, dto.getUserRightSsn());
 			
 			int result = pstat.executeUpdate();
+			
+			createUserFolder(dto.getUserId());
 			
 			return result;
 			
@@ -430,6 +434,28 @@ public class UserDAOImpl implements UserDAO{
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public void createUserFolder(String userId) {
+		
+		final String BASE_DIRECTORY = "src/main/webapp/generated/";
+		
+		String projectDirectory = System.getProperty("user.dir");
+        String folderPath = projectDirectory + File.separator + BASE_DIRECTORY + userId;
+        File userFolder = new File(folderPath);
+
+        if (!userFolder.exists()) {
+            boolean created = userFolder.mkdirs();
+            if (created) {
+                System.out.println("User folder created: " + folderPath);
+            } else {
+                System.err.println("Failed to create user folder: " + folderPath);
+            }
+        } else {
+            System.out.println("User folder already exists: " + folderPath);
+        }
+		
 	}
 	
 }//End of class

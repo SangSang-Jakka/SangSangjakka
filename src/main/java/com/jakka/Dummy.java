@@ -1,11 +1,14 @@
 package com.jakka;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,22 +17,112 @@ import com.jakka.model.enums.AdminLog;
 
 public class Dummy {
 
+	private static Random rnd = new Random();
+	private static final List<String> USED_PHONE_NUMBERS = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		
 		//더미 제작
-		//1. 일반 관리자 생성
+		//1. 일반 관리자 5명 생성
 		//addAdmin5();
 		
 		//2. 공지사항 생성
 		// 10개의 공지사항 고정글3개
-		addNotice();
+		//addNotice();
 		
+		//3. 사용자 계정 생성
+		addUser();
 	}
 	
-	private static void addNotice() {
+	private static void addUser() {
 		
-		Random rnd = new Random();
+		final String[] LASTNAMES = {
+			    "김", "이", "박", "최", "정", "강", "조", "윤", "장", "임",
+			    "한", "오", "서", "신", "권", "황", "안", "송", "류", "전",
+			    "홍", "고", "문", "양", "손", "배", "조", "백", "허", "유",
+			    "남", "심", "노", "정", "하", "곽", "성", "차", "주", "구",
+			    "우", "신", "임", "나", "전", "민", "유", "진", "지", "엄",
+			    "채", "원", "천", "방", "공", "강", "현", "함", "추", "노",
+			    "소", "식", "재", "위", "석", "근", "렬", "운", "모", "배",
+			    "신", "왕", "제", "연", "방", "옥", "육", "인", "마", "초",
+			    "류", "잔", "우", "무", "류", "육", "최", "서", "아", "권"
+			};
+		
+		final String[] NAMES = {
+			    "민수", "지훈", "수진", "지은", "서연", "서윤", "하늘", "예진", "서현", "유나",
+			    "준서", "하은", "지우", "세진", "재민", "민정", "소율", "지아", "지선", "윤서",
+			    "서진", "서현", "채원", "예은", "예림", "유진", "지후", "은서", "은주", "소연",
+			    "지원", "지안", "규민", "지호", "민서", "서윤", "도현", "수빈", "수연", "민재",
+			    "주안", "지율", "서현", "하영", "윤재", "지유", "지민", "서준", "지환", "수아",
+			    "수민", "예은", "지아", "서연", "하은", "지원", "준우", "지우", "지민", "서윤",
+			    "민규", "지현", "하윤", "지혜", "서진", "서현", "주원", "예진", "지후", "유진",
+			    "준호", "서윤", "하윤", "예진", "지우", "유나", "지윤", "준혁", "지호", "예은",
+			    "민재", "예빈", "서현", "주원", "지윤", "지민", "예린", "지아", "하은", "예은",
+			    "수아", "주원", "지안", "민준", "지호", "민서", "예진", "수민", "주안", "하윤"
+			};
+		
+		 final String[] ADDRESSES = {"서울시 강남구 역삼동", "부산시 해운대구 우동", "인천시 계양구 작전동", "대구시 수성구 범물동", "광주시 서구 치평동",
+			       "대전시 유성구 봉명동", "울산시 남구 무거동", "경기도 성남시 분당구 정자동", "강원도 원주시 무실동", "충청북도 청주시 흥덕구 가경동"
+		 };
+		
+		String sql = "INSERT INTO tblUser (userSeq, userId, userPw, , userName, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, userLimitStorage) "
+				+ "VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser), ?, ?, ?, ?, ?, ?, ?, ?, ?, default, default, ?, default)";
+		
+		String log = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)"
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), ?, ?, ?, ?)";
+		
+		String inflow = "insert into tblUserInflow(userSeq, inflowCatSeq)"
+				+ "values(?, ?)";
+		
+		String child = "insert into tblChildAge(childAgeSeq, childBirth, userSeq, ageCatSeq)"
+				+ "values((SELECT NVL(MAX(childAgeSeq), 0) + 1 FROM tblChildAge), ?, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+			PreparedStatement plog = conn.prepareStatement(log);
+			PreparedStatement pinflow = conn.prepareStatement(inflow);
+			PreparedStatement pchild = conn.prepareStatement(child);
+		){
+			//100명의 계정 생성
+			for(int i = 0; i < 100; i++) {
+				
+				// 랜덤 날짜 및 시간 생성
+				long minDay = LocalDate.of(2023, 1, 1).toEpochDay();
+				long maxDay = LocalDate.of(2024, 1, 1).toEpochDay();
+				long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+				LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
+			    LocalTime randomTime = LocalTime.of(rnd.nextInt(24), rnd.nextInt(60), rnd.nextInt(60));
+			    LocalDateTime regDateTime = LocalDateTime.of(randomDate, randomTime);
+			    
+			    // Timestamp로 변환
+			    Timestamp regdatetimestamp = Timestamp.valueOf(regDateTime);
+				
+			    String id = String.format("user%04d", i);
+			    
+				pstat.setString(1, id);
+				pstat.setString(2, "1111");
+				pstat.setString(3, "닉네임");
+				pstat.setString(4, generateUniquePhoneNumber());
+				pstat.setString(5, ADDRESSES[rnd.nextInt(ADDRESSES.length)]);
+				pstat.setString(6, child);
+				pstat.setString(7, child);
+				pstat.setString(8, child);
+			    
+				
+			}
+			
+
+		    
+			System.out.println("사용자 생성 완료");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private static void addNotice() {
 		
 		String[] adminId = {"admin1", "admin2", "admin3", "admin4", "admin5", "super"};
 		
@@ -128,7 +221,6 @@ public class Dummy {
 			conn.commit();
 			
 		} catch (Exception e) {
-			System.out.println("NoticeDAO.| add");
 			e.printStackTrace();
 		}
 		
@@ -170,7 +262,36 @@ public class Dummy {
 		
 	}
 
+	private void createUserFolder(String userId) {
+		
+		final String BASE_DIRECTORY = "src/main/webapp/generated/";
+		
+		String projectDirectory = System.getProperty("user.dir");
+        String folderPath = projectDirectory + File.separator + BASE_DIRECTORY + userId;
+        File userFolder = new File(folderPath);
 
+        if (!userFolder.exists()) {
+            boolean created = userFolder.mkdirs();
+            if (created) {
+                System.out.println("User folder created: " + folderPath);
+            } else {
+                System.err.println("Failed to create user folder: " + folderPath);
+            }
+        } else {
+            System.out.println("User folder already exists: " + folderPath);
+        }
+		
+	}
+	
+	private static String generateUniquePhoneNumber() {
+	       String phoneNumber;
+	       do {
+	           phoneNumber = "010-" + String.format("%04d-%04d", rnd.nextInt(10000), rnd.nextInt(10000));
+	       } while (USED_PHONE_NUMBERS.contains(phoneNumber));
+
+	       USED_PHONE_NUMBERS.add(phoneNumber);
+	       return phoneNumber;
+	   }
 	
 }
 

@@ -8,6 +8,7 @@ public class UserDTO {
 	private String userSeq;
 	private String userId;
 	private String userPw;
+	private String userName;
 	private String userNick;
 	private String userTel;
 	private String userAddress;
