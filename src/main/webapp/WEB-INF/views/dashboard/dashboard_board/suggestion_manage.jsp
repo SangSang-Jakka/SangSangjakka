@@ -71,7 +71,7 @@
 									<td class="table-plus">${suggestion.sgstSeq}</td>
 									<td>${suggestion.sgstSecretYN}</td>
 									<td><a href ="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}">${suggestion.sgstTitle}</a></td>
-									<td>${suggestion.userSeq}</td>
+									<td>${suggestion.userNick}</td>
 									<td>${suggestion.sgstRegdate}</td>
 									<td>${suggestion.sgstCnt}</td>
 									<td>

@@ -71,10 +71,10 @@
 								<tr>
 									<td class="table-plus">${board.boardSeq}</td>
 									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${board.boardSeq}">${board.boardTitle}</a></td>
-									<td>${board.userSeq}</td>
+									<td>${board.userNick}</td>
 									<td>${board.boardRegdate}</td>
 									<td>${board.boardCnt}</td>
-									<td>0</td>
+									<td>${board.boardReportCnt}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

@@ -52,7 +52,6 @@
                         <h2>게시글 상세</h2>
 
                         <span class="right">
-                        <input type="button" value="답변" class="btn btn-primary">
                         <input type="button" value="삭제" class="btn btn-primary">
                         </span>
                 
@@ -98,8 +97,8 @@
                         
                         <!-- 답변 입력 폼 -->
                         <div class="commentInput">
-                            <input type="text" placeholder="댓글을 입력하세요.">
-                            <input type="button" class="btn btn-primary" value="작성">
+                            <input type="text" placeholder="답변을 입력하세요.">
+                            <input type="button" class="btn btn-primary" value="답변">
                         </div>
                     </div>
 

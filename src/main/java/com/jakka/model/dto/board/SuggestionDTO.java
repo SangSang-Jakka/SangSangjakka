@@ -13,6 +13,16 @@ public class SuggestionDTO {
 	private String userSeq;
 	private String sgstCnt;
 	
+	private String userNick;
+	
+	
+	
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
 	public String getSgstSeq() {
 		return sgstSeq;
 	}

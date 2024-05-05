@@ -22,7 +22,7 @@ public class NoticeManagementEdit extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// 인증 받지 못한 사용자 or 권한이 없는 사용자 > 거부
-		/*
+
 		HttpSession session = req.getSession();
 		String adId = (String) session.getAttribute("adId");
 		
@@ -32,7 +32,7 @@ public class NoticeManagementEdit extends HttpServlet {
 			return;
 			
 		}
-		*/
+	
 		// 공지사항 번호 가져오기
 		String seq = req.getParameter("seq");
 		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
@@ -43,7 +43,7 @@ public class NoticeManagementEdit extends HttpServlet {
 		NoticeDTO dto = noticeDAO.findById(seq);
 
 	// 작성자와 현재 사용자가 일치하지 않으면 권한 없음 처리
-		/*
+	
 		if (!adId.equals(dto.getAdId())) {
 			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
@@ -54,7 +54,7 @@ public class NoticeManagementEdit extends HttpServlet {
 			
 		}
 
-		*/
+		
 
 		req.setAttribute("seq", seq);
 		req.setAttribute("dto", dto);
@@ -78,13 +78,15 @@ public class NoticeManagementEdit extends HttpServlet {
 		String noticeContents = req.getParameter("noticeContents");
 		String seq = req.getParameter("seq");
 
-		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
-		NoticeDTO dto = noticeDAO.findById(seq);
 
-		/*
+	
 		// 공지사항 작성자 == 현재 사용자 ?
 		HttpSession session = req.getSession();
 		String adId = (String) session.getAttribute("adId");
+		
+		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
+		NoticeDTO dto = noticeDAO.findById(seq);
+		
 		if (!adId.equals(dto.getAdId())) { 
 			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
@@ -93,7 +95,7 @@ public class NoticeManagementEdit extends HttpServlet {
 			writer.close();
 			return;
 		}
-		*/
+	
 		
 		// 공지사항 수정
 		dto.setNoticeTitle(noticeTitle);
@@ -105,6 +107,8 @@ public class NoticeManagementEdit extends HttpServlet {
 		if (result == 1) {
 
 			resp.sendRedirect("sangsangjakka/admin/dashboard/notice/manageview.do?seq=" + seq);
+
+			
 		} else {
 			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
