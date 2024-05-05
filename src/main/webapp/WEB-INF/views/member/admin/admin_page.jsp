@@ -62,22 +62,22 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label >이름 :</label>
-											<input type="text" class="form-control" value="${dto.adName}">
+											<label >아이디 :</label>
+											<input type="text" class="form-control" value="${dto.adId}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label >주소 : </label>
-											<input type="text" class="form-control" value="${dto.adAddress}">
+											<label >비밀번호 : </label>
+											<input type="text" class="form-control" value="${dto.adPw}" placeholder="****">
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>전화번호 :</label>
-											<input type="text" class="form-control" value="${dto.adTel}">
+											<label>이름 :</label>
+											<input type="text" class="form-control" value="${dto.adName}">
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -90,14 +90,14 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label >아이디 :</label>
-											<input type="text" class="form-control" value="${dto.adId }">
+											<label >전화번호 :</label>
+											<input type="text" class="form-control" value="${dto.adTel }">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label >비밀번호 : </label>
-											<input type="text" class="form-control" value="${dto.adPw}" placeholder="********">
+											<label >주소 : </label>
+											<input type="text" class="form-control" value="${dto.adAddress}" >
 										</div>
 									</div>
 								</div>
