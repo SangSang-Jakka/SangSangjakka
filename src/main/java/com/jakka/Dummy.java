@@ -43,29 +43,15 @@ public class Dummy {
 		//4. 건의사항 생성
 		//addSuggestion();
 		
-		//5. 자유게시판 게시글 + 답변 생성
-		addFreeboard();
+		//5. 자유게시판 게시글 생성
+		//addFreeboard();
 		
+		//게시글댓글 생성
+		//addFreeboardCmnt();
 	}
 	
 	
-	
-	private static void addFreeboard() {
-		
-		final String userlist = "select * from tblUser";
-		
-		//자유게시판 글
-		final String boardSql = "";
-		final String boardLogSql = "";
-		final String boardReportSql = "";
-		final String boardReportLogSql = "";
-		final String boardWhiteSql = "";
-		final String boardWhiteLogSql = "";
-		
-		//신고당한글중에 무고글 풀어주기
-		final String boardactiveSql = "";
-		final String boardactiveLogSql = "";
-		
+	private static void addFreeboardCmnt() {
 		//자유게시판 댓글
 		final String cmmtSql = "";
 		final String cmmtLogSql = "";
@@ -78,14 +64,190 @@ public class Dummy {
 		final String cmmtactiveSql = "";
 		final String cmmtactiveLogSql = "";
 		
+		
+	}
+
+
+	private static void addFreeboard() {
+		
+		int boardSeqCnt = 0;
+		
+		final String[] ADMIN = {"admin1", "admin2", "admin3", "admin4", "admin5"};
+		
+		final boolean[] REPORTRATE = { true, true, true, true, false, false, false, false, false, false, false, false, false, false };
+		
+		final String[] TITLESUBJECT = {"인생", "행복", "미래", "꿈", "가족", "친구", "직장", "업무", "취미", "여행"};
+		final String[] TITLEOBJECT = {"설계", "탐색", "성취", "추구", "소중함", "가치", "중요성", "의미", "방향", "목표"};
+		final String[] TITLEVERVE = {"에 대해", "를 위한", "의 길", "로의 여정", "을 찾아서", "을 향한 도전", "에 관한 고민", "의 진정한 의미", "을 이루기 위한 노력", "을 위한 제언"};
+		
+		final String[] CONTENTSSUBJECT = {"저", "우리", "회사", "친구", "가족", "부모님", "선생님", "아이", "동료", "사회"};
+		final String[] CONTENTSOBJECT = {"휴가", "업무", "프로젝트", "행복", "건강", "성취", "발전", "성장", "도전", "배움"};
+		final String[] CONTENTSVERVE = {"는 중요합니다", "를 사랑합니다", "에 대해 이야기하고 싶습니다", "를 향상시키고 싶습니다", "에 대한 조언을 구합니다", "를 극복하기 위한 방법을 찾고 있습니다", "를 성취하기 위해 노력합니다", "에 대한 감사를 표현합니다", "에 대한 불만을 토로합니다", "를 개선하기 위한 제안을 합니다"};
+		
+		final String userlist = "select * from tblUser";
+		
+		//자유게시판 글
+		final String boardSql = "INSERT INTO tblBoard (boardSeq, boardTitle, boardContents, boardRegdate, boardCnt, userSeq) "
+				+ "VALUES ((SELECT NVL(MAX(boardSeq), 0) + 1 FROM tblBoard), ?, ?, ?, ?, ?)";
+		
+		final String boardLogSql = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), ?, ?, ?, ?)";
+		
+		//게시글 생성 이전 사용자
+		final String afterUserSql = "select * from tblUser where userRegdate < ?";
+		
+		//자유게시판 신고
+		final String boardReportSql = "insert into tblBoardReport(boardSeq, userSeq)"
+				+ "values(?, ?)";
+		
+		final String boardReportLogSql = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), ?, ?, ?, ?)";
+		
+		//신고누적으로 인한 블라인드처리
+		final String boardWhiteSql = "delete from tblBoardWhiteList where boardSeq = ?";
+		
+		final String boardWhiteLogSql = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) "
+				+ "values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), ?, ?, ?, ?)";
+		
+		//신고당한글중에 무고글 풀어주기
+		final String boardactiveSql = "insert into tblBoardWhiteList(boardSeq) values(?)";
+		
+		final String boardactiveLogSql = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) "
+				+ "values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), ?, ?, ?, ?)";
+		
+		
 		try (
 			Connection conn = DBUtil.open();
 			Statement stat = conn.createStatement();
 			ResultSet rs = stat.executeQuery(userlist);
 			
-			PreparedStatement board = conn.prepareStatement(userlist);
+			PreparedStatement board = conn.prepareStatement(boardSql);
+			PreparedStatement boardlog = conn.prepareStatement(boardLogSql);
+				
+			PreparedStatement afteruser = conn.prepareStatement(afterUserSql);
+				
+			PreparedStatement report = conn.prepareStatement(boardReportSql);
+			PreparedStatement reportlog = conn.prepareStatement(boardReportLogSql);
+				
+			PreparedStatement diable = conn.prepareStatement(boardWhiteSql);
+			PreparedStatement diablelog = conn.prepareStatement(boardWhiteLogSql);
+				
+			PreparedStatement active = conn.prepareStatement(boardactiveSql);
+			PreparedStatement activelog = conn.prepareStatement(boardactiveLogSql);
 				
 		){
+			while(rs.next()) {
+				
+				String userSeq = rs.getString("userSeq");
+                Timestamp userRegdate = rs.getTimestamp("userRegdate");
+				
+                for(int i = 0; i < rnd.nextInt(8) + 1; i++) {
+                	
+                	boardSeqCnt += 1;
+                	
+                	String title = TITLESUBJECT[rnd.nextInt(TITLESUBJECT.length)] + TITLEOBJECT[rnd.nextInt(TITLEOBJECT.length)] + TITLEVERVE[rnd.nextInt(TITLEVERVE.length)];
+                	String contents = CONTENTSSUBJECT[rnd.nextInt(CONTENTSSUBJECT.length)] + CONTENTSOBJECT[rnd.nextInt(CONTENTSOBJECT.length)] + CONTENTSVERVE[rnd.nextInt(CONTENTSVERVE.length)];
+                	
+                	LocalDateTime randomDateTime = generateRandomDateTimeAfter(userRegdate.toLocalDateTime());
+                	Timestamp randomTimestamp = Timestamp.valueOf(randomDateTime);
+                	
+                	board.setString(1, title);
+                	board.setString(2, contents);
+                	board.setTimestamp(3, randomTimestamp);
+                	board.setString(4, rnd.nextInt(71) + "");
+                	board.setString(5, userSeq);
+                	
+                	board.executeUpdate();
+                	
+                	//로그 추가
+                	boardlog.setTimestamp(1, randomTimestamp);
+                	boardlog.setString(2, userSeq);
+                	boardlog.setString(3, "사용자번호'" + userSeq + "'이 글제목'" + title +"' 글내용'" + contents + "' 자유게시판글을 '작성'했습니다.");
+                	boardlog.setString(4, UserLog.BookCreated.getValue());
+                	
+                	boardlog.executeUpdate();
+                	
+                	//글 작성일 이전에 회원가입 유저에서 랜덤으로 신고
+                	
+                	afteruser.setTimestamp(1, randomTimestamp);
+                	
+                	ResultSet rsafter = afteruser.executeQuery();
+                	
+                	
+                	// 랜덤 신고 횟수 설정
+                	int reportCnt = 0;
+                	while(rsafter.next() && reportCnt < 5 && REPORTRATE[rnd.nextInt(REPORTRATE.length)]) {
+                		
+                		String reportUserSeq = rsafter.getString("userSeq");
+                		
+                		LocalDateTime reportDateTime = generateRandomDateTimeAfter(randomTimestamp.toLocalDateTime());
+                    	Timestamp reportTimestamp = Timestamp.valueOf(reportDateTime);
+                		
+                		report.setString(1, boardSeqCnt + "");
+                		report.setString(2, reportUserSeq);
+                		
+                		report.executeUpdate();
+                		
+                		//신고 로그
+                		reportlog.setTimestamp(1, reportTimestamp);
+                		reportlog.setString(2, reportUserSeq);
+                		reportlog.setString(3, "사용자번호'" + reportUserSeq + "'이 글번호'" + boardSeqCnt +"' 자유게시판글을 '신고'했습니다.");
+                		reportlog.setString(4, UserLog.BoardReported.getValue());
+                		
+                		reportlog.executeUpdate();
+                		
+                		reportCnt++;
+                		
+                		
+                		//신고횟수 5번이면 차단
+                		if(reportCnt == 5) {
+                			
+                			diable.setString(1, boardSeqCnt + "");
+                			
+                			diable.executeUpdate();
+                			
+                			diablelog.setTimestamp(1, reportTimestamp);
+                			diablelog.setString(2, "super");
+                			diablelog.setString(3, "시스템이 사용자번호'" + userSeq + "' 글번호'" + boardSeqCnt + "' 글제목'" + title + "' 자유게시판글을 신고횟수 누적으로 ''비활성화''했습니다.");
+                			diablelog.setString(4, AdminLog.BoardDisabled.getValue());
+                			
+                			diablelog.executeUpdate();
+                			
+                			
+                			//랜덤으로 풀어주기
+                			if(rnd.nextBoolean()) {
+                				
+                				LocalDateTime activeDateTime = generateRandomDateTimeAfter(reportTimestamp.toLocalDateTime());
+                            	Timestamp activeTimestamp = Timestamp.valueOf(activeDateTime);
+                            	
+                            	active.setString(1, boardSeqCnt + "");
+                            	
+                            	active.executeUpdate();
+                            	
+                            	String adId = ADMIN[rnd.nextInt(ADMIN.length)];
+                            	
+                            	activelog.setTimestamp(1, activeTimestamp);
+                            	activelog.setString(2, adId);
+                            	activelog.setString(3, "'" + adId + "'이 글번호'" + boardSeqCnt + "'자유게시판글을' 활성화'했습니다.");
+                            	activelog.setString(4, AdminLog.BoardEnabled.getValue());
+                            	
+                            	activelog.executeUpdate();
+                            	
+                			}
+                			
+                			
+                			break;
+                			
+                		}
+                		
+                	}//랜덤 신고 + 로그 + 랜덤 게시글 활성화 종료
+                	
+                	
+                }//게시글 하나 작성 종료
+				
+			}
+			
+			System.out.println("자유게시판 게시물 더미작업 완료");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
