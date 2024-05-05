@@ -64,7 +64,7 @@
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
-						 
+							<tbody>
 								<c:forEach var="notice" items="${noticeList}">
 								<tr>
 									<td class="table-plus">${notice.noticeSeq}</td>

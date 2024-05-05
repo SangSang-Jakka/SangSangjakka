@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.google.gson.Gson;
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.NoticeDAO;
 import com.jakka.model.dao.board.NoticeDAOImpl;

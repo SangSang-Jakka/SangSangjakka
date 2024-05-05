@@ -64,48 +64,30 @@
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
-						
+				
 							<tbody>
+							<c:forEach var="suggestion" items="${suggestionList}">
 								<tr>
-									<td class="table-plus">1</td>
-									<td>일반</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/suggestion/manageview.do">문의드립니다.</a></td>
-									<td>왕자</td>
-									<td>2024-05-01</td>
-									<td>15</td>
+									<td class="table-plus">${suggestion.sgstSeq}</td>
+									<td>${suggestion.sgstSecretYN}</td>
+									<td><a href ="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}">${suggestion.sgstTitle}</a></td>
+									<td>${suggestion.userSeq}</td>
+									<td>${suggestion.sgstRegdate}</td>
+									<td>${suggestion.sgstCnt}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/suggestion/manageview.do"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}"><i class="dw dw-eye"></i> View</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td>비밀</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/suggestion/manageview.do">어떻게 해야 합니까?</a></td>
-									<td>공주</td>
-									<td>2024-03-28</td>
-									<td>35</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/suggestion/manageview.do"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
+								</c:forEach>
 							</tbody>
 					
 						</table>

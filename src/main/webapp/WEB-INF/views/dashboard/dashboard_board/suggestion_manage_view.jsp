@@ -53,27 +53,26 @@
 
                         <span class="right">
                         <input type="button" value="답변" class="btn btn-primary">
-                        <input type="button" value="수정" class="btn btn-primary">
                         <input type="button" value="삭제" class="btn btn-primary">
                         </span>
                 
               <table>
                         <tr>
                             <th>제목</th>
-                            <td>문의드립니다.</td>
+                            <td>${dto.sgstTitle}</td>
                             <th>조회수</th>
-                            <td>100</td>
+                            <td>${dto.sgstCnt}</td>
                         </tr>
                         <tr>
                             <th>작성자</th>
-                            <td>공주</td>
+                            <td>${dto.userSeq}</td>
                             <th>작성일</th>
-                            <td>2024/05/03</td>
+                            <td>${dto.sgstRegdate}</td>
                         </tr>
                         <tr>
                             <th>내용</th>
                             <td colspan="3">
-                                <textarea></textarea>
+                                <textarea>${dto.sgstContents}</textarea>
                               
                             </td>
                         </tr>
@@ -87,13 +86,6 @@
 
                         <!-- 댓글 컨테이너 -->
                         <div class="commentContainer">
-                        <div class="commentItem">
-                            <div>
-                                <div class="commentWriter">작성자 닉네임</div>
-                                <div class="commentTime">2024-04-30</div>
-                            </div>
-                            <div class="commentContent">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용....</div>
-                        </div>
                         <div class="commentItem">
                             <div>
                                 <div class="commentWriter">작성자 닉네임</div>
