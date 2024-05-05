@@ -26,19 +26,19 @@
             </li>
             </li>
         </ul>
-        
+         
         <!-- Form -->
-        <form action="/sangsangjakka/user/change_pw.do" method="POST">
+        <form action="/sangsangjakka/user/find_pw.do" method="POST">
 
             <!-- id input -->
             <div class="first-input input__block first-input__block">
-                <input type="text" placeholder="아이디를 입력해주세요." class="input" id="id">
+                <input type="text" placeholder="아이디를 입력해주세요." class="input" id="id" name="userId">
             </div>
 
             <!-- password input -->
             <div class="input__block">
                 <div class="pwInput inputBorder">
-                    <input type="password" placeholder="주민등록번호 앞자리를 입력해주세요." class="input" id="leftSsn" oninput="validateInput()">
+                    <input type="password" placeholder="주민등록번호 앞자리를 입력해주세요." class="input" id="leftSsn" name="userLeftSsn" oninput="validateInput()">
                     <div id="error-message" style="color: red; display: none; font-size: 0.8em;">숫자만 입력 가능합니다.</div>
                     <div class="togglePassword" onclick="togglePasswordVisibility('leftSsn', 'toggleIconCheck')">
                         <i id="toggleIconCheck" class="fas fa-eye-slash"></i>

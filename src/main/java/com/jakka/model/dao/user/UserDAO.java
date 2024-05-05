@@ -10,5 +10,9 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	public String findSeq(String id);
 	public int saveStorage(UserDTO dto, String adId);
 	public void createUserFolder(String userId);
+	public UserDTO login(UserDTO dto);
+	public UserDTO findId(UserDTO dto);
+	public UserDTO findPw(UserDTO dto);
+
 	
 }

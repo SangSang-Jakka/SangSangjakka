@@ -7,12 +7,24 @@
             <div class="headerLogo">
                 <a href="/sangsangjakka/index.do"><img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78"></a>
             </div>
-            <div class="headerLogin">
-                <div class="loginWrap">
-                    <a href="/sangsangjakka/user/login.do" class="loginBtn">로그인</a>
-                    <a href="/sangsangjakka/user/signup.do" class="singUpBtn">회원가입</a>
-                </div>
-            </div>
+            
+            <c:if test="${empty userId}">
+	            <div class="headerLogin">
+	                <div class="loginWrap">
+	                    <a href="/sangsangjakka/user/login.do" class="loginBtn">로그인</a>
+	                    <a href="/sangsangjakka/user/signup.do" class="singUpBtn">회원가입</a>
+	                </div>
+	            </div>
+            </c:if>
+            
+            <c:if test="${not empty userId}">
+          		<div class="headerLogin">
+          			<div class="loginWrap">
+          				<a href="/sangsangjakka/user/index.do" class="logoutBtn">로그아웃</a>
+          				<a href="#" class="userInfo">"${userId}"님 안녕하세요</a>
+          			</div>
+          		</div>
+            </c:if>
         </div>
     </header>
     

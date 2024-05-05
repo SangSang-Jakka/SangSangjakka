@@ -15,6 +15,7 @@
 		<div class="container">
 			<!-- Heading -->
 			<%@include file="/WEB-INF/views/member/user/user_template/heading.jsp"%>
+			<!-- 로고 누르면 index 페이지로 이동 -->
 			
 			<!-- Links -->
 			<ul class="links">
@@ -28,11 +29,11 @@
 			</ul>
 			
 			<!-- Form -->
-			<form action="" method="post">
+			<form action="/sangsangjakka/user/login.do" method="post">
 	
 				<!-- id input -->
 				<div class="first-input input__block first-input__block">
-					<input type="text" placeholder="아이디를 입력해주세요." class="input" id="id">
+					<input type="text" placeholder="아이디를 입력해주세요." class="input" id="id" name="userId">
 				</div>
 	
 				<!-- password input -->
@@ -40,7 +41,7 @@
 				<!-- password input -->
 				<div class="input__block">
 					<div class="pwInput inputBorder">
-						<input type="password" placeholder="비밀번호를 입력해주세요." class="input" id="passwordInputCheck" required>
+						<input type="password" placeholder="비밀번호를 입력해주세요." name="userPw" class="input" id="passwordInputCheck" required>
 						<div class="togglePassword" onclick="togglePasswordVisibility('passwordInputCheck', 'toggleIconCheck')">
 							<i id="toggleIconCheck" class="fas fa-eye-slash"></i> <!-- 수정된 부분 -->
 						</div>
