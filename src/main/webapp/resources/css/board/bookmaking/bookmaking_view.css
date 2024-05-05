@@ -137,6 +137,11 @@
 
 .pageOptionBox>div:nth-child(3) {
 	width: 160px;
+	background-color: #FE4848;
+}
+
+.pageOptionBox>div:nth-child(4) {
+	width: 160px;
 	background-color: #C61FA1;
 }
 
@@ -197,7 +202,7 @@
 	border-right: 1px dashed black;
 }
 
-.pageTextMakerBox {
+.pageTextMakerBox li:nth-child(1) {
 	margin-top: 16px;
 }
 
