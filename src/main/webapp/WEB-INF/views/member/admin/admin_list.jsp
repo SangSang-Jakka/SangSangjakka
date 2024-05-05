@@ -87,7 +87,7 @@
 	
 	
 				
-				<!-- Simple Datatable start -->
+			
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
@@ -110,33 +110,33 @@
 									<th class="table-plus datatable-nosort">번호</th>
 									<th>관리자명</th>
 									<th>역할</th>
-									
-									<th>등록일</th>
+									<th>주소</th>
+									<th>전화번호</th>
 									
 								</tr>
 							</thead>
 						
 							<tbody>
+
+								<c:forEach var="admin" items="${adminList}" varStatus="loop">
+								
 								<tr>
-									<td class="table-plus">1</td>
+									<td class="table-plus">${loop.index +1}</td>
+									
+									
+    
+
 									<td>
+<!-- 									<a href ="/sangsangjakka/admin/view.do"> -->
+									<a href ="/sangsangjakka/admin/view.do?id=${admin.adId}">${admin.adName}</a>
+									</td>
+									<td>${admin.adNick}</td>
 									
-									
-									<a href ="/sangsangjakka/admin/view.do">
-									ghkdtl12</td>
-									<td>관리자</td>
-									
-									<td>2024/03/01</td>
-									
-								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td>tldnjs33</td>
-									<td>관리자</td>
-									
-									<td>2024/03/28</td>
+									<td>${admin.adAddress}</td>
+									<td>${admin.adTel}</td>
 									
 								</tr>
+								</c:forEach>
 							</tbody>
 					
 						</table>

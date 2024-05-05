@@ -48,7 +48,7 @@
 	
 	
 	
-	               
+	            <form method ="POST" action="/sangsangjakka/admin/edit.do"> 
 				<!-- Simple Datatable start -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
