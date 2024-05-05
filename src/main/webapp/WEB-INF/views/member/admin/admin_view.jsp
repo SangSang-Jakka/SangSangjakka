@@ -53,8 +53,8 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">관리자 정보</h4>
-						
-					<a href="/sangsangjakka/admin/viewok.do" class="btn btn-primary pull-right">수정</a>
+					
+					<a href="/sangsangjakka/admin/edit.do?id=${adminview.adId}" class="btn btn-primary pull-right">수정</a>
 					</div>
 					<div class="wizard-content">
 						<form class="tab-wizard wizard-circle wizard">

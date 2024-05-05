@@ -31,12 +31,12 @@
 	                   <div class="row">
 	                       <div class="col-md-12 col-sm-12">
 	                           <div class="title">
-	                               <h4>공지사항</h4>
+	                               <h4>관리자 정보</h4>
 	                           </div>
 	                           <nav aria-label="breadcrumb" role="navigation">
 	                               <ol class="breadcrumb">
 	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">동화책 신고 관리</li>
+	                                   <li class="breadcrumb-item active" aria-current="page">관리자 정보</li>
 	                               </ol>
 	                           </nav>
 	                       </div>
@@ -48,48 +48,17 @@
 	
 	
 	
-	               
+	            <form  method ="POST" action="/sangsangjakka/admin/myedit.do">   
 				<!-- Simple Datatable start -->
-				
-				<form  method ="POST" action="/sangsangjakka/admin/edit.do">
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">관리자 정보</h4>
-						
-					<button type="submit" class="btn btn-primary pull-right">확인</button>
+                        <button type="submit" class="btn btn-primary pull-right">확인</button>
 					</div>
 					<div class="wizard-content">
 						
 							
 						
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >이름 :</label>
-											<input type="text" class="form-control" name ="adname" value="${adminedit.adName}">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >주소 : </label>
-											<input type="text" class="form-control" name ="adaddress" value="${adminedit.adAddress}">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>전화번호 :</label>
-											<input type="text" class="form-control" name ="adtel" value="${adminedit.adTel}">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>닉네임 :</label>
-											<input type="text" class="form-control" name="adnick" value="${adminedit.adNick}">
-										</div>
-									</div>
-								</div>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -100,24 +69,52 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >비밀번호 : </label>
-											<input type="text" class="form-control" name="adPw" value="${adminedit.adPw}">
+											<input type="text" class="form-control" name ="adPw" value="${adminedit.adPw}" placeholder="****">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>이름 :</label>
+											<input type="text" class="form-control" name="adName" value="${adminedit.adName}">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>닉네임 :</label>
+											<input type="text" class="form-control" name ="adNick" value="${adminedit.adNick}">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >전화번호 :</label>
+											<input type="text" class="form-control" name="adTel" value="${adminedit.adTel }">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >주소 : </label>
+											<input type="text" class="form-control" name ="adAddress" value="${adminedit.adAddress}" >
 										</div>
 									</div>
 								</div>
 							 <div>
 
-                       
-                        <button type="button" class="btn btn-danger">계정 삭제</button>
+                        
+                        
                     </div>
 							<!-- Step 2 -->
                            
-						</form>
+						
                         
 					</div>
 				</div>
 			
 			<!-- Simple Datatable End -->
-	
+	</form>
 			
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
