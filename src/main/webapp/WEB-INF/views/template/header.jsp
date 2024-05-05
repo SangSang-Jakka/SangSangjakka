@@ -21,7 +21,7 @@
           		<div class="headerLogin">
           			<div class="loginWrap">
           				<a href="/sangsangjakka/user/index.do" class="logoutBtn">로그아웃</a>
-          				<a href="#" class="userInfo">"${userId}"님 안녕하세요</a>
+          				<a href="/sangsangjakka/user/signout.do" class="userInfo">회원 탈퇴</a>
           			</div>
           		</div>
             </c:if>

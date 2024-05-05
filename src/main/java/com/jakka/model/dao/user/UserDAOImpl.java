@@ -22,6 +22,28 @@ public class UserDAOImpl implements UserDAO{
 		return DAO;
 	}//getInstance()
 	
+
+	public boolean unRegister(UserDTO dto) {
+		String SQL = "delete from tblUser where userSeq = ? and userPw = ?";
+		
+		try {
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			pstat.setString(1, dto.getUserSeq());
+			pstat.setString(2, dto.getUserPw());
+			
+			int result = pstat.executeUpdate();
+			
+			return result > 0;
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.unRegister");
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 	// 비밀번호찾기
 	public UserDTO findPw(UserDTO dto) {
 		// 아이디와 주민번호 앞자리의 조건이 맞는 사용자 찾기, 그리고 userSeq를 반환해서
