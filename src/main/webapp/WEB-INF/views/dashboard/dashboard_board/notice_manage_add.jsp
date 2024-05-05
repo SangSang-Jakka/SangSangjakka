@@ -47,17 +47,18 @@
 	
 	    
 				<!-- 작성 -->
+                <form method="POST" action="/sangsangjakka/admin/dashboard/notice/manageadd.do">
 				 <div class="row">
                     <div class="writeContainer">
                         <h2>공지사항 작성</h2>
                         <table>
                             <tr>
                                 <th>제목</th>
-                                <td><input type="text" name="subject" class="subjectNotice"></td>
+                                <td><input type="text" name="noticeTitle" class="subjectNotice"></td>
                             </tr>
                             <tr>
                                 <th>내용</th>
-                                <td><textarea name="content" class="contentNotice"></textarea></td>
+                                <td><textarea name="noticeContents" class="contentNotice"></textarea></td>
                             </tr>
                             <tr>
                                 <th>파일</th>
@@ -71,13 +72,14 @@
                     <button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/notice/manage.do'">
                         <i class="fa-solid fa-rotate-left"></i> 취소
                     </button>
-    
-                    <button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/notice/manage.do'">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-pencil"></i> 작성
                     </button>
                 </div>
 	
 			</div>
+			
+                </form>
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			

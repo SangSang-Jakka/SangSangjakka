@@ -28,7 +28,7 @@ public class SuggestionManagementView extends HttpServlet {
 		String seq = req.getParameter("seq");
 
 		SuggestionDAO suggestionDAO = DAOManager.getSuggestionDAO();
-		SuggestionAnswerDAO suggestionAnswerDAO = DAOManager.getSuggestionAnswerDAO();
+		
 		
 
 		// 문의사항 가져오기
@@ -57,8 +57,14 @@ public class SuggestionManagementView extends HttpServlet {
 		
 		
 		// 문의사항 답변 가져오기
-		// 	SuggestionDTO dto = suggestionDAO.findById(seq);
-		// ArrayList<SuggestionAnswerDTO> resultList = suggestionAnswerDAO.l
+		
+		SuggestionAnswerDAO suggestionAnswerDAO = DAOManager.getSuggestionAnswerDAO();
+		
+		ArrayList<SuggestionAnswerDTO> answerList = suggestionAnswerDAO.list(seq);
+		
+		req.setAttribute("answerList", answerList);
+				
+	
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/suggestion_manage_view.jsp");
 		dispatcher.forward(req, resp);

@@ -12,4 +12,42 @@ public class BoardCommentDTO {
 	private String cmntReportCnt;
 	private String cmntRegdate;
 	
+	public String getCmntSeq() {
+		return cmntSeq;
+	}
+	public void setCmntSeq(String cmntSeq) {
+		this.cmntSeq = cmntSeq;
+	}
+	public String getUserSeq() {
+		return userSeq;
+	}
+	public void setUserSeq(String userSeq) {
+		this.userSeq = userSeq;
+	}
+	public String getBoardSeq() {
+		return boardSeq;
+	}
+	public void setBoardSeq(String boardSeq) {
+		this.boardSeq = boardSeq;
+	}
+	public String getCmntContents() {
+		return cmntContents;
+	}
+	public void setCmntContents(String cmntContents) {
+		this.cmntContents = cmntContents;
+	}
+	public String getCmntReportCnt() {
+		return cmntReportCnt;
+	}
+	public void setCmntReportCnt(String cmntReportCnt) {
+		this.cmntReportCnt = cmntReportCnt;
+	}
+	public String getCmntRegdate() {
+		return cmntRegdate;
+	}
+	public void setCmntRegdate(String cmntRegdate) {
+		this.cmntRegdate = cmntRegdate;
+	}
+	
+	
 }//End of class

@@ -18,63 +18,57 @@ import com.jakka.model.dto.board.NoticeDTO;
 
 @WebServlet("/admin/dashboard/notice/manageadd.do")
 public class NoticeManagementAdd extends HttpServlet {
-	
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/notice_manage_add.jsp");
+
+		RequestDispatcher dispatcher = req
+				.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/notice_manage_add.jsp");
 		dispatcher.forward(req, resp);
-		
+
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		//1. 데이터 가져오기(subject, content)
-		//2. DB 작업 > insert
-		//3. 결과
-		
-		
+
+		// 첨부파일 처리는 어떻게 할 지...
+
+		// 1. 데이터 가져오기(subject, content)
+		// 2. DB 작업 > insert
+		// 3. 결과
+
 		req.setCharacterEncoding("UTF-8");
-		
+
 		HttpSession session = req.getSession();
-		String adId = (String)session.getAttribute("adId");
+		String adId = (String) session.getAttribute("adId");
 
 		// 폼으로부터 데이터 추출
 		String noticeTitle = req.getParameter("noticeTitle");
 		String noticeContents = req.getParameter("noticeContents");
-		
+
 		// 공지사항 객체 생성
 		NoticeDTO dto = new NoticeDTO();
-		
+
 		dto.setNoticeTitle(noticeTitle);
 		dto.setNoticeContents(noticeContents);
 		dto.setAdId(adId);
-		
+
 		// db에 게시글 추가
 		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
 		int result = noticeDAO.add(dto);
-		
+
 		if (result == 1) {
 			resp.sendRedirect("/sangsangjakka/admin/dashboard/notice/manage.do");
 		} else {
 			
 			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
-			/*
-			writer.print(OutputUtil.redirect("실패했습니다."));
-			writer.close(); */
+			writer.println("<script>alert('작성에 실패했습니다.');</script>");
+			writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
+			writer.close();
+
 		}
-		
-	
-		
-		
-		
-		
-		
-		
-		
+
 	}
-	
-}//End of class
+
+}// End of class

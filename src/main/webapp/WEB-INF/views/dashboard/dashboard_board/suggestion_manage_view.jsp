@@ -84,17 +84,19 @@
                         </tr>
                         </table>
 
-                        <!-- 댓글 컨테이너 -->
+                        <!-- 답변 컨테이너 -->
                         <div class="commentContainer">
                         <div class="commentItem">
+                        <c:forEach var="answer" items="${answerList}">
                             <div>
-                                <div class="commentWriter">작성자 닉네임</div>
-                                <div class="commentTime">2024-04-30</div>
+                                <div class="commentWriter">${answer.adId}</div>
+                                <div class="commentTime">${answer.sgstRegdate}</div>
                             </div>
-                            <div class="commentContent">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용....</div>
+                            <div class="commentContent">${answer.sgstAnsw}</div>
                         </div>
+                       </c:forEach>
                         
-                        <!-- 댓글 입력 폼 -->
+                        <!-- 답변 입력 폼 -->
                         <div class="commentInput">
                             <input type="text" placeholder="댓글을 입력하세요.">
                             <input type="button" class="btn btn-primary" value="작성">
@@ -107,8 +109,7 @@
                         </span>
 
                         <span class="right">
-                            <input type="button" value="목록" class="btn btn-primary pull-right">
-                        </span>
+                            <input type="button" value="목록" class="btn btn-primary pull-right" onclick="location='/sangsangjakka/admin/dashboard/suggestion/manage.do'"></span>
                     
                 </div>
             </div>

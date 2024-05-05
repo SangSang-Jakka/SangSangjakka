@@ -92,9 +92,11 @@
 				</div>
 			<!-- Simple Datatable End -->
 				<span class="buttonItem">
+					<c:if test="${not empty adId}">
 				    <button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/notice/manageadd.do'">
                         <i class="fa-solid fa-pencil"></i> 작성
                     </button>
+                    </c:if>
 				</span>
 	
 			</div>

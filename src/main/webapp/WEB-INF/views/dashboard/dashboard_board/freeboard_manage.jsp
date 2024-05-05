@@ -67,12 +67,13 @@
 							</thead>
 						
 							<tbody>
+							<c:forEach var="board" items="${boardList}">
 								<tr>
-									<td class="table-plus">1</td>
-									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do">제목입니다.</a></td>
-									<td>Gemini</td>
-									<td>2024-05-01</td>
-									<td>15</td>
+									<td class="table-plus">${board.boardSeq}</td>
+									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${board.boardSeq}">${board.boardTitle}</a></td>
+									<td>${board.userSeq}</td>
+									<td>${board.boardRegdate}</td>
+									<td>${board.boardCnt}</td>
 									<td>0</td>
 									<td>
 										<div class="dropdown">
@@ -80,33 +81,14 @@
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/freeboard/manageview.do"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${board.boardSeq}"><i class="dw dw-eye"></i> View</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do">제목</a></td>
-									<td>관리자사칭</td>
-									<td>2024-03-28</td>
-									<td>35</td>
-									<td>1</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/freeboard/manageview.do"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
+								</c:forEach>
 							</tbody>
 					
 						</table>

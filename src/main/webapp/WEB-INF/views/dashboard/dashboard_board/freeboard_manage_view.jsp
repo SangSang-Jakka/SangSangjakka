@@ -44,8 +44,6 @@
 	                   </div>
 	               </div>
 	
-	
-	    
 				<!-- 게시글 상세보기 -->
 				<div class="row">
                     <div class="viewContainer">
@@ -60,20 +58,20 @@
                         <table>
                         <tr>
                             <th>제목</th>
-                            <td>제목입니다.</td>
+                            <td>${dto.boardTitle}</td>
                             <th>조회수</th>
-                            <td>100</td>
+                            <td>${dto.boardCnt}</td>
                         </tr>
                         <tr>
                             <th>작성자</th>
-                            <td>adbsdfjlfsdjksfjk</td>
+                            <td>${dto.userSeq}</td>
                             <th>작성일</th>
-                            <td>2024/04/29</td>
+                            <td>${dto.boardRegdate}</td>
                         </tr>
                         <tr>
                             <th>내용</th>
                             <td colspan="3">
-                                <textarea>내용 어쩌구저쩌구입니다</textarea>
+                                <textarea>${dto.boardContents}</textarea>
                             </td>
                         </tr>
                         </table>
@@ -81,19 +79,15 @@
                         <!-- 댓글 컨테이너 -->
                         <div class="commentContainer">
                         <div class="commentItem">
+                        <c:forEach var="cmnt" items="${cmntList}">
                             <div>
-                                <div class="commentWriter">작성자 닉네임</div>
-                                <div class="commentTime">2024-04-30</div>
+                                <div class="commentWriter">${cmnt.userSeq}</div>
+                                <div class="commentTime">${cmnt.cmntRegdate}</div>
                             </div>
-                            <div class="commentContent">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용....</div>
+                            <div class="commentContent">${cmnt.cmntContents}</div>
                         </div>
-                        <div class="commentItem">
-                            <div>
-                                <div class="commentWriter">작성자 닉네임</div>
-                                <div class="commentTime">2024-04-30</div>
-                            </div>
-                            <div class="commentContent">댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용....</div>
-                        </div>
+                        </c:forEach>
+                 
                         
                         <!-- 댓글 입력 폼 -->
                         <div class="commentInput">
@@ -108,7 +102,7 @@
                         </span>
 
                         <span class="right">
-                            <input type="button" value="목록" class="btn btn-primary pull-right">
+                            <input type="button" value="목록" class="btn btn-primary pull-right" onclick="location='/sangsangjakka/admin/dashboard/freeboard/manage.do'">
                         </span>
                     
                 </div>

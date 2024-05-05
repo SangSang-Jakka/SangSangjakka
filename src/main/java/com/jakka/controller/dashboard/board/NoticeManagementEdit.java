@@ -21,19 +21,40 @@ public class NoticeManagementEdit extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		// 인증 받지 못한 사용자 or 권한이 없는 사용자 > 거부
+		/*
 		HttpSession session = req.getSession();
-		// 관리자 권한 작업 해야 됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		// 1. 데이터 가져오기(seq)
-		// 2. DB 작업 > select > 수정할 데이터의 원본을 미리 보여주기 위해서
-		// 3. 결과 > 출력
+		String adId = (String) session.getAttribute("adId");
 		
+		if (adId == null) {
+			
+			resp.sendRedirect("/sangsangjakka/admin/login.do");
+			return;
+			
+		}
+		*/
+		// 공지사항 번호 가져오기
 		String seq = req.getParameter("seq");
-
 		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
 
+		
 		// 게시물 가져오기
+
 		NoticeDTO dto = noticeDAO.findById(seq);
+
+	// 작성자와 현재 사용자가 일치하지 않으면 권한 없음 처리
+		/*
+		if (!adId.equals(dto.getAdId())) {
+			resp.setCharacterEncoding("UTF-8");
+			PrintWriter writer = resp.getWriter();
+			writer.println("<script>alert('권한이 없습니다.');</script>");
+			writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
+			writer.close();
+			return;
+			
+		}
+
+		*/
 
 		req.setAttribute("seq", seq);
 		req.setAttribute("dto", dto);
@@ -42,35 +63,53 @@ public class NoticeManagementEdit extends HttpServlet {
 		dispatcher.forward(req, resp);
 
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		//1. 데이터 가져오기
+
+
+
+		// 1. 데이터 가져오기
 		// 2. DB 작업 > update
 		// 3. 결과
+		
 		
 		String noticeTitle = req.getParameter("noticeTitle");
 		String noticeContents = req.getParameter("noticeContents");
 		String seq = req.getParameter("seq");
-		
-		
+
 		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
 		NoticeDTO dto = noticeDAO.findById(seq);
+
+		/*
+		// 공지사항 작성자 == 현재 사용자 ?
+		HttpSession session = req.getSession();
+		String adId = (String) session.getAttribute("adId");
+		if (!adId.equals(dto.getAdId())) { 
+			resp.setCharacterEncoding("UTF-8");
+			PrintWriter writer = resp.getWriter();
+			writer.println("<script>alert('권한이 없습니다.');</script>");
+			writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
+			writer.close();
+			return;
+		}
+		*/
 		
+		// 공지사항 수정
 		dto.setNoticeTitle(noticeTitle);
 		dto.setNoticeContents(noticeContents);
 		dto.setNoticeSeq(seq);
 
 		int result = noticeDAO.save(dto);
-		
-		if (result ==1) {
+
+		if (result == 1) {
 
 			resp.sendRedirect("sangsangjakka/admin/dashboard/notice/manageview.do?seq=" + seq);
 		} else {
 			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
-			// writer.print(OutputUtil.redirect("실패했습니다."));
+			writer.println("<script>alert('수정 실패했습니다.');</script>");
+			writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
 			writer.close();
 		}
 	}
