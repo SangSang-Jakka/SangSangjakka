@@ -28,7 +28,7 @@
         </ul>
         
         <!-- Form -->
-        <form action="/sangsangjakka/user/find_pw_ok.do" method="post">
+        <form action="/sangsangjakka/user/find_id_ok.do" method="post">
 
             <!-- id input -->
             <div class="first-input input__block first-input__block">

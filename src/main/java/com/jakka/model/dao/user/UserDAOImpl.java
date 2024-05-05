@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jakka.model.DBUtil;
-import com.jakka.model.dao.ActiveStatus;
-import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dto.user.UserDTO;
 
 public class UserDAOImpl implements UserDAO{
@@ -23,6 +21,100 @@ public class UserDAOImpl implements UserDAO{
 	public static UserDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
+	
+	// 비밀번호찾기
+	public UserDTO findPw(UserDTO dto) {
+		// 아이디와 주민번호 앞자리의 조건이 맞는 사용자 찾기
+		String SQL = "select * from tblUser where userId = ? and userleftSsn = ?";
+		
+		try {
+
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			pstat.setString(1, dto.getUserId());
+			pstat.setString(2, dto.getUserLeftSsn());
+
+			ResultSet rs = pstat.executeQuery();
+			// 일치하는 유저가 저장된 rs의 값이 존재하면
+			if(rs.next()) {
+				UserDTO result = new UserDTO();
+				result.setUserId(rs.getString("userId"));
+				result.setUserLeftSsn(rs.getString("userleftSsn"));
+				rs.close();
+				
+				return result;
+			} 
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	// 아이디 찾기
+	public UserDTO findId(UserDTO dto) {
+		String SQL = "select userId from tblUser where userNick = ? and userEmail = ?";
+		
+		try {
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			// nick과 email을 ?에 할당
+			pstat.setString(1, dto.getUserNick());
+			pstat.setString(2, dto.getUserEmail());
+			
+			// 결과 반환
+			ResultSet rs = pstat.executeQuery();
+			
+			// 결과값이 있으면
+			if(rs.next()) {
+				// DTO타입의 참조변수 result
+				UserDTO result = new UserDTO();
+				// 쿼리를 실행한 결과를 가져와서 result에 쓰기
+				result.setUserId(rs.getString("userId"));
+				result.setUserRegdate(rs.getString("userRegdate"));
+				rs.close();
+				
+				// result 반환
+				return result;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.findId");
+			e.printStackTrace();
+		}
+		return null;
+	}
+ 	
+	// 로그인
+	public UserDTO login(UserDTO dto) {
+		
+		String SQL = "select * from tblUser where userId = ? and userPw = ?";
+		
+		try {
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL); 
+			
+			pstat.setString(1, dto.getUserId());
+			pstat.setString(2, dto.getUserPw());
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				UserDTO result = new UserDTO();
+				result.setUserNick(rs.getString("userNick"));
+				result.setUserLV(rs.getString("userLV"));
+				rs.close();
+				
+				return result;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.login");
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	@Override
 	public int add(UserDTO dto) {

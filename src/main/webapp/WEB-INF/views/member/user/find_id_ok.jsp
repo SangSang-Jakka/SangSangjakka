@@ -16,17 +16,27 @@
         <!-- Heading -->
         <%@include file="/WEB-INF/views/member/user/user_template/heading.jsp"%>
         
-        
+        <%-- <c:if test="${not empty userId}"> --%>
         <div class="findUserIdSuccess">
             <div class="findUserId">
                 찾으신 고객님의 아이디는
-                <span>'hong1234'</span>
+                <span>${userId}</span>
                 입니다.
             </div>
             <div class="fingUserRegdate">
-                가입일: <span>2024.04.29</span>
+                가입일: <span>${userRegdate}</span>
             </div>
         </div>
+        <%-- </c:if> --%>
+        
+       <<%-- c:if test="${empty userId}">
+       <div class="findUserIdSuccess">
+       		<div class="findUserId">
+       			조건에 해당하는 아이디가 없습니다.
+       		</div>
+       </div>
+       </c:if> --%>
+       
  
         <div class="successBtn">
             <div class="login"><a href="/sangsangjakka/user/login.do">로그인</a></div>
