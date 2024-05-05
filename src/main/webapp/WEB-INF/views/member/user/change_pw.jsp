@@ -28,11 +28,11 @@
         </ul>
         
         <!-- Form -->
-        <form action="" method="POST">
+        <form action="/sangsangjakka/user/change_pw.do" method="POST">
             <!-- password input -->
             <div class="first-input input__block first-input__block">
                 <div class="pwCheckInput inputBorder">
-                    <input type="password" placeholder="새 비밀번호를 입력해주세요." class="input" id="pwInput">
+                    <input type="password" placeholder="새 비밀번호를 입력해주세요." class="input" id="pwInput" name="pwInput">
                     <div class="togglePassword" onclick="togglePasswordVisibility('pwInput', 'toggleIconCheck1')">
                         <i id="toggleIconCheck1" class="fas fa-eye-slash"></i>
                     </div>
@@ -42,7 +42,7 @@
             <!-- password input -->
             <div class="input__block second-input__block">
                 <div class="pwCheckInput inputBorder">
-                    <input type="password" placeholder="비밀번호를 다시 입력해주세요." class="input" id="pwCheck"> 
+                    <input type="password" placeholder="비밀번호를 다시 입력해주세요." class="input" id="pwCheck" name="pwCheck"> 
                     <div class="togglePassword" onclick="togglePasswordVisibility('pwCheck', 'toggleIconCheck2')">
                         <i id="toggleIconCheck2" class="fas fa-eye-slash"></i>
                     </div>
