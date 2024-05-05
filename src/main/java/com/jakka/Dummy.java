@@ -47,23 +47,156 @@ public class Dummy {
 		//addFreeboard();
 		
 		//게시글댓글 생성
-		//addFreeboardCmnt();
+		addFreeboardCmnt();
 	}
 	
 	
 	private static void addFreeboardCmnt() {
+		
+		int cmntSeqCnt = 0;
+		
+		final String[] SUBJECTS = {
+			    "저도", "제 생각에는", "동의합니다", "공감이 됩니다", "반대 의견입니다", "다른 관점에서 보면",
+			    "덧붙이자면", "맞습니다만", "그렇지만 한편으로는", "좋은 지적이군요", "이해가 되네요", "궁금한 점이 있습니다"
+			};
+
+		String[] OBJECTS = {
+			    "글쓴이님의 의견", "제안하신 내용", "이번 사안", "최근 이슈", "이번 일", "해당 문제", "해결 방안",
+			    "그 상황", "다른 대안", "새로운 방법", "다양한 견해", "서로의 입장"
+			};
+
+		final String[] VERBS = {
+			    "에 대해 말씀드리면", "에 동의하기 어렵습니다", "는 좀 더 고민해볼 필요가 있습니다", "에 대한 제 의견도 있습니다",
+			    "에 대해 보완하자면", "에 대해 다른 시각이 필요할 것 같습니다", "에 대해 설명을 부탁드립니다", "에 대해 궁금한 점이 있습니다",
+			    "에 대해 추가로 말씀드리면", "에 대해 어떻게 생각하시는지 궁금합니다", "에 대해 다른 의견이 있다면 알려주세요", "에 대해 열린 자세로 듣고 싶습니다"
+			};
+		
+		final String boardListSQL = "select * from tblBoard";	//전체 게시글
+		final String afterUserSql = "select * from tblUser where userRegdate < ?";	//시각 이전 생성계정
+		
 		//자유게시판 댓글
-		final String cmmtSql = "";
-		final String cmmtLogSql = "";
-		final String cmmtReportSql = "";
-		final String cmmtReportLogSql = "";
-		final String cmmtWhiteSql = "";
-		final String cmmtWhiteLogSql = "";
+		final String cmntSql = "insert into tblBoardComments (cmntSeq, userSeq, boardSeq, cmntContents, cmntRegdate) "
+				+ "values((SELECT NVL(MAX(cmntSeq), 0) + 1 FROM tblBoardComments), ?, ?, ?, ?)";
+		
+		final String userLogSql = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), ?, ?, ?, ?)";
+		
+		final String adminLogSql = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) "
+				+ "values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), ?, ?, ?, ?)";
+		
+		final String cmntReportSql = "insert into tblBoardCommentsReport(cmntSeq, userSeq)"
+				+ "values(?, ?)";
+		
+		final String cmntWhiteSql = "delete from tblBoardCommentsWhiteList where cmntSeq = ?";
 		
 		//신고당한댓글중에 무고글 풀어주기
-		final String cmmtactiveSql = "";
-		final String cmmtactiveLogSql = "";
+		final String cmntactiveSql = "insert into tblBoardCommentsWhiteList(cmntSeq)"
+				+ "values(?)";
 		
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(boardListSQL);
+			
+			PreparedStatement afteruser = conn.prepareStatement(afterUserSql);
+				
+			PreparedStatement cmnt = conn.prepareStatement(cmntSql);
+				
+			PreparedStatement userLog = conn.prepareStatement(userLogSql);
+			PreparedStatement adLog = conn.prepareStatement(adminLogSql);
+			
+			PreparedStatement report = conn.prepareStatement(cmntReportSql);
+				
+			PreparedStatement diable = conn.prepareStatement(cmntWhiteSql);
+			PreparedStatement enable = conn.prepareStatement(cmntactiveSql);
+				
+		){
+			//모든 게시글마다
+			while(rs.next()) {
+				
+				String boardSeq = rs.getString("boardSeq");
+                Timestamp boardRegdate = rs.getTimestamp("boardRegdate");
+                
+                //게시글 생성 이전에 존재하던 계정들 목록
+                afteruser.setTimestamp(1, boardRegdate);
+                ResultSet userList = afteruser.executeQuery();
+                
+                
+                // 댓글단 사람수 체크 댓글 추가
+                int userCnt = 0;
+                while(userList.next() && rnd.nextBoolean()) {
+                	
+                	//댓글을 달 사용자 번호와 내용
+                	String userSeq = rs.getString("userSeq");
+                	
+                	
+                	//한사람이 한개시글에 1개 ~ 3개의 댓글
+                	int cycle = rnd.nextInt(4) + 1;
+                	for(int i = 0; i < cycle; i++) {
+                		
+                		String contents = SUBJECTS[rnd.nextInt(SUBJECTS.length)] + OBJECTS[rnd.nextInt(OBJECTS.length)] + VERBS[rnd.nextInt(VERBS.length)] ;
+                		
+                		LocalDateTime boardDateTime = generateRandomDateTimeAfter(boardRegdate.toLocalDateTime());
+                    	Timestamp boardTimestamp = Timestamp.valueOf(boardDateTime);
+                		
+                    	cmnt.setString(1, userSeq);
+                    	cmnt.setString(2, boardSeq);
+                    	cmnt.setString(3, contents);
+                    	cmnt.setTimestamp(4, boardTimestamp);
+                    	cmnt.executeUpdate();
+                    	cmntSeqCnt += 1;
+                    	
+                    	userLog.setTimestamp(1, boardTimestamp);
+                    	userLog.setString(2, userSeq);
+                    	userLog.setString(3, "사용자번호'" + userSeq + "'이 부모글번호'" + boardSeq + "' 글내용'" + contents + "'에 자유게시판 댓글을 '작성'했습니다.");
+                    	userLog.setString(4, UserLog.BoardCommentCreated.getValue());
+                    	userLog.executeUpdate();
+                    	
+                    	//방금 작성된 댓글 이전에 생성된 계정들중 랜덤으로 신고 신고횟수는 0 ~ 5
+                    	//신고횟수가 5일경우 블라인드 처리 + 로그
+                    	
+                        afteruser.setTimestamp(1, boardTimestamp);
+                        ResultSet cmntUserList = afteruser.executeQuery();
+                        
+                        int reportCnt = 0;
+                        
+                        while(cmntUserList.next() && rnd.nextBoolean()) {
+                        	
+                        	String reportUserSeq = cmntUserList.getString("userSeq");
+                        	
+                        	LocalDateTime reportDateTime = generateRandomDateTimeAfter(boardRegdate.toLocalDateTime());
+                        	Timestamp reportTimestamp = Timestamp.valueOf(reportDateTime);
+                        	
+                        	report.setString(1, cmntSeqCnt + "");
+                        	report.setString(2, reportUserSeq);
+                        	report.executeUpdate();
+                        	
+                        	userLog.setString(1, reportUserSeq);
+                        	userLog.setString(1, reportUserSeq);
+                        	userLog.setString(1, reportUserSeq);
+                        	userLog.setString(1, reportUserSeq);
+                        	
+                        	
+                        }
+                        
+                    	
+                	}
+                	
+                	
+                	userCnt++;
+                	
+                	//7명 이상이 댓글달면 1개의 게시글에 댓글 종료
+                	if(userCnt > 7) { break; }
+                	
+                }
+                
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -254,9 +387,6 @@ public class Dummy {
 		}
 		
 	}
-
-
-
 
 	private static void addSuggestion() {
 		
