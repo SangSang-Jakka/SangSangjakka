@@ -24,8 +24,9 @@ public class UserDAOImpl implements UserDAO{
 	
 	// 비밀번호찾기
 	public UserDTO findPw(UserDTO dto) {
-		// 아이디와 주민번호 앞자리의 조건이 맞는 사용자 찾기
-		String SQL = "select * from tblUser where userId = ? and userleftSsn = ?";
+		// 아이디와 주민번호 앞자리의 조건이 맞는 사용자 찾기, 그리고 userSeq를 반환해서
+		// 비밀번호를 변경할 때 해당 사용자의 비밀번호를 변경하기 위해 userSeq를 추출하는 로직
+		String SQL = "select userSeq from tblUser where userId = ? and userleftSsn = ?";
 		
 		try {
 
@@ -33,13 +34,13 @@ public class UserDAOImpl implements UserDAO{
 			PreparedStatement pstat = conn.prepareStatement(SQL);
 			pstat.setString(1, dto.getUserId());
 			pstat.setString(2, dto.getUserLeftSsn());
-
+			
+			// 쿼리 작업 후 결과를 rs에 반환
 			ResultSet rs = pstat.executeQuery();
 			// 일치하는 유저가 저장된 rs의 값이 존재하면
 			if(rs.next()) {
 				UserDTO result = new UserDTO();
-				result.setUserId(rs.getString("userId"));
-				result.setUserLeftSsn(rs.getString("userleftSsn"));
+				result.setUserSeq(rs.getString("userSeq"));
 				rs.close();
 				
 				return result;
