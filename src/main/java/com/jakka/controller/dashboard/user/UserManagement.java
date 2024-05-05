@@ -1,6 +1,7 @@
 package com.jakka.controller.dashboard.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,11 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jakka.model.DAOManager;
+import com.jakka.model.dao.user.UserDAO;
+import com.jakka.model.dto.user.UserDTO;
+
 @WebServlet("/admin/dashboard/user/manage.do")
 public class UserManagement extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		UserDAO userDAO = DAOManager.getUserDAO();
+		
+		ArrayList<UserDTO> list = userDAO.findAll();
+		
+		req.setAttribute("userList", list);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/user_manage.jsp");
 		dispatcher.forward(req, resp);
