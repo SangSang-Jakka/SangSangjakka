@@ -31,12 +31,12 @@
 	                   <div class="row">
 	                       <div class="col-md-12 col-sm-12">
 	                           <div class="title">
-	                               <h4>공지사항</h4>
+	                               <h4>관리자 정보</h4>
 	                           </div>
 	                           <nav aria-label="breadcrumb" role="navigation">
 	                               <ol class="breadcrumb">
 	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">동화책 신고 관리</li>
+	                                   <li class="breadcrumb-item active" aria-current="page">관리자 정보</li>
 	                               </ol>
 	                           </nav>
 	                       </div>
@@ -63,13 +63,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >이름 :</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${dto.adName}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >주소 : </label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${dto.adAddress}">
 										</div>
 									</div>
 								</div>
@@ -77,18 +77,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>전화번호 :</label>
-											<input type="email" class="form-control">
+											<input type="text" class="form-control" value="${dto.adTel}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>닉네임 :</label>
-											<select class="custom-select form-control">
-												<option value="">등급</option>
-												<option value="Amsterdam">최고관리자</option>
-												<option value="Berlin">관리자</option>
-												
-											</select>
+											<input type="text" class="form-control" value="${dto.adNick}">
 										</div>
 									</div>
 								</div>
@@ -96,13 +91,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >아이디 :</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${dto.adId }">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >비밀번호 : </label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${dto.adPw}" placeholder="********">
 										</div>
 									</div>
 								</div>

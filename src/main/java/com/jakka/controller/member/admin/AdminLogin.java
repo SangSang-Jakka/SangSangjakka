@@ -43,6 +43,7 @@ public class AdminLogin extends HttpServlet{
 		
 		AdminDAO adminDAO = DAOManager.getAdminDAO();
 		AdminDTO dto = new AdminDTO();
+
 		
 		dto.setAdId(adId);
 		dto.setAdPw(adPw);
