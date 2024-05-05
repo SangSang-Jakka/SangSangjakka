@@ -65,47 +65,13 @@
 									danish. Candy toffee gummi bears chocolate bar lollipop
 									applicake chocolate cake danish brownie.</p>
 							</div>
-							<div class="bb-item">
-								<div class="bb-custom-side">
-									<p>Soufflé tootsie roll jelly beans. Sweet icing croissant
-										dessert bear claw. Brownie dessert cheesecake danish jelly
-										pudding bear claw soufflé.</p>
-								</div>
-								<div class="bb-custom-side">
-									<p>Candy canes lollipop macaroon marshmallow gummi bears
-										tiramisu. Dessert croissant cupcake candy canes. Bear claw
-										faworki faworki lemon drops. Faworki marzipan sugar plum
-										jelly-o marzipan jelly-o.</p>
-								</div>
-							</div>
-							<div class="bb-item">
-								<div class="pageImage"
-									style="background-image: url('/sangsangjakka/resources/img/book1.jpg');">
-								</div>
-								<p>Pastry bear claw oat cake danish croissant
-									jujubes danish. Wypas soufflé muffin. Liquorice powder pastry
-									danish. Candy toffee gummi bears chocolate bar lollipop
-									applicake chocolate cake danish brownie.</p>
-							</div>
-							<div class="bb-item">
-								<div class="bb-custom-side">
-									<p>Soufflé tootsie roll jelly beans. Sweet icing croissant
-										dessert bear claw. Brownie dessert cheesecake danish jelly
-										pudding bear claw soufflé.</p>
-								</div>
-								<div class="bb-custom-side">
-									<p>Candy canes lollipop macaroon marshmallow gummi bears
-										tiramisu. Dessert croissant cupcake candy canes. Bear claw
-										faworki faworki lemon drops. Faworki marzipan sugar plum
-										jelly-o marzipan jelly-o.</p>
-								</div>
-							</div>
 						</div>
 
 						<div class="pageOptionBox flex btnBox">
-							<div class="pageOptionItem btnItem pointer">수정</div>
-							<div class="pageOptionItem btnItem pointer">완성</div>
-							<div class="pageOptionItem btnItem pointer">삭제</div>
+							<div class="pageOptionItem btnItem pointer" id="pageEdit">수정</div>
+							<div class="pageOptionItem btnItem pointer" id="pageAdd">페이지 추가</div>
+							<div class="pageOptionItem btnItem pointer" id="bookSave">완성</div>
+							<div class="pageOptionItem btnItem pointer" id="pageDelete">삭제</div>
 						</div>
 					</div>
 					<div class="containerRight">
@@ -122,7 +88,7 @@
 							<input type="checkbox" name="textAiSupport" id="textAiSupport" checked>
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
-						<div class="full flex">
+						<div class="full flex pageTextMakerBox">
 							<input type="text"><input type="submit" value="만들기" class="btnItem orange middleBtn pointer">
 						</div>
 						<ul class="pageTextMakerBox">
@@ -157,10 +123,10 @@
 						</ul>
 						<div class="pageDescriptionBox">
 							<div class="pageDescriptionItem">
-								<input type="text">
+								<input type="text" placeholder="내용을 입력해주세요.">
 							</div>
 							<div class="pageDescriptionItem">
-								<input type="submit" value="전송" />
+								<input type="button" value="전송" />
 							</div>
 						</div>
 					</div>
@@ -173,7 +139,7 @@
 							<input type="checkbox" name="imageAiSupport" id="imageAiSupport" checked>
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
-						<div class="full flex">
+						<div class="full flex pageImageDesBox">
 							<input type="text"><input type="submit" value="만들기"
 								class="btnItem orange middleBtn pointer">
 						</div>
@@ -195,9 +161,15 @@
 									class="pageImageMakerItemImg">
 							</div>
 						</div>
-						<div>
+						<div class="pageImageDesBox">
 							<div class="whitespace">&nbsp;</div>
 							<h4>그림을 선택해주세요!</h4>
+						</div>
+						<div class="pageImageUploadBox">
+							<div class="pageImageUploadItem">
+								<input type="file" name="pageImageUpload" id="pageImageUpload">
+								<input type="button" value="페이지에 사용하기">
+							</div>
 						</div>
 					</div>
 				</div>

@@ -192,4 +192,78 @@ public class AdminDAOImpl implements AdminDAO{
 	}//set()
 	
 	
+	// 아이디, 비밀번호 유효 여부 리턴
+	public boolean isValid(AdminDTO dto) {
+		
+		// 맞는 정보인지 여부를 담을 지역 변수 선언하고 초기값 false 넣어주기
+		boolean isValid = false;
+		Connection conn = null;
+		PreparedStatement pstat = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			conn = DBUtil.open();
+			String sql = "select * from tblAdmin where adId = ? and adPw = ?";
+			pstat = conn.prepareStatement(sql);
+			
+			// ? 에 값 바인딩
+			pstat.setString(1, dto.getAdId());
+			pstat.setString(2, dto.getAdPw());
+			// query 문 수행하고 결과 받기
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				// 만약 select 된 row가 있으면
+				isValid=true;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAOImpl.isValid");
+			e.printStackTrace();
+		}
+		
+		return isValid;
+		
+	}
+	
+	
+	// 관리자 로그인
+	public AdminDTO login(AdminDTO dto) {
+		
+		final String SQL = "select * from tblAdmin where adId = ? and adPw = ?";
+		
+		try(Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL)) {
+		
+			pstat.setString(1, dto.getAdId());
+			pstat.setString(2, dto.getAdPw());
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				
+				AdminDTO result = new AdminDTO();
+				
+				result.setAdName(rs.getString("adName"));
+				result.setAdLv(rs.getString("adLv"));		
+				result.setAdTel(rs.getString("adTel"));
+				result.setAdAddress(rs.getString("adAddress"));
+				result.setAdNick(rs.getString("adNick"));
+		
+				return result;
+				
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| login");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	
 }//End of class

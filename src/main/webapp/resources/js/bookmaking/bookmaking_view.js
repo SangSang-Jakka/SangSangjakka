@@ -1,34 +1,119 @@
 /* bookmaking_view.js */
 $(document).ready(function() {
 	$('.bookmakingWrap').hide();
-	$('#recommendedBook, #customBook').click(function() {
+
+	function initBookmaking() {
 		$('.bookmakingOptionContainer').hide();
 		$('.bookmakingWrap').show();
 		Page.init();
-		if (this.id === 'customBook') {
-            $('#textAiSupport').prop('checked', false);
-            $('#imageAiSupport').prop('checked', false);
-        } else if (this.id === 'recommendedBook') {
-            $('#textAiSupport').prop('checked', true);
-            $('#imageAiSupport').prop('checked', true);
+
+		var bookType = this.id;
+		$('#textAiSupport').prop('checked', bookType === 'recommendedBook');
+		$('#imageAiSupport').prop('checked', bookType === 'recommendedBook');
+
+		$('#textAiSupport').trigger('change');
+		$('#imageAiSupport').trigger('change');
+	}
+
+	$('#recommendedBook, #customBook').click(initBookmaking);
+
+	$('#textAiSupport').change(function() {
+		if ($(this).is(':checked')) {
+			$('.pageTextMakerBox').show();
+			$('.pageDescriptionBox').hide();
+		} else {
+			$('.pageTextMakerBox').hide();
+			$('.pageDescriptionBox').show();
 		}
 	});
-	$('.bookmakingGridCenter h2').click(function() {
-		$('.bookmakingOptionContainer').show();
-		$('.bookmakingWrap').hide();
-	});
-	$('#textAiSupport').change(function() {
-        if ($(this).is(':checked')) {
-            $('.pageTextMakerBox').show();
-            $('.pageDescriptionBox').hide();
-        } else {
-            $('.pageTextMakerBox').hide();
-            $('.pageDescriptionBox').show();
-        }
-    });
 
-    // Trigger the change event on page load to set the initial visibility state
-    $('#textAiSupport').trigger('change');
+	$('#imageAiSupport').change(function() {
+		if ($(this).is(':checked')) {
+			$('.pageImageDesBox').show();
+			$('.pageImageMakerBox').show();
+			$('.pageImageUploadBox').hide();
+		} else {
+			$('.pageImageDesBox').hide();
+			$('.pageImageMakerBox').hide();
+			$('.pageImageUploadBox').show();
+		}
+	});
+
+	$('#bb-bookblock .bb-item').hide().first().show();
+
+	$('#pageAdd').click(function() {
+		var $newPage = $('<div class="bb-item"></div>').html(`
+			<div class="pageImage"></div>
+			<p>Newly added page content goes here.</p>
+		`);
+		$('#bb-bookblock').append($newPage);
+		Page.init();  // Reinitialize or setup for the new page if necessary
+		$('#bb-nav-last').click();	// Navigate to the last page
+	});
+
+	$('#bb-nav-next').click(function() {
+		var $visiblePage = $('#bb-bookblock .bb-item:visible');
+		var $nextPage = $visiblePage.next('.bb-item');
+		if ($nextPage.length > 0) {
+			$visiblePage.hide();
+			$nextPage.show();
+		}
+	});
+
+	$('#bb-nav-prev').click(function() {
+		var $visiblePage = $('#bb-bookblock .bb-item:visible');
+		var $prevPage = $visiblePage.prev('.bb-item');
+		if ($prevPage.length > 0) {
+			$visiblePage.hide();
+			$prevPage.show();
+		}
+	});
+
+	$('#pageDelete').click(function() {
+		var $currentVisible = $('#bb-bookblock .bb-item:visible');
+		if ($currentVisible.prev('.bb-item').length) {
+			$currentVisible.remove();
+			Page.init();  // Reinitialize after deleting a page
+			$('#bb-nav-last').click();	// Navigate to the last page
+		} else {
+			alert("Cannot delete the first page.");  // Added alert to prevent deletion of the first page
+		}
+	});
+	
+	// Click handler for the "전송" button
+	$('.pageDescriptionBox input[type="button"]').click(function() {
+		// Fetch the text from the input field
+		var newText = $(this).closest('.pageDescriptionBox').find('input[type="text"]').val();
+
+		// Find the visible bb-item and update its <p> tag with the new text
+		var $visibleBbItem = $('#bb-bookblock .bb-item:visible');
+		$visibleBbItem.find('p').text(newText);
+	});
+	
+	$('.pageImageUploadBox input[type="button"]').click(function() {
+		var fileInput = document.getElementById('pageImageUpload');
+		if (fileInput.files && fileInput.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function(e) {
+				// Get the data URL of the image file
+				var imageUrl = e.target.result;
+
+				// Find the visible bb-item and update its .pageImage div with the new background image
+				var $visiblePageImage = $('#bb-bookblock .bb-item:visible .pageImage');
+				$visiblePageImage.css('background-image', 'url(' + imageUrl + ')');
+
+				// Reset the file input after updating the image
+				fileInput.value = ''; // This line resets the file input
+			};
+
+			// Read the image file as a data URL to use as a background image
+			reader.readAsDataURL(fileInput.files[0]);
+		} else {
+			alert('Please select an image file to upload.');
+		}
+	});
+
 
 	var Page = (function() {
 

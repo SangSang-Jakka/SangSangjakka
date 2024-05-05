@@ -42,11 +42,11 @@
                         <th scope="col" class="thDate">등록일</th>
                         <th scope="col" class="thViews">조회수</th>
                     </tr>
-                  </thead>
+                  </thead>	
                   <tbody>
                   <tr class>
                       <td>공지</td>
-                      <th><a href="/sangsangjakka/board/notice/view.do">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
+                      <th><a href="/sangsangjakka/board/notice/View.do">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
                       <td>2017.06.15</td>
                       <td>23</td>
                   </tr>
