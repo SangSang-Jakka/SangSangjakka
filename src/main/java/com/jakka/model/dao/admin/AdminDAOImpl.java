@@ -29,7 +29,7 @@ public class AdminDAOImpl implements AdminDAO{
 	//전체 관리자 리스트(루트관리자 제외)
 	public ArrayList<AdminDTO> findAll() {
 		
-		final String SQL = "select * from tblAdmin where adLb = 2";
+		final String SQL = "select * from tblAdmin where adLv = 2";
 		
 		try (
 			
@@ -88,6 +88,7 @@ public class AdminDAOImpl implements AdminDAO{
 				AdminDTO dto = new AdminDTO();
 				
 				dto.setAdId(rs.getString("adId"));
+				dto.setAdPw(rs.getString("adPw"));
 				dto.setAdName(rs.getString("adName"));
 				dto.setAdAddress(rs.getString("adAddress"));
 				dto.setAdLv(rs.getString("adLv"));
