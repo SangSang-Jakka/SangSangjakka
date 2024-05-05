@@ -28,13 +28,13 @@ public class NoticeManagementView extends HttpServlet {
 		
 		//1. 데이터 가져오기(seq)
 		//2. DB 작업 > select .. where seq = 10
-		//3. 결과 > 출력
+		//3. 결과 > 출력  
 		
 		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
 		
 		// 게시물 가져오기
 		NoticeDTO dto = noticeDAO.findById(seq);
-		
+		    
 		// 데이터 조작
 		String noticeContents = dto.getNoticeContents();
 		

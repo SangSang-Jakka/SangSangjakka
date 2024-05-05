@@ -53,8 +53,8 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">관리자 정보</h4>
-						
-					<a href="/sangsangjakka/admin/viewok.do" class="btn btn-primary pull-right">수정</a>
+					
+					<a href="/sangsangjakka/admin/edit.do?id=${adminview.adId}" class="btn btn-primary pull-right">수정</a>
 					</div>
 					<div class="wizard-content">
 						<form class="tab-wizard wizard-circle wizard">
@@ -64,13 +64,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >이름 :</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${adminview.adName}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >주소 : </label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${adminview.adAddress}">
 										</div>
 									</div>
 								</div>
@@ -78,18 +78,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>전화번호 :</label>
-											<input type="email" class="form-control">
+											<input type="text" class="form-control" value="${adminview.adTel}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>닉네임 :</label>
-											<select class="custom-select form-control">
-												<option value="">등급</option>
-												<option value="Amsterdam">최고관리자</option>
-												<option value="Berlin">관리자</option>
-												
-											</select>
+											<input type="text" class="form-control" value="${adminview.adNick}">
 										</div>
 									</div>
 								</div>
@@ -97,13 +92,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >아이디 :</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${adminview.adId}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >비밀번호 : </label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" value="${adminview.adPw}">
 										</div>
 									</div>
 								</div>

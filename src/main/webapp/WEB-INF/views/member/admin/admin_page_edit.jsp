@@ -48,28 +48,28 @@
 	
 	
 	
-	               
+	            <form  method ="POST" action="/sangsangjakka/admin/myedit.do">   
 				<!-- Simple Datatable start -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">관리자 정보</h4>
-                        <a href="/sangsangjakka/admin/myedit.do" class="btn btn-primary pull-right">수정</a>
+                        <button type="submit" class="btn btn-primary pull-right">확인</button>
 					</div>
 					<div class="wizard-content">
-						<form class="tab-wizard wizard-circle wizard">
+						
 							
 						
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >아이디 :</label>
-											<input type="text" class="form-control" value="${dto.adId}">
+											<input type="text" class="form-control" name ="adId" value="${adminedit.adId}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >비밀번호 : </label>
-											<input type="text" class="form-control" value="${dto.adPw}" placeholder="****">
+											<input type="text" class="form-control" name ="adPw" value="${adminedit.adPw}" placeholder="****">
 										</div>
 									</div>
 								</div>
@@ -77,13 +77,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>이름 :</label>
-											<input type="text" class="form-control" value="${dto.adName}">
+											<input type="text" class="form-control" name="adName" value="${adminedit.adName}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>닉네임 :</label>
-											<input type="text" class="form-control" value="${dto.adNick}">
+											<input type="text" class="form-control" name ="adNick" value="${adminedit.adNick}">
 										</div>
 									</div>
 								</div>
@@ -91,13 +91,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >전화번호 :</label>
-											<input type="text" class="form-control" value="${dto.adTel }">
+											<input type="text" class="form-control" name="adTel" value="${adminedit.adTel }">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >주소 : </label>
-											<input type="text" class="form-control" value="${dto.adAddress}" >
+											<input type="text" class="form-control" name ="adAddress" value="${adminedit.adAddress}" >
 										</div>
 									</div>
 								</div>
@@ -108,13 +108,13 @@
                     </div>
 							<!-- Step 2 -->
                            
-						</form>
+						
                         
 					</div>
 				</div>
 			
 			<!-- Simple Datatable End -->
-	
+	</form>
 			
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>

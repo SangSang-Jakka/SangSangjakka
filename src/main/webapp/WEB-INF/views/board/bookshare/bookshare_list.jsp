@@ -133,10 +133,21 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
 		var pics = document.querySelectorAll('img');
-	
+		var userId = '<%=(String)session.getAttribute("userId")%>';
+		
+		
 		pics.forEach(function(img) {
 		    img.addEventListener('click', function() {
-		        location.href = "/sangsangjakka/board/book/view.do";
+		    	if(userId == "null") {
+		    		const result = confirm('회원만 볼 수 있는 페이지입니다. 회원 가입 창으로 이동하시겠습니까?');
+		    		if(result) {
+		    			location.href = "/sangsangjakka/user/signup.do";
+		    		} else {
+		    			location.href = "/sangsangjakka/board/book/list.do";
+		    		}
+		    	} else {
+		        	location.href = "/sangsangjakka/board/book/view.do";
+		    	}
 		    });
 		});
 	</script>
