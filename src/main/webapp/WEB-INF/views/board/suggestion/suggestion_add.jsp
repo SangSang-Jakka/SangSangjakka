@@ -23,8 +23,8 @@
               </div>
           </div>
 
-
-          <form action="/sangsangjakka/board/suggestion/add.do" method="POST">
+			<!-- 파일 업로드를 위해 입력필드 추가함 -->
+          <form action="/sangsangjakka/board/suggestion/add.do" method="POST" enctype="multipart/form-data">
             <table>
                 <tr>
                     <th>제목</th>
