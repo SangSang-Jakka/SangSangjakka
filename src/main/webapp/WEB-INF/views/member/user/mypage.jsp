@@ -38,14 +38,14 @@
 								<div class="userInfoEmail">
 									<span>이메일</span>
 									<div class="emailContainer">
-										<input type="text" class="userEmail w70pc" required />
+										<input type="text" class="userEmail w70pc" value="${dto.userEmail}" required />
 									</div>
 								</div>
 								<div class="userInfoNcikName title">
 									<span>닉네임</span>
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
-											<input type="text" id="nickName" required />
+											<input type="text" id="nickName" value="${dto.userNick}" required />
 										</div>
 										<div class="changebtnbox change">
 											<input type="button" value="변경" id="nickNameChangeBtn" class="pointer">
@@ -57,7 +57,7 @@
 									<span>아이디</span>
 									<div class="idContainer">
 										<div class="idInput inputBorder w70pc">
-											<input type="text" id="id" required />
+											<input type="text" id="id" value="${dto.userId}" required />
 										</div>
 									</div>
 								</div>
@@ -78,7 +78,7 @@
 								<div class="userInfoName title">
 									<span>이름</span>
 									<div class="nameContainer">
-										<div class="nameInput inputBorder w70pc">
+										<div class="nameInput inputBorder w70pc" value="${dto.userName}">
 											<input id="nameInput" type="text" />
 										</div>
 									</div>
@@ -90,9 +90,9 @@
 									<div class="ssnContainer">
 										<div class="ssnInput">
 											<input type="text" maxlength="6" class="leftSsn inputBorder"
-												oninput="formatSSN(this)" required />
+												oninput="formatSSN(this)" value="${dto.userLeftSsn}" required />
 											<span>-</span>
-											<input type="password" maxlength="7" class="rightSsn" required />
+											<input type="password" maxlength="7" class="rightSsn" value="${dto.userRightSsn}" required />
 										</div>
 									</div>
 								</div>

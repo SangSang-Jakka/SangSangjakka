@@ -14,5 +14,6 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	public UserDTO findId(UserDTO dto);
 	public UserDTO findPw(UserDTO dto);
 	public boolean unRegister(UserDTO dto);
+	public UserDTO getUser(String userSeq);
 	
 }
