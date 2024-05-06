@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jakka.model.DAOManager;
+import com.jakka.model.dao.user.UserDAO;
+
 @WebServlet("/board/suggestion/add.do")
 public class SuggestionAdd extends HttpServlet {
 
@@ -20,5 +23,12 @@ public class SuggestionAdd extends HttpServlet {
 		
 	}
 	
-	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String subject = req.getParameter("subject");
+		String content = req.getParameter("content");
+		String attach = req.getParameter("attach");
+		
+//		UserDAO result = DAOManager.getSuggestionDAO();
+	}
 }//End of class

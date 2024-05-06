@@ -29,7 +29,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	@Override
 	public ArrayList<SuggestionDTO> findAll() {
 		
-		final String SQL = "select * from tblSuggestion";
+		final String SQL = "select * from vwSuggestion order by sgstRegdate desc";
 		
 		try (
 			
@@ -52,6 +52,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 				dto.setSgstSeq(rs.getString("sgstSeq"));
 				dto.setSgstTitle(rs.getString("sgstTitle"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 				list.add(dto);
 			}

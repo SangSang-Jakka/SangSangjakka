@@ -116,7 +116,7 @@
 							<!-- Step 2 -->
                            
 						</form>
-                        
+                         <a href="/sangsangjakka/admin/list.do" class="btn btn-primary pull-right">뒤로가기</a>
 					</div>
 				</div>
 			

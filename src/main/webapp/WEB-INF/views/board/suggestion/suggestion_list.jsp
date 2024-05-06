@@ -48,7 +48,7 @@
                   <tbody>
                   <tr>
                       <td>7</td>
-                      <th><a href="/sangsangjakka/board/suggestion/view.do"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
+                      <th><a href="/sangsangjakka/board/suggestion/View.do"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
                       <td>홍길동</td>
                       <td>2017.06.15</td>
                       <td>23</td>
@@ -152,6 +152,20 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	 <script src="https://kit.fontawesome.com/8a0ce49d35.js" crossorigin="anonymous"></script>
 	<script>
+		// 현재 로그인 한 사용자
+		var userId = '<%=session.getAttribute("userId")%>';
+		
+		var article = document.querySelectorAll("a");
+		article.addEventListener('click', function() {
+			// 수정중
+			if() {
+				
+				alert('비밀글로 설정된 글입니다.');
+				location.href='/sangsangjakka/board/suggestion/list.do';
+			} else {
+				location.href='sangsangjakka/board/suggestion/View.do';
+			}
+		});
 	</script>
 	</body>
 </html>

@@ -24,7 +24,7 @@
           </div>
 
 
-          <form>
+          <form action="/sangsangjakka/board/suggestion/add.do" method="POST">
             <table>
                 <tr>
                     <th>제목</th>

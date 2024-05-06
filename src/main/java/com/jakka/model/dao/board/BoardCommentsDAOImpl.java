@@ -49,7 +49,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 			
 			if (result > 0) {
 				log.setString(1, dto.getUserSeq());
-				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBoardSeq() + "' 글번호'" + dto.getCmntSeq() + "' 글내용'" + dto.getCmntContents() + "'에 자유게시판 댓글을 '작성'했습니다.");
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBoardSeq() + "' 글내용'" + dto.getCmntContents() + "'에 자유게시판 댓글을 '작성'했습니다.");
 				log.setString(3, UserLog.BoardCommentCreated.getValue());
 				log.executeUpdate();
 			}
@@ -326,7 +326,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 			if (result > 0) {
 				log.setString(1, userSeq);
 				log.setString(2, "사용자번호'" + userSeq + "'이 글번호'" + cmntSeq +"' 자유게시판글을 댓글을 '신고'했습니다.");
-				log.setString(3, UserLog.BoardCreated.getValue());
+				log.setString(3, UserLog.BoardCommentReported.getValue());
 				log.executeUpdate();
 			}
 			

@@ -2,7 +2,10 @@ package com.jakka.model.enums;
 
 public enum AdminLog {
 	
-	UserDisabled("1"),         // 사용자 비활성화
+	
+	
+	
+	serDisabled("1"),         // 사용자 비활성화
 	UserEnabled("2"),          // 사용자 활성화
 	UserStorageChanged("3"),   // 사용자 저장소 용량 변경
 	SuggestionAnswered("4"),   // 건의사항 답변

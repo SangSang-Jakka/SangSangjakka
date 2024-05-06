@@ -19,7 +19,7 @@
         </div>
         
         
-        <form method="POST" class="signUpForm">
+        <form method="POST" action="" class="signUpForm">
             <div class="member-container">
                 <div class="header">
                     <div>회원 가입을 위해</div>

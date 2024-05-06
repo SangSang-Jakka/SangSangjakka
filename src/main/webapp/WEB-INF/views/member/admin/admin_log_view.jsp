@@ -29,12 +29,12 @@
 	                   <div class="row">
 	                       <div class="col-md-12 col-sm-12">
 	                           <div class="title">
-	                               <h4>건의사항</h4>
+	                               <h4>공지사항</h4>
 	                           </div>
 	                           <nav aria-label="breadcrumb" role="navigation">
 	                               <ol class="breadcrumb">
 	                                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                   <li class="breadcrumb-item active" aria-current="page">건의사항 게시판</li>
+	                                   <li class="breadcrumb-item active" aria-current="page">동화책 신고 관리</li>
 	                               </ol>
 	                           </nav>
 	                       </div>
@@ -42,60 +42,108 @@
 	               </div>
 	
 	
-				<!-- 배너 -->
-        		<%@include file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%>
+	               <div class="row clearfix">
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 동화책</div>
+	                                   <div class="weight-600 font-14">Book</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 게시글</div>
+	                                   <div class="weight-600 font-14">Post</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 유저</div>
+	                                   <div class="weight-600 font-14">User</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 건의사항</div>
+	                                   <div class="weight-600 font-14">Suggestion</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+				</div>
+	
 	
 				
+			
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">건의사항 게시판</h4>
+					
+						<h4 class="text-blue h4">관리자 로그</h4>
+						
+                       
 					</div>
+                    
 					<div class="pb-20">
+					 
 						<table class="data-table table stripe hover nowrap" id="myTable">
+						
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
-									<th>구분</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일</th>
-									<th>조회수</th>
-									<th class="datatable-nosort">Action</th>
+									<th>날짜</th>
+<!-- 									<th>아이디</th> -->
+									<th>메뉴</th>
+									<th>처리내용</th>
+									
+									
 								</tr>
 							</thead>
-				
+						
 							<tbody>
-							<c:forEach var="suggestion" items="${suggestionList}">
+
+								
+								
+									<c:forEach var="adLog" items="${adLogList}"  varStatus="loop">
+								
 								<tr>
-									<td class="table-plus">${suggestion.sgstSeq}</td>
-									<td>${suggestion.sgstSecretYN}</td>
-									<td><a href ="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}">${suggestion.sgstTitle}</a></td>
-									<td>${suggestion.userNick}</td>
-									<td>${suggestion.sgstRegdate}</td>
-									<td>${suggestion.sgstCnt}</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-									</td>
+									<td class="table-plus">${loop.index +1}</td>
+								
+								
+									
+									
+    
+
+									<td>${adLog.adLogDate}</td>
+<%-- 									<td>${adLog.adId}</td> --%>
+									<td>${adLog.adCatContents}</td>
+									<td>${adLog.adLogContents}</td>
+									
+									
 								</tr>
 								</c:forEach>
 							</tbody>
-					
+					 
+						 
 						</table>
 					</div>
 				</div>
+				
+				
 			<!-- Simple Datatable End -->
-	
-			</div>
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			

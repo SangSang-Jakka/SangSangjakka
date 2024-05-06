@@ -77,83 +77,85 @@ END;
 -- 자유게시판 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblBoard_report
-AFTER UPDATE ON vwBoard
+INSTEAD OF UPDATE ON vwBoard
 FOR EACH ROW
-WHEN (NEW.boardReportCnt = 5)
 DECLARE
     v_userSeq NUMBER;
     v_boardTitle VARCHAR2(100);
     v_boardContents VARCHAR2(2000);
     v_boardSeq NUMBER;
 BEGIN
-    v_userSeq := :OLD.userSeq;
-    v_boardTitle := :OLD.boardTitle;
-    v_boardContents := :OLD.boardContents;
-    v_boardSeq := :OLD.boardSeq;
+    IF :NEW.boardReportCnt = 5 THEN
+        v_userSeq := :OLD.userSeq;
+        v_boardTitle := :OLD.boardTitle;
+        v_boardContents := :OLD.boardContents;
+        v_boardSeq := :OLD.boardSeq;
 
-    -- 화이트 리스트 제거
-    DELETE FROM tblBoardWhiteList
-    WHERE boardSeq = :OLD.boardSeq;
+        -- 화이트 리스트 제거
+        DELETE FROM tblBoardWhiteList
+        WHERE boardSeq = :OLD.boardSeq;
 
-    -- 관리자 로그 추가
-    INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
-        DEFAULT,
-        'super',
-        '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_boardSeq || ''' 글제목''' || v_boardTitle || ''' 자유게시판글을 신고횟수 누적으로 ''비활성화''했습니다.',
-        5
-    );
+        -- 관리자 로그 추가
+        INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
+            DEFAULT,
+            'super',
+            '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_boardSeq || ''' 글제목''' || v_boardTitle || ''' 자유게시판글을 신고횟수 누적으로 ''비활성화''했습니다.',
+            5
+        );
 
-    -- 사용자 로그 추가
-    INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
-        SYSDATE,
-        v_userSeq,
-        '사용자번호''' || v_userSeq || '''이 글번호''' || v_boardSeq || ''' 글제목''' || v_boardTitle || ''' 글내용''' || v_boardContents || ''' 자유게시판글이 신고횟수 누적으로 ''비활성화''됬습니다.',
-        6
-    );
+        -- 사용자 로그 추가
+        INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
+            SYSDATE,
+            v_userSeq,
+            '사용자번호''' || v_userSeq || '''이 글번호''' || v_boardSeq || ''' 글제목''' || v_boardTitle || ''' 글내용''' || v_boardContents || ''' 자유게시판글이 신고횟수 누적으로 ''비활성화''됬습니다.',
+            6
+        );
+    END IF;
 END;
 /
 
 -- 자유게시판 댓글이 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblBoardComments_report
-AFTER UPDATE ON vwBoardComments
+INSTEAD OF UPDATE ON vwBoardComments
 FOR EACH ROW
-WHEN (NEW.cmntReportCnt = 5)
 DECLARE
     v_userSeq NUMBER;
     v_cmntContents VARCHAR2(2000);
     v_cmntSeq NUMBER;
 BEGIN
-    v_userSeq := :OLD.userSeq;
-    v_cmntContents := :OLD.cmntContents;
-    v_cmntSeq := :OLD.cmntSeq;
-
-    DELETE FROM tblBoardCommentsWhiteList
-    WHERE cmntSeq = :OLD.cmntSeq;
-
-    -- 관리자 로그 추가
-    INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
-        DEFAULT,
-        'super',
-        '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_cmntSeq || ''' 자유게시판 댓글을 신고횟수 누적으로 ''비활성화''했습니다.',
-        16
-    );
-
-    -- 사용자 로그 추가
-    INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
-        SYSDATE,
-        v_userSeq,
-        '사용자번호''' || v_userSeq || '''이 글번호''' || v_cmntSeq || ''' 글내용''' || v_cmntContents || ''' 자유게시판 댓글이 신고횟수 누적으로 ''비활성화''됬습니다.',
-        10
-    );
+    IF :NEW.cmntReportCnt = 5 THEN
+        v_userSeq := :OLD.userSeq;
+        v_cmntContents := :OLD.cmntContents;
+        v_cmntSeq := :OLD.cmntSeq;
+    
+        DELETE FROM tblBoardCommentsWhiteList
+        WHERE cmntSeq = :OLD.cmntSeq;
+    
+        -- 관리자 로그 추가
+        INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
+            DEFAULT,
+            'super',
+            '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_cmntSeq || ''' 자유게시판 댓글을 신고횟수 누적으로 ''비활성화''했습니다.',
+            16
+        );
+    
+        -- 사용자 로그 추가
+        INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
+            SYSDATE,
+            v_userSeq,
+            '사용자번호''' || v_userSeq || '''이 글번호''' || v_cmntSeq || ''' 글내용''' || v_cmntContents || ''' 자유게시판 댓글이 신고횟수 누적으로 ''비활성화''됬습니다.',
+            10
+        );
+    END IF;
 END;
 /
 
@@ -161,40 +163,41 @@ END;
 -- 동화책공유글이 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblBook_report
-AFTER UPDATE ON vwBook
+INSTEAD OF UPDATE ON vwBook
 FOR EACH ROW
-WHEN (NEW.bookReportCnt = 5)
 DECLARE
     v_userSeq NUMBER;
     v_bookTitle VARCHAR2(100);
     v_bookSeq NUMBER;
 BEGIN
-    v_userSeq := :OLD.userSeq;
-    v_bookTitle := :OLD.bookTitle;
-    v_bookSeq := :OLD.bookSeq;
-
-    DELETE FROM tblBookWhiteList
-    WHERE bookSeq = :OLD.bookSeq;
-
-    -- 관리자 로그 추가
-    INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
-        DEFAULT,
-        'super',
-        '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_bookSeq || ''' 동화책을 신고횟수 누적으로 ''비활성화''했습니다.',
-        11
-    );
-
-    -- 사용자 로그 추가
-    INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
-        SYSDATE,
-        v_userSeq,
-        '사용자번호''' || v_userSeq || '''이 글번호''' || v_bookSeq || ''' 글제목''' || v_bookTitle || ''' 동화책이 신고횟수 누적으로 ''비활성화''됬습니다.',
-        17
-    );
+    IF :NEW.bookReportCnt = 5 THEN
+        v_userSeq := :OLD.userSeq;
+        v_bookTitle := :OLD.bookTitle;
+        v_bookSeq := :OLD.bookSeq;
+    
+        DELETE FROM tblBookWhiteList
+        WHERE bookSeq = :OLD.bookSeq;
+    
+        -- 관리자 로그 추가
+        INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
+            DEFAULT,
+            'super',
+            '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_bookSeq || ''' 동화책을 신고횟수 누적으로 ''비활성화''했습니다.',
+            11
+        );
+    
+        -- 사용자 로그 추가
+        INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
+            SYSDATE,
+            v_userSeq,
+            '사용자번호''' || v_userSeq || '''이 글번호''' || v_bookSeq || ''' 글제목''' || v_bookTitle || ''' 동화책이 신고횟수 누적으로 ''비활성화''됬습니다.',
+            17
+        );
+    END IF;
 END;
 /
 
@@ -202,40 +205,41 @@ END;
 -- 동화책리뷰가 신고횟수가 5이면 최고관리자가 자동으로 화이트리스트에서 제거
 -- +로그
 CREATE OR REPLACE TRIGGER trg_tblReview_report
-AFTER UPDATE ON vwReview
+INSTEAD OF UPDATE ON vwReview
 FOR EACH ROW
-WHEN (NEW.reviewReportCnt = 5)
 DECLARE
     v_userSeq NUMBER;
     v_reviewContents VARCHAR2(2000);
     v_reviewSeq NUMBER;
 BEGIN
-    v_userSeq := :OLD.userSeq;
-    v_reviewContents := :OLD.reviewContents;
-    v_reviewSeq := :OLD.reviewSeq;
-
-    DELETE FROM tblReviewWhiteList
-    WHERE reviewSeq = :OLD.reviewSeq;
-
-    -- 관리자 로그 추가
-    INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
-        DEFAULT,
-        'super',
-        '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_reviewSeq || ''' 동화책 감상을 신고횟수 누적으로 ''비활성화''했습니다.',
-        13
-    );
-
-    -- 사용자 로그 추가
-    INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
-    VALUES (
-        (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
-        SYSDATE,
-        v_userSeq,
-        '사용자번호''' || v_userSeq || '''이 글번호''' || v_reviewSeq || ''' 글내용''' || v_reviewContents || ''' 동화책 감상이 신고횟수 누적으로 ''비활성화''됬습니다.',
-        21
-    );
+    IF :NEW.reviewReportCnt = 5 THEN
+        v_userSeq := :OLD.userSeq;
+        v_reviewContents := :OLD.reviewContents;
+        v_reviewSeq := :OLD.reviewSeq;
+    
+        DELETE FROM tblReviewWhiteList
+        WHERE reviewSeq = :OLD.reviewSeq;
+    
+        -- 관리자 로그 추가
+        INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog),
+            DEFAULT,
+            'super',
+            '시스템이 사용자번호''' || v_userSeq || ''' 글번호''' || v_reviewSeq || ''' 동화책 감상을 신고횟수 누적으로 ''비활성화''했습니다.',
+            13
+        );
+    
+        -- 사용자 로그 추가
+        INSERT INTO tblUserLog (userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq)
+        VALUES (
+            (SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog),
+            SYSDATE,
+            v_userSeq,
+            '사용자번호''' || v_userSeq || '''이 글번호''' || v_reviewSeq || ''' 글내용''' || v_reviewContents || ''' 동화책 감상이 신고횟수 누적으로 ''비활성화''됬습니다.',
+            21
+        );
+    END IF;
 END;
 /
 

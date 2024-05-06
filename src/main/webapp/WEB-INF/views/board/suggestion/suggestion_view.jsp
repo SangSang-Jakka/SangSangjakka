@@ -24,7 +24,7 @@
       
     <!-- board list area -->
       <div>
-
+			
               <table class="boardTitle">
                 <tbody>
                     <tr>

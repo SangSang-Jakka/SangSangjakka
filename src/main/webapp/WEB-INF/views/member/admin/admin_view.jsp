@@ -102,13 +102,13 @@
 										</div>
 									</div>
 								</div>
-							 <div>
+							 
 
-                       
+                     
                         
                     </div>
 							<!-- Step 2 -->
-                           
+                             <a href="/sangsangjakka/admin/list.do" class="btn btn-primary pull-right">뒤로가기</a>
 						</form>
                         
 					</div>
