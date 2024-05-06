@@ -21,6 +21,8 @@ public class NoticeManagementEdit extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
+		
 		// 인증 받지 못한 사용자 or 권한이 없는 사용자 > 거부
 
 		HttpSession session = req.getSession();
@@ -68,6 +70,7 @@ public class NoticeManagementEdit extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
+		req.setCharacterEncoding("UTF-8");
 
 		// 1. 데이터 가져오기
 		// 2. DB 작업 > update

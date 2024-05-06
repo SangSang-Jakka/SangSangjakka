@@ -1,6 +1,7 @@
 package com.jakka.controller.dashboard.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -14,14 +15,19 @@ import javax.servlet.http.HttpSession;
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.BoardCommentsDAO;
 import com.jakka.model.dao.board.BoardDAO;
+import com.jakka.model.dao.board.SuggestionAnswerDAO;
 import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
+import com.jakka.model.dto.board.SuggestionAnswerDTO;
 
 @WebServlet("/admin/dashboard/freeboard/manageview.do")
 public class FreeboardManagementView extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		req.setCharacterEncoding("UTF-8");
+		
 		
 		HttpSession session = req.getSession();
 		
@@ -74,6 +80,33 @@ public class FreeboardManagementView extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/freeboard_manage_view.jsp");
 		dispatcher.forward(req, resp);
 		
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		// 댓글 수정 
+		String seq = req.getParameter("seq");
+		String content = req.getParameter("content");
+				
+
+		BoardCommentsDAO dao = DAOManager.getBoardCommentDAO();
+		BoardCommentDTO dto = new BoardCommentDTO();
+
+		dto.setCmntSeq(seq);
+		dto.setCmntContents(content);
+		
+		int result = dao.save(dto);
+		
+		resp.setContentType("application/json");
+
+		PrintWriter writer = resp.getWriter();
+		writer.print("{");
+		writer.print("\"result\": " + result); //"result": 1
+	    writer.print("}");
+		writer.close();
 	}
 
 }//End of class

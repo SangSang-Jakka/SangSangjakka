@@ -23,36 +23,38 @@
      
       
     <!-- board list area -->
-      <div>
-			
-              <table class="boardTitle">
-                <tbody>
-                    <tr>
-                        <td scope="col" class="tdTitle">동화책 제작하는데 오류가 나요</td>
-                        <td scope="col" class="tdDate">2017.06.15</td>
-                        <td scope="col" class="tdViews">1</td>
-                    </tr>
-                </tbody>
-                  </table>
-
-                  <div class="file">
-                    <i class="fa-regular fa-file"></i>
-                    파일이 없습니다
-                  </div>
-
-                      <div class="boardMain">
-                        새로고침하면 날라가는데 고쳐주세요
-                      </div>
-
-                      
-                      
-                     
+	      <div>
+				
+	              <table class="boardTitle">
+	                <tbody>
+	                    <tr>
+	                        <td scope="col" class="tdTitle">동화책 제작하는데 오류가 나요</td>
+	                        <td scope="col" class="tdDate">2017.06.15</td>
+	                        <td scope="col" class="tdViews">1</td>
+	                    </tr>
+	                </tbody>
+	                  </table>
+	
+	                  <div class="file">
+	                    <i class="fa-regular fa-file"></i>
+	                    파일이 없습니다
+	                  </div>
+	
+	                      <div class="boardMain">
+	                        새로고침하면 날라가는데 고쳐주세요
+	                      </div>
+	
+	                      
+	                      
+	                     
+	                  
+	                  
+	                  <div class="btnWrap">
+	                        <input type="button" class="btnEdit" value="수정" data-userseq="as">
+	                        <input type="button" class="btnDel" value="삭제">
+	                  </div>
                   
                   
-                  <div class="btnWrap">
-                        <input type="button" class="btnEdit" value="수정">
-                        <input type="button" class="btnDel" value="삭제">
-                  </div>
 
 
                   <div class="commentWrap">
@@ -117,7 +119,17 @@
   
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-		
-	</script>
+                  var editContent = document.querySelector('.btnEdit');
+                  editContent.addEventListener('click', function() {
+                  var userId = <%=(String)session.getAttribute("userId")%>
+                  var userSeq = this.getAttribute('data-userseq');
+                  		if(userId != userSeq) {
+                  			alert('수정 권한이 없습니다. 본인만 수정 가능합니다.');
+                  		} else {
+                  			location.href='/sangsangjakka/board/suggestion/edit.do';
+                  		}
+                  		location.href='/sangsangjakka/board/suggestion/edit.do?sgstSeq=' + 7;
+                  });
+    </script>
 </body>
 </html>

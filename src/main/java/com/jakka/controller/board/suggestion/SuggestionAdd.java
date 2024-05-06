@@ -75,11 +75,17 @@ public class SuggestionAdd extends HttpServlet {
 		PrintWriter writer = resp.getWriter();
 		resp.setContentType("text/html; charset=UTF-8");
 		if(result > 0) {
-			writer.println("<script type=javascript>");
+			writer.println("<script type='text/javascript'>");
 			writer.println("alert('작성이 완료되었습니다.');");
 			writer.println("location.href='/sangsangjakka/board/suggestion/list.do'");
 			writer.println("</script>");
 			writer.close();
-		} 
+		} else {
+			writer.println("<script type='text/javascript'>");
+			writer.println("alert('제목 혹은 내용이 입력되지 않았습니다.');");
+			writer.println("location.href='/sangsangjakka/board/suggestion/list.do';");
+			writer.println("</script>");
+		}
+		writer.close();
 	}
 }//End of class

@@ -20,6 +20,8 @@ public class FreeboardManagement extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		req.setCharacterEncoding("UTF-8");
+		
 		BoardDAO boardDAO = DAOManager.getBoardDAO();
 		
 		// 자유게시판 목록

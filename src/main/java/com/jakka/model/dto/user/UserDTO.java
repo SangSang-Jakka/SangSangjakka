@@ -19,6 +19,7 @@ public class UserDTO {
 	private String userLV;
 	private String userRegdate;
 	private String LimitStorage;
+	
 	public String getUserSeq() {
 		return userSeq;
 	}
