@@ -105,7 +105,9 @@
      <!-- 작성 -->
 
       <div class="WrittenBox">
-          <input type="button" class="btnWritten" value="쓰기" onclick="location.href='/sangsangjakka/board/suggestion/add.do'">
+          <input type="button" class="btnWritten" value="쓰기">
+          <!--  onclick="location.href='/sangsangjakka/board/suggestion/add.do'" -->
+          
       </div>
       
       <!-- board seach area -->
@@ -155,17 +157,35 @@
 		// 현재 로그인 한 사용자
 		var userId = '<%=session.getAttribute("userId")%>';
 		
-		var article = document.querySelectorAll("a");
-		article.addEventListener('click', function() {
-			// 수정중
-			if() {
+		// 글을 눌렀을 때 클릭하면 동적으로 제한 > 수정중
+// 		var article = document.querySelectorAll("a");
+// 		article.addEventListener('click', function() {
+
+// 			if() {
 				
-				alert('비밀글로 설정된 글입니다.');
-				location.href='/sangsangjakka/board/suggestion/list.do';
-			} else {
-				location.href='sangsangjakka/board/suggestion/View.do';
-			}
-		});
+// 				alert('비밀글로 설정된 글입니다.');
+// 				location.href='/sangsangjakka/board/suggestion/list.do';
+// 			} else {
+// 				location.href='sangsangjakka/board/suggestion/View.do';
+// 			}
+// 		});
+		
+		// 쓰기 버튼을 눌렀을 때 제한
+		var write = document.querySelector('.btnWritten');
+        write.addEventListener('click', function() {
+        	
+        	if(userId == "null") {
+    			const result = confirm('회원만 작성 가능합니다. 로그인 창으로 이동하시겠습니까?');
+    			if(result) {
+    				location.href='/sangsangjakka/user/login.do';
+    			} else {
+    				location.href='/sangsangjakka/board/suggestion/list.do';
+    			}
+    		} else {
+    			location.href='/sangsangjakka/board/suggestion/add.do';
+    		}
+            
+        });
 	</script>
 	</body>
 </html>

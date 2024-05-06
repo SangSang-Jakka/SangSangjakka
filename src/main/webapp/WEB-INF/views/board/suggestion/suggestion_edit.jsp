@@ -23,15 +23,15 @@
           </div>
 
 
-          <form>
+          <form action="/sangsangjakka/board/suggestion/edit.do" method="POST" enctype="multipart/form-data">
             <table>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="subject" class="subject" required class="text"></td>
+                    <td><input type="text" name="subject" class="subject" value="${dto.sgstTitle}" required class="text"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea name="content" class="content" required class="text"></textarea></td>
+                    <td><textarea name="content" class="content" required class="text">${dto.sgstContents}</textarea></td>
                 </tr>
 
                 <tr>
@@ -53,6 +53,9 @@
             <input type="hidden" name="reply" value="${reply}">
             <input type="hidden" name="thread" value="${thread}">
             <input type="hidden" name="depth" value="${depth}">
+            <input type="hidden" name="seq" value="${SgstSeq}">
+            <input type="hidden" name="secret" value="${SgstSecretYN}">
+             
             </form>
       
         
