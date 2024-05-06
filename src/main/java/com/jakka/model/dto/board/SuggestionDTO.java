@@ -1,5 +1,7 @@
 package com.jakka.model.dto.board;
 
+import javax.servlet.http.Part;
+
 import lombok.Data;
 
 @Data
@@ -14,6 +16,7 @@ public class SuggestionDTO {
 	private String sgstCnt;
 	
 	private String userNick;
+	private String attach;	// 파일
 	
 	
 	
@@ -65,7 +68,12 @@ public class SuggestionDTO {
 	public void setSgstCnt(String sgstCnt) {
 		this.sgstCnt = sgstCnt;
 	}
-	
+	public String getAttach() {
+		return attach;
+	}
+	public void setAttach(String attach) {
+		this.attach = attach;
+	}
 	
 	
 }//End of class
