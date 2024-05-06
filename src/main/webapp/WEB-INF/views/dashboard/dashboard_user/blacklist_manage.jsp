@@ -31,12 +31,12 @@
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="title">
-								<h4>회원 관리</h4>
+								<h4>차단 회원 관리</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">회원
+									<li class="breadcrumb-item active" aria-current="page">차단 회원
 										관리</li>
 								</ol>
 							</nav>
@@ -44,18 +44,14 @@
 					</div>
 				</div>
 
-
 				<!-- 배너 -->
 				<%@include
 					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%>
 
-
-
-
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">회원 관리</h4>
+						<h4 class="text-blue h4">차단 회원 관리</h4>
 					</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap" id="myTable">
