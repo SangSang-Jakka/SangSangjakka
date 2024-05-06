@@ -20,14 +20,12 @@
 /* 임시 */
 .commentContainer {
 	margin-top: 20px;
-
 }
 
 .commentItem {
 	border-bottom: 1px solid #DEE2E6;
 	padding: 10px;
 	position: relative;
-
 }
 
 .commentHeader {
@@ -45,7 +43,6 @@
 	position: absolute;
 	top: 10px;
 	right: 10px;
-
 }
 
 .commentReport {
@@ -54,8 +51,6 @@
 	position: absolute;
 	top: 30px;
 	right: 10px;
-
-
 }
 
 .commentContent {
@@ -97,7 +92,16 @@
 	background-color: #0056b3;
 }
 
-
+.full {
+	margin-top: 10px;
+	width: 100%;
+	height: 40px;
+	padding: 8px;
+	border: 1px solid #DEE2E6;
+	border-radius: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
 </style>
 </head>
 <body>
@@ -173,22 +177,23 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${answer.adId}</div>
 											<div class="commentActions">
-												<button class="btnEdit">수정</button>
-												<button class="btnDel">삭제</button>
+												<button class="btnEdit" onclick="edit(${answer.answSeq});">수정</button>
+												<button class="btnDel" onclick="del(${answer.answSeq});">삭제</button>
 											</div>
 											<div class="commentTime">${answer.sgstRegdate}</div>
 										</div>
 										<div class="commentContent">${answer.sgstAnsw}</div>
 									</div>
-									</div>
+								</div>
 							</c:forEach>
 
 							<!-- 답변 입력 폼 -->
 							<div class="commentInput">
-								<form method="POST" action="/sangsangjakka/admin/dashboard/suggestion/manageview.do">
-								<input type="hidden" name="seq" value="${dto.sgstSeq}">
-								<input type="text" name="sgstAnsw" placeholder="답변을 입력하세요.">
-								<input type="submit" class="btn btn-primary" value="답변">
+								<form method="POST"
+									action="/sangsangjakka/admin/dashboard/suggestion/manageview.do">
+									<input type="hidden" name="seq" value="${dto.sgstSeq}">
+									<input type="text" name="sgstAnsw" placeholder="답변을 입력하세요.">
+									<input type="submit" class="btn btn-primary" value="답변">
 								</form>
 							</div>
 						</div>
@@ -210,6 +215,57 @@
 
 		</div>
 	</div>
+
+
+	<script>
+
+
+function edit(seq) {
+    $('.commentEditRow').remove();
+
+    let content = $(event.target).parents('.commentItem').find('.commentContent').text();
+
+    $(event.target).parents('.commentItem').after(`
+        <div class="commentEditRow">
+            <div>
+                <input type="text" name="content" class="full" required value="${content}" id="txtComment">
+            </div>
+            <div class="commentEdit">
+                <button class="btnEdit" onclick="editComment(${seq});">수정</button>
+                <button class="btnDel" onclick="$(event.target).parents('.commentEditRow').remove();">취소</button>
+            </div>
+        </div>
+    `);
+}
+
+function editComment(seq) {
+    let content = $('#txtComment').val();
+    let commentItem = $(event.target).parents('.commentItem');
+
+    $.ajax({
+        type: 'POST',
+        url: '/sangsangjakka/admin/dashboard/suggestion/manageview.do',
+        data: {
+            seq: seq,
+            content: content
+        },
+        dataType: 'json',
+        success: function(result) {
+            if (result.result == '1') {
+                commentItem.find('.commentContent').text(content);
+                commentItem.find('.commentEditRow').remove();
+            } else {
+                alert('답변 수정을 실패했습니다.');
+            }
+        },
+        error: function(a,b,c) {
+            console.log(a,b,c);
+        }
+    });
+}
+
+</script>
+
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -246,8 +302,6 @@
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-	<script>
-		
-	</script>
+
 </body>
 </html>

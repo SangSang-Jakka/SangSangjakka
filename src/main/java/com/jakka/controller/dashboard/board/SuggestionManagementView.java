@@ -1,6 +1,7 @@
 package com.jakka.controller.dashboard.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -63,9 +64,9 @@ public class SuggestionManagementView extends HttpServlet {
 
 		req.setAttribute("answerList", answerList);
 
-		RequestDispatcher dispatcher = req
-				.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/suggestion_manage_view.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/suggestion_manage_view.jsp");
 		dispatcher.forward(req, resp);
+        
 
 	}
 
@@ -106,7 +107,27 @@ public class SuggestionManagementView extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/admin/dashboard/suggestion/manageview.do?seq=" + seq);
 
 		}
+		
+		// 답변 수정
+		String seq = req.getParameter("seq");
+		String content = req.getParameter("content");
+		
+		
+		SuggestionAnswerDAO suggestionAnswerDAO = DAOManager.getSuggestionAnswerDAO();
+		SuggestionAnswerDTO dto = new SuggestionAnswerDTO();
+		dto.setAnswSeq(seq);
+		dto.setSgstAnsw(content);
+		
+		int result = suggestionAnswerDAO.save(dto);
+		resp.setContentType("application/json");
 
+		PrintWriter writer = resp.getWriter();
+		writer.print("{");
+		writer.print("\"result\": " + result); //"result": 1
+		writer.print("}");
+		writer.close();
+
+		
 	}
 
 }// End of class

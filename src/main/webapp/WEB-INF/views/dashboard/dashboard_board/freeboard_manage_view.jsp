@@ -95,6 +95,18 @@
 .btnEdit:hover, .btnDel:hover {
 	background-color: #0056b3;
 }
+
+.full {
+	margin-top: 10px;
+	width: 100%;
+	height: 40px;
+	padding: 8px;
+	border: 1px solid #DEE2E6;
+	border-radius: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
 </style>
 </head>
 <body>
@@ -165,8 +177,8 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${cmnt.userNick}</div>
 											<div class="commentActions">
-												<button class="btnEdit">수정</button>
-												<button class="btnDel">삭제</button>
+												<button class="btnEdit" onclick="edit(${cmnt.cmntSeq});">수정</button>
+												<button class="btnDel" onclick="del(${cmnt.cmntSeq});">삭제</button>
 											</div>
 										</div>
 										<div class="commentTime">${cmnt.cmntRegdate}</div>
@@ -203,6 +215,56 @@
 
 		</div>
 	</div>
+	
+	<script>
+	
+	
+
+	function edit(seq) {
+	    $('.commentEditRow').remove();
+
+	    let content = $(event.target).parents('.commentItem').find('.commentContent').text();
+
+	    $(event.target).parents('.commentItem').after(`
+	        <div class="commentEditRow">
+	            <div>
+	                <input type="text" name="content" class="full" required value="${content}" id="txtComment">
+	            </div>
+	            <div class="commentEdit">
+	                <button class="btnEdit" onclick="editComment(${seq});">수정</button>
+	                <button class="btnDel" onclick="$(event.target).parents('.commentEditRow').remove();">취소</button>
+	            </div>
+	        </div>
+	    `);
+	}
+
+	function editComment(seq) {
+	    let content = $('#txtComment').val();
+	    let commentItem = $(event.target).parents('.commentItem');
+
+	    $.ajax({
+	        type: 'POST',
+	        url: '/sangsangjakka/admin/dashboard/freeboard/manageview.do',
+	        data: {
+	            seq: seq,
+	            content: content
+	        },
+	        dataType: 'json',
+	        success: function(result) {
+	            if (result.result == '1') {
+	                commentItem.find('.commentContent').text(content);
+	                commentItem.find('.commentEditRow').remove();
+	            } else {
+	                alert('댓글 수정을 실패했습니다.');
+	            }
+	        },
+	        error: function(a,b,c) {
+	            console.log(a,b,c);
+	        }
+	    });
+	}
+	
+	</script>
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
