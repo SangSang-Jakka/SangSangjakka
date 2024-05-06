@@ -342,6 +342,7 @@ public class BoardDAOImpl implements BoardDAO{
 				dto.setBoardSeq(rs.getString("boardSeq"));
 				dto.setBoardTitle(rs.getString("boardTitle"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 				return dto;
 				

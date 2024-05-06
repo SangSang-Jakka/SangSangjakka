@@ -114,7 +114,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	
 	//건의사항 수정(제목, 내용, 비밀글 여부)
 	@Override
-	public int  save(SuggestionDTO dto) {
+	public int save(SuggestionDTO dto) {
 		
 		final String SQL = "update tblSuggestion set sgstTitle = ?, sgstContents = ?, sgstSecretYN = ? where sgstSeq = ?";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";

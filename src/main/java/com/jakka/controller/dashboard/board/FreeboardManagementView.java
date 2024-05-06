@@ -57,6 +57,17 @@ public class FreeboardManagementView extends HttpServlet {
 		
 		ArrayList<BoardCommentDTO> cmntList = boardCommentsDAO.findChild(seq);
 
+		// 댓글 내용 이스케이프 처리
+		
+		for (BoardCommentDTO cmnt : cmntList) {
+			String cmntContents = cmnt.getCmntContents();
+			cmntContents = cmntContents.replace(">", "&gt;").replace("<", "&lt;");
+			
+			// 개행 문자 처리
+			cmntContents = cmntContents.replace("\r\n", "<br>");
+			cmnt.setCmntContents(cmntContents);
+		}
+		
 		req.setAttribute("cmntList", cmntList);
 		
 		

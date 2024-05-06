@@ -12,6 +12,15 @@ public class BoardCommentDTO {
 	private String cmntReportCnt;
 	private String cmntRegdate;
 	
+	private String userNick;
+	
+	
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
 	public String getCmntSeq() {
 		return cmntSeq;
 	}

@@ -64,7 +64,7 @@
                         </tr>
                         <tr>
                             <th>작성자</th>
-                            <td>${dto.userSeq}</td>
+                            <td>${dto.userNick}</td>
                             <th>작성일</th>
                             <td>${dto.boardRegdate}</td>
                         </tr>
@@ -78,11 +78,12 @@
 
                         <!-- 댓글 컨테이너 -->
                         <div class="commentContainer">
-                        <div class="commentItem">
                         <c:forEach var="cmnt" items="${cmntList}">
+                        <div class="commentItem">
                             <div>
-                                <div class="commentWriter">${cmnt.userSeq}</div>
+                                <div class="commentWriter">${cmnt.userNick}</div>
                                 <div class="commentTime">${cmnt.cmntRegdate}</div>
+                                <div class="commentTime">${cmnt.cmntReportCnt}</div>
                             </div>
                             <div class="commentContent">${cmnt.cmntContents}</div>
                         </div>

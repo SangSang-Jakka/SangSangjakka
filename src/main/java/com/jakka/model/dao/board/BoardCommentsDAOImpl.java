@@ -131,6 +131,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
 				dto.setCmntSeq(rs.getString("cmntSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 				list.add(dto);
 				
@@ -247,6 +248,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
 				dto.setCmntSeq(rs.getString("cmntSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 				list.add(dto);
 				
