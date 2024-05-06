@@ -23,7 +23,8 @@ public enum AdminLog {
 	BoardCommentDisabled("16"),// 자유게시판 댓글 비활성화
 	BoardCommentEnabled("17"), // 자유게시판 댓글 활성화
 	NoticeEdited("18"),        // 공지사항 작성
-	SuggestionAnsweredEdited("19");			// 건의사항 답변 수정
+	SuggestionAnsweredEdited("19"), // 건의사항 답변 수정
+	SuggestionAnsweredDeleted("20"); // 건의사항 답변 삭제		
 	
 	private final String value;
 	

@@ -69,7 +69,7 @@
 							<c:forEach var="suggestion" items="${suggestionList}">
 								<tr>
 									<td class="table-plus">${suggestion.sgstSeq}</td>
-									<td>${suggestion.sgstSecretYN}</td>
+									<td>${suggestion.sgstSecretYN eq 'y' ? '비밀' : '일반'}</td>
 									<td><a href ="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}">${suggestion.sgstTitle}</a></td>
 									<td>${suggestion.userNick}</td>
 									<td>${suggestion.sgstRegdate}</td>

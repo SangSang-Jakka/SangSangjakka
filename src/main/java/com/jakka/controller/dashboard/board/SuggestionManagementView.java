@@ -1,6 +1,7 @@
 package com.jakka.controller.dashboard.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -23,13 +24,13 @@ public class SuggestionManagementView extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = req.getSession();
 
 		String seq = req.getParameter("seq");
 
 		SuggestionDAO suggestionDAO = DAOManager.getSuggestionDAO();
-		
-		
 
 		// 문의사항 가져오기
 		SuggestionDTO dto = suggestionDAO.findById(seq);
@@ -54,21 +55,79 @@ public class SuggestionManagementView extends HttpServlet {
 		dto.setSgstTitle(sgstTitle);
 
 		req.setAttribute("dto", dto);
-		
-		
+
 		// 문의사항 답변 가져오기
-		
+
 		SuggestionAnswerDAO suggestionAnswerDAO = DAOManager.getSuggestionAnswerDAO();
-		
+
 		ArrayList<SuggestionAnswerDTO> answerList = suggestionAnswerDAO.list(seq);
-		
+
 		req.setAttribute("answerList", answerList);
-				
-	
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/suggestion_manage_view.jsp");
 		dispatcher.forward(req, resp);
+        
 
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		req.setCharacterEncoding("UTF-8");
+		
+		// 세션에 로그인한 관리자
+		HttpSession session = req.getSession();
+		String adId = (String) session.getAttribute("adId");
+
+		if (adId == null) {
+			req.setAttribute("errorMessage", "로그인 후 답변을 작성할 수 있습니다.");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/admin/admin_login.jsp"); 
+			dispatcher.forward(req, resp);
+		} else {
+
+			// 폼에서 입력한 답변 가져오기
+			String sgstAnsw = req.getParameter("sgstAnsw");
+			// 건의사항 번호 가져오기
+			String seq = req.getParameter("seq");
+
+			// 답변을 DB에 저장
+			SuggestionAnswerDTO dto = new SuggestionAnswerDTO();
+			dto.setSgstSeq(seq); // 건의사항 번호
+			dto.setSgstAnsw(sgstAnsw); // 답변 내용
+			dto.setAdId(adId); // 관리자 아이디
+
+			SuggestionAnswerDAO suggestionAnswerDAO = DAOManager.getSuggestionAnswerDAO();
+			suggestionAnswerDAO.add(dto); // 답변 저장
+
+			// 저장된 답변을 포함하여 다시 화면에 표시
+			ArrayList<SuggestionAnswerDTO> answerList = suggestionAnswerDAO.list(seq);
+			req.setAttribute("answerList", answerList);
+
+			// 문의사항 상세 화면으로 리다이렉트 또는 포워딩
+			resp.sendRedirect(req.getContextPath() + "/admin/dashboard/suggestion/manageview.do?seq=" + seq);
+
+		}
+		
+		// 답변 수정
+		String seq = req.getParameter("seq");
+		String content = req.getParameter("content");
+		
+		
+		SuggestionAnswerDAO suggestionAnswerDAO = DAOManager.getSuggestionAnswerDAO();
+		SuggestionAnswerDTO dto = new SuggestionAnswerDTO();
+		dto.setAnswSeq(seq);
+		dto.setSgstAnsw(content);
+		
+		int result = suggestionAnswerDAO.save(dto);
+		resp.setContentType("application/json");
+
+		PrintWriter writer = resp.getWriter();
+		writer.print("{");
+		writer.print("\"result\": " + result); //"result": 1
+		writer.print("}");
+		writer.close();
+
+		
 	}
 
 }// End of class

@@ -22,8 +22,8 @@ public class NoticeManagementAdd extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = req
-				.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/notice_manage_add.jsp");
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/notice_manage_add.jsp");
 		dispatcher.forward(req, resp);
 
 	}

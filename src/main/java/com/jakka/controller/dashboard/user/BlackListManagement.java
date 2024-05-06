@@ -14,24 +14,24 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
 
-@WebServlet("/admin/dashboard/user/manage.do")
-public class UserManagement extends HttpServlet{
-	
+@WebServlet("/admin/dashboard/blacklist/manage.do")
+public class BlackListManagement extends HttpServlet {
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		req.setCharacterEncoding("UTF-8");
-		
+
 		UserDAO userDAO = DAOManager.getUserDAO();
-		
-		ArrayList<UserDTO> list = userDAO.findAll();
-		
+
+		ArrayList<UserDTO> list = userDAO.findAllBlack();
+
 		req.setAttribute("userList", list);
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/user_manage.jsp");
+
+		RequestDispatcher dispatcher = req
+				.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/blacklist_manage.jsp");
 		dispatcher.forward(req, resp);
-		
+
 	}
-	
-	
-}//End of class
+
+}// End
