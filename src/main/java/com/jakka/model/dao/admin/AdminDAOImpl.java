@@ -95,6 +95,7 @@ public class AdminDAOImpl implements AdminDAO{
 				dto.setAdTel(rs.getString("adTel"));
 				dto.setAdNick(rs.getString("adNick"));
 				
+				
 				return dto;
 			}
 			
@@ -265,6 +266,50 @@ public class AdminDAOImpl implements AdminDAO{
 		return null;
 		
 	}
+	
+	
+	//관리자 로그목록
+	
+		public ArrayList<AdminDTO> log(String Id) {
+		
+		final String SQL = "select l.adlogseq, l.adlogdate, l.adid, c.adcatcontents, l.adlogcontents from tblAdLog l join tblAdcat c on l.adcatseq = c.adcatseq where adid =?";
+		
+		try(Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL)) {
+		
+			pstat.setString(1, Id);
+			
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			ArrayList<AdminDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				AdminDTO dto = new AdminDTO();
+				
+				dto.setAdLogSeq(rs.getString("adLogSeq"));
+				dto.setAdLogDate(rs.getString("adLogDate"));
+				dto.setAdId(rs.getString("adId"));
+				dto.setAdCatContents(rs.getString("adCatContents"));
+				dto.setAdLogContents(rs.getString("adLogContents"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| login");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
 	
 	
 }//End of class

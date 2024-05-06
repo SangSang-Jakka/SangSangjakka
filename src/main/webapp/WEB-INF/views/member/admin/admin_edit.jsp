@@ -108,6 +108,8 @@
 
                        
                         <button type="button" class="btn btn-danger">계정 삭제</button>
+                        <button type="button" class="btn btn-primary pull-right" onclick ="location.href='/sangsangjakka/admin/edit.do?id=${adminedit.adId}';"> 돌아가기</button>
+                  		
                     </div>
 							<!-- Step 2 -->
                            

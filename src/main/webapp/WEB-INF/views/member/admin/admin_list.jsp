@@ -97,8 +97,8 @@
                         <!-- <input type="button" value="멤버 추가하기" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/add.do'"> -->
                         <span class="right">
 						 <!-- <button type="button" class="btn btn-primary pull-right" onclick="location.href='/sangsangjakka/admin/add.do'">멤버 추가하기</button> -->
-						 <input type="button" value="멤버 추가하기" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/add.do'">
-						 </span>
+						<input type="button" value="멤버 추가하기" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/add.do'">
+						</span>
 					</div>
                     
 					<div class="pb-20">
@@ -138,10 +138,13 @@
 								</tr>
 								</c:forEach>
 							</tbody>
-					
+					 
+						 
 						</table>
 					</div>
 				</div>
+				
+				
 			<!-- Simple Datatable End -->
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>

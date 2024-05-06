@@ -13,6 +13,14 @@ public class AdminDTO {
 	private String adTel;
 	private String adLv;
 	
+	//관리자 로그
+	private String adLogSeq;
+	private String adLogDate;
+	private String adCatContents;
+	private String adLogContents;
+	
+	
+	
 	public String getAdId() {
 		return adId;
 	}

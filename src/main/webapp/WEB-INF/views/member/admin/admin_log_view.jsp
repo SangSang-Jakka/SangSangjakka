@@ -8,8 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/suggestions.css">
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
-	
 	<style>
 	
 	
@@ -44,85 +42,108 @@
 	               </div>
 	
 	
-	              
+	               <div class="row clearfix">
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 동화책</div>
+	                                   <div class="weight-600 font-14">Book</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 게시글</div>
+	                                   <div class="weight-600 font-14">Post</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 유저</div>
+	                                   <div class="weight-600 font-14">User</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	                   <div class="col-xl-3 mb-30">
+	                       <div class="card-box height-100-p widget-style1">
+	                           <div class="d-flex flex-wrap align-items-center">
+	                               <div class="widget-data">
+	                                   <div class="h4 mb-0">새로운 건의사항</div>
+	                                   <div class="weight-600 font-14">Suggestion</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                   </div>
+				</div>
 	
 	
-			<form method ="POST" action="/sangsangjakka/admin/add.do">
-	               
+				
+			
 				<!-- Simple Datatable start -->
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<h4 class="text-blue h4">관리자 정보</h4>
-                        <button type="submit" class="btn btn-primary pull-right">등록</button>
-					</div>
-					<div class="wizard-content">
-						<form class="tab-wizard wizard-circle wizard">
-							
+				<div class="card-box mb-30">
+					<div class="pd-20">
+					
+						<h4 class="text-blue h4">관리자 로그</h4>
 						
-								
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >이름 :</label>
-											<input type="text" name ="adname" class="form-control">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >주소 : </label>
-											<input type="text" name="adaddress" class="form-control">
-										</div>
-									</div>
-									
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >전화번호 :</label>
-											<input type="text" name ="adtel" class="form-control">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>닉네임 :</label>
-											<select name="adnick" class="custom-select form-control">
-												<option value="">등급</option>
-												<option value="최고관리자">최고관리자</option>
-												<option value="관리자">관리자</option>
-												
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >아이디 :</label>
-											<input type="text" name ="adid" class="form-control">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label >비밀번호 : </label>
-											<input type="text" name ="adpw" class="form-control">
-										</div>
-									</div>
-								</div>
-							 <div>
-
                        
-                    </div>
-							<!-- Step 2 -->
-                           
-						</form>
-                         <a href="/sangsangjakka/admin/list.do" class="btn btn-primary pull-right">뒤로가기</a>
+					</div>
+                    
+					<div class="pb-20">
+					 
+						<table class="data-table table stripe hover nowrap" id="myTable">
+						
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">번호</th>
+									<th>날짜</th>
+<!-- 									<th>아이디</th> -->
+									<th>메뉴</th>
+									<th>처리내용</th>
+									
+									
+								</tr>
+							</thead>
+						
+							<tbody>
+
+								
+								
+									<c:forEach var="adLog" items="${adLogList}"  varStatus="loop">
+								
+								<tr>
+									<td class="table-plus">${loop.index +1}</td>
+								
+								
+									
+									
+    
+
+									<td>${adLog.adLogDate}</td>
+<%-- 									<td>${adLog.adId}</td> --%>
+									<td>${adLog.adCatContents}</td>
+									<td>${adLog.adLogContents}</td>
+									
+									
+								</tr>
+								</c:forEach>
+							</tbody>
+					 
+						 
+						</table>
 					</div>
 				</div>
-			
+				
+				
 			<!-- Simple Datatable End -->
-	
-			</form>
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			
@@ -151,8 +172,6 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
-	
-	
 	</script>
 	</body>
 </html>
