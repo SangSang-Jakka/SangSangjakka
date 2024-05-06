@@ -52,10 +52,6 @@ textarea {
     resize: vertical;
 }
 
-
-
-
-
 /* Responsive */
 @media screen and (max-width: 600px) {
     .viewContainer {
@@ -75,41 +71,81 @@ textarea {
 
   /* 댓글 */
 .commentContainer {
-    margin-top : 20px;
+	margin-top: 20px;
+
 }
 
 .commentItem {
-    border-bottom: 1px solid #DEE2E6;
-    padding: 10px;
+	border-bottom: 1px solid #DEE2E6;
+	padding: 10px;
+	position: relative;
+
+}
+
+.commentHeader {
+	display: flex;
+	align-items: center;
 }
 
 .commentWriter {
-    font-weight : bold;
+	font-weight: bold;
 }
 
 .commentTime {
-    color: #666;
-    font-size: 12px;
-    float: right;
+	color: #666;
+	font-size: 12px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+}
+
+.commentReport {
+	color: #b81414;
+	font-size: 12px;
+	position: absolute;
+	top: 30px;
+	right: 10px;
+
+
 }
 
 .commentContent {
-    margin-top : 5px;
+	margin-top: 5px;
 }
 
 .commentInput {
-    margin-top : 20px;
-    margin-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .commentInput input[type="text"] {
-    width: calc(100% - 80px);
-    height: 40px;
-    padding: 8px;
-    border: 1px solid #DEE2E6;
-    border-radius: 5px 0 0 5px;
-
+	width: calc(100% - 80px);
+	height: 40px;
+	padding: 8px;
+	border: 1px solid #DEE2E6;
+	border-radius: 5px 0 0 5px;
 }
 
+/* 댓글 수정, 삭제 */
+.commentActions {
+	margin-left: 10px;
+	display: flex;
+}
 
+.btnEdit, .btnDel {
+	padding: 3px 8px;
+	margin-left: 5px;
+	cursor: pointer;
+	border: none;
+	border-radius: 3px;
+	background-color: #007bff;
+	color: #fff;
+	font-size: 10px;
+	margin-left: 5px;
+}
+
+.btnEdit:hover, .btnDel:hover {
+	background-color: #0056b3;
+}
 
