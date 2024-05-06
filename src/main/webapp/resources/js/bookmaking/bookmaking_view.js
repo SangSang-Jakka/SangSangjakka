@@ -1,6 +1,8 @@
 /* bookmaking_view.js */
 $(document).ready(function() {
 	$('.bookmakingWrap').hide();
+	$('.coverMaker').hide();
+	$('.titleMaker').hide();
 
 	function initBookmaking() {
 		$('.bookmakingOptionContainer').hide();
@@ -49,6 +51,7 @@ $(document).ready(function() {
 		$('#bb-bookblock').append($newPage);
 		Page.init();  // Reinitialize or setup for the new page if necessary
 		$('#bb-nav-last').click();	// Navigate to the last page
+		$('.pageMaker').show();
 	});
 
 	$('#bb-nav-next').click(function() {
@@ -113,7 +116,32 @@ $(document).ready(function() {
 			alert('Please select an image file to upload.');
 		}
 	});
+	
+	
+	$('#pageNext').click(function() {
+		$('.makedPageViewer').hide();
+		$('.pageMaker').hide();
+		$('.coverMaker').show();
+	});
 
+	$('#coverNext').click(function() {
+		$('.coverMaker').hide();
+		$('.titleMaker').show();
+	});
+	
+	$('#titlePrev').click(function() {
+		$('.titleMaker').hide();
+		$('.coverMaker').show();
+	});
+	
+	$('#coverPrev').click(function() {
+		$('.coverMaker').hide();
+		$('.makedPageViewer').show();
+	});
+	
+	$('#pageEdit').click(function() {
+		$('.pageMaker').show();
+	});
 
 	var Page = (function() {
 
@@ -139,21 +167,25 @@ $(document).ready(function() {
 				// add navigation events
 				config.$navNext.on('click touchstart', function() {
 					config.$bookBlock.bookblock('next');
+					$('.pageMaker').hide();
 					return false;
 				});
 
 				config.$navPrev.on('click touchstart', function() {
 					config.$bookBlock.bookblock('prev');
+					$('.pageMaker').hide();
 					return false;
 				});
 
 				config.$navFirst.on('click touchstart', function() {
 					config.$bookBlock.bookblock('first');
+					$('.pageMaker').hide();
 					return false;
 				});
 
 				config.$navLast.on('click touchstart', function() {
 					config.$bookBlock.bookblock('last');
+					$('.pageMaker').hide();
 					return false;
 				});
 

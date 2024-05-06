@@ -145,6 +145,22 @@
 	background-color: #C61FA1;
 }
 
+#coverPrev {
+	background-color: #FFA012;
+}
+
+#coverNext {
+	background-color: #FE4848;
+}
+
+#titlePrev {
+	background-color: #FFA012;
+}
+
+#titleNext {
+	background-color: #FE4848;
+}
+
 .btnBox {
 	width: 100%;
 	display: inline-flex;

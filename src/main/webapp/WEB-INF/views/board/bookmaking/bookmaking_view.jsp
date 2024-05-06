@@ -70,7 +70,7 @@
 						<div class="pageOptionBox flex btnBox">
 							<div class="pageOptionItem btnItem pointer" id="pageEdit">수정</div>
 							<div class="pageOptionItem btnItem pointer" id="pageAdd">페이지 추가</div>
-							<div class="pageOptionItem btnItem pointer" id="bookSave">완성</div>
+							<div class="pageOptionItem btnItem pointer" id="pageNext">표지</div>
 							<div class="pageOptionItem btnItem pointer" id="pageDelete">삭제</div>
 						</div>
 					</div>
@@ -171,6 +171,26 @@
 								<input type="button" value="페이지에 사용하기">
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="coverMaker">
+					<div>
+						
+					</div>
+					<div class="coverOptionBox full flex">
+						<div class="coverOptionItem btnItem pointer" id="coverPrev">이전으로</div>
+						<div class="coverOptionItem btnItem pointer" id="coverNext">제목</div>
+					</div>
+				</div>
+				<div class="titleMaker">
+					<div>
+						
+					</div>
+					<div class="titleOptionBox full flex">
+						<div class="titleOptionItem btnItem pointer" id="titlePrev">이전으로</div>
+						<a href="/sangsangjakka/board/bookmaking/fin.do">
+							<div class="titleOptionItem btnItem pointer" id="titleNext" onclick="">완성</div>
+						</a>
 					</div>
 				</div>
 			</div>
