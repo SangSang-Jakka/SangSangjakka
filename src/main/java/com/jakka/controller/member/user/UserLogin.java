@@ -47,7 +47,7 @@ public class UserLogin extends HttpServlet{
 			HttpSession session = req.getSession();
 			
 			session.setAttribute("userId", result.getUserId());
-			session.setAttribute("userPw", result.getUserPw());
+			session.setAttribute("userSeq", result.getUserSeq());
 			session.setAttribute("userNick", result.getUserNick());
 			session.setAttribute("userLV", result.getUserLV());
 			resp.sendRedirect("/sangsangjakka/index.do");

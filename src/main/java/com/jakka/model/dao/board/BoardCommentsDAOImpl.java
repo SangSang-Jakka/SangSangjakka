@@ -223,7 +223,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO{
 	
 	public ArrayList<BoardCommentDTO> findChild(String parentBoardSeq) {
 		
-		final String SQL = "select * from vwBoardComments where boardSeq = ? order by cmntRegdate desc";
+		final String SQL = "select * from vwBoardCommentsWhite where boardSeq = ? order by cmntRegdate desc";
 		
 		try (
 			

@@ -140,8 +140,7 @@ public class UserDAOImpl implements UserDAO{
 				result.setUserId(rs.getString("userId"));
 				result.setUserNick(rs.getString("userNick"));
 				result.setUserLV(rs.getString("userLV"));
-				
-				System.out.println(rs.getString("userNick"));
+				result.setUserSeq(rs.getString("userSeq"));
 				
 			}
 

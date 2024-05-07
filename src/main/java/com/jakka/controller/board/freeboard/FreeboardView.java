@@ -48,7 +48,7 @@ public class FreeboardView extends HttpServlet {
 		ArrayList<BoardCommentDTO> list = cmntDao.findChild(boardSeq);
 		
 		req.setAttribute("dto", dto);
-		req.setAttribute("clist", list);
+		req.setAttribute("list", list);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/freeboard/freeboard_view.jsp");
 		dispatcher.forward(req, resp);

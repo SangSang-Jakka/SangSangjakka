@@ -74,37 +74,33 @@
                   <div class="commentWrap">
                         <!-- 전체 -->
                         <div class="commmentContainer">
-                          <ul class="commentArea">
+                        
+                        <c:forEach items="${list}" var="dto">
+                        
+                        	<ul class="commentArea">
                             <li>
-                              <div class="commentNick">김뫄뫄</div>
+                              <div class="commentNick">${dto.userNick}</div>
                                 <div class="commentBtnBlock">
+                                <c:if test="${dto.userSeq == userSeq}">
                                   <input type="button" class="btnCommentEdit" value="수정">
                                   <input type="button" class="btnCommentDel" value="삭제">
                                 </div>
-                           
-                              <div class="commentText">너무 좋네요~</div>
+                           		</c:if>
+                              <div class="commentText">${dto.cmntContents}</div>
                               <div class="commentInfo">
-                                <span class="commentInfoDate">2024.05.03</span>
-                              </div>
-                            </li>
-                            
-                          </ul>
-
-                          <ul class="commentArea">
-                            <li>
-                              <div class="commentNick">박솨솨</div>
-                              <span class="commentText">짱!</span>
-                              <div class="commentInfo">
-                                <span class="commentInfoDate">2024.05.03</span>
+                                <span class="commentInfoDate">${dto.cmntRegdate}</span>
                               </div>
                             </li>
                           </ul>
+                          
+                        </c:forEach>
+                        
                         </div>
 
                         <!-- 댓글 추가 창 -->
                         <div class="commentAddBox">
                           <div class="commentAdd">
-                            <div class="commentAddNick">홍라라</div>
+                            <div class="commentAddNick">${userNick}</div>
                             <textarea class="commentAddText"></textarea>
                           </div>
                      
