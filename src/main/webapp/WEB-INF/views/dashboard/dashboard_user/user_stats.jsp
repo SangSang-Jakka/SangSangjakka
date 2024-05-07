@@ -44,7 +44,7 @@
 	                        <div class="today">
 	                            <i class="icon-copy dw dw-pencil "></i>
 	                            <h4>신규 가입자수</h4>
-	                            <p>+13</p>
+	                            <p>+${userCnt}</p>
 	                        </div>
 	                        <div class="yesterday">
 	                            <i class="icon-copy dw dw-pencil "></i>
@@ -53,7 +53,7 @@
 	                        </div>
 	                        <div class="accumulate">
 	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>누적 작성글</h4>
+	                            <h4>탈퇴회원수</h4>
 	                            <p>300</p>
 	                        </div>
 	                    </div>
@@ -74,10 +74,15 @@
 	                    </div>
 	                </div>
 	
-	                <div class="chartContainer">
-	                    <div id="boardChart"></div>
-	                </div>
-	
+<!--  	                <div class="chartContainer">  -->
+<!-- 	                 	  <div id="boardChart"></div> -->
+ 	               <div>
+	                	<div style="width: 300px; height: 300px; background-color: white;
+	                	border-radius: 10px;">
+       					 <canvas id="myChart"></canvas>
+    					</div>
+    				</div>
+<!-- 	 				</div>  -->
 	
 	            <!-- 푸터 -->
 				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
@@ -90,6 +95,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script>
 		
 	Highcharts.chart('boardChart', {
@@ -136,5 +142,48 @@
 	});
 	
 	</script>
+	
+	<script type="text/javascript">
+        // 서버에서 받은 데이터를 사용하여 차트를 그립니다.
+        var chartData = <%= request.getAttribute("jsonData") %>;
+        // 차트 생성을 위한 설정
+        var context = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(context, {
+            type: 'doughnut', // 도넛 차트 설정
+            data: {
+            	
+                labels: chartData.labels, // 차트의 라벨을 설정합니다.
+                datasets: [{
+                	
+                	
+                    label: chartData.label, // 데이터셋의 라벨을 설정합니다.
+                    data: chartData.data, // 차트에 표시될 데이터를 설정합니다.
+                    backgroundColor: [
+                        //색상
+                        
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                        
+                    ],
+                    borderColor: [
+                        //경계선 색상
+                       
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)'
+                        
+                    ],
+ // 데이터의 테두리 색을 설정합니다.
+                    borderWidth: 1 // 데이터의 테두리 두께를 설정합니다.
+                }]
+            },
+            options: {
+                // 차트의 옵션 설정을 추가할 수 있습니다.
+            }
+        });
+    </script>
+	
+	
+
+  
 	</body>
 </html>

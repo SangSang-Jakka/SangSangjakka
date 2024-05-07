@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.user.UserDTO;
@@ -587,6 +589,66 @@ public class UserDAOImpl implements UserDAO{
             System.out.println("User folder already exists: " + folderPath);
         }
 		
+	}
+	
+	
+public int userCnt(String userRegdate) {
+		
+		int userCount = 0;  
+		
+		
+		String SQL = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            // ResultSet에서 'user_count' 열의 값을 가져와서 변수에 할당
+		            userCount = rs.getInt("user_count");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.userCnt");
+			e.printStackTrace();
+		}
+		 return userCount;
+		
+		
+	}
+	
+	@Override
+	public Map<String, Integer> userGender() {
+		
+		Map<String, Integer> userCounts = new HashMap<>();
+		
+		 String SQL = "SELECT SUM(CASE WHEN SUBSTR(USERRIGHTSSN, 1, 1) = '1' OR SUBSTR(USERRIGHTSSN, 1, 1) = '3' THEN 1 ELSE 0 END) AS man, SUM(CASE WHEN SUBSTR(USERRIGHTSSN, 1, 1) = '2' OR SUBSTR(USERRIGHTSSN, 1, 1) = '4' THEN 1 ELSE 0 END) AS woman FROM tblUser";
+		
+		 try {
+			 	Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				ResultSet rs = pstat.executeQuery();
+				
+				if (rs.next()) {
+	                int manCount = rs.getInt("man");
+	                int womanCount = rs.getInt("woman");
+
+	                // 결과를 Map에 저장
+	                userCounts.put("man", manCount);
+	                userCounts.put("woman", womanCount);
+	            }
+				
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.userGender");
+			e.printStackTrace();
+		}
+		 return userCounts;
 	}
 	
 }//End of class
