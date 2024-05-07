@@ -72,6 +72,38 @@ public class SuggestionList extends HttpServlet {
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
 		ArrayList<SuggestionDTO> list = dao.findAllWhite(map);
 		// 
+		if(list != null) {
+			for(SuggestionDTO dto : list) {
+				dto.setSgstRegdate(dto.getSgstRegdate().substring(0, 10));
+				// 제목 넣을 변수
+				String title = dto.getSgstTitle();
+				
+				if(title.length() > 20) {
+					title = title.substring(0 ,20) + "..";
+				}
+				title = title.replace(">", "&gt").replace("<", "&lt");
+				
+				dto.setSgstTitle(title);
+			}
+			// 총 게시물 수 
+			totalCount = dao.whiteTotalCnt(map);
+		}
+		// 총 게시물? 총 페이지 수?
+		totalPage = (int)Math.ceil((double)totalCount / pageSize);
+		
+		// 페이지바 작업
+		StringBuilder builder = new StringBuilder();
+		
+		// 페이지 번호를 매기기 위한 루프 변수 생성
+		loop = 1;
+		n = ((nowPage - 1) / blockSize) * blockSize + 1; // 페이지 번호 역할
+		
+		// 1 페이지 일 때
+		if(n == 1) {
+			builder.append(String.format("<a href='#!'>[이전 %d페이지]</a>", blockSize));
+		} else {
+			builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a>", n-1, column, word, blockSize));
+		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		dispatcher.forward(req, resp);
 
