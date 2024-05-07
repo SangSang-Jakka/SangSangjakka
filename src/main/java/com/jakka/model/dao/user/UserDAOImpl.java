@@ -22,6 +22,11 @@ public class UserDAOImpl implements UserDAO{
 		return DAO;
 	}//getInstance()
 	
+	@Override
+	public UserDTO getUser(String userSeq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public boolean unRegister(UserDTO dto) {
 		String SQL = "delete from tblUser where userSeq = ? and userPw = ?";
@@ -114,23 +119,34 @@ public class UserDAOImpl implements UserDAO{
 		
 		String SQL = "select * from tblUser where userId = ? and userPw = ?";
 		
-		try {
+		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL); 
-			
+		){
 			pstat.setString(1, dto.getUserId());
 			pstat.setString(2, dto.getUserPw());
 			
+			System.out.println(dto.getUserId());
+			System.out.println(dto.getUserPw());
+			
 			ResultSet rs = pstat.executeQuery();
 			
+			UserDTO result = new UserDTO();
+			
 			if(rs.next()) {
-				UserDTO result = new UserDTO();
+				
+				result.setUserId(rs.getString("userId"));
 				result.setUserNick(rs.getString("userNick"));
 				result.setUserLV(rs.getString("userLV"));
-				rs.close();
 				
-				return result;
+				System.out.println(rs.getString("userNick"));
+				
 			}
+
+			
+			rs.close();
+			return result;
+			
 			
 		} catch (Exception e) {
 			System.out.println("UserDAOImpl.login");
