@@ -55,7 +55,7 @@
                   </tr>
                   <tr>
                       <td>6</td>
-                      <th><a href="#!">동화책 오류</a><p>[1]</p></th>
+                      <th><a href="/sangsangjakka/board/suggestion/View.do">동화책 오류</a><p>[1]</p></th>
                       <td>홍길동</td>
                       <td>2017.06.15</td>
                       <td>0</td>
