@@ -19,11 +19,7 @@ public class UserDAOImpl implements UserDAO{
 	private UserDAOImpl() {
 		//외부 생성 방지
 	}
-	@Override
-	public UserDTO getUser(String userSeq) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	public static UserDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
@@ -225,6 +221,7 @@ public class UserDAOImpl implements UserDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserState(rs.getString("userState"));
 				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName")); 
 				
 				rs.close();
 				

@@ -19,4 +19,5 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	public int userCnt(String userRegdate);
 	public Map<String, Integer> userGender();
 	
+	
 }
