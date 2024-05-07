@@ -33,11 +33,16 @@ public class UserLogin extends HttpServlet{
 		String userPw = req.getParameter("userPw");
 	
 		UserDAO dao = DAOManager.getUserDAO();
+		
 		UserDTO dto = new UserDTO();
+		dto.setUserId(userId);
+		dto.setUserPw(userPw);
 		
 		UserDTO result = dao.login(dto);
 		
-		if(result != null) {
+		System.out.println(result);
+		
+		if(result.getUserId() != null) {
 			HttpSession session = req.getSession();
 			
 			session.setAttribute("userId", result.getUserId());

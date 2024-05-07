@@ -19,7 +19,49 @@
 			<!-- 동화책 공유 게시판 -->
 		    <h2>동화 공유 게시판</h2>
 		    <div class="boardContainer">
-			        <div class="boardBox1">
+		    	
+		    	<!-- 동화책 표시 -->
+		    	<c:forEach items="${list}" var="dto">
+		    	
+		    		<div class="boardBox">
+						<img src="${dto.bookCover}">
+						<p class="userItems"><i class="fas fa-user"></i>${dto.userNick} ${dto.bookRegdate}</p>
+						<p class="titleItems">${dto.bookTitle}</p>
+			        	<p class="contentItems">${dto.bookInfo}</p>
+			        	<div class="iconItems">
+			          		<div class="subItems">
+			            		<i class="fas fa-check"></i>
+			            		<p>${dto.bookReviewCnt}</p>
+			            	</div>
+			            	<div class="subItems">
+			            		<i class="fas fa-heart"></i>
+			            		<p>${dto.likeCnt}</p>
+			            	</div>
+			            		<div class="subItems">
+			            		<i class="fas fa-comments"></i>
+			            		<p>${dto.bookScrapCnt}</p>
+			            	</div>
+			        	</div>
+			        <hr>	    		
+		    		</div>
+		    		
+		    	</c:forEach>
+		    	
+		    	<!-- 검색 인터페이스 -->
+				<form id="searchForm" method="GET" action="/sangsangjakka//board/book/list.do">
+					<select name="column">
+						<option value="subject">제목</option>
+						<option value="content">내용</option>
+						<option value="nick">닉네임</option>
+					</select>
+					<input type="text" name="word" class="long" required value="${map.word}">
+					<input type="submit" value="검색하기">
+				</form>
+				
+				<!-- 페이지바 -->
+				<div id="pagebar">${pagebar}</div>
+		    
+			    <div class="boardBox1">
 			        <img src="/sangsangjakka/resources/img/book1.jpg" class="book1Items">
 			        <p class="userItems"><i class="fas fa-user"></i>예지공주 Dec 13, 2023</p>
 			        
@@ -27,20 +69,20 @@
 			        <p class="contentItems">여러 귀여운 동물들의 보물찾기 대탐험!<br>직접 그린 그림입니다 ㅎㅎ 재밌게 봐주세요</p>
 			        <div class="iconItems">
 			            <div class="subItems">
-			            <i class="fas fa-check"></i>
+			            	<i class="fas fa-check"></i>
 			            <p>20</p>
 			            </div>
 			            <div class="subItems">
-			            <i class="fas fa-heart"></i>
-			            <p>22</p>
+			            	<i class="fas fa-heart"></i>
+			            	<p>22</p>
 			            </div>
-			            <div class="subItems">
-			            <i class="fas fa-comments"></i>
-			            <p>23</p>
+			            	<div class="subItems">
+			            	<i class="fas fa-comments"></i>
+			            	<p>23</p>
 			            </div>
 			        </div>
 			        <hr>
-			  </div>
+			  	</div>
 
 		        
 				
@@ -133,12 +175,11 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
 		var pics = document.querySelectorAll('img');
-		var userId = '<%=(String)session.getAttribute("userId")%>';
 		
 		
 		pics.forEach(function(img) {
 		    img.addEventListener('click', function() {
-		    	if(userId == "null") {
+		    	if(${userId} == "null") {
 		    		const result = confirm('회원만 볼 수 있는 페이지입니다. 회원 가입 창으로 이동하시겠습니까?');
 		    		if(result) {
 		    			location.href = "/sangsangjakka/user/signup.do";
@@ -150,6 +191,13 @@
 		    	}
 		    });
 		});
+		
+		<c:if test="${map.search == 'y'}">
+			//검색중 상태 유지
+			$('input[name=word]').val('${map.word}');
+			$('select[name=column]').val('${map.column}');
+		</c:if>
+		
 	</script>
 	</body>
 </html>
