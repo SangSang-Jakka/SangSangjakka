@@ -21,15 +21,20 @@ public class FindIdOk extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String userNick = req.getParameter("userNick");
-		String userRegdate = req.getParameter("userRegdate");
+		String userEmail = req.getParameter("userEmail");
 		
 		// DB작업한 결과, UserDAO 타입
 		UserDAO dao = DAOManager.getUserDAO();
 		// 결과값을 들고 움직일 것들
 		UserDTO dto = new UserDTO();
 		
+		dto.setUserNick(userNick);
+		dto.setUserEmail(userEmail);
+		
 		// 들고 움직일 것들의 참조변수 result
 		UserDTO result = dao.findId(dto);
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter writer = resp.getWriter();
 		
 		if(result != null) {
 			// find_id_ok.jsp에서 사용할 것들 쓰기
@@ -38,8 +43,6 @@ public class FindIdOk extends HttpServlet{
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/find_id_ok.jsp");
 			dispatcher.forward(req, resp);
 		} else {
-			resp.setContentType("text/html; charset=UTF-8");
-			PrintWriter writer = resp.getWriter();
 			writer.println("<script type='text/javascript'>");
 			writer.println("alert('일치하는 아이디가 없습니다.');");
 			writer.println("location.href='/sangsangjakka/user/find_id.do'");

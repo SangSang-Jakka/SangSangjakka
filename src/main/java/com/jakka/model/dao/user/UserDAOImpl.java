@@ -80,7 +80,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	// 아이디 찾기
 	public UserDTO findId(UserDTO dto) {
-		String SQL = "select userId from tblUser where userNick = ? and userEmail = ?";
+		String SQL = "select userId, userRegdate from tblUser where userNick = ? and userEmail = ?";
 		
 		try {
 			Connection conn = DBUtil.open();
@@ -99,6 +99,7 @@ public class UserDAOImpl implements UserDAO{
 				// 쿼리를 실행한 결과를 가져와서 result에 쓰기
 				result.setUserId(rs.getString("userId"));
 				result.setUserRegdate(rs.getString("userRegdate"));
+
 				rs.close();
 				
 				// result 반환
