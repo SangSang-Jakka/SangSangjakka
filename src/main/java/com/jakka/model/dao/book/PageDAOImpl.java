@@ -72,8 +72,9 @@ public class PageDAOImpl implements PageDAO{
 		 pstmt.setString(4, dto.getPageContents());
 		 pstmt.setString(5, dto.getCmntYN());
 		 pstmt.setString(6, dto.getImgYN());
-		
-		 return pstmt.executeUpdate();
+		 int result = pstmt.executeUpdate();
+		 conn.commit();
+		 return result;
 		} catch (Exception e) {
 		 System.out.println("PageDAO.| add");
 		 e.printStackTrace();
