@@ -16,7 +16,7 @@ public class BookmakingList extends HttpServlet {
 
 		
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/bookmaking_list.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_list.jsp");
 		dispatcher.forward(req, resp);
 
 	}
