@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header id="header">
+<%@page session="true"%>
         <div class="headerWrap">
             <div class="empty"></div>
             <div class="headerLogo">
@@ -20,8 +21,9 @@
             <c:if test="${not empty userId}">
           		<div class="headerLogin">
           			<div class="loginWrap">
-          				<a href="/sangsangjakka/user/index.do" class="logoutBtn">로그아웃</a>
-          				<a href="/sangsangjakka/user/signout.do" class="userInfo">회원 탈퇴</a>
+          				<p>${userNick}님 안녕하세요<p>
+          				<a href="/sangsangjakka/user/logout.do" class="logoutBtn">로그아웃</a>
+          				<a href="/sangsangjakka/user/mypage.do" class="mypageBtn">마이페이지</a>
           			</div>
           		</div>
             </c:if>
@@ -31,11 +33,11 @@
         <nav id="nav">
             <ul>
                 <a href="/sangsangjakka/index.do"><li>메인화면</li></a>
+                <a href="/sangsangjakka/board/bookmaking/add.do"><li>동화제작</li></a>
                 <a href="/sangsangjakka/board/book/list.do"><li>동화나라</li></a>
+                <a href="/sangsangjakka/board/award/list.do"><li>명예의 전당</li></a>
+                <a href="/sangsangjakka/board/notice/list.do"><li>공지사항</li></a>
                 <a href="/sangsangjakka/board/freeboard/list.do"><li>자유게시판</li></a>
                 <a href="/sangsangjakka/board/suggestion/list.do"><li>건의사항</li></a>
-                <a href="/sangsangjakka/board/notice/list.do"><li>공지사항</li></a>
-                <a href="/sangsangjakka/user/mypage.do"><li>마이페이지</li></a>
-                <a href="/sangsangjakka/board/award/list.do"><li>명예의 전당</li></a>
             </ul>
         </nav>

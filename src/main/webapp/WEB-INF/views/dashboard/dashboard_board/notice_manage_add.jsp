@@ -61,8 +61,10 @@
                                 <td><textarea name="noticeContents" class="contentNotice"></textarea></td>
                             </tr>
                             <tr>
+                            <!--  
                                 <th>파일</th>
                                 <td><input type="file" name="attach" class="attachNotice"></td>
+                                -->
                             </tr>
                         </table>
                     </div>

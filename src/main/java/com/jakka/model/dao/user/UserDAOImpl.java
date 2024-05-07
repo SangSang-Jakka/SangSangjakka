@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.user.UserDTO;
@@ -26,6 +28,7 @@ public class UserDAOImpl implements UserDAO{
 	public static UserDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
+	
 	
 
 	public boolean unRegister(UserDTO dto) {
@@ -82,7 +85,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	// 아이디 찾기
 	public UserDTO findId(UserDTO dto) {
-		String SQL = "select userId from tblUser where userNick = ? and userEmail = ?";
+		String SQL = "select userId, userRegdate from tblUser where userNick = ? and userEmail = ?";
 		
 		try {
 			Connection conn = DBUtil.open();
@@ -93,19 +96,23 @@ public class UserDAOImpl implements UserDAO{
 			
 			// 결과 반환
 			ResultSet rs = pstat.executeQuery();
+			UserDTO result = new UserDTO();
 			
 			// 결과값이 있으면
 			if(rs.next()) {
 				// DTO타입의 참조변수 result
-				UserDTO result = new UserDTO();
 				// 쿼리를 실행한 결과를 가져와서 result에 쓰기
 				result.setUserId(rs.getString("userId"));
 				result.setUserRegdate(rs.getString("userRegdate"));
+				System.out.println(result);
+
+				}
 				rs.close();
 				
-				// result 반환
-				return result;
-			}
+				
+			// result에 아이디를 찾은 결과를 보여줄 아이디와 가입일을 쓰기, 쓴걸 들고 result에 들고감
+			// result 반환
+			return result;
 			
 		} catch (Exception e) {
 			System.out.println("UserDAOImpl.findId");
@@ -119,23 +126,33 @@ public class UserDAOImpl implements UserDAO{
 		
 		String SQL = "select * from tblUser where userId = ? and userPw = ?";
 		
-		try {
+		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL); 
-			
+		){
 			pstat.setString(1, dto.getUserId());
 			pstat.setString(2, dto.getUserPw());
 			
+			System.out.println(dto.getUserId());
+			System.out.println(dto.getUserPw());
+			
 			ResultSet rs = pstat.executeQuery();
 			
+			UserDTO result = new UserDTO();
+
 			if(rs.next()) {
-				UserDTO result = new UserDTO();
+				
+				result.setUserId(rs.getString("userId"));
 				result.setUserNick(rs.getString("userNick"));
 				result.setUserLV(rs.getString("userLV"));
-				rs.close();
+				result.setUserSeq(rs.getString("userSeq"));
 				
-				return result;
 			}
+
+			
+			rs.close();
+			return result;
+
 			
 		} catch (Exception e) {
 			System.out.println("UserDAOImpl.login");
@@ -212,6 +229,7 @@ public class UserDAOImpl implements UserDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserState(rs.getString("userState"));
 				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName")); 
 				
 				rs.close();
 				
@@ -577,7 +595,7 @@ public class UserDAOImpl implements UserDAO{
         }
 		
 	}
-	
+
 
 	@Override
 	public String signUp(UserDTO dto) {
@@ -641,5 +659,65 @@ public class UserDAOImpl implements UserDAO{
 		    System.out.println(0);
 		    return 0;
 		}
+
 	
+public int userCnt(String userRegdate) {
+		
+		int userCount = 0;  
+		
+		
+		String SQL = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            // ResultSet에서 'user_count' 열의 값을 가져와서 변수에 할당
+		            userCount = rs.getInt("user_count");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.userCnt");
+			e.printStackTrace();
+		}
+		 return userCount;
+		
+		
+	}
+	
+	@Override
+	public Map<String, Integer> userGender() {
+		
+		Map<String, Integer> userCounts = new HashMap<>();
+		
+		 String SQL = "SELECT SUM(CASE WHEN SUBSTR(USERRIGHTSSN, 1, 1) = '1' OR SUBSTR(USERRIGHTSSN, 1, 1) = '3' THEN 1 ELSE 0 END) AS man, SUM(CASE WHEN SUBSTR(USERRIGHTSSN, 1, 1) = '2' OR SUBSTR(USERRIGHTSSN, 1, 1) = '4' THEN 1 ELSE 0 END) AS woman FROM tblUser";
+		
+		 try {
+			 	Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				ResultSet rs = pstat.executeQuery();
+				
+				if (rs.next()) {
+	                int manCount = rs.getInt("man");
+	                int womanCount = rs.getInt("woman");
+
+	                // 결과를 Map에 저장
+	                userCounts.put("man", manCount);
+	                userCounts.put("woman", womanCount);
+	            }
+				
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.userGender");
+			e.printStackTrace();
+		}
+		 return userCounts;
+	}
+
 }//End of class

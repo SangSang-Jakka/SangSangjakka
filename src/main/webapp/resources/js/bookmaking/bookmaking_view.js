@@ -45,8 +45,8 @@ $(document).ready(function() {
 
 	$('#pageAdd').click(function() {
 		var $newPage = $('<div class="bb-item"></div>').html(`
-			<div class="pageImage"></div>
-			<p>Newly added page content goes here.</p>
+			<div class="pageImage" style="background-image: url('/sangsangjakka/resources/img/empty.jpg');"></div>
+			<p>내용</p>
 		`);
 		$('#bb-bookblock').append($newPage);
 		Page.init();  // Reinitialize or setup for the new page if necessary

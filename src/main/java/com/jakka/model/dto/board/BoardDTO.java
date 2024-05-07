@@ -15,6 +15,8 @@ public class BoardDTO {
 	
 	private String userNick;
 	
+	private String cmntCnt;
+	
 
 	public String getBoardSeq() {
 		return boardSeq;

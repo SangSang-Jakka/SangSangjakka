@@ -1,1 +1,95 @@
-@charset "UTF-8";
+/* bookmaking_list.css */
+#booklistGrid {
+	display: grid;
+	grid-template-columns: auto 1200px auto;
+}
+
+.booklistGridCenter {
+	width: 1200px;
+	margin: 120px auto;
+	padding: 20px 2px;
+	background-color: #f8f8f8;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.booklistGridCenter h2 {
+	text-align: center;
+	font-size: 24px;
+	color: #333;
+	margin-bottom: 40px;
+}
+
+.booklistSliderContainer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    justify-content: flex-start; /* 시작점에서 정렬 */
+    overflow: hidden; /* 이 부분이 정상 작동하도록 */
+    width: 100%; /* slider의 너비를 명시적으로 설정 */
+}
+
+.sliderItemBox {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%; /* 슬라이더 박스 너비 */
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.sliderItem {
+    flex: 0 0 25%; /* 한 페이지에 최대 네 개의 아이템이 보이도록 설정 */
+    text-align: center;
+    box-sizing: border-box; /* 패딩과 보더가 너비에 포함 */
+    height: 400px;
+}
+
+.sliderBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.2);
+    border: none;
+    font-size: 24px;
+    z-index: 100;
+    height: 100%;
+}
+
+.sliderBtn:hover {
+	opacity: 0.1;
+}
+
+.left {
+    left: 10px;
+}
+
+.right {
+    right: 10px;
+}
+
+.pointer:hover {
+    cursor: pointer;
+    opacity: 0.2;
+}
+
+.makeNewBook {
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.makeNewBook a {
+	width: 200px;
+	height: 40px;
+	cursor: pointer;
+}
+
+.makeNewBook a input {
+	width: 100%;
+	height: 100%;
+}

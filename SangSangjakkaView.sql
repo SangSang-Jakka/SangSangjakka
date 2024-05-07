@@ -28,28 +28,32 @@ FROM tblBook b
                 ON b.bookSeq = s.bookSeq
                     LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookReportCnt FROM tblBookShareReport GROUP BY bookSeq) re
                     ON b.bookSeq = re.bookSeq;
-
+    
 -- 동화책 화이트리스트
 CREATE OR REPLACE VIEW vwBookWhite
 AS
-SELECT 
-    b.bookSeq,
-    b.bookTitle,
-    b.bookInfo,
-    b.bookCover,
-    b.bookRegdate,
-    b.bookModDate,
-    b.likeCnt,
-    b.bookReviewCnt,
-    b.bookScrapCnt,
-    b.bookReportCnt,
-    b.userSeq,
-    b.parentBookSeq,
-    b.rcmAgeSeq,
-    b.userNick
-FROM VWBOOK B
-    INNER JOIN tblBookWhiteList bw 
-    ON b.bookSeq = bw.bookSeq;
+SELECT *
+FROM (
+    SELECT
+        ROWNUM AS rnum,
+        b.bookSeq,
+        b.bookTitle,
+        b.bookInfo,
+        b.bookCover,
+        b.bookRegdate,
+        b.bookModDate,
+        b.likeCnt,
+        b.bookReviewCnt,
+        b.bookScrapCnt,
+        b.bookReportCnt,
+        b.userSeq,
+        b.parentBookSeq,
+        b.rcmAgeSeq,
+        b.userNick
+    FROM VWBOOK B
+    INNER JOIN tblBookWhiteList bw
+        ON b.bookSeq = bw.bookSeq
+);
 
 -- 동화책 블랙리스트
 CREATE OR REPLACE VIEW vwBookBlack 
@@ -94,6 +98,7 @@ SELECT
     b.boardContents,
     b.boardRegdate,
     COALESCE(re.boardReportCnt, 0) AS boardReportCnt,
+    COALESCE(cm.cmntCnt, 0) AS cmntCnt,
     b.boardCnt,
     b.userSeq,
     u.userNick
@@ -101,7 +106,9 @@ FROM tblBoard b
     inner join tblUser u
     on u.userSeq = b.userSeq
     LEFT JOIN (SELECT boardSeq, COUNT(*) AS boardReportCnt FROM tblBoardReport GROUP BY boardSeq) re
-    ON b.boardSeq = re.boardSeq;
+    ON b.boardSeq = re.boardSeq
+        left join (select boardSeq, COUNT(*) AS cmntCnt from vwBoardCommentsWhite GROUP BY boardSeq) cm
+                on b.boardSeq = cm.boardSeq;
 
 
 -- 자유게시판 차단 리스트
@@ -122,50 +129,65 @@ WHERE b.boardSeq NOT IN (SELECT boardSeq FROM tblBoardWhiteList);
 -- 블라인드제외 자유게시판 글
 CREATE OR REPLACE VIEW vwBoardWhite
 AS
-SELECT
-    b.boardSeq,
-    b.boardTitle,
-    b.boardContents,
-    b.boardRegdate,
-    b.boardReportCnt,
-    b.boardCnt,
-    b.userSeq,
-    b.userNick
-FROM vwBoard b
-    inner JOIN tblBoardWhiteList w
-    on b.boardSeq = w.boardSeq;
+select * from 
+(
+    SELECT
+        rownum as rnum,
+        b.boardSeq,
+        b.boardTitle,
+        b.boardContents,
+        b.boardRegdate,
+        b.boardReportCnt,
+        b.boardCnt,
+        b.userSeq,
+        b.userNick,
+        COALESCE(cm.cmntCnt, 0) AS cmntCnt
+    FROM vwBoard b
+        inner JOIN tblBoardWhiteList w
+        on b.boardSeq = w.boardSeq
+            left join (select boardSeq, COUNT(*) AS cmntCnt from vwBoardCommentsWhite GROUP BY boardSeq) cm
+            on b.boardSeq = cm.boardSeq
+);
 
 -- 자유게시판 댓글 + 신고횟수
 create or replace view vwBoardComments
 as
-select
-    c.cmntSeq,
-    c.userSeq,
-    c.boardSeq,
-    c.cmntContents,
-    COALESCE(re.cmntReportCnt, 0) AS cmntReportCnt,
-    c.cmntRegdate,
-    u.userNick
-from tblBoardComments c
+select *
+from(
+    select
+        rownum as rnum,
+        c.cmntSeq,
+        c.userSeq,
+        c.boardSeq,
+        c.cmntContents,
+        COALESCE(re.cmntReportCnt, 0) AS cmntReportCnt,
+        c.cmntRegdate,
+        u.userNick
+    from tblBoardComments c
         inner join tblUser u
         on u.userSeq = c.userSeq
             LEFT JOIN (SELECT cmntSeq, COUNT(*) AS cmntReportCnt FROM tblBoardCommentsReport GROUP BY cmntSeq) re
-            ON c.cmntSeq = re.cmntSeq;
+            ON c.cmntSeq = re.cmntSeq
+);
 
 -- 자유게시판 댓글 화이트리스트
 create or replace view vwBoardCommentsWhite
 AS
-SELECT
-    c.cmntSeq,
-    c.userSeq,
-    c.boardSeq,
-    c.cmntContents,
-    c.cmntReportCnt,
-    c.cmntRegdate,
-    c.userNick
-FROM vwBoardComments c
-    inner join tblBoardCommentsWhiteList wc
-    on wc.cmntSeq = c.cmntSeq;
+select *
+from (
+    SELECT
+        rownum as rnum,
+        c.cmntSeq,
+        c.userSeq,
+        c.boardSeq,
+        c.cmntContents,
+        c.cmntReportCnt,
+        c.cmntRegdate,
+        c.userNick
+    FROM vwBoardComments c
+        inner join tblBoardCommentsWhiteList wc
+        on wc.cmntSeq = c.cmntSeq
+);
 
 -- 자유게시판 댓글 블랙리스트
 CREATE OR REPLACE VIEW vwBoardCommentsBlack 
@@ -206,16 +228,20 @@ FROM tblReview r
 -- 화이트 리뷰
 CREATE OR REPLACE VIEW vwReviewWhite 
 AS
-SELECT
-    r.reviewSeq,
-    r.reviewContents,
-    r.reviewLikeCnt,
-    r.reviewReportCnt,
-    r.userSeq,
-    r.bookSeq,
-    r.reviewRegdate
-FROM vwReview r
-    INNER JOIN tblReviewWhiteList rw ON r.reviewSeq = rw.reviewSeq;
+select *
+from (
+    SELECT
+     rownum as rnum,
+        r.reviewSeq,
+        r.reviewContents,
+        r.reviewLikeCnt,
+        r.reviewReportCnt,
+        r.userSeq,
+        r.bookSeq,
+        r.reviewRegdate
+    FROM vwReview r
+        INNER JOIN tblReviewWhiteList rw ON r.reviewSeq = rw.reviewSeq
+);
 
 
 -- 블랙 리뷰

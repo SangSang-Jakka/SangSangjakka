@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dao.BasicDAO;
@@ -17,12 +18,6 @@ import com.jakka.model.enums.UserLog;
 public class BoardDAOImpl implements BoardDAO{
 
 	private static final BoardDAOImpl DAO = new BoardDAOImpl();
-	
-	@Override
-	public double myMethod(String boardSeq) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	private BoardDAOImpl() {
 		//외부 생성 방지
@@ -331,9 +326,9 @@ public class BoardDAOImpl implements BoardDAO{
 			
 			ResultSet rs = pstat.executeQuery();
 			
+			BoardDTO dto = new BoardDTO();
+			
 			if(rs.next()) {
-				
-				BoardDTO dto = new BoardDTO();
 				
 				dto.setBoardCnt(rs.getString("boardCnt"));
 				dto.setBoardContents(rs.getString("boardContents"));
@@ -343,10 +338,13 @@ public class BoardDAOImpl implements BoardDAO{
 				dto.setBoardTitle(rs.getString("boardTitle"));
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserNick(rs.getString("userNick"));
+				dto.setCmntCnt(rs.getString("cmntCnt"));
 				
-				return dto;
 				
 			}
+			
+			rs.close();
+			return dto;
 			
 		} catch (Exception e) {
 			System.out.println("BoardDAO.| get");
@@ -692,6 +690,92 @@ public class BoardDAOImpl implements BoardDAO{
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public int whiteTotalCnt(HashMap<String, String> map) {
+		
+		String where = "";
+
+		if(map.get("search").equals("y")) {
+			
+			where = String.format("where %s like '%%%s%%'"
+					, map.get("column")
+					, map.get("word"));
+		}
+		
+		String sql = String.format("select count(*) as cnt from vwBoardWhite %s", where);
+		
+		try(
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+		) {
+
+
+			ResultSet rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map) {
+		
+		String where = "where rnum BETWEEN ? AND ?";
+
+		if(map.get("search").equals("y")) {
+		    where = where + String.format(" and %s like '%%%s%%'"
+		    		, map.get("column")
+		    		, map.get("word"));
+		}
+		
+		String sql = String.format("select * from vwBoardWhite %s order by boardRegdate desc", where);
+		
+		try(
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+		) {
+			pstat.setString(1, map.get("begin"));
+			pstat.setString(2, map.get("end"));
+
+			ResultSet rs = pstat.executeQuery();
+
+			ArrayList<BoardDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BoardDTO dto = new BoardDTO();
+				
+				dto.setBoardCnt(rs.getString("boardCnt"));
+				dto.setBoardContents(rs.getString("boardContents"));
+				dto.setBoardRegdate(rs.getString("boardRegdate"));
+				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setBoardTitle(rs.getString("boardTitle"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setCmntCnt(rs.getString("cmntCnt"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 }//End of class

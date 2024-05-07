@@ -58,12 +58,9 @@
 						<div id="bb-bookblock" class="bb-bookblock">
 							<div class="bb-item">
 								<div class="pageImage"
-									style="background-image: url('/sangsangjakka/resources/img/book1.jpg');">
+									style="background-image: url('/sangsangjakka/resources/img/empty.jpg');">
 								</div>
-								<p>Pastry bear claw oat cake danish croissant
-									jujubes danish. Wypas soufflé muffin. Liquorice powder pastry
-									danish. Candy toffee gummi bears chocolate bar lollipop
-									applicake chocolate cake danish brownie.</p>
+								<p>내용</p>
 							</div>
 						</div>
 
@@ -189,7 +186,7 @@
 					<div class="titleOptionBox full flex">
 						<div class="titleOptionItem btnItem pointer" id="titlePrev">이전으로</div>
 						<a href="/sangsangjakka/board/bookmaking/fin.do">
-							<div class="titleOptionItem btnItem pointer" id="titleNext" onclick="">완성</div>
+							<div class="titleOptionItem btnItem pointer" id="titleNext">완성</div>
 						</a>
 					</div>
 				</div>
