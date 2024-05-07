@@ -935,20 +935,138 @@ public class BookDAOImpl implements BookDAO{
 	
 	@Override
 	public ArrayList<BookDTO> findByContentsContains(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		final String SQL = "SELECT * FROM vwBook WHERE bookInfo LIKE ? and rnum BETWEEN ? AND ? ORDER BY bookRegdate DESC";
+
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	    	
+	        pstmt.setString(1, "%" + map.get("word") + "%");
+	        pstmt.setString(2, map.get("begin"));
+	        pstmt.setString(3, map.get("end"));
+	        
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<BookDTO> list = new ArrayList<>();
+	        
+	        while (rs.next()) {
+	        	
+	            BookDTO dto = new BookDTO();
+	            
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            list.add(dto);
+	        }
+	        
+	        return list;
+	        
+	    } catch (Exception e) {
+	        System.out.println("BookDAO.| findByContentsContains");
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 	
 	@Override
 	public ArrayList<BookDTO> findByNick(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		final String SQL = "SELECT * FROM vwBook WHERE userNick = ? and rnum BETWEEN ? AND ? ORDER BY bookRegdate DESC";
+
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	    	
+	        pstmt.setString(1, map.get("word"));
+	        pstmt.setString(2, map.get("begin"));
+	        pstmt.setString(3, map.get("end"));
+	        
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<BookDTO> list = new ArrayList<>();
+	        
+	        while (rs.next()) {
+	        	
+	            BookDTO dto = new BookDTO();
+	            
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            list.add(dto);
+	        }
+	        return list;
+	    } catch (Exception e) {
+	        System.out.println("BookDAO.| findByNick");
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 	
 	@Override
 	public ArrayList<BookDTO> findByTitleContains(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+		final String SQL = "SELECT * FROM vwBook WHERE bookTitle LIKE ? and rnum BETWEEN ? AND ? order by bookRegdate desc";
+		
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	    	
+	        pstmt.setString(1, "%" + map.get("word") + "%");
+	        pstmt.setString(2, map.get("begin"));
+	        pstmt.setString(3, map.get("end"));
+	        
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<BookDTO> list = new ArrayList<>();
+	        
+	        while (rs.next()) {
+	        	
+	            BookDTO dto = new BookDTO();
+	            
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            list.add(dto);
+	        }
+	        return list;
+	    } catch (Exception e) {
+	        System.out.println("BookDAO.| findByTitleContains");
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 	
 }//End of class

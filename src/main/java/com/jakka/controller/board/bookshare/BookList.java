@@ -93,22 +93,24 @@ public class BookList extends HttpServlet{
 			list  = dao.findAllWhite(map);
 		}
 		
-		//데이터 조작
-		for (BookDTO dto : list) {
-			
-			String title = dto.getBookTitle();
-			String info = dto.getBookInfo();
-			
-			//
-			if (info.length() > 20) {
-				info = info.substring(0, 20) + "..";
+		if(list != null) {
+			//데이터 조작
+			for (BookDTO dto : list) {
+				
+				String title = dto.getBookTitle();
+				String info = dto.getBookInfo();
+				
+				//
+				if (info.length() > 20) {
+					info = info.substring(0, 20) + "..";
+				}
+				
+				//제목 > 태그 > 이스케이프
+				info = info.replace(">", "&gt;").replace("<", "&lt;");
+				title = title.replace(">", "&gt;").replace("<", "&lt;");
+				
+				dto.setBookTitle(title);			
 			}
-			
-			//제목 > 태그 > 이스케이프
-			info = info.replace(">", "&gt;").replace("<", "&lt;");
-			title = title.replace(">", "&gt;").replace("<", "&lt;");
-			
-			dto.setBookTitle(title);			
 		}
 		
 		//총 게시물? 총페이지 수?
