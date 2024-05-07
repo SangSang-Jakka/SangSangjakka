@@ -30,9 +30,9 @@
               <table class="boardTitle">
                 <tbody>
                     <tr>
-                        <td scope="col" class="tdTitle">상상자까 시스템 점검 안내 (4월 6일 00:00-06:00)</td>
-                        <td scope="col" class="tdDate">2024-03-29</td>
-                        <td scope="col" class="tdViews">24</td>
+                        <td scope="col" class="tdTitle">${dto.noticeTitle}</td>
+                        <td scope="col" class="tdDate">${dto.noticeRegdate}</td>
+                        <td scope="col" class="tdViews">${dto.noticeCnt}</td>
                     </tr>
                 </tbody>
                   </table>
@@ -42,7 +42,7 @@
                   </div>
 
                       <div class="gonjiMain">
-                        공지사항 안내입니다. 이용해주셔서 감사합니다
+                        ${dto.noticeContents}
                       </div>
 
 

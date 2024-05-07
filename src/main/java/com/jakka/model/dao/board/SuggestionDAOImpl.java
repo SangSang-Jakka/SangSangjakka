@@ -22,7 +22,34 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	public static SuggestionDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
-
+	
+	public int whiteTotalCnt(HashMap<String, String> map) {
+		
+		String where = "";
+		
+		if(map.get("search").equals("y")) {
+			where = String.format("where %s like '%%%s%%'"
+					, map.get("column")
+					, map.get("word"));
+		}
+		
+		String sql = String.format("select count(*) as cnt from vwSuggestion %s", where);
+		
+		// 연결
+		try(
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);	
+		) {
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+			return 0;
+		}
 	//건의사항 전체 리스트
 	@Override
 	public ArrayList<SuggestionDTO> findAll() {
@@ -461,9 +488,40 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 		String where ="where rnum BETWEEN ? AND ?";
 		
 		if(map.get("search").equals("y")) {
-			
+			where = where + String.format(" and %s like '%%%s%%'"
+							, map.get("column")
+							, map.get("word"));
 		}
 		
+		String sql = String.format("select * from vwSuggestion %s order by sgstRegdate desc", where);
+		
+		try {
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, map.get("column"));
+			pstat.setString(2, map.get("word"));
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			ArrayList<SuggestionDTO> list = new ArrayList<>();
+			
+			// 
+			while(rs.next()) {
+				SuggestionDTO dto = new SuggestionDTO();
+				dto.setSgstSeq("sgstSeq");
+				dto.setSgstTitle("sgstTitle");
+				dto.setSgstContents("sgstContents");
+				dto.setSgstRegdate("sgstRegdate");
+				dto.setUserSeq("userSeq");
+				dto.setSgstCnt("sgstCnt");
+				list.add(dto);
+			}
+			return list;
+		} catch (Exception e) {
+			System.out.println("SuggestionDAOImpl.findAllWhite");
+			e.printStackTrace();
+		}
 		return null;
 	}
 }//End of class

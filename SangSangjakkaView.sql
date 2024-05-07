@@ -314,5 +314,14 @@ from tblScrap s
         inner join tblUser u
         on s.userSeq = u.userSeq;
 
-
+CREATE OR REPLACE VIEW vwNotice
+as
+select *
+from
+    (
+    select 
+        rownum as rnum,
+        n.*
+        from tblNotice n
+);
 

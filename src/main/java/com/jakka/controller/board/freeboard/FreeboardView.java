@@ -25,6 +25,14 @@ public class FreeboardView extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
+		// 로그인 여부 확인
+	    String userId = (String) session.getAttribute("userId");
+	    if (userId == null) {
+	        // 비로그인 상태일 경우 로그인 페이지로 리디렉션
+	        resp.sendRedirect("/sangsangjakka/user/login.do");
+	        return;
+	    }
+		
 		String boardSeq = req.getParameter("no");
 		
 		

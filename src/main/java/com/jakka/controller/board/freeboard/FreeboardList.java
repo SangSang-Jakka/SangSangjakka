@@ -70,6 +70,7 @@ public class FreeboardList extends HttpServlet {
 		map.put("begin", begin + "");
 		map.put("end", end + "");
 		
+		
 		HttpSession session = req.getSession();
 		
 		//조회수 관련
@@ -112,7 +113,7 @@ public class FreeboardList extends HttpServlet {
 		//이전 10페이지
 		if(n == 1) {
 			builder.append(String.format(" <a href='#!'>[이전 %d페이지]</a> ",blockSize));
-			
+				
 		} else {
 			builder.append(String.format(" <a href='/sangsangjakka/board/freeboard/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a> ", n - 1, column, word, blockSize));
 		}

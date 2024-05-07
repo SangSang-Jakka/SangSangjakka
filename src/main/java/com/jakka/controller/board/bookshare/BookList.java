@@ -50,21 +50,17 @@ public class BookList extends HttpServlet{
 		String word = req.getParameter("word");
 		String search = "n";	//목록보기(n), 검색하기(y)
 		
-		if((column == null && word == null) || word.equals("")) {
-			
+		if((column != null && word != null)) {
+			search = "y";
+		} else {
 			search = "n";
 			
-		} else {
-			
-			search = "y";
-			
+			column = "";
+			word = "";
 		}
 		
 		HashMap<String, String> map = new HashMap<>();
-		
-		if(column == null) column = "";
-		if(word == null) word = "";
-		
+
 		map.put("search", search);	//n, y
 		map.put("column", column);
 		map.put("word", word);
@@ -80,22 +76,14 @@ public class BookList extends HttpServlet{
 		//책 가져오기
 		BookDAO dao = DAOManager.getBookDAO();
 		
-		ArrayList<BookDTO> list;
-		
-		//map에는 페이지와 word만
-		if(column.equals("subject") && (word != null) && search.equals("y")) {
-			list  = dao.findByTitleContains(map);
-		} else if (column.equals("content") && (word != null) && search.equals("y")) {
-			list  = dao.findByContentsContains(map);
-		} else if (column.equals("nick") && (word != null) && search.equals("y")) {
-			list  = dao.findByNick(map);
-		} else {
-			list  = dao.findAllWhite(map);
-		}
+		ArrayList<BookDTO> list = dao.findAllWhite(map);
 		
 		if(list != null) {
 			//데이터 조작
 			for (BookDTO dto : list) {
+				
+				
+				dto.setBookRegdate((dto.getBookRegdate().substring(0, 10)));
 				
 				String title = dto.getBookTitle();
 				String info = dto.getBookInfo();
@@ -111,10 +99,12 @@ public class BookList extends HttpServlet{
 				
 				dto.setBookTitle(title);			
 			}
+			
+			totalCount = dao.whiteTotalCnt(map);
+			
 		}
 		
 		//총 게시물? 총페이지 수?
-		totalCount = list.size();
 		totalPage = (int)Math.ceil((double)totalCount / pageSize);
 		
 		

@@ -895,17 +895,61 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	@Override
+	public int whiteTotalCnt(HashMap<String, String> map) {
+		
+		String where = "";
+
+		if(map.get("search").equals("y")) {
+			
+			where = String.format("where %s like '%%%s%%'"
+					, map.get("column")
+					, map.get("word"));
+		}
+		
+		String sql = String.format("select count(*) as cnt from vwBookWhite %s", where);
+		
+		try(
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+		) {
+
+
+			ResultSet rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+	
+	@Override
 	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map) {
-		final String SQL = "SELECT * FROM vwBookWhite where rnum BETWEEN ? AND ? order by bookRegdate desc";
+		
+		String where = "where rnum BETWEEN ? AND ?";
+		
+		if(map.get("search").equals("y")) {
+		    where = where + String.format(" and %s like '%%%s%%'"
+		    		, map.get("column")
+		    		, map.get("word"));
+		}
+		
+		String sql = String.format("select * from vwBookWhite %s order by bookRegdate desc", where);
 		
 		try (
 				Connection conn = DBUtil.open();
-				PreparedStatement pstat = conn.prepareStatement(SQL);
+				PreparedStatement pstat = conn.prepareStatement(sql);
 			){
 				pstat.setString(1, map.get("begin"));
 				pstat.setString(2, map.get("end"));
 				
-				ResultSet rs = pstat.executeQuery(SQL);
+				ResultSet rs = pstat.executeQuery();
 				
 				ArrayList<BookDTO> list = new ArrayList<>();
 				

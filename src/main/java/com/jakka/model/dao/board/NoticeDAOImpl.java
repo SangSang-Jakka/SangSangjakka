@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dao.BasicDAO;
@@ -24,6 +25,131 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public static NoticeDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
+	
+	
+	
+	@Override
+	public int totalCnt(HashMap<String, String> map) {
+		String where = "";
+
+		if(map.get("search").equals("y")) {
+			
+			where = String.format("where %s like '%%%s%%'"
+					, map.get("column")
+					, map.get("word"));
+		}
+		
+		String sql = String.format("select count(*) as cnt from tblNotice %s", where);
+		
+		try(
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+		) {
+
+
+			ResultSet rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public ArrayList<NoticeDTO> findAllFix() {
+		
+		final String sql = "select n.* from tblNotice n inner join tblNoticeFix f on n.noticeSeq = f.noticeSeq order by noticeRegdate desc";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(sql);
+				
+			){
+			
+			ArrayList<NoticeDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				NoticeDTO dto = new NoticeDTO();
+				
+				dto.setAdId(rs.getString("adId"));
+				dto.setNoticeCnt(rs.getString("noticeCnt"));
+				dto.setNoticeContents(rs.getString("noticeContents"));
+				dto.setNoticeRegdate(rs.getString("noticeRegdate"));
+				dto.setNoticeSeq(rs.getString("noticeSeq"));
+				dto.setNoticeTitle(rs.getString("noticeTitle"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.| findAllFix");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	@Override
+	public ArrayList<NoticeDTO> findAll(HashMap<String, String> map) {
+		
+		String where = "where rnum BETWEEN ? AND ?";
+
+		if(map.get("search").equals("y")) {
+		    where = where + String.format(" and %s like '%%%s%%'"
+		    		, map.get("column")
+		    		, map.get("word"));
+		}
+		
+		String sql = String.format("select * from vwNotice %s order by noticeRegdate desc", where);
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+				
+			){
+			pstat.setString(1, map.get("begin"));
+			pstat.setString(2, map.get("end"));
+			
+			ResultSet rs = pstat.executeQuery();
+				
+			ArrayList<NoticeDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				NoticeDTO dto = new NoticeDTO();
+				
+				dto.setAdId(rs.getString("adId"));
+				dto.setNoticeCnt(rs.getString("noticeCnt"));
+				dto.setNoticeContents(rs.getString("noticeContents"));
+				dto.setNoticeRegdate(rs.getString("noticeRegdate"));
+				dto.setNoticeSeq(rs.getString("noticeSeq"));
+				dto.setNoticeTitle(rs.getString("noticeTitle"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.| list");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	
 	//전체 공지사항 리스트
 	@Override

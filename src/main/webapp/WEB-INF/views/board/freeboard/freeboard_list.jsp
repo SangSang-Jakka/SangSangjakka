@@ -15,7 +15,6 @@
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 		
-		
 	<section class="notice">
     <div class="pageTitle">
           <div>
