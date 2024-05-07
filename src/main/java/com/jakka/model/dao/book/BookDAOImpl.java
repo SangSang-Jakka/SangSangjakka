@@ -894,6 +894,8 @@ public class BookDAOImpl implements BookDAO{
 		return false;
 	}
 	
+	
+	
 	@Override
 	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map) {
 		final String SQL = "SELECT * FROM vwBookWhite where rnum BETWEEN ? AND ? order by bookRegdate desc";

@@ -20,6 +20,11 @@
 		    <h2>동화 공유 게시판</h2>
 		    <div class="boardContainer">
 		    	
+		    	<c:if test="${list.size() == 0}">
+					<img>
+					게시글이 없습니다.
+				  </c:if>
+		    	
 		    	<!-- 동화책 표시 -->
 		    	<c:forEach items="${list}" var="dto">
 		    	

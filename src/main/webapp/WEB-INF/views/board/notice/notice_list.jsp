@@ -44,53 +44,31 @@
                     </tr>
                   </thead>	
                   <tbody>
-                  <tr class>
-                      <td>공지</td>
-                      <th><a href="/sangsangjakka/board/notice/View.do">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                      <td>2017.06.15</td>
-                      <td>23</td>
-                  </tr>
-                  <tr>
-                      <td>6</td>
-                      <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                      <td>5</td>
-                      <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                      <td>4</td>
-                      <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                      <td>3</td>
-                      <th>
-                        <a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a>
-                        <p>테스트</p>
-                      </th>
-                      <td>2017.07.13</td>
-                      <td>0</td>
-                  </tr>
-  
-                  <tr>
-                      <td>2</td>
-                      <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-  
-                  <tr>
-                      <td>1</td>
-                      <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
+                  
+                  <c:if test="${list.size() == 0}">
+					<tr>
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
+				  </c:if>
+				  
+				  <c:forEach items="${fix}" var="dto">
+				  	<tr>
+				  	  	<td>📌공지</td>
+                      	<th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+                      	<td>${dto.noticeRegdate}</td>
+                      	<td>${dto.noticeCnt}</td>
+                  	</tr>
+				  </c:forEach>
+                  
+                  <c:forEach items="${list}" var="dto">
+                  	  <tr>
+	                      <td>공지</td>
+	                      <th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+	                      <td>${dto.noticeRegdate}</td>
+	                      <td>${dto.noticeCnt}</td>
+	                  </tr>
+				  </c:forEach>
+                  
                   </tbody>
               </table>
           </div>
@@ -101,15 +79,15 @@
       <div id="boardSearch">
         <div>
             <div class="searchWindow">
-                <form action="">
+                <form method="GET" action="/sangsangjakka/board/notice/list.do">
                     <div class="searchWrap">
                         <label for="search" class="blind">공지사항 내용 검색</label>
-                          <select class="column">
-                              <option value="subject">제목</option>
-                              <option value="subject">내용</option>
+                          <select class="column" name="column">
+                              <option value="boardTitle">제목</option>
+                              <option value="boardContents">내용</option>
                           </select>
-                        <input id="search" type="search" placeholder="검색어를 입력해주세요." value="">
-                        <input type="button" class="btnSearch" value="검색">
+                        <input id="search" type="text" name="word" placeholder="검색어를 입력해주세요." required value="${map.word}">
+                        <input type="submit" class="btnSearch" value="검색">
                     </div>
                 </form>
             </div>
@@ -117,20 +95,7 @@
     </div>
 
     <div class="paging">
-      <a href=""><<</a>
-      <a href=""><</a>
-      <a href="">1</a>
-      <a href="">2</a>
-      <a href="">3</a>
-      <a href="">4</a>
-      <a href="">5</a>
-      <a href="">6</a>
-      <a href="">7</a>
-      <a href="">8</a>
-      <a href="">9</a>
-      <a href="">10</a>
-      <a href="">></a>
-      <a href="">>></a>
+      <div id="pagebar">${pagebar}</div>
     </div>
   
   </section>

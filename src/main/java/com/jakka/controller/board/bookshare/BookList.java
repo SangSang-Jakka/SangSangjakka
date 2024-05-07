@@ -50,21 +50,17 @@ public class BookList extends HttpServlet{
 		String word = req.getParameter("word");
 		String search = "n";	//목록보기(n), 검색하기(y)
 		
-		if((column == null && word == null) || word.equals("")) {
-			
+		if((column != null && word != null)) {
+			search = "y";
+		} else {
 			search = "n";
 			
-		} else {
-			
-			search = "y";
-			
+			column = "";
+			word = "";
 		}
 		
 		HashMap<String, String> map = new HashMap<>();
-		
-		if(column == null) column = "";
-		if(word == null) word = "";
-		
+
 		map.put("search", search);	//n, y
 		map.put("column", column);
 		map.put("word", word);
@@ -80,7 +76,7 @@ public class BookList extends HttpServlet{
 		//책 가져오기
 		BookDAO dao = DAOManager.getBookDAO();
 		
-		ArrayList<BookDTO> list;
+		ArrayList<BookDTO> list = dao.findAllWhite(map);
 		
 		//map에는 페이지와 word만
 		if(column.equals("subject") && (word != null) && search.equals("y")) {
