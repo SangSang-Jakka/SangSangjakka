@@ -36,6 +36,7 @@ public class FindIdOk extends HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = resp.getWriter();
 		
+
 		if(result != null) {
 			// find_id_ok.jsp에서 사용할 것들 쓰기
 			req.setAttribute("userId", result.getUserId());

@@ -123,7 +123,7 @@
                   editContent.addEventListener('click', function() {
                   var userId = <%=(String)session.getAttribute("userId")%>
                   var userSeq = this.getAttribute('data-userseq');
-                  		if("userId" != "userSeq") {
+                  		if(userId != userSeq) {
                   			alert('수정 권한이 없습니다. 본인만 수정 가능합니다.');
                   		} else {
                   			location.href='/sangsangjakka/board/suggestion/edit.do';

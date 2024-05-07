@@ -45,7 +45,7 @@
 						<div class="togglePassword" onclick="togglePasswordVisibility('passwordInputCheck', 'toggleIconCheck')">
 							<i id="toggleIconCheck" class="fas fa-eye-slash"></i> <!-- 수정된 부분 -->
 						</div>
-					</div>
+					</div>	
 				</div>
 	
 	
