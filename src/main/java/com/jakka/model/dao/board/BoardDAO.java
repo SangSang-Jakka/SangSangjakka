@@ -16,4 +16,7 @@ public interface BoardDAO extends BasicDAO<BoardDTO>, Cnt, ReportCnt
 	public int whiteTotalCnt(HashMap<String, String> map);
 	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map);
 	
+	public int remove(String boardSeq);
+	
+	
 }
