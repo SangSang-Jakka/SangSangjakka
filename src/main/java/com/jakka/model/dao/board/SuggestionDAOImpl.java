@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 import com.jakka.model.enums.UserLog;
 
@@ -484,46 +485,45 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	}
 	
 	public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map) {
-		
-		String where ="where rnum BETWEEN ? AND ?";
-		
-		if(map.get("search").equals("y")) {
-			where = where + String.format(" and %s like '%%%s%%'"
-							, map.get("column")
-							, map.get("word"));
-		}
-		
-		String sql = String.format("select * from vwSuggestion %s order by sgstRegdate desc", where);
-		
-		try {
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(sql);
-			
-			pstat.setString(1, map.get("column"));
-			pstat.setString(2, map.get("word"));
-			
-			ResultSet rs = pstat.executeQuery();
-			
+
+		final String SQL = "select * from vwSuggestion order by sgstRegdate desc";
+
+		try (
+
+				Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL);
+
+		) {
+
 			ArrayList<SuggestionDTO> list = new ArrayList<>();
-			
-			// 
-			while(rs.next()) {
+
+			while (rs.next()) {
+
 				SuggestionDTO dto = new SuggestionDTO();
-				dto.setSgstSeq("sgstSeq");
-				dto.setSgstTitle("sgstTitle");
-				dto.setSgstContents("sgstContents");
-				dto.setSgstRegdate("sgstRegdate");
-				dto.setUserSeq("userSeq");
-				dto.setSgstCnt("sgstCnt");
+
+				// 데이터 설정
+	            dto.setSgstSeq(rs.getString("sgstSeq"));
+	            dto.setSgstTitle(rs.getString("sgstTitle"));
+	            dto.setSgstContents(rs.getString("sgstContents"));
+	            dto.setSgstRegdate(rs.getString("sgstRegdate"));
+	            dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setSgstCnt(rs.getString("sgstCnt"));	
+
 				list.add(dto);
+
 			}
+
 			return list;
+
 		} catch (Exception e) {
-			System.out.println("SuggestionDAOImpl.findAllWhite");
 			e.printStackTrace();
 		}
+
 		return null;
-	}
+
+	}// list()
 }//End of class
 
 
