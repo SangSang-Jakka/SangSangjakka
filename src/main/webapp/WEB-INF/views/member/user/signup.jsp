@@ -194,7 +194,7 @@
                     	<div id="childInputSSN" style="display: none;">
                     	<div class="childinputWrap">
 	    					 <div class="childInput">
-					        	자녀 주민등록번호 앞자리: <input type="password" id="childID" maxlength="6" onkeypress="allowOnlyNumbers(event)" >
+					        	자녀 주민등록번호 앞자리: <input type="password" id="childID" name="childSsn" maxlength="6" onkeypress="allowOnlyNumbers(event)" >
 					    	</div>
 					    	<div class="toggleSSN" onclick="togglechildSSNVisibility()">
 	                              <i id="childToggleSSNIcon" class="fa-solid fa-eye-slash"></i>
@@ -485,7 +485,6 @@
 
             // 이전에 추가된 모든 에러 메시지 삭제
             removeErrorMessages();
-
             // 글자수와 닉네임 형식이 모두 유효하지 않은 경우 메시지 표시
             if (!isValidLength && !isValidId) {
                 showErrorMessage("  4~12 글자로 영어, 숫자만 입력 가능합니다.");
@@ -668,21 +667,56 @@
     }
 	
 	//중복검사
-	 function signUp() {
-	    var idDuplicationValue = document.getElementById("idHidden").value;
-	    var nicknameDuplicationValue = document.getElementsByName("nicknameDuplication")[0].value;
-	    
-	    if (idDuplicationValue !== "idChecked") {
-	        alert("아이디 중복검사를 먼저 실행해주세요.");
-	        return false;
+	function signUp() {
+    var idDuplicationValue = document.getElementById("idHidden").value;
+    var nicknameDuplicationValue = document.getElementsByName("nicknameDuplication")[0].value;
+
+    if (idDuplicationValue !== "idChecked") {
+        alert("아이디 중복검사를 먼저 실행해주세요.");
+        return false;
+    }
+
+    if (nicknameDuplicationValue !== "nicknameChecked") {
+        alert("닉네임 중복검사를 먼저 실행해주세요.");
+        return false;
+    }
+
+    var selectedValues = []; // 선택된 값들을 저장할 배열
+
+    // 모든 체크 박스 요소를 가져옴
+    var checkboxes = document.querySelectorAll('input[name="inflow"]:checked');
+
+    // 각 체크 박스에서 선택된 값을 배열에 추가
+    checkboxes.forEach(function(checkbox) {
+        selectedValues.push(checkbox.value);
+    });
+
+    // 기타 입력란이 보이고 값이 있으면 해당 값을 추가
+    var otherInput = document.getElementById('otherInput');
+    if (otherInput.style.display !== 'none' && otherInput.value.trim() !== '') {
+        selectedValues.push(otherInput.value.trim());
+    }
+
+    // AJAX를 사용하여 서버에 선택된 체크 박스의 값을 전송합니다.
+	   $.ajax({
+	    type: 'POST',
+	    url: '/user/signok.do', // 서버의 URL을 입력합니다.
+	    data: { selectedValues: selectedValues }, // 선택된 값들을 서버로 전송합니다.
+	    success: function(response) {
+	        // 서버로부터의 응답을 처리하는 부분입니다. 필요에 따라 추가적인 로직을 작성할 수 있습니다.
+	        console.log('서버로부터의 응답:', response);
+	    },
+	    error: function(xhr, status, error) {
+	        // 에러가 발생한 경우 처리하는 부분입니다.
+	        console.error('에러:', error);
 	    }
-	    
-	    if (nicknameDuplicationValue !== "nicknameChecked") {
-	        alert("닉네임 중복검사를 먼저 실행해주세요.");
-	        return false;
-	    }
-	   
-	}
+	});
+
+    // 가입 처리 로직 등을 진행하고, 필요한 경우 true를 반환하여 폼이 제출되도록 함
+    // 여기서는 간단히 true를 반환하여 예시로 제공
+    return true;
+}
+
 
 	
 	//아이디 중복체크 화면 

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
+import com.jakka.model.enums.Inflow;
 
 @WebServlet("/user/nickcheck.do")
 public class NickCheckForm extends HttpServlet{
@@ -45,5 +46,6 @@ public class NickCheckForm extends HttpServlet{
             out.print("false"); // 중복되는 아이디가 존재하지 않음
         }
         out.flush();
+
     }
 }

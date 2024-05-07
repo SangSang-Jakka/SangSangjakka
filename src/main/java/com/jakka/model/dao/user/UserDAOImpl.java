@@ -13,6 +13,11 @@ import com.jakka.model.DBUtil;
 import com.jakka.model.dto.user.UserDTO;
 
 public class UserDAOImpl implements UserDAO{
+	@Override
+	public UserDTO getUser(String userSeq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	private final static UserDAOImpl DAO = new UserDAOImpl();
 	
@@ -374,32 +379,35 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 	//닉네임, 전화번호, 주소, 이메일
-	@Override
-	public int save(UserDTO dto) {
-		
-		final String SQL = "UPDATE tblUser SET userNick = ?, userTel = ?, userAddress = ?, userEmail = ? WHERE userId = ?";
-		
-		try (
-			Connection conn = DBUtil.open();
-		    PreparedStatement pstat = conn.prepareStatement(SQL)
-		) {
+		@Override
+		public int save(UserDTO dto) {
+			
+			final String SQL = "UPDATE tblUser SET userNick = ?, userTel = ?, userAddress = ?, userEmail = ? WHERE userId = ?";
+			
+			try (
+				Connection conn = DBUtil.open();
+			    PreparedStatement pstat = conn.prepareStatement(SQL)
+			) {
 
-		        pstat.setString(1, dto.getUserNick());
-		        pstat.setString(2, dto.getUserTel());
-		        pstat.setString(3, dto.getUserAddress());
-		        pstat.setString(4, dto.getUserSeq());
+			        pstat.setString(1, dto.getUserNick());
+			        pstat.setString(2, dto.getUserTel());
+			        pstat.setString(3, dto.getUserAddress());
+			        pstat.setString(4, dto.getUserEmail());
+			        pstat.setString(5, dto.getUserId());
 
-		        int result = pstat.executeUpdate();
-		        
-		        return result;
-		    } catch (Exception e) {
-		        System.out.println("UserDAO.| save");
-		        e.printStackTrace();
-		        
-		    }
-		    
-		    return 0;
-	}
+			        int result = pstat.executeUpdate();
+			        
+			        return result;
+			        
+			    } catch (Exception e) {
+			        System.out.println("UserDAO.| save");
+			        e.printStackTrace();
+			        
+			    }
+			    
+			    return 0;
+		}
+
 	
 	//용량 변경
 	@Override
@@ -590,7 +598,96 @@ public class UserDAOImpl implements UserDAO{
         }
 		
 	}
+
+
+	@Override
+	public String signUp(UserDTO dto) {
+		
+		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, limitStorage,userName) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser),?, ?, ?, ?, ?, ?, ?, ?, 'y', 1, SYSDATE, 10737418240,?)";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+					
+			){
+
+				
+				pstat.setString(1, dto.getUserId());
+				pstat.setString(2, dto.getUserPw());
+				pstat.setString(3, dto.getUserNick());
+				pstat.setString(4, dto.getUserTel());
+				pstat.setString(5, dto.getUserAddress());
+				pstat.setString(6, dto.getUserEmail());
+				pstat.setString(7, dto.getUserLeftSsn());
+				pstat.setString(8, dto.getUserRightSsn());
+				pstat.setString(9, dto.getUserName());
+				
+				int newUserId = pstat.executeUpdate();
+		        if (newUserId > 0) {
+		            // 새로 생성된 사용자의 아이디 반환
+		            return dto.getUserId();
+		        }
+				
+				
+			} catch (Exception e) {
+				System.out.println("UserDAO.| singUp");
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 	
+	@Override
+	public int checkId(UserDTO dto) {
+		
+		final String SQL = "SELECT COUNT(*) FROM tblUser where userId = ?";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+		    ){
+		        pstat.setString(1, dto.getUserId());
+		        
+		        ResultSet rs = pstat.executeQuery();
+		        if (rs.next()) {
+		            int count = rs.getInt(1);
+		            System.out.println(count); // 디버깅을 위해 출력
+		            return count;
+		        }
+		    } catch (Exception e) {
+		        System.out.println("UserDAO.| disable");
+		        e.printStackTrace();
+		    }
+		    
+		    System.out.println(0);
+		    return 0;
+		}
+	
+	@Override
+	public int checkNick(UserDTO dto) {
+		final String SQL = "SELECT COUNT(*) FROM tblUser where userNick = ?";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+		    ){
+		        pstat.setString(1, dto.getUserNick());
+		        
+		        ResultSet rs = pstat.executeQuery();
+		        if (rs.next()) {
+		            int count = rs.getInt(1);
+		            System.out.println(count); // 디버깅을 위해 출력
+		            return count;
+		        }
+		    } catch (Exception e) {
+		        System.out.println("UserDAO.| disable");
+		        e.printStackTrace();
+		    }
+		    
+		    System.out.println(0);
+		    return 0;
+	}
+
 	
 public int userCnt(String userRegdate) {
 		
@@ -650,71 +747,65 @@ public int userCnt(String userRegdate) {
 		}
 		 return userCounts;
 	}
-	
+
 	
 
-//	@Override
-//	public int newCnt(String formattedNum1,String formattedNum2) {
-//	
-//		int count = 0;
-//		String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = '23/06') AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = '23/07') AS user_count_23_07 FROM dual";
-//		
-//		try {
-//			
-//			Connection conn = DBUtil.open();
-//			PreparedStatement pstat = conn.prepareStatement(sql);
-//			
-//			
-//			pstat.setString(1, formattedNum1);
-//			pstat.setString(2, formattedNum2);
-//			
-//			ResultSet rs = pstat.executeQuery();
-//			
-//			if (rs.next()) {
-//	            
-//				   int userCount_23_06 = rs.getInt("user_count_23_06");
-//			       int userCount_23_07 = rs.getInt("user_count_23_07");
-//	        }
-//			
-//		} catch (Exception e) {
-//			System.out.println("UserDAOImpl.newCnt");
-//			e.printStackTrace();
-//		}
-//		
-//		return count;
-//	}
+	@Override
+	public int newCnt(String formattedNum1,String formattedNum2) {
 	
-	
-	 public Map<String, Integer> newCnt(String formattedNum1, String formattedNum2) {
-	        Map<String, Integer> countsMap = new HashMap<>();
-
-	        String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_07 FROM dual";
-
-	        try {
-	            Connection conn = DBUtil.open();
-	            PreparedStatement pstat = conn.prepareStatement(sql);
+		int count = 0;
+		String sql = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM') BETWEEN '?' AND '?'";
+		
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery();
+			
+			pstat.setString(1, formattedNum1);
+			pstat.setString(2, formattedNum2);
+			
+			if (rs.next()) {
 	            
-	            // 매개변수 설정
-	            pstat.setString(1, formattedNum1);
-	            pstat.setString(2, formattedNum2);
-
-	            ResultSet rs = pstat.executeQuery();
-
-	            if (rs.next()) {
-	                // 결과에서 각 값을 맵에 추가
-	                int userCount_23_06 = rs.getInt("user_count_23_06");
-	                int userCount_23_07 = rs.getInt("user_count_23_07");
-
-	                countsMap.put("user_count_23_06", userCount_23_06);
-	                countsMap.put("user_count_23_07", userCount_23_07);
-	            }
-	        } catch (Exception e) {
-	            System.out.println("UserDAOImpl.newCnt");
-	            e.printStackTrace();
+				count = rs.getInt("user_count");
 	        }
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.newCnt");
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	@Override
+	public int findPK(UserDTO dto) {
+		
+		final String SQL = "SELECT USERSEQ FROM tblUser where USERID = ? ";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+				ResultSet rs = pstat.executeQuery();
+		    ){
 
-	        return countsMap;
-	    }
-	 
+
+			pstat = conn.prepareStatement(SQL);
+			pstat.setString(1, dto.getUserId());
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getString("column");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 
 }//End of class
