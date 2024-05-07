@@ -326,9 +326,9 @@ public class BoardDAOImpl implements BoardDAO{
 			
 			ResultSet rs = pstat.executeQuery();
 			
+			BoardDTO dto = new BoardDTO();
+			
 			if(rs.next()) {
-				
-				BoardDTO dto = new BoardDTO();
 				
 				dto.setBoardCnt(rs.getString("boardCnt"));
 				dto.setBoardContents(rs.getString("boardContents"));
@@ -338,10 +338,13 @@ public class BoardDAOImpl implements BoardDAO{
 				dto.setBoardTitle(rs.getString("boardTitle"));
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserNick(rs.getString("userNick"));
+				dto.setCmntCnt(rs.getString("cmntCnt"));
 				
-				return dto;
 				
 			}
+			
+			rs.close();
+			return dto;
 			
 		} catch (Exception e) {
 			System.out.println("BoardDAO.| get");
@@ -759,6 +762,7 @@ public class BoardDAOImpl implements BoardDAO{
 				dto.setBoardTitle(rs.getString("boardTitle"));
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserNick(rs.getString("userNick"));
+				dto.setCmntCnt(rs.getString("cmntCnt"));
 				
 				list.add(dto);
 				

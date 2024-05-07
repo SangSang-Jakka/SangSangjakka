@@ -57,7 +57,7 @@
 				  <c:forEach items="${list}" var="dto">
 				  		<tr>
 	                      <td>${dto.boardSeq}</td>
-	                      <th><a href="#!">${dto.boardTitle }</a><p>[1]</p></th>
+	                      <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle }</a><p>${dto.cmntCnt}</p></th>
 	                      <td>${dto.userNick}</td>
 	                      <td>${dto.boardRegdate}</td>
 	                      <td>${dto.boardCnt}</td>

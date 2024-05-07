@@ -98,6 +98,7 @@ SELECT
     b.boardContents,
     b.boardRegdate,
     COALESCE(re.boardReportCnt, 0) AS boardReportCnt,
+    COALESCE(cm.cmntCnt, 0) AS cmntCnt,
     b.boardCnt,
     b.userSeq,
     u.userNick
@@ -105,7 +106,9 @@ FROM tblBoard b
     inner join tblUser u
     on u.userSeq = b.userSeq
     LEFT JOIN (SELECT boardSeq, COUNT(*) AS boardReportCnt FROM tblBoardReport GROUP BY boardSeq) re
-    ON b.boardSeq = re.boardSeq;
+    ON b.boardSeq = re.boardSeq
+        left join (select boardSeq, COUNT(*) AS cmntCnt from vwBoardCommentsWhite GROUP BY boardSeq) cm
+                on b.boardSeq = cm.boardSeq;
 
 
 -- 자유게시판 차단 리스트
@@ -137,10 +140,13 @@ select * from
         b.boardReportCnt,
         b.boardCnt,
         b.userSeq,
-        b.userNick
+        b.userNick,
+        COALESCE(cm.cmntCnt, 0) AS cmntCnt
     FROM vwBoard b
         inner JOIN tblBoardWhiteList w
         on b.boardSeq = w.boardSeq
+            left join (select boardSeq, COUNT(*) AS cmntCnt from vwBoardCommentsWhite GROUP BY boardSeq) cm
+            on b.boardSeq = cm.boardSeq
 );
 
 -- 자유게시판 댓글 + 신고횟수
