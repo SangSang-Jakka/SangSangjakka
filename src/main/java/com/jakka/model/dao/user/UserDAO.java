@@ -21,7 +21,7 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	public int checkId(UserDTO dto);
 	public int userCnt(String userRegdate);
 	public Map<String, Integer> userGender();
-	
+	public int newCnt(String formattedNum1,String formattedNum2);
 	
 
 }

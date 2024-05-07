@@ -59,13 +59,35 @@ public class UserStats extends HttpServlet{
 		 req.setAttribute("jsonData", jsonData);
 	     req.setAttribute("userCnt", userCnt); // 신규 가입
 	        
-		
+	    
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/user_stats.jsp");
 		dispatcher.forward(req, resp);
 		
 	}
 	
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String num1 = req.getParameter("month1");
+		String num2 = req.getParameter("month2");
+			
+			
+		String formattedNum1 = num1.substring(2).replace("-", "/");
+	    String formattedNum2 = num2.substring(2).replace("-", "/");
+	    
+	    // 변경된 값 확인
+	    System.out.println(formattedNum1); // 출력: 21/06
+	    System.out.println(formattedNum2); // 출력: 21/06
+//	    
+//	    UserDAO dao = DAOManager.getUserDAO();
+//	    int newcnt = dao.newCnt(formattedNum1,formattedNum2);
+//	    
+//	    System.out.println(newcnt);
+	    
+	}
+	
+
 	
 	
 	

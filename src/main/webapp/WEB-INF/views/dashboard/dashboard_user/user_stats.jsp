@@ -5,6 +5,7 @@
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<style>
 	
 	
@@ -76,14 +77,25 @@
 	
 <!--  	                <div class="chartContainer">  -->
 <!-- 	                 	  <div id="boardChart"></div> -->
- 	               <div>
+ 	               	<div>
 	                	<div style="width: 300px; height: 300px; background-color: white;
 	                	border-radius: 10px;">
        					 <canvas id="myChart"></canvas>
     					</div>
     				</div>
 <!-- 	 				</div>  -->
-	
+
+<!-- 				날짜 구하기 -->
+					<input type="text" id="monthPicker" name="monthPicker">
+   					<input type="text" id="monthPicker3" name="monthPicker3">
+    				<button id="sendButton">Send</button>
+			      
+				<div style="width: 400px; height: 400px; background-color: white;
+			        border-radius: 10px;">
+			             <canvas id="userChart" width="400" height="400"></canvas>
+			        </div>
+			        
+			        
 	            <!-- 푸터 -->
 				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 				
@@ -96,52 +108,13 @@
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-	<script>
-		
-	Highcharts.chart('boardChart', {
+	<!-- jquery UI -->
 
-	    title: {
-	    text: '인기 게시판 통계'
-	},
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- // jquery UI -->
+<script src="/sangsangjakka/resources/vendors/scripts/jquery.mtz.monthpicker.js"></script>
 
-	subtitle: {
-	    text: '최근 7일 기준'
-	},
-
-	yAxis: {
-	    title: {
-	        text: '작성수'
-	    }
-	},
-
-	xAxis: {
-	    title: {
-	        text: '날짜'
-	    },
-
-	    categories: ['4월 30일', '5월 1일', '5월 2일', '5월 3일', '5월 4일', '5월 5일', '5월 7일', '5월 8일']
-	},
-	    
-	/* 범례를 우측 세로로 정렬 */
-	legend: {
-	    layout: 'vertical',
-	    align: 'right',
-	    verticalAlign: 'middle'
-	},
-
-	series: [{
-	    name: '자유게시판',
-	    data: [10, 15, 30, 15, 10, 16, 11, 8]
-	}, {
-	    name: '동화 공유 게시판',
-	    data: [5, 8, 7, 10, 15, 11, 3, 6]
-	}, {
-	    name: '건의사항',
-	    data: [1, 0, 3, 2, 5, 1, 2, 1]
-	}],
-	});
-	
-	</script>
 	
 	<script type="text/javascript">
         // 서버에서 받은 데이터를 사용하여 차트를 그립니다.
@@ -182,8 +155,116 @@
         });
     </script>
 	
-	
+	<script type="text/javascript">
+    var context = document
+        .getElementById('userChart')
+        .getContext('2d');
+    var myChart = new Chart(context, {
+        type: 'bar', // 차트의 형태
+        data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                datasets: [
+                {
+                    label: '가입자수',
+                    data: [10,20,30,40,10],
+                    backgroundColor: '#00C7E2',
+                    maxBarThickness: 30
+                },
+                {
+                    label: '탈퇴자수',
+                    data: [5,10,45,20,30],
+                    backgroundColor: '#FF7DA8',
+                    maxBarThickness: 30
+                }
+        ]
+    },
+        options: {
+        responsive: false, // 반응형 여부 (기본값 true)
+        maintainAspectRatio: false, // 크기 고정
+        plugins: {
+            tooltip: { // 튤팁 스타일링
+            enabled: true, // 튤팁 활성화 (기본값 true)
+            backgroundColor: '#000', // 튤팁 색상
+            padding: 10 // 튤팁 패딩
+            },
+            legend: { // 범례 스타일링
+                display: true, // 범례 활성화 (기본값 true)
+                position: 'bottom' // 범례 위치
+            }
+        },
+        scales: { // x축과 y축에 대한 설정
+            x: {
+            grid: { // 축에 대한 격자선
+                display: false, // grid 활성화 (기본값 true)
+            }
+            },
+            y: {
+            min: 0, // y축에 대한 최소값
+            max: 50, // y축에 대한 최대값
+            border: { // 축에 대한 테두리 속성
+                dash: [5, 5] // 점선 형태
+            },
+            }
+        }
+    }
+    });
+</script>
+<script>
+$(document).ready(function(){
 
+    var currentYear = new Date().getFullYear();
+    
+    var options = {
+        pattern: 'yyyy-mm',      // input 태그에 표시될 형식
+        selectedYear: 2019,      // 선택할 연도
+        startYear: 2020,         // 시작 연도
+        finalYear: currentYear,  // 현재 년도를 마지막 연도로 설정
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 화면에 보여줄 월 이름
+        openOnFocus: true,       // focus시에 달력이 보일지 유무
+        disableMonths: []        // 비활성화할 월
+    };
+
+
+    // 방법1) options 따로 지정
+    $("#monthPicker").monthpicker(options);
+    $("#monthPicker3").monthpicker(options);
+  
+    
+    $('#btn_monthPicker').bind('click', function () {
+        $('#monthPicker2').monthpicker('show');
+    });
+
+     // 선택한 월 값을 변수에 저장
+    var selectedMonth1 = $("#monthPicker").val();
+    var selectedMonth2 = $("#monthPicker3").val();
+    
+    
+    $('#sendButton').click(function() {
+        var selectedMonth1 = $("#monthPicker").val();
+        var selectedMonth2 = $("#monthPicker3").val();
+
+        // 선택된 월 값을 서블릿 파일로 전송
+        $.ajax({
+            type: "POST",
+            url: "/sangsangjakka/admin/dashboard/user/stats.do", // 여기에 서블릿 URL을 입력하세요
+            data: {
+                month1: selectedMonth1,
+                month2: selectedMonth2
+            },
+            success: function(response) {
+                // 서블릿에서 받은 응답 처리
+                console.log("Data sent successfully");
+            },
+            error: function(xhr, status, error) {
+                console.error("Error occurred while sending data: " + error);
+            }
+        });
+    });
+
+});
+
+
+</script>
   
 	</body>
 </html>

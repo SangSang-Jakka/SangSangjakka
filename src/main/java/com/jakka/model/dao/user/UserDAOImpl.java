@@ -720,4 +720,35 @@ public int userCnt(String userRegdate) {
 		 return userCounts;
 	}
 
+	
+
+	@Override
+	public int newCnt(String formattedNum1,String formattedNum2) {
+	
+		int count = 0;
+		String sql = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM') BETWEEN '?' AND '?'";
+		
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery();
+			
+			pstat.setString(1, formattedNum1);
+			pstat.setString(2, formattedNum2);
+			
+			if (rs.next()) {
+	            
+				count = rs.getInt("user_count");
+	        }
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.newCnt");
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+
 }//End of class
