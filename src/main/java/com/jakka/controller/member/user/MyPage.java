@@ -39,6 +39,7 @@ public class MyPage extends HttpServlet{
 		
 		    req.setCharacterEncoding("UTF-8");
 		    
+		  
 		    HttpSession session = req.getSession();
 		    String userId = (String) session.getAttribute("userId");
 
