@@ -11,13 +11,18 @@ import com.jakka.model.DBUtil;
 import com.jakka.model.dto.user.UserDTO;
 
 public class UserDAOImpl implements UserDAO{
+	@Override
+	public UserDTO getUser(String userSeq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	private final static UserDAOImpl DAO = new UserDAOImpl();
 	
 	private UserDAOImpl() {
 		//외부 생성 방지
 	}
-	
+
 	public static UserDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
@@ -572,5 +577,69 @@ public class UserDAOImpl implements UserDAO{
         }
 		
 	}
+	
+
+	@Override
+	public String signUp(UserDTO dto) {
+		
+		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, limitStorage,userName) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser),?, ?, ?, ?, ?, ?, ?, ?, 'y', 1, SYSDATE, 10737418240,?)";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+					
+			){
+
+				
+				pstat.setString(1, dto.getUserId());
+				pstat.setString(2, dto.getUserPw());
+				pstat.setString(3, dto.getUserNick());
+				pstat.setString(4, dto.getUserTel());
+				pstat.setString(5, dto.getUserAddress());
+				pstat.setString(6, dto.getUserEmail());
+				pstat.setString(7, dto.getUserLeftSsn());
+				pstat.setString(8, dto.getUserRightSsn());
+				pstat.setString(9, dto.getUserName());
+				
+				int newUserId = pstat.executeUpdate();
+		        if (newUserId > 0) {
+		            // 새로 생성된 사용자의 아이디 반환
+		            return dto.getUserId();
+		        }
+				
+				
+			} catch (Exception e) {
+				System.out.println("UserDAO.| singUp");
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
+	
+	@Override
+	public int checkId(UserDTO dto) {
+		
+		final String SQL = "SELECT COUNT(*) FROM tblUser where userId = ?";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+		    ){
+		        pstat.setString(1, dto.getUserId());
+		        
+		        ResultSet rs = pstat.executeQuery();
+		        if (rs.next()) {
+		            int count = rs.getInt(1);
+		            System.out.println(count); // 디버깅을 위해 출력
+		            return count;
+		        }
+		    } catch (Exception e) {
+		        System.out.println("UserDAO.| disable");
+		        e.printStackTrace();
+		    }
+		    
+		    System.out.println(0);
+		    return 0;
+		}
 	
 }//End of class

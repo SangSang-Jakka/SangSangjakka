@@ -29,10 +29,10 @@
                     <div class="user-info-email">
                         <span>이메일 </span><span>*</span>
                         <div class="emailWrap">
-                            <input type="text" class="userEmail" required/> 
+                            <input type="text" class="userEmail" name="userEmail" required/> 
                             <span>@</span>
-                            <input type="text" placeholder="직접 입력하기" class="userInputEmail" required>
-                            <select class="box" id="domain-list">
+                            <input type="text" placeholder="직접 입력하기" class="userInputEmail" name="userDomain" required>
+                            <select class="box" id="domain-list" name="domain">
                                 <option value="naver.com">naver.com</option>
                                 <option value="google.com">google.com</option>
                                 <option value="hanmail.net">hanmail.net</option>
@@ -40,21 +40,21 @@
                                 <option value="kakao.com">kakao.com</option>
                                 <option value="직접 입력">직접 입력</option>
                             </select>
+                    	</div>
                     </div>
-                       
-                       
-                    </div>
+                    
 
 
                     <div class="user-info-nickName title">
                             <span>닉네임 </span><span>*</span>
                         <div class="nickWrap">
                             <div class="nickInput inputBorder">
-                            <input type="text" id="nickName" required/>
+                            <input type="text" id="nickName" name="userNick" onkeydown="inputIdCheck()" required/>
                             </div>
                             <div class="nickTest">
-                            <input type="button" value="중복검사" id="nickNameCheck">
+                            <input type="button" value="중복검사" id="nickNameCheck" onclick="openNickCheck()">
                             </div>
+                            <input type="hidden" name="nicknameDuplication" value="nicknameUncheck" />
                         </div>
                         <div class="info">
                         <i class="fa-solid fa-circle-info infoIcon"></i>
@@ -66,11 +66,12 @@
                         <span>아이디 </span><span>*</span>
                     <div class="idWrap">
                         <div class="idInput inputBorder">
-                            <input type="text" id="id" required/>
+                            <input type="text" id="inputId" name="userId" required/>
                         </div>
                         <div class="idTest">
-                        <input type="button" value="중복검사" id="idCheck">
+                        <input type="button" value="중복검사" id="idCheck" onclick="openIdCheck()">
                         </div>
+                        <input type="hidden" id=idHidden name="idDuplication" value="idUncheck" />
                     </div>
                     <div class="info">
                     <i class="fa-solid fa-circle-info infoIcon"></i>
@@ -83,7 +84,7 @@
                         <span>비밀번호 </span><span>*</span>
                         <div class="pwWrap">
                             <div class="pwInput inputBorder">
-                                <input id="passwordInput" type="password" required/>
+                                <input id="passwordInput" name="userPw" type="password" required/>
                                 <div class="togglePassword" onclick="togglePasswordVisibility('passwordInput', 'toggleIcon')">
                                     <i id="toggleIcon" class="fa-solid fa-eye-slash"></i>
                                 </div>
@@ -113,7 +114,7 @@
                         <span>이름 </span><span>*</span>
                         <div class="nameWrap">
                             <div class="nameInput inputBorder">
-                              <input id="nameInput" type="text"  />
+                              <input id="nameInput" name="userName" type="text"  />
                             </div>
                           </div>
                     </div>
@@ -123,9 +124,9 @@
                         <span>주민등록번호 </span><span>*</span>
                         <div class="ssnWrap">
                             <div class="ssnInput">
-                                <input type="text" maxlength="6" class="leftSsn inputBorder" oninput="formatSSN(this)" required/>
+                                <input type="text" maxlength="6" class="leftSsn inputBorder" name="userLeftSSN" oninput="formatSSN(this)" required/>
                                 <span>-</span>
-                                <input type="password" maxlength="7" class="rightSsn" oninput="formatSSN(this)" required />
+                                <input type="password" maxlength="7" class="rightSsn" name="userRightSSN" oninput="formatSSN(this)" required />
                                 <div class="toggleSSN" onclick="toggleSSNVisibility()">
                                     <i id="toggleSSNIcon" class="fa-solid fa-eye-slash"></i>
                             </div>
@@ -139,15 +140,15 @@
                         <span>연락처 </span><span>*</span>
                         <div class="telWrap">
                             <div class="telInput">
-                                <select class="box" id="phonePrefix">
+                                <select class="box" id="phonePrefix" name="phonePrefix">
                                     <option value="010">010</option>
                                     <option value="011">011</option>
                                     <option value="016">016</option>
                                     <option value="017">017</option>
                                 </select>
-                                <input type="text" id="phoneInput1" maxlength="4" oninput="validateInput(this)" required>
+                                <input type="text" id="phoneInput1" name="phoneInput1" maxlength="4" oninput="validateInput(this)" required>
                                 <span>-</span>
-                                <input type="text" id="phoneInput2" maxlength="4" oninput="validateInput(this)" required>
+                                <input type="text" id="phoneInput2" name="phoneInput2" maxlength="4" oninput="validateInput(this)" required>
                             </div>
                         </div>
                     </div>
@@ -166,7 +167,7 @@
                                     </div>
                                 </div>
                                 <div class="inputBorder">
-                                    <input type="text" id="sample6_address" placeholder="주소"  required>
+                                    <input type="text" id="sample6_address" name="userAddress" placeholder="주소"  required>
                                 </div>
                                 <div class="inputBorder">
                                     <input type="text" id="sample6_detailAddress" placeholder="상세주소" required>
@@ -182,27 +183,24 @@
                         <span>자녀 연령대 </span><span>*</span>
                         <div class="childrenAgeWrap">
                             <div>
-                                <input type="checkbox" id="age1" name="childAge" value="1세이상"> 
-                                <label for="age3">1세 이상</label>
+                                <input type="radio" id="childYes" name="childOption" value="예" onchange="showChildInput()" onclick="toggleChildIDRequired(true)" > 
+                                <label for="childYes">예</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="age3" name="childAge" value="3세이상"> 
-                                <label for="age3">3세 이상</label>
+                                <input type="radio" id="childNo" name="childOption" value="아니요" onchange="showChildInput()" onclick="toggleChildIDRequired(false)" > 
+                                <label for="childNo">아니요</label>
                             </div>
-                            <div>
-                                <input type="checkbox" id="age5" name="childAge" value="5세이상">
-                                <label for="age5">5세 이상</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="age7" name="childAge" value="7세이상">
-                                <label for="age7">7세 이상</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="age13" name="childAge" value="13세이상">
-                                <label for="age13">10세 이상</label>
-                            </div>
-    
                     </div>
+                    	<div id="childInputSSN" style="display: none;">
+                    	<div class="childinputWrap">
+	    					 <div class="childInput">
+					        	자녀 주민등록번호 앞자리: <input type="password" id="childID" maxlength="6" onkeypress="allowOnlyNumbers(event)" >
+					    	</div>
+					    	<div class="toggleSSN" onclick="togglechildSSNVisibility()">
+	                              <i id="childToggleSSNIcon" class="fa-solid fa-eye-slash"></i>
+	                        </div>
+                        </div>
+                      </div>
                 </div>
 
 
@@ -262,7 +260,7 @@
 
 
                 <div class="btn">
-                    <input type="submit" value="가입하기"></input>
+                    <input type="submit" value="가입하기" onclick="return signUp()"></input>
                 </div>
             </div>
         </form>
@@ -270,9 +268,9 @@
       
  
 
-          <button class="signup__btn" style="display: none;">
+         <!--  <button class="signup__btn" onclick="signUp()" style="display: none;">
             회원가입
-          </button>
+          </button> -->
 
 
 
@@ -622,11 +620,85 @@
     });
 
 
+    //자녀 나이대 입력
+	 function showChildInput() {
+	    var childYesRadio = document.getElementById("childYes");
+	    var childNoRadio = document.getElementById("childNo");
+	    var childInputDiv = document.getElementById("childInputSSN");
+	    
+	    if (childYesRadio.checked) {
+	        childInputDiv.style.display = "block"; // 자녀 주민등록번호 입력창 표시
+	    } else {
+	        childInputDiv.style.display = "none"; // 자녀 주민등록번호 입력창 숨김
+	    }
+	
+	    if (childNoRadio.checked) {
+	        childInputDiv.style.display = "none"; // 자녀 주민등록번호 입력창 숨김
+	    }
+	}
 
 
 
+    
+    //자녀 주민등록번호 토글
+    function togglechildSSNVisibility() {
+            var childSSNInput = document.getElementById('childID');
+            var toggleSSNIcon = document.getElementById('childToggleSSNIcon');
 
+            if (childSSNInput.type === "password") {
+            	childSSNInput.type = "text";
+                toggleSSNIcon.classList.remove("fa-eye-slash");
+                toggleSSNIcon.classList.add("fa-eye");
+            } else {
+            	childSSNInput.type = "password";
+                toggleSSNIcon.classList.remove("fa-eye");
+                toggleSSNIcon.classList.add("fa-eye-slash");
+            }
+    }
+    
+    //자녀 주민등록번호 숫자만
+    function allowOnlyNumbers(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                evt.preventDefault();
+            }
+        }
 
+	//예 일때만 required
+	 function toggleChildIDRequired(required) {
+        var childIDField = document.getElementById('childID');
+        childIDField.required = required;
+    }
+	
+	//중복검사
+	 function signUp() {
+	    var idDuplicationValue = document.getElementById("idHidden").value;
+	    var nicknameDuplicationValue = document.getElementsByName("nicknameDuplication")[0].value;
+	    
+	    if (idDuplicationValue !== "idChecked") {
+	        alert("아이디 중복검사를 먼저 실행해주세요.");
+	        return false;
+	    }
+	    
+	    if (nicknameDuplicationValue !== "nicknameChecked") {
+	        alert("닉네임 중복검사를 먼저 실행해주세요.");
+	        return false;
+	    }
+	   
+	}
+
+	
+	//아이디 중복체크 화면 
+	function openIdCheck() {
+		window.name = "parentForm";
+		window.open("/sangsangjakka/user/idcheck.do",
+				"checkFrom","width=500, height=300, resizable=no, scrollbars=no");
+	}
+	
+	//중복체크 후 다시 아이디 창에 새로운 아이디를 입력했을 때 다시 중복 체크
+	function openNickCheck() {
+		
+	}
         
       </script>
 </body>
