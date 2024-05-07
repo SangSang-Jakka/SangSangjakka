@@ -144,10 +144,12 @@
 					<div class="viewContainer">
 						<h2>게시글 상세</h2>
 
-						<span class="right"> <input type="button" value="잠금"
-							class="btn btn-primary"> <input type="button" value="수정"
-							class="btn btn-primary"> <input type="button" value="삭제"
-							class="btn btn-primary">
+
+
+						<span class="right"> 
+						<button type="button" class="btn btn-primary">잠금</button>
+						<button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/freeboard/manageedit.do?seq=${dto.boardSeq}';">수정</button>
+						<button type="button" class="btn btn-primary">삭제</button>
 						</span>
 
 						<table>
