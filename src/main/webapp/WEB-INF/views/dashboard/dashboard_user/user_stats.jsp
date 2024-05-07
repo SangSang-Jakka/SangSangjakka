@@ -119,6 +119,7 @@
 	<script type="text/javascript">
         // 서버에서 받은 데이터를 사용하여 차트를 그립니다.
         var chartData = <%= request.getAttribute("jsonData") %>;
+        console.log(chartData);
         // 차트 생성을 위한 설정
         var context = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(context, {
@@ -155,60 +156,7 @@
         });
     </script>
 	
-	<script type="text/javascript">
-    var context = document
-        .getElementById('userChart')
-        .getContext('2d');
-    var myChart = new Chart(context, {
-        type: 'bar', // 차트의 형태
-        data: {
-                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-                datasets: [
-                {
-                    label: '가입자수',
-                    data: [10,20,30,40,10],
-                    backgroundColor: '#00C7E2',
-                    maxBarThickness: 30
-                },
-                {
-                    label: '탈퇴자수',
-                    data: [5,10,45,20,30],
-                    backgroundColor: '#FF7DA8',
-                    maxBarThickness: 30
-                }
-        ]
-    },
-        options: {
-        responsive: false, // 반응형 여부 (기본값 true)
-        maintainAspectRatio: false, // 크기 고정
-        plugins: {
-            tooltip: { // 튤팁 스타일링
-            enabled: true, // 튤팁 활성화 (기본값 true)
-            backgroundColor: '#000', // 튤팁 색상
-            padding: 10 // 튤팁 패딩
-            },
-            legend: { // 범례 스타일링
-                display: true, // 범례 활성화 (기본값 true)
-                position: 'bottom' // 범례 위치
-            }
-        },
-        scales: { // x축과 y축에 대한 설정
-            x: {
-            grid: { // 축에 대한 격자선
-                display: false, // grid 활성화 (기본값 true)
-            }
-            },
-            y: {
-            min: 0, // y축에 대한 최소값
-            max: 50, // y축에 대한 최대값
-            border: { // 축에 대한 테두리 속성
-                dash: [5, 5] // 점선 형태
-            },
-            }
-        }
-    }
-    });
-</script>
+
 <script>
 $(document).ready(function(){
 
@@ -230,13 +178,10 @@ $(document).ready(function(){
     $("#monthPicker3").monthpicker(options);
   
     
-    $('#btn_monthPicker').bind('click', function () {
-        $('#monthPicker2').monthpicker('show');
-    });
 
      // 선택한 월 값을 변수에 저장
-    var selectedMonth1 = $("#monthPicker").val();
-    var selectedMonth2 = $("#monthPicker3").val();
+   // var selectedMonth1 = $("#monthPicker").val();
+    //var selectedMonth2 = $("#monthPicker2").val();
     
     
     $('#sendButton').click(function() {
@@ -253,7 +198,56 @@ $(document).ready(function(){
             },
             success: function(response) {
                 // 서블릿에서 받은 응답 처리
-                console.log("Data sent successfully");
+            	  console.log("Data received successfully");
+                  console.log(response);
+                 
+
+                  // 받은 데이터를 차트에 반영하는 로직
+                  var context = document.getElementById('userChart').getContext('2d');
+                  var myChart = new Chart(context, {
+                	  type: 'bar',
+                	    data: {
+                	        labels: response.month,
+                	        datasets: [
+                	            {
+                	                label: response.labels[0], // "가입자수"
+                	                data: response.data, // [date1, date2]
+                	                backgroundColor: '#00C7E2',
+                	                maxBarThickness: 30
+                	            }
+                	        ]
+                
+                      },
+                      options: {
+                          responsive: false,
+                          maintainAspectRatio: false,
+                          plugins: {
+                              tooltip: {
+                                  enabled: true,
+                                  backgroundColor: '#000',
+                                  padding: 10
+                              },
+                              legend: {
+                                  display: true,
+                                  position: 'bottom'
+                              }
+                          },
+                          scales: {
+                              x: {
+                                  grid: {
+                                      display: false,
+                                  }
+                              },
+                              y: {
+                                  min: 0,
+                                  max: 50,
+                                  border: {
+                                      dash: [5, 5]
+                                  },
+                              }
+                          }
+                      }
+                  });
             },
             error: function(xhr, status, error) {
                 console.error("Error occurred while sending data: " + error);
@@ -265,6 +259,8 @@ $(document).ready(function(){
 
 
 </script>
+
+
   
 	</body>
 </html>
