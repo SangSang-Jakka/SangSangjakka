@@ -1,6 +1,7 @@
 package com.jakka.controller.dashboard.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -30,16 +31,25 @@ public class FreeboardManagementDel extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String boardSeq = req.getParameter("boardSeq");
+		
+		
+        resp.setContentType("text/plain");
+        PrintWriter writer = resp.getWriter();
+        writer.write("success"); // 성공 시 'success' 응답
+        writer.close();
+        
+		/*
 		// 세션에서 로그인한 아이디 가져오기
 		HttpSession session = req.getSession();
 		String adId = (String) session.getAttribute("adId");
 
 		// 데이터 가져오기
-		String BoardSeq = req.getParameter("boardSeq");
+		String boardSeq = req.getParameter("boardSeq");
 
 		BoardDAO boardDAO = DAOManager.getBoardDAO();
 
-		int result = boardDAO.remove(BoardSeq);
+		int result = boardDAO.remove(boardSeq);
 
 		if (result > 0) {
 			// 삭제 성공
@@ -49,6 +59,9 @@ public class FreeboardManagementDel extends HttpServlet {
 			resp.getWriter().write("fail");
 
 		}
+		
+		*/
+		
 
 	}
 

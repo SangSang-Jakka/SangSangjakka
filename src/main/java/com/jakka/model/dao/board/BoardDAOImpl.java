@@ -736,31 +736,50 @@ public class BoardDAOImpl implements BoardDAO {
 		return null;
 	}
 
-	// 삭제
+	//  임시  > 외래키로 삭제 불가 작동X
+	// 게시물 삭제 
 	@Override
 	public int remove(String boardSeq) {
 
-		final String SQL = "delete from tblBoard where boardSeq = ?";
+		final String deleteCommentsSQL = "delete from tblBoardComments where boardSeq = ?";
+		final String deleteBoardSQL = "delete from tblBoard where boardSeq = ?";
 
-		try (Connection conn = DBUtil.open(); 
-		PreparedStatement pstat = conn.prepareStatement(SQL)) {
-
+		try (Connection conn = DBUtil.open()) {
 			conn.setAutoCommit(false);
-			pstat.setString(1, boardSeq);
 
-			int result = pstat.executeUpdate();
+			// 댓글 삭제
+			try (PreparedStatement deleteCommentsStmt = conn.prepareStatement(deleteCommentsSQL)) {
+				deleteCommentsStmt.setString(1, boardSeq);
+				int commentsResult = deleteCommentsStmt.executeUpdate();
 
+				// 댓글 삭제가 실패한 경우 롤백
+				if (commentsResult <= 0) {
+					conn.rollback();
+					return 0;
+				}
+			}
+
+			// 게시물 삭제
+			try (PreparedStatement deleteBoardStmt = conn.prepareStatement(deleteBoardSQL)) {
+				deleteBoardStmt.setString(1, boardSeq);
+				int boardResult = deleteBoardStmt.executeUpdate();
+
+				// 게시물 삭제가 실패한 경우 롤백
+				if (boardResult <= 0) {
+					conn.rollback();
+					return 0;
+				}
+			}
+
+			// 댓글과 게시물이 모두 정상적으로 삭제되었을 경우에만 커밋
 			conn.commit();
-
-			return result;
+			return 1;
 
 		} catch (Exception e) {
 			System.out.println("BoardDAO.| remove");
 			e.printStackTrace();
+			return 0;
 		}
-
-		return 0;
-
 	}
 
 }// End of class
