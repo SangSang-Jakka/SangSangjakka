@@ -29,6 +29,8 @@ public class BookmakingView extends HttpServlet {
 	    UserDAO userDao = DAOManager.getUserDAO();
 	    UserDTO userDto = userDao.findById(userId);
 	    
+	    if (userDto != null) {
+	    
 	    BookDAO bookDao = DAOManager.getBookDAO();
 	    BookDTO bookDto = bookDao.findById(bookId);
 
@@ -37,6 +39,10 @@ public class BookmakingView extends HttpServlet {
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_view.jsp");
 		dispatcher.forward(req, resp);
+		
+	    } else {
+	    	resp.sendRedirect("/sangsangjakka/user/login.do");
+	    }
 
 	}
 
