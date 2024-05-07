@@ -78,20 +78,12 @@ public class BookList extends HttpServlet{
 		
 		ArrayList<BookDTO> list = dao.findAllWhite(map);
 		
-		//map에는 페이지와 word만
-		if(column.equals("subject") && (word != null) && search.equals("y")) {
-			list  = dao.findByTitleContains(map);
-		} else if (column.equals("content") && (word != null) && search.equals("y")) {
-			list  = dao.findByContentsContains(map);
-		} else if (column.equals("nick") && (word != null) && search.equals("y")) {
-			list  = dao.findByNick(map);
-		} else {
-			list  = dao.findAllWhite(map);
-		}
-		
 		if(list != null) {
 			//데이터 조작
 			for (BookDTO dto : list) {
+				
+				
+				dto.setBookRegdate((dto.getBookRegdate().substring(0, 10)));
 				
 				String title = dto.getBookTitle();
 				String info = dto.getBookInfo();
@@ -107,10 +99,12 @@ public class BookList extends HttpServlet{
 				
 				dto.setBookTitle(title);			
 			}
+			
+			totalCount = dao.whiteTotalCnt(map);
+			
 		}
 		
 		//총 게시물? 총페이지 수?
-		totalCount = list.size();
 		totalPage = (int)Math.ceil((double)totalCount / pageSize);
 		
 		

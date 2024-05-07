@@ -323,4 +323,5 @@ from
         rownum as rnum,
         n.*
         from tblNotice n
+);
 
