@@ -77,11 +77,21 @@ public class BookList extends HttpServlet{
 		//조회수 관련
 		session.setAttribute("read", "n");
 		
-		//1. DB 작업 > select
-		//2. 결과 > 출력
+		//책 가져오기
 		BookDAO dao = DAOManager.getBookDAO();
 		
-		ArrayList<BookDTO> list  = dao.findAllWhite();
+		ArrayList<BookDTO> list;
+		
+		//map에는 페이지와 word만
+		if(column.equals("subject") && (word != null) && search.equals("y")) {
+			list  = dao.findByTitleContains(map);
+		} else if (column.equals("content") && (word != null) && search.equals("y")) {
+			list  = dao.findByContentsContains(map);
+		} else if (column.equals("nick") && (word != null) && search.equals("y")) {
+			list  = dao.findByNick(map);
+		} else {
+			list  = dao.findAllWhite(map);
+		}
 		
 		//데이터 조작
 		for (BookDTO dto : list) {
@@ -119,7 +129,7 @@ public class BookList extends HttpServlet{
 			builder.append(String.format(" <a href='#!'>[이전 %d페이지]</a> ",blockSize));
 			
 		} else {
-			builder.append(String.format(" <a href='/toy/board/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a> ", n - 1, column, word, blockSize));
+			builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a> ", n - 1, column, word, blockSize));
 		}
 		
 		while (!(loop > blockSize || n > totalPage)) {
@@ -127,7 +137,7 @@ public class BookList extends HttpServlet{
 			if (n == nowPage) {
 				builder.append(String.format(" <a href='#!' style='color: tomato;'>%d</a> ", n));
 			} else {
-				builder.append(String.format(" <a href='/toy/board/list.do?page=%d&column=%s&word=%s'>%d</a> ", n, column, word, n));
+				builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>%d</a> ", n, column, word, n));
 			}
 			
 			loop++;
@@ -138,7 +148,7 @@ public class BookList extends HttpServlet{
 		if(n >= totalPage) {
 			builder.append(String.format(" <a href='#!'>[다음 %d페이지]</a> ", blockSize));
 		}else {
-			builder.append(String.format(" <a href='/toy/board/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a> ", n, column, word, blockSize));
+			builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a> ", n, column, word, blockSize));
 		}
 		
 		
