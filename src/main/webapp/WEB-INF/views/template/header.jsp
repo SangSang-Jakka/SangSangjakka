@@ -33,7 +33,7 @@
         <nav id="nav">
             <ul>
                 <a href="/sangsangjakka/index.do"><li>메인화면</li></a>
-                <a href="/sangsangjakka/board/book/add.do"><li>동화제작</li></a>
+                <a href="/sangsangjakka/board/bookmaking/add.do"><li>동화제작</li></a>
                 <a href="/sangsangjakka/board/book/list.do"><li>동화나라</li></a>
                 <a href="/sangsangjakka/board/award/list.do"><li>명예의 전당</li></a>
                 <a href="/sangsangjakka/board/notice/list.do"><li>공지사항</li></a>

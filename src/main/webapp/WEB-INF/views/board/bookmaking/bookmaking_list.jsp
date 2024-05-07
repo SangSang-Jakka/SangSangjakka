@@ -32,7 +32,7 @@
                 </div>
                 <button class="sliderBtn right">&nbsp;&#10095;&nbsp;</button>
             </div>
-            <div>
+            <div class="makeNewBook">
             	<a href="/sangsangjakka/board/bookmaking/view.do">
             	<input type="button" value="새 동화책 만들기"/>
             	</a>

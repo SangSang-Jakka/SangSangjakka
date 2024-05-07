@@ -48,9 +48,12 @@ public class BookmakingList extends HttpServlet {
             req.setAttribute("userDto", userDto);
             req.setAttribute("bookDtoList", bookDtoList);
             req.setAttribute("pageDtoList", pageDtoList);
+            
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_list.jsp");
+            dispatcher.forward(req, resp);
+        } else {
+        	resp.sendRedirect("/sangsangjakka/user/login.do");
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_list.jsp");
-        dispatcher.forward(req, resp);
     }
 }
