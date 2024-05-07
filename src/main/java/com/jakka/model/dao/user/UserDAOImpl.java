@@ -778,6 +778,34 @@ public int userCnt(String userRegdate) {
 		return count;
 	}
 	
+	@Override
+	public int findPK(UserDTO dto) {
+		
+		final String SQL = "SELECT USERSEQ FROM tblUser where USERID = ? ";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+				ResultSet rs = pstat.executeQuery();
+		    ){
+
+
+			pstat = conn.prepareStatement(SQL);
+			pstat.setString(1, dto.getUserId());
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getString("column");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 
 
 }//End of class
