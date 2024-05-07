@@ -38,7 +38,7 @@
     transition: transform 0.5s ease;
     width: 100%; /* 슬라이더 박스 너비 */
     flex-wrap: nowrap;
-    justify-content: flex-start; /* 기본적으로 시작점에서 정렬 */
+    justify-content: center;
 }
 
 .sliderItem {
@@ -72,3 +72,7 @@
     right: 10px;
 }
 
+.pointer:hover {
+    cursor: pointer;
+    opacity: 0.2;
+}

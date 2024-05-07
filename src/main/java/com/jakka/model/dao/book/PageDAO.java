@@ -9,4 +9,6 @@ public interface PageDAO extends BasicDAO<PageDTO>{
 	
 	public HashMap<Integer, PageDTO> findPages(String bookSeq);
 	
+	public PageDTO findById(String pageSeq, String bookSeq);
+	
 }
