@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header id="header">
+<%@page session="true"%>
         <div class="headerWrap">
             <div class="empty"></div>
             <div class="headerLogo">
@@ -20,8 +21,9 @@
             <c:if test="${not empty userId}">
           		<div class="headerLogin">
           			<div class="loginWrap">
-          				<a href="/sangsangjakka/user/index.do" class="logoutBtn">로그아웃</a>
+          				<a href="/sangsangjakka/user/logout.do" class="logoutBtn">로그아웃</a>
           				<a href="/sangsangjakka/user/signout.do" class="userInfo">회원 탈퇴</a>
+          				<p>${userId}님 안녕하세요<p>
           			</div>
           		</div>
             </c:if>

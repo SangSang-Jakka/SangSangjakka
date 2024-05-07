@@ -17,7 +17,11 @@ public class UserDAOImpl implements UserDAO{
 	private UserDAOImpl() {
 		//외부 생성 방지
 	}
-	
+	@Override
+	public UserDTO getUser(String userSeq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	public static UserDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
@@ -128,7 +132,7 @@ public class UserDAOImpl implements UserDAO{
 			ResultSet rs = pstat.executeQuery();
 			
 			UserDTO result = new UserDTO();
-			
+
 			if(rs.next()) {
 				
 				result.setUserId(rs.getString("userId"));
@@ -142,7 +146,7 @@ public class UserDAOImpl implements UserDAO{
 			
 			rs.close();
 			return result;
-			
+
 			
 		} catch (Exception e) {
 			System.out.println("UserDAOImpl.login");
