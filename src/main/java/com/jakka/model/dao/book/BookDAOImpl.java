@@ -3,6 +3,7 @@ package com.jakka.model.dao.book;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,30 +32,38 @@ public class BookDAOImpl implements BookDAO{
 	
 	@Override
 	public int add(BookDTO dto) {
-		
-		final String SQL = "INSERT INTO tblBook (bookSeq, bookTitle, bookInfo, bookCover, bookRegdate, bookModDate, userSeq, parentBookSeq, rcmAgeSeq) VALUES ((SELECT NVL(MAX(bookSeq), 0) + 1 FROM tblBook), ?, ?, ?, default, NULL, ?, ?, ?)";
-		
-		try (
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(SQL);
-		){
-			pstat.setString(1, dto.getBookTitle());
-			pstat.setString(2, dto.getBookInfo());
-			pstat.setString(3, dto.getBookCover());
-			pstat.setString(4, dto.getUserSeq());
-			pstat.setString(5, dto.getParentBookSeq());
-			pstat.setString(6, dto.getRcmAgeSeq());
-			
-			int result = pstat.executeUpdate();
-			
-			return result;
-			
-		} catch (Exception e) {
-			System.out.println("BookDAO.| add");
-			e.printStackTrace();
-		}
-		
-		return 0;
+	    final String GET_NEXT_SEQ_SQL = "SELECT NVL(MAX(bookSeq), 0) + 1 AS nextSeq FROM tblBook";
+	    final String INSERT_SQL = "INSERT INTO tblBook (bookSeq, bookTitle, bookInfo, bookCover, bookRegdate, bookModDate, userSeq, parentBookSeq, rcmAgeSeq) VALUES (?, ?, ?, ?, default, NULL, ?, ?, ?)";
+	    
+	    int bookSeq = 0;
+
+	    try (Connection conn = DBUtil.open();
+	         Statement stmt = conn.createStatement();
+	         PreparedStatement pstat = conn.prepareStatement(INSERT_SQL)) {
+	        
+	        // First, get the next bookSeq
+	        ResultSet rs = stmt.executeQuery(GET_NEXT_SEQ_SQL);
+	        if (rs.next()) {
+	            bookSeq = rs.getInt("nextSeq");  // Ensure that this retrieves an integer
+	        }
+
+	        // Now, use this bookSeq to insert the new book
+	        pstat.setInt(1, bookSeq);  // Set bookSeq as integer directly
+	        pstat.setString(2, dto.getBookTitle());
+	        pstat.setString(3, dto.getBookInfo());
+	        pstat.setString(4, dto.getBookCover());
+	        System.out.println(dto.getUserSeq());
+	        pstat.setInt(5, Integer.parseInt(dto.getUserSeq()));  // Ensure userSeq is converted properly to integer
+	        pstat.setObject(6, dto.getParentBookSeq() != null ? Integer.parseInt(dto.getParentBookSeq()) : null);  // Convert to integer or handle null
+	        pstat.setInt(7, Integer.parseInt(dto.getRcmAgeSeq()));  // Ensure rcmAgeSeq is converted properly to integer
+
+	        pstat.executeUpdate();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error adding book: " + e.getMessage());
+	        throw new RuntimeException(e);  // Rethrow or handle as necessary
+	    }
+	    return bookSeq;
 	}
 	
 	@Override
