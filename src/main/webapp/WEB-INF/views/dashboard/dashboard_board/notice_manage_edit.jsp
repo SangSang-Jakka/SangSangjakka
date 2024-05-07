@@ -60,10 +60,11 @@
                                 <th>내용</th>
                                 <td><textarea name="noticeContents" class="contentNotice">${dto.noticeContents}</textarea></td>
                             </tr>
-                            <tr>
+                            <!--   <tr>
                                 <th>파일</th>
                                 <td><input type="file" name="noticeAttach" class="attachNotice"></td>
                             </tr>
+                            -->
                         </table>
                     </div>
                 </div>

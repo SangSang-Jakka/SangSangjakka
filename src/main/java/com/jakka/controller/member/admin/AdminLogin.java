@@ -59,6 +59,8 @@ public class AdminLogin extends HttpServlet{
 			session.setAttribute("adNick", result.getAdNick());
 			session.setAttribute("adLv", result.getAdLv());
 			
+			// System.out.println("adLv: " + result.getAdLv());
+			
 			resp.sendRedirect("/sangsangjakka/admin/dashboard.do");
 			
 		} else {

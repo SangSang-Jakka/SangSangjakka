@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.NoticeDAO;
 import com.jakka.model.dto.board.NoticeDTO;
+import com.jakka.model.enums.AdminLog;
 
 @WebServlet("/admin/dashboard/notice/manageedit.do")
 public class NoticeManagementEdit extends HttpServlet {
@@ -49,8 +50,10 @@ public class NoticeManagementEdit extends HttpServlet {
 		if (!adId.equals(dto.getAdId())) {
 			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
+			writer.println("<html><head><meta charset=\"UTF-8\"></head><body>");
 			writer.println("<script>alert('권한이 없습니다.');</script>");
 			writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
+			writer.println("</body></html>");
 			writer.close();
 			return;
 			
@@ -75,50 +78,64 @@ public class NoticeManagementEdit extends HttpServlet {
 		// 1. 데이터 가져오기
 		// 2. DB 작업 > update
 		// 3. 결과
-		
-		
+
 		String noticeTitle = req.getParameter("noticeTitle");
 		String noticeContents = req.getParameter("noticeContents");
 		String seq = req.getParameter("seq");
 
-
-	
-		// 공지사항 작성자 == 현재 사용자 ?
-		HttpSession session = req.getSession();
-		String adId = (String) session.getAttribute("adId");
 		
+	
+		// 공지사항 작성자 == 현재 사용자 또는 최고관리자 ? 
+		HttpSession session = req.getSession();
+		
+		String adId = (String) session.getAttribute("adId");
+		String adLv = (String) session.getAttribute("adLv");
+		
+		System.out.println("adLv: " + adLv);
+
+		// 최고 관리자 권한이 안 걸림.. ㅠㅠ 
+
 		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
 		NoticeDTO dto = noticeDAO.findById(seq);
-		
-		if (!adId.equals(dto.getAdId())) { 
-			resp.setCharacterEncoding("UTF-8");
-			PrintWriter writer = resp.getWriter();
-			writer.println("<script>alert('권한이 없습니다.');</script>");
-			writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
-			writer.close();
-			return;
-		}
-	
-		
-		// 공지사항 수정
-		dto.setNoticeTitle(noticeTitle);
-		dto.setNoticeContents(noticeContents);
-		dto.setNoticeSeq(seq);
 
-		int result = noticeDAO.save(dto);
+		if (adId.equals(dto.getAdId()) || "3".equals(adLv)) {
+			
 
-		if (result == 1) {
-
-			resp.sendRedirect("sangsangjakka/admin/dashboard/notice/manageview.do?seq=" + seq);
-
+			// 공지사항 수정
+			dto.setNoticeTitle(noticeTitle);
+			dto.setNoticeContents(noticeContents);
+			dto.setNoticeSeq(seq);
+			
+			
+			
+			int result = noticeDAO.save(dto);
+			
+			if (result == 1) {
+				
+				resp.sendRedirect("/sangsangjakka/admin/dashboard/notice/manageview.do?seq=" + seq);
+				
+			} else {
+				resp.setCharacterEncoding("UTF-8");
+				PrintWriter writer = resp.getWriter();
+				writer.println("<html><head><meta charset=\"UTF-8\"></head><body>");
+				writer.println("<script>alert('수정 실패했습니다.');</script>");
+				writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
+				writer.println("</body></html>");
+				writer.close();
+			}
 			
 		} else {
+			// 권한이 없는 경우
 			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
-			writer.println("<script>alert('수정 실패했습니다.');</script>");
+			writer.println("<html><head><meta charset=\"UTF-8\"></head><body>");
+			writer.println("<script>alert('권한이 없습니다.');</script>");
 			writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
+			writer.println("</body></html>");
 			writer.close();
+			
 		}
+
 	}
 
 }// end
