@@ -18,6 +18,14 @@ public class BoardDTO {
 	private String cmntCnt;
 	
 
+	public String getCmntCnt() {
+		return cmntCnt;
+	}
+
+	public void setCmntCnt(String cmntCnt) {
+		this.cmntCnt = cmntCnt;
+	}
+
 	public String getBoardSeq() {
 		return boardSeq;
 	}

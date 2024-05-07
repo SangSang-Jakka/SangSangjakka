@@ -262,6 +262,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 	    return null;
 	}
 	
+
 	@Override
 	public int del(SuggestionAnswerDTO dto) {
 	    final String SQL = "DELETE FROM tblSuggestionAnswer WHERE answSeq = ?";
