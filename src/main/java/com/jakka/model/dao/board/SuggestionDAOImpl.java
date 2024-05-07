@@ -5,11 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
-import com.jakka.model.dao.BasicDAO;
-import com.jakka.model.dao.Cnt;
-import com.jakka.model.dto.board.NoticeDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 import com.jakka.model.enums.UserLog;
 
@@ -458,6 +456,16 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	    return null;
 	}
 	
+	public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map) {
+		
+		String where ="where rnum BETWEEN ? AND ?";
+		
+		if(map.get("search").equals("y")) {
+			
+		}
+		
+		return null;
+	}
 }//End of class
 
 
