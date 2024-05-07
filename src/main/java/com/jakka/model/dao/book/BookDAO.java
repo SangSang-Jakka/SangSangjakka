@@ -21,4 +21,10 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	public ArrayList<BookDTO> findAllLike(String userSeq);
 	public ArrayList<BookDTO> findAllScrap(String userSeq);
 	
+	public ArrayList<BookDTO> findByNick(HashMap<String, String> map);
+	public ArrayList<BookDTO> findByTitleContains(HashMap<String, String> map);
+	public ArrayList<BookDTO> findByContentsContains(HashMap<String, String> map);
+	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map);
+	
+	
 }//End of interface

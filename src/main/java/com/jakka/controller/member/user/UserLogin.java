@@ -40,8 +40,6 @@ public class UserLogin extends HttpServlet{
 		
 		UserDTO result = dao.login(dto);
 		
-		System.out.println(result);
-		
 		if(result.getUserId() != null) {
 			HttpSession session = req.getSession();
 			

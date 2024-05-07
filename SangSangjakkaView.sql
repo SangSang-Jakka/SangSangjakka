@@ -28,28 +28,32 @@ FROM tblBook b
                 ON b.bookSeq = s.bookSeq
                     LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookReportCnt FROM tblBookShareReport GROUP BY bookSeq) re
                     ON b.bookSeq = re.bookSeq;
-
+    
 -- 동화책 화이트리스트
 CREATE OR REPLACE VIEW vwBookWhite
 AS
-SELECT 
-    b.bookSeq,
-    b.bookTitle,
-    b.bookInfo,
-    b.bookCover,
-    b.bookRegdate,
-    b.bookModDate,
-    b.likeCnt,
-    b.bookReviewCnt,
-    b.bookScrapCnt,
-    b.bookReportCnt,
-    b.userSeq,
-    b.parentBookSeq,
-    b.rcmAgeSeq,
-    b.userNick
-FROM VWBOOK B
-    INNER JOIN tblBookWhiteList bw 
-    ON b.bookSeq = bw.bookSeq;
+SELECT *
+FROM (
+    SELECT
+        ROWNUM AS rnum,
+        b.bookSeq,
+        b.bookTitle,
+        b.bookInfo,
+        b.bookCover,
+        b.bookRegdate,
+        b.bookModDate,
+        b.likeCnt,
+        b.bookReviewCnt,
+        b.bookScrapCnt,
+        b.bookReportCnt,
+        b.userSeq,
+        b.parentBookSeq,
+        b.rcmAgeSeq,
+        b.userNick
+    FROM VWBOOK B
+    INNER JOIN tblBookWhiteList bw
+        ON b.bookSeq = bw.bookSeq
+);
 
 -- 동화책 블랙리스트
 CREATE OR REPLACE VIEW vwBookBlack 

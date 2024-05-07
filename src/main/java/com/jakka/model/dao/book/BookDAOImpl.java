@@ -133,6 +133,7 @@ public class BookDAOImpl implements BookDAO{
 				dto.setParentBookSeq(rs.getString("parentBookSeq"));
 				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 				list.add(dto);
 				
@@ -310,6 +311,7 @@ public class BookDAOImpl implements BookDAO{
 				dto.setParentBookSeq(rs.getString("parentBookSeq"));
 				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 				list.add(dto);
 				
@@ -355,6 +357,7 @@ public class BookDAOImpl implements BookDAO{
 					dto.setParentBookSeq(rs.getString("parentBookSeq"));
 					dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
 					
 					list.add(dto);
 					
@@ -880,6 +883,72 @@ public class BookDAOImpl implements BookDAO{
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map) {
+		final String SQL = "SELECT * FROM vwBookWhite where rnum BETWEEN ? AND ? order by bookRegdate desc";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+			){
+				pstat.setString(1, map.get("begin"));
+				pstat.setString(2, map.get("end"));
+				
+				ResultSet rs = pstat.executeQuery(SQL);
+				
+				ArrayList<BookDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					
+					BookDTO dto = new BookDTO();
+					
+					dto.setBookCover(rs.getString("bookCover"));
+					dto.setBookInfo(rs.getString("bookInfo"));
+					dto.setBookModDate(rs.getString("bookModDate"));
+					dto.setBookRegdate(rs.getString("bookRegdate"));
+					dto.setBookReportCnt(rs.getString("bookReportCnt"));
+					dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+					dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+					dto.setBookSeq(rs.getString("bookSeq"));
+					dto.setBookTitle(rs.getString("bookTitle"));
+					dto.setLikeCnt(rs.getString("likeCnt"));
+					dto.setParentBookSeq(rs.getString("parentBookSeq"));
+					dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
+					
+					list.add(dto);
+					
+				}
+				
+				return list;
+				
+		} catch (Exception e) {
+			System.out.println("BookDAOImpl.| findAllWhite");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public ArrayList<BookDTO> findByContentsContains(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public ArrayList<BookDTO> findByNick(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public ArrayList<BookDTO> findByTitleContains(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }//End of class
