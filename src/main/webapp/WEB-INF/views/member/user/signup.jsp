@@ -49,12 +49,12 @@
                             <span>닉네임 </span><span>*</span>
                         <div class="nickWrap">
                             <div class="nickInput inputBorder">
-                            <input type="text" id="nickName" name="userNick" onkeydown="inputIdCheck()" required/>
+                            <input type="text" id="inputNick" name="userNick" required/>
                             </div>
                             <div class="nickTest">
                             <input type="button" value="중복검사" id="nickNameCheck" onclick="openNickCheck()">
                             </div>
-                            <input type="hidden" name="nicknameDuplication" value="nicknameUncheck" />
+                            <input type="hidden" id="nickHidden" name="nicknameDuplication" value="nicknameUncheck" />
                         </div>
                         <div class="info">
                         <i class="fa-solid fa-circle-info infoIcon"></i>
@@ -422,12 +422,10 @@
 
         //유효성 검사
         //1. 닉네임 유효성 검사
-        // - 버튼 찾기
         document.addEventListener("DOMContentLoaded", function() {
-        let nickNameCheck = document.getElementById("nickNameCheck");
-        let inputNickName = document.getElementById("nickName");
+        let inputNickName = document.getElementById("inputNick");
 
-        nickNameCheck.addEventListener("click", function() {
+        inputNickName.addEventListener("keydown", function() {
         let value = inputNickName.value;
         let isValidLength = nickNameLength(value);
         let isValidNickName = checkNickName(value);
@@ -449,7 +447,7 @@
                 showErrorMessage("  한글, 영어소문자, 숫자만 입력 가능합니다.");
             }
         }
-    });
+    });  
 
         function nickNameLength(value) {
             return value.length >= 4 && value.length <= 10;
@@ -478,10 +476,9 @@
 
         //아이디 유효성 검사
         document.addEventListener("DOMContentLoaded", function() {
-            let idCheck = document.getElementById("idCheck");
-            let inputNickName = document.getElementById("id");
+            let inputNickName = document.getElementById("inputId");
 
-            idCheck.addEventListener("click", function() {
+            inputNickName.addEventListener("keydown", function() {
                 let value = inputNickName.value;
                 let isValidLength = idLength(value);
                 let isValidId = checkId(value);
@@ -695,10 +692,14 @@
 				"checkFrom","width=500, height=300, resizable=no, scrollbars=no");
 	}
 	
-	//중복체크 후 다시 아이디 창에 새로운 아이디를 입력했을 때 다시 중복 체크
+	//닉네임 중복체크 화면
 	function openNickCheck() {
-		
-	}
+		window.name = "parent2Form";
+		window.open("/sangsangjakka/user/nickcheck.do",
+				"checkFrom","width=500, height=300, resizable=no, scrollbars=no");
+	}	
+	
+
         
       </script>
 </body>

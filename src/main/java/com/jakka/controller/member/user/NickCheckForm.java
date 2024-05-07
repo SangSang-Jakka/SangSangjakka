@@ -15,25 +15,25 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
 
-@WebServlet("/user/idcheck.do")
-public class IdCheckForm extends HttpServlet{
+@WebServlet("/user/nickcheck.do")
+public class NickCheckForm extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/idcheckform.jsp");
+		  RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/nickcheckform.jsp");
 	       dispatcher.forward(req, resp);
 	}
 	
 	@Override
 	 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 클라이언트로부터 아이디 받기
-        String userId = req.getParameter("id");
+        String userNick = req.getParameter("nick");
         
-        System.out.println(userId);
+        System.out.println(userNick);
         
         // 중복 여부 확인
         UserDAO dao = DAOManager.getUserDAO();
         UserDTO dto = new UserDTO();
-        dto.setUserId(userId);
+        dto.setUserId(userNick);
         int count = dao.checkId(dto);
 
         // 결과 전송
