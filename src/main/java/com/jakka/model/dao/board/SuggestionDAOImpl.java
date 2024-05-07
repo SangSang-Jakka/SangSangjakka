@@ -36,6 +36,8 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 		
 		String sql = String.format("select count(*) as cnt from vwSuggestion %s", where);
 		
+		System.out.println("SQL Query: " + sql);
+		
 		// 연결
 		try(
 			Connection conn = DBUtil.open();
@@ -509,7 +511,8 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	            dto.setSgstRegdate(rs.getString("sgstRegdate"));
 	            dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
 	            dto.setUserSeq(rs.getString("userSeq"));
-	            dto.setSgstCnt(rs.getString("sgstCnt"));	
+	            dto.setSgstCnt(rs.getString("sgstCnt"));
+	            dto.setUserNick(rs.getString("userNick"));
 
 				list.add(dto);
 
