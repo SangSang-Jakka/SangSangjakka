@@ -11,6 +11,7 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 	
 	<link rel="stylesheet" href="/sangsangjakka/resources/css/screens/mypage.css">
 </head>
@@ -244,6 +245,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="validation.js"></script>
 <script>
 		$(document).ready(function () {
 			// 로딩 시 모든 탭 컨텐츠를 숨기고 첫 번째 탭 컨텐츠를 표시
@@ -627,7 +629,7 @@
         }).open();
     }
 		
-		
+
 </script>
 </body>
 </html>

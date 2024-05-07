@@ -26,30 +26,31 @@ public class SuggestionList extends HttpServlet {
 		String page = req.getParameter("page");
 		
 		int nowPage = 0;	// 현재 페이지 번호
-		int totalCount = 0;	// 총 게시물 수
-		int n = 0;			// 조회수
+		int totalCount = 0;	// 총 게시물 수, 페이지 수를 계산할 수 있다.
+		int n = 0;			// 조회수 설정 변수
 		int begin = 0;		// 페이징 시작 위치
 		int end = 0;		// 페이지 끝 위치
 		int loop = 0;
-		int blockSize = 10;	// 페이지 개수
-		int totalPage = 0;	// 총 페이지 수
-		int pageSize = 10;	// 한 페이지에서 출력할 게시물 수
+		int blockSize = 10;	// 페이지 개수, 하단 블럭에 표출할 수 있는 최대 페이지 개수
+		int totalPage = 0;	// 총 페이지 수, 총 게시물 수(totalCount)와 한 페이지에서 보여줄 수 있는 게시물 수(pageSize)로 계산
+		int pageSize = 10;	// 한 페이지에서 최대 보일 수 있는 글 개수
 		
+		// 파라미터로 넘겨받은 페이지가 null이므로 현재 페이지를 1로 설정
 		if(page == null || page.equals("")) {
 			nowPage = 1;
 		} else {
-			nowPage = Integer.parseInt(page);
+			nowPage = Integer.parseInt(page);	// 현재 페이지 설정
 		}
 		
 		begin = ((nowPage - 1) * pageSize) + 1;
-		end = begin + pageSize + 1;
+		end = begin + pageSize - 1;
 		
 		// 검색하기
 		String column = req.getParameter("column");
 		String word = req.getParameter("word");
 		String search =	"n";
 		
-		// 검색 활성화
+		// 검색 활성화, search가 n이라면 조회만 하는 기능
 		if((column != null && word != null)) {
 			search = "y";
 		} else {
@@ -57,6 +58,7 @@ public class SuggestionList extends HttpServlet {
 			column = "";
 			word =	"";
 		}
+		// hashMap 객체 생성
 		HashMap<String, String> map = new HashMap<>();
 		
 		map.put("search", search);
@@ -66,14 +68,16 @@ public class SuggestionList extends HttpServlet {
 		map.put("begin", begin + "");
 		map.put("end", end + "");
 		
+		// 조회수 관련
 		HttpSession session = req.getSession();
 		session.setAttribute("read", "n");
 		
+		// 리스트 뽑아오기
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
-		ArrayList<SuggestionDTO> list = dao.findAllWhite(map);
-		// 
+		ArrayList<SuggestionDTO> list = dao.findAllWhite(map);	// 쿼리 실행 결과를 반환한다.
+		 
 		if(list != null) {
-			for(SuggestionDTO dto : list) {
+			for(SuggestionDTO dto : list) {						// 쿼리 실행 결과인 arraylist에 담은 list를 dto에 반복해서 담음
 				dto.setSgstRegdate(dto.getSgstRegdate().substring(0, 10));
 				// 제목 넣을 변수
 				String title = dto.getSgstTitle();
@@ -104,6 +108,32 @@ public class SuggestionList extends HttpServlet {
 		} else {
 			builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a>", n-1, column, word, blockSize));
 		}
+		
+		while(!(loop > blockSize || n > totalPage)) {
+			if(n == nowPage) {
+				builder.append(String.format("<a href='#!' style='color:tomato';>%d</a>", n));
+			} else {
+				builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>%d</a>", n, column, word, n));
+			}
+			loop++;
+			n++;
+		}
+		
+		// 다음 페이지
+		if(n >= totalPage) {
+			builder.append(String.format("<a href='#!'>[다음 %d페이지]</a> ", blockSize));
+		} else {
+			builder.append(String.format("<a href='/sangsangjakka/board/suggestion.list.do?page=%s&column=%s&word=%s'>[다음 %d페이지]</a>", n, column, word, blockSize));
+			
+		}
+		
+		req.setAttribute("list", list);
+		req.setAttribute("map", map);
+		req.setAttribute("nowPage", nowPage);
+		req.setAttribute("totalCount", totalCount);
+		req.setAttribute("totalPage", totalPage);
+		req.setAttribute("pageBar", builder.toString());
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		dispatcher.forward(req, resp);
 
@@ -116,6 +146,7 @@ public class SuggestionList extends HttpServlet {
 		writer.println("<script type='text/javascript'");
 		writer.println("location.href='/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		writer.println("</script>");
+		
 	}
 
 }
