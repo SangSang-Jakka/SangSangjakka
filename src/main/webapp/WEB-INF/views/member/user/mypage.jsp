@@ -163,7 +163,7 @@
 								</div>
 								<div class="change full">
 									<div class="changegroup">
-										<div class="changebtnbox">
+										<div class="changebtnbox">                                                                                                                                                                                                                                                                          
 											<input type="submit" value="수정완료" id="changecompletebtn"
 												class="pointer"></input>
 										</div>
@@ -295,6 +295,7 @@
 			$('#changecompletebtn').click(function () {
 				$('.changecomplete').css('display', 'flex');
 				$('.change').css('display', 'none');
+				$('.userInfoForm').submit()
 				alert('변경사항이 저장되었습니다.');
 			});
 			//수정 취소 버튼

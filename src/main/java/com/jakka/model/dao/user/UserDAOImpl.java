@@ -379,32 +379,35 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 	//닉네임, 전화번호, 주소, 이메일
-	@Override
-	public int save(UserDTO dto) {
-		
-		final String SQL = "UPDATE tblUser SET userNick = ?, userTel = ?, userAddress = ?, userEmail = ? WHERE userId = ?";
-		
-		try (
-			Connection conn = DBUtil.open();
-		    PreparedStatement pstat = conn.prepareStatement(SQL)
-		) {
+		@Override
+		public int save(UserDTO dto) {
+			
+			final String SQL = "UPDATE tblUser SET userNick = ?, userTel = ?, userAddress = ?, userEmail = ? WHERE userId = ?";
+			
+			try (
+				Connection conn = DBUtil.open();
+			    PreparedStatement pstat = conn.prepareStatement(SQL)
+			) {
 
-		        pstat.setString(1, dto.getUserNick());
-		        pstat.setString(2, dto.getUserTel());
-		        pstat.setString(3, dto.getUserAddress());
-		        pstat.setString(4, dto.getUserSeq());
+			        pstat.setString(1, dto.getUserNick());
+			        pstat.setString(2, dto.getUserTel());
+			        pstat.setString(3, dto.getUserAddress());
+			        pstat.setString(4, dto.getUserEmail());
+			        pstat.setString(5, dto.getUserId());
 
-		        int result = pstat.executeUpdate();
-		        
-		        return result;
-		    } catch (Exception e) {
-		        System.out.println("UserDAO.| save");
-		        e.printStackTrace();
-		        
-		    }
-		    
-		    return 0;
-	}
+			        int result = pstat.executeUpdate();
+			        
+			        return result;
+			        
+			    } catch (Exception e) {
+			        System.out.println("UserDAO.| save");
+			        e.printStackTrace();
+			        
+			    }
+			    
+			    return 0;
+		}
+
 	
 	//용량 변경
 	@Override

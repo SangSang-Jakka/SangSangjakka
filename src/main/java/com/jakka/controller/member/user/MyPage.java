@@ -35,4 +35,12 @@ public class MyPage extends HttpServlet{
 	
 	}
 	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/mypage.jsp");
+	    dispatcher.forward(req, resp);
+	}
+
+	
 }//End of class
