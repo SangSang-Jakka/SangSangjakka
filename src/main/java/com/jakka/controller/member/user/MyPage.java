@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.jakka.model.DAOManager;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
 
@@ -20,12 +21,11 @@ public class MyPage extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	    HttpSession session = req.getSession();
-	    String id = (String) session.getAttribute("userSeq");
+	    String userId = (String) session.getAttribute("userId");
 
-	   
-	    UserDAO dao = new UserDAO();
-	    UserDTO dto = dao.getUser(userSeq);
-
+	    UserDAO dao = DAOManager.getUserDAO();
+	    UserDTO dto = dao.findById(userId);
+	    
 
 	    req.setAttribute("dto", dto);
 

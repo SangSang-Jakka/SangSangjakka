@@ -22,11 +22,7 @@ public class UserDAOImpl implements UserDAO{
 		return DAO;
 	}//getInstance()
 	
-	@Override
-	public UserDTO getUser(String userSeq) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public boolean unRegister(UserDTO dto) {
 		String SQL = "delete from tblUser where userSeq = ? and userPw = ?";

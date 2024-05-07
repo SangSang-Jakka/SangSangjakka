@@ -78,8 +78,8 @@
 								<div class="userInfoName title">
 									<span>이름</span>
 									<div class="nameContainer">
-										<div class="nameInput inputBorder w70pc" value="${dto.userName}">
-											<input id="nameInput" type="text" />
+										<div class="nameInput inputBorder w70pc">
+											<input id="nameInput" type="text" value="${dto.userName}" />
 										</div>
 									</div>
 								</div>
