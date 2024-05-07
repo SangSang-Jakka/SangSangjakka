@@ -80,7 +80,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	// 아이디 찾기
 	public UserDTO findId(UserDTO dto) {
-		String SQL = "select userId from tblUser where userNick = ? and userEmail = ?";
+		String SQL = "select userId, userRegdate from tblUser where userNick = ? and userEmail = ?";
 		
 		try {
 			Connection conn = DBUtil.open();
@@ -91,19 +91,23 @@ public class UserDAOImpl implements UserDAO{
 			
 			// 결과 반환
 			ResultSet rs = pstat.executeQuery();
+			UserDTO result = new UserDTO();
 			
 			// 결과값이 있으면
 			if(rs.next()) {
 				// DTO타입의 참조변수 result
-				UserDTO result = new UserDTO();
 				// 쿼리를 실행한 결과를 가져와서 result에 쓰기
 				result.setUserId(rs.getString("userId"));
 				result.setUserRegdate(rs.getString("userRegdate"));
+				System.out.println(result);
+
+				}
 				rs.close();
 				
-				// result 반환
-				return result;
-			}
+				
+			// result에 아이디를 찾은 결과를 보여줄 아이디와 가입일을 쓰기, 쓴걸 들고 result에 들고감
+			// result 반환
+			return result;
 			
 		} catch (Exception e) {
 			System.out.println("UserDAOImpl.findId");

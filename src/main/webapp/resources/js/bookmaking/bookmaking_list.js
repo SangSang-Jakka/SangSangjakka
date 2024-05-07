@@ -7,9 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const visibleItems = 4;
     const maxSlide = numItems - visibleItems;
 
-    function updateButtons() {
+    function checkItemNum() {
         document.querySelector('.sliderBtn.left').style.display = numItems > visibleItems ? 'block' : 'none';
         document.querySelector('.sliderBtn.right').style.display = numItems > visibleItems ? 'block' : 'none';
+        document.querySelector('.sliderItemBox').style.justifyContent = numItems > visibleItems ? 'flex-start' : 'center';
     }
 
     function moveSlide(direction) {
@@ -23,8 +24,19 @@ document.addEventListener('DOMContentLoaded', function() {
         sliderItemBox.style.transform = `translateX(${movePercentage}%)`;
     }
 
-    updateButtons();
-    
+    // Add event listeners to slider items for navigation
+    sliderItems.forEach(item => {
+        item.addEventListener('click', function() {
+            window.location.href = '/sangsangjakka/board/bookmaking/view.do';
+        });
+    });
+
+    checkItemNum();
     document.querySelector('.sliderBtn.left').onclick = () => moveSlide(-1);
     document.querySelector('.sliderBtn.right').onclick = () => moveSlide(1);
+    
+    sliderItems.forEach((item) => {
+        let pageUrl = item.getAttribute('data-page-url');
+        item.style.backgroundImage = `url('${pageUrl}')`;
+    });
 });
