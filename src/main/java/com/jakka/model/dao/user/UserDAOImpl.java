@@ -642,7 +642,9 @@ public class UserDAOImpl implements UserDAO{
 
 
 	@Override
-	public String signUp(UserDTO dto) {
+	public int signUp(UserDTO dto) {
+		
+		
 		
 		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, limitStorage,userName) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser),?, ?, ?, ?, ?, ?, ?, ?, 'y', 1, SYSDATE, 10737418240,?)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
@@ -650,10 +652,11 @@ public class UserDAOImpl implements UserDAO{
 		try (
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
-				PreparedStatement log = conn.prepareStatement(LOGSQL);
+				//PreparedStatement log = conn.prepareStatement(LOGSQL);
+				
 					
 			){
-				conn.setAutoCommit(false);
+				//conn.setAutoCommit(false);
 
 				pstat.setString(1, dto.getUserId());
 				pstat.setString(2, dto.getUserPw());
@@ -669,9 +672,22 @@ public class UserDAOImpl implements UserDAO{
 				
 				System.out.println(newUserId);
 				
-		        if (newUserId > 0) {
-		            // 새로 생성된 사용자의 아이디 반환
+//		        if (newUserId > 0) {
+//		            // 새로 생성된 사용자의 아이디 반환
+//		        	System.out.println("Aaaaaaaa");
+//		        	
+//		        	log.setString(1, dto.getUserSeq());
+//					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
+//					log.setString(3, UserLog.SignUp.getValue());
+//					log.executeUpdate();
+//		        	
+//		        	
+//		        	conn.commit();
 		        	
+<<<<<<< HEAD
+		            return newUserId;
+		       // }
+=======
 		        	log.setString(1, dto.getUserSeq());
 					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
 					log.setString(3, UserLog.SignUp.getValue());
@@ -683,6 +699,7 @@ public class UserDAOImpl implements UserDAO{
 		        	
 		            return dto.getUserId();
 		        }
+>>>>>>> 50cb88327fc8264e0941e1f27466f150054ba84e
 				
 				
 			} catch (Exception e) {
@@ -690,7 +707,7 @@ public class UserDAOImpl implements UserDAO{
 				e.printStackTrace();
 			}
 			
-			return null;
+			return 0;
 		}
 	
 	@Override

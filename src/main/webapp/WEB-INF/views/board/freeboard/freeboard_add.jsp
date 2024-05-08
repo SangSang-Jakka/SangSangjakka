@@ -21,7 +21,8 @@
         </div>
     </div>
     <section class="freeBoard">
-        <form method="POST" action="/sangsangjakka/user/signup.do" enctype="multipart/form-data">
+    
+        <form method="POST" action="/sangsangjakka/board/freeboard/add.do" >
             <div class="freeboardWrap">
                 <div class="freeTitleContainer">
                     <div class="freeTitle">제목</div>
@@ -38,15 +39,19 @@
                     <textarea id="summernote" name="editordata" class="content" required></textarea>
                 </div>
             </div>
-        </form>
-        <div class="btnBox">
-            <button class="btnBack" onclick="location.href='/toy/board/list.do';">
+            
+            <div class="btnBox">
+            <button class="btnBack" onclick="location.href='/sangsangjakka/board/freeboard/list.do';">
                 <i class="fa-solid fa-rotate-left"></i> 돌아가기
             </button>
-            <button class="btnWrite" onclick="location.href='/toy/board/list.do';">
+            <button type="submit" class="btnWrite" onclick="location.href='/sangsangjakka/board/freeboard/list.do';" >
                 <i class="fa-solid fa-pencil"></i> 쓰기
             </button>
-        </div>
+            
+        	</div>
+        </form>
+        
+        
         <input type="hidden" name="reply" value="${reply}">
         <input type="hidden" name="thread" value="${thread}">
         <input type="hidden" name="depth" value="${depth}">
