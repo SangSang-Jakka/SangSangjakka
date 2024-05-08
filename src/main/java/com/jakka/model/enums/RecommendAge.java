@@ -17,5 +17,6 @@ public enum RecommendAge {
 	public String getValue() {
 		return value;
 	}
+
 	
 }//End of enum
