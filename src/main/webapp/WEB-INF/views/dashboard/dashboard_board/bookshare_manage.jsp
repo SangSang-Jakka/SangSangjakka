@@ -75,10 +75,10 @@
 									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do">${book.bookTitle}</a></td>
 									<td>${book.userNick}</td>
 									<td>${book.bookRegdate}</td>
-									<td>0</td>
+									<td>${book.bookCnt}</td>
 									<td>${book.bookScrapCnt}</td>
 									<td>${book.likeCnt}</td>
-									<td>${book.ReviewCnt}</td>
+									<td>${book.bookReviewCnt}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

@@ -24,6 +24,16 @@ public class BookDTO {
 	
 	private String bookCnt;
 	
+	
+	
+	public String getBookCnt() {
+		return bookCnt;
+	}
+
+	public void setBookCnt(String bookCnt) {
+		this.bookCnt = bookCnt;
+	}
+
 	private HashMap<Integer, PageDTO> pages;
 
 	public String getBookSeq() {

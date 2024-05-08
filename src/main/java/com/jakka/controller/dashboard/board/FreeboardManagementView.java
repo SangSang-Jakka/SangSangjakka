@@ -86,6 +86,8 @@ public class FreeboardManagementView extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		req.setCharacterEncoding("UTF-8");
+	
 		
 		// 댓글 수정 
 		String seq = req.getParameter("seq");

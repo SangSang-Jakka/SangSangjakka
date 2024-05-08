@@ -107,6 +107,21 @@
 	margin-bottom: 5px;
 }
 
+  .left {
+    float: left;
+    margin-top: 10px;
+   
+  }
+  
+  .right {
+  
+  	float: right;
+  	margin-top: 10px;
+   
+  }
+  
+  }
+
 </style>
 </head>
 <body>
@@ -179,8 +194,8 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${cmnt.userNick}</div>
 											<div class="commentActions">
-												<button class="btnEdit" onclick="edit(${cmnt.cmntSeq});">수정</button>
-												<button class="btnDel" onclick="del(${cmnt.cmntSeq});">삭제</button>
+												<button class="btnEdit" onclick="edit(${cmnt.cmntSeq});">공개</button>
+												<button class="btnDel" onclick="del(${cmnt.cmntSeq});">비공개</button>
 											</div>
 										</div>
 										<div class="commentTime">${cmnt.cmntRegdate}</div>
@@ -192,23 +207,19 @@
 						
 
 
-							<!-- 댓글 입력 폼 -->
-							<div class="commentInput">
-								<input type="text" placeholder="댓글을 입력하세요."> <input
-									type="button" class="btn btn-primary" value="작성">
-							</div>
-						</div>
-
-						<span class="left"> <input type="button" value="이전"
+						
+				<span class="left"> <input type="button" value="이전"
 							class="btn btn-primary"> <input type="button" value="다음"
 							class="btn btn-primary">
-						</span> <span class="right"> <input type="button" value="목록"
+						</span>
+						<span class="right"> <input type="button" value="목록"
 							class="btn btn-primary pull-right"
 							onclick="location='/sangsangjakka/admin/dashboard/freeboard/manage.do'">
 						</span>
 
 					</div>
 				</div>
+				
 
 			</div>
 			<!-- 푸터 -->
