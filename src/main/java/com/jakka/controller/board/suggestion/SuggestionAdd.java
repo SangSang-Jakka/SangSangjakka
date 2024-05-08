@@ -37,7 +37,7 @@ public class SuggestionAdd extends HttpServlet {
 		// 파일 받아오기
 		MultipartRequest multi = new MultipartRequest(
 				req,
-				req.getRealPath("/asset/pic"),
+				req.getRealPath("/generated"),
 				1024 * 1024 * 30,
 				"UTF-8",
 				new DefaultFileRenamePolicy()
