@@ -194,8 +194,8 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${cmnt.userNick}</div>
 											<div class="commentActions">
-												<button class="btnEdit" onclick="edit(${cmnt.cmntSeq});">공개</button>
-												<button class="btnDel" onclick="del(${cmnt.cmntSeq});">비공개</button>
+												<button class="btnEdit" onclick="activation('${cmnt.cmntSeq}')">공개</button>
+												<button class="btnDel" onclick="disableComment('${cmnt.cmntSeq}')">비공개</button>
 											</div>
 										</div>
 										<div class="commentTime">${cmnt.cmntRegdate}</div>
@@ -230,7 +230,55 @@
 	</div>
 	
 	<script>
+
 	
+	// 댓글 활성화
+	function activation(cmntSeq) {
+		
+		
+		var xhr = new XMLHttpRequest();
+	    xhr.open('POST', '/sangsangjakka/admin/dashboard/freeboard/manageview.do', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            // 서블릿으로부터 받은 응답 처리
+	            alert(xhr.responseText);
+	            // 페이지 리로드 또는 다른 작업 수행
+	        }
+	    };
+	    // 서블릿으로 전달할 파라미터 설정
+	    var params = 'cmntSeq=' + encodeURIComponent(cmntSeq) + '&action=activation';
+	    xhr.send(params);
+		
+		
+		
+		
+	}
+	
+	// 댓글 비활성화
+	
+	 function disableComment(cmntSeq) {
+	        var xhr = new XMLHttpRequest();
+	        xhr.open('POST', '/sangsangjakka/admin/dashboard/freeboard/manageview.do', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === 4 && xhr.status === 200) {
+	                // 서블릿으로부터 받은 응답 처리
+	                alert(xhr.responseText);
+	                // 페이지 리로드 또는 다른 작업 수행
+	            }
+	        };
+	        
+	        var params = 'cmntSeq=' + encodeURIComponent(cmntSeq) + '&action=disableComment';
+		    xhr.send(params);
+	
+	    }
+	
+	
+	
+	
+	
+	/*
 	function hidePost() {
 	    var boardSeq = '${dto.boardSeq}'; 
 	    var data = {
@@ -256,76 +304,9 @@
 	        }
 	    });
 	}
+	*/
 	
 	
-	// 게시물 삭제
-	
-	function delBoard(boardSeq) {
-	    if (confirm("정말로 삭제하시겠습니까?") ) { // 삭제 전 사용자 확인
-	        $.ajax({
-	            type: "POST",
-	            url: "/sangsangjakka/admin/dashboard/freeboard/managedel.do",
-	            data: { boardSeq: boardSeq }, 
-	            success: function(response) {
-	                if (response === "success") {
-	                    alert("게시물이 삭제되었습니다.");
-	                    // 삭제 성공 시 필요한 처리
-	                    window.location.href = "/sangsangjakka/admin/dashboard/freeboard/manage.do";
-	                } else {
-	                    alert("게시물 삭제에 실패했습니다.");
-	                }
-	            },
-	            error: function() {
-	                alert("서버와의 통신 중 문제가 발생했습니다.");
-	            }
-	        });
-	    }
-	}
-
-
-	function edit(seq) {
-	    $('.commentEditRow').remove();
-
-	    let content = $(event.target).parents('.commentItem').find('.commentContent').text();
-
-	    $(event.target).parents('.commentItem').after(`
-	        <div class="commentEditRow">
-	            <div>
-	                <input type="text" name="content" class="full" required value="${content}" id="txtComment">
-	            </div>
-	            <div class="commentEdit">
-	                <button class="btnEdit" onclick="editComment(${seq});">수정</button>
-	                <button class="btnDel" onclick="$(event.target).parents('.commentEditRow').remove();">취소</button>
-	            </div>
-	        </div>
-	    `);
-	}
-
-	function editComment(seq) {
-	    let content = $('#txtComment').val();
-	    let commentItem = $(event.target).parents('.commentItem');
-
-	    $.ajax({
-	        type: 'POST',
-	        url: '/sangsangjakka/admin/dashboard/freeboard/manageview.do',
-	        data: {
-	            seq: seq,
-	            content: content
-	        },
-	        dataType: 'json',
-	        success: function(result) {
-	            if (result.result == '1') {
-	                commentItem.find('.commentContent').text(content);
-	                commentItem.find('.commentEditRow').remove();
-	            } else {
-	                alert('댓글 수정을 실패했습니다.');
-	            }
-	        },
-	        error: function(a,b,c) {
-	            console.log(a,b,c);
-	        }
-	    });
-	}
 	
 	</script>
 
