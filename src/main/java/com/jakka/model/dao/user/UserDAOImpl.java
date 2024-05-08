@@ -752,33 +752,66 @@ public int userCnt(String userRegdate) {
 
 	
 
-	@Override
-	public int newCnt(String formattedNum1,String formattedNum2) {
+//	@Override
+//	public int newCnt(String formattedNum1,String formattedNum2) {
+//	
+//		int count = 0;
+//		String sql = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM') BETWEEN '?' AND '?'";
+//		
+//		try {
+//			
+//			Connection conn = DBUtil.open();
+//			PreparedStatement pstat = conn.prepareStatement(sql);
+//			ResultSet rs = pstat.executeQuery();
+//			
+//			pstat.setString(1, formattedNum1);
+//			pstat.setString(2, formattedNum2);
+//			
+//			if (rs.next()) {
+//	            
+//				count = rs.getInt("user_count");
+//	        }
+//			
+//		} catch (Exception e) {
+//			System.out.println("UserDAOImpl.newCnt");
+//			e.printStackTrace();
+//		}
+//		
+//		return count;
+//	}
 	
-		int count = 0;
-		String sql = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM') BETWEEN '?' AND '?'";
-		
-		try {
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(sql);
-			ResultSet rs = pstat.executeQuery();
-			
-			pstat.setString(1, formattedNum1);
-			pstat.setString(2, formattedNum2);
-			
-			if (rs.next()) {
-	            
-				count = rs.getInt("user_count");
-	        }
-			
-		} catch (Exception e) {
-			System.out.println("UserDAOImpl.newCnt");
-			e.printStackTrace();
-		}
-		
-		return count;
-	}
+	@Override
+	 public Map<String, Integer> newCnt(String formattedNum1, String formattedNum2) {
+         Map<String, Integer> countsMap = new HashMap<>();
+
+         String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_07 FROM dual";
+
+         try {
+             Connection conn = DBUtil.open();
+             PreparedStatement pstat = conn.prepareStatement(sql);
+             
+             // 매개변수 설정
+             pstat.setString(1, formattedNum1);
+             pstat.setString(2, formattedNum2);
+
+             ResultSet rs = pstat.executeQuery();
+
+             if (rs.next()) {
+                 // 결과에서 각 값을 맵에 추가
+                 int userCount_23_06 = rs.getInt("user_count_23_06");
+                 int userCount_23_07 = rs.getInt("user_count_23_07");
+
+                 countsMap.put("user_count_23_06", userCount_23_06);
+                 countsMap.put("user_count_23_07", userCount_23_07);
+             }
+         } catch (Exception e) {
+             System.out.println("UserDAOImpl.newCnt");
+             e.printStackTrace();
+         }
+
+         return countsMap;
+     }
+
 	
 	@Override
 	public int findPK(UserDTO dto) {

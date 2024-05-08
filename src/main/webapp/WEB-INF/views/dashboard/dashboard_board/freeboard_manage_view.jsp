@@ -147,15 +147,15 @@
 
 
 						<span class="right"> 
-						<button type="button" class="btn btn-primary">잠금</button>
+						<button type="button" class="btn btn-primary" button type="button" class="btn btn-primary" onclick="hidePost();">비공개</button>
 						<button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/freeboard/manageedit.do?seq=${dto.boardSeq}';">수정</button>
-						<button type="button" class="btn btn-primary">삭제</button>
+					<!--  	<button type="button" class="btn btn-primary" onclick="delBoard(${dto.boardSeq});">삭제</button> -->
 						</span>
 
 						<table>
 							<tr>
 								<th>제목</th>
-								<td>${dto.boardTitle}</td>
+								<td id="postTitle">${dto.boardTitle}</td>
 								<th>조회수</th>
 								<td>${dto.boardCnt}</td>
 							</tr>
@@ -167,7 +167,7 @@
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td colspan="3"><textarea>${dto.boardContents}</textarea></td>
+								<td colspan="3" id="postContent"><textarea>${dto.boardContents}</textarea></td>
 							</tr>
 						</table>
 
@@ -220,7 +220,57 @@
 	
 	<script>
 	
+	function hidePost() {
+	    var boardSeq = '${dto.boardSeq}'; 
+	    var data = {
+	        boardSeq: boardSeq
+	    };
+
+	    $.ajax({
+	        type: 'POST',
+	        url: '/sangsangjakka/admin/dashboard/freeboard/managedel.do',
+	        data: data,
+	        success: function(response) {
+	            // 서버로부터의 응답을 받아 처리합니다.
+	            if (response === 'success') {
+	                // 제목과 내용을 변경합니다.
+	                document.getElementById('postTitle').innerText = "비공개 처리되었습니다";
+	                document.getElementById('postContent').innerText = "비공개 처리되었습니다";
+	            } else {
+	                alert("게시물 비공개 처리에 실패했습니다.");
+	            }
+	        },
+	        error: function() {
+	            alert("서버와의 통신 중 문제가 발생했습니다.");
+	        }
+	    });
+	}
 	
+	
+	// 게시물 삭제
+	
+	function delBoard(boardSeq) {
+	    if (confirm("정말로 삭제하시겠습니까?") ) { // 삭제 전 사용자 확인
+	        $.ajax({
+	            type: "POST",
+	            url: "/sangsangjakka/admin/dashboard/freeboard/managedel.do",
+	            data: { boardSeq: boardSeq }, 
+	            success: function(response) {
+	                if (response === "success") {
+	                    alert("게시물이 삭제되었습니다.");
+	                    // 삭제 성공 시 필요한 처리
+	                    window.location.href = "/sangsangjakka/admin/dashboard/freeboard/manage.do";
+	                } else {
+	                    alert("게시물 삭제에 실패했습니다.");
+	                }
+	            },
+	            error: function() {
+	                alert("서버와의 통신 중 문제가 발생했습니다.");
+	            }
+	        });
+	    }
+	}
+
 
 	function edit(seq) {
 	    $('.commentEditRow').remove();

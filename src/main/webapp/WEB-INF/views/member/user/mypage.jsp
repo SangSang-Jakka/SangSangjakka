@@ -11,6 +11,7 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 	
 	<link rel="stylesheet" href="/sangsangjakka/resources/css/screens/mypage.css">
 </head>
@@ -39,14 +40,14 @@
 								<div class="userInfoEmail">
 									<span>이메일</span>
 									<div class="emailContainer">
-										<input type="text" class="userEmail w70pc" value="${dto.userEmail}" required />
+										<input type="text" class="userEmail w70pc" value="${dto.userEmail}" id="userEmailInput" name="email" required readonly/>
 									</div>
 								</div>
 								<div class="userInfoNcikName title">
 									<span>닉네임</span>
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
-											<input type="text" id="nickName" value="${dto.userNick}" required />
+											<input type="text" id="nickName" name="nickName" value="${dto.userNick}" required readonly />
 										</div>
 										<div class="changebtnbox change">
 											<input type="button" value="변경" id="nickNameChangeBtn" class="pointer">
@@ -80,7 +81,7 @@
 									<span>이름</span>
 									<div class="nameContainer">
 										<div class="nameInput inputBorder w70pc">
-											<input id="nameInput" type="text" value="${dto.userName}" />
+											<input id="nameInput" type="text" value="${dto.userName}" readonly/>
 										</div>
 									</div>
 								</div>
@@ -107,14 +108,14 @@
 										<!-- "-" 기준으로 쪼개기 -->
 										<c:set var="telArray" value="${fn:split(userTel,'-')}"/>
 					
-											<input type="text" id="phoneStart" class="phoneInput" maxlength="3"
-												value="${telArray[0]}" required>
+											<input type="text" id="phoneStart" name="phoneStart" class="phoneInput" maxlength="3"
+												value="${telArray[0]}" required readonly>
 											<span>-</span>
-											<input type="text" id="phoneInput1" class="phoneInput" maxlength="4"
-												value="${telArray[1]}" required>
+											<input type="text" id="phoneInput1" name="phoneInput1" class="phoneInput" maxlength="4"
+												value="${telArray[1]}" required readonly>
 											<span>-</span>
-											<input type="text" id="phoneInput2" class="phoneInput" maxlength="4"
-												value="${telArray[2]}" required>
+											<input type="text" id="phoneInput2" name="phoneInput2" class="phoneInput" maxlength="4"
+												value="${telArray[2]}" required readonly>
 										</div>
 										<div class="changebtnbox change">
 											<input type="button" value="변경" id="telChangebtn" class="pointer">
@@ -129,7 +130,7 @@
 											<div class="addressFind">
 												<div class="inputBorder postNum">
 													<input type="text" id="sample6_postcode" placeholder="우편번호"
-														required>
+														readonly required>
 												</div>
 												<div class="changebtnbox change">
 													<input type="button" value="우편번호 찾기" id="addressFind"
@@ -137,14 +138,14 @@
 												</div>
 											</div>
 											<div class="inputBorder">
-												<input type="text" id="sample6_address" placeholder="주소" required value="${dto.userAddress}">
+												<input type="text" id="sample6_address" name="address" placeholder="주소" required value="${dto.userAddress}" readonly>
 											</div>
 											<div class="inputBorder">
-												<input type="text" id="sample6_detailAddress" placeholder="상세주소"
+												<input type="text" id="sample6_detailAddress" placeholder="상세주소" readonly
 													>
 											</div>
 											<div class="inputBorder">
-												<input type="text" id="sample6_extraAddress" placeholder="참고항목"
+												<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly
 													>
 											</div>
 										</div>
@@ -244,6 +245,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="validation.js"></script>
 <script>
 		$(document).ready(function () {
 			// 로딩 시 모든 탭 컨텐츠를 숨기고 첫 번째 탭 컨텐츠를 표시
@@ -308,6 +310,20 @@
 			$('#changebtn').click(function () {
 				$('.changecomplete').css('display', 'none');
 				$('.change').css('display', 'flex');
+			});
+			
+			//changebtn 눌렀을때만 입력 가능
+			document.getElementById('changebtn').addEventListener('click', function() {
+			    document.getElementById('userEmailInput').removeAttribute('readonly');
+			    document.getElementById('nickName').removeAttribute('readonly');
+			    document.getElementById('phoneStart').removeAttribute('readonly');
+			    document.getElementById('phoneInput1').removeAttribute('readonly');
+			    document.getElementById('phoneInput2').removeAttribute('readonly');
+			    document.getElementById('sample6_postcode').removeAttribute('readonly');
+			    document.getElementById('sample6_address').removeAttribute('readonly');
+			    document.getElementById('sample6_detailAddress').removeAttribute('readonly');
+			    document.getElementById('sample6_extraAddress').removeAttribute('readonly');
+			    
 			});
 
 			//내 동화책 차트
@@ -563,6 +579,7 @@
 		
 		
 		
+		
 		//주소 입력
 		function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -612,7 +629,7 @@
         }).open();
     }
 		
-		
+
 </script>
 </body>
 </html>

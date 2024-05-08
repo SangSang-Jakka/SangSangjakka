@@ -22,6 +22,13 @@ public class MyPage extends HttpServlet{
 		
 	    HttpSession session = req.getSession();
 	    String userId = (String) session.getAttribute("userId");
+	    
+	    if (userId == null) {
+			
+			resp.sendRedirect("/sangsangjakka/user/login.do");
+			return;
+			
+		}
 
 	    UserDAO dao = DAOManager.getUserDAO();
 	    UserDTO dto = dao.findById(userId);
@@ -39,6 +46,7 @@ public class MyPage extends HttpServlet{
 		
 		    req.setCharacterEncoding("UTF-8");
 		    
+		  
 		    HttpSession session = req.getSession();
 		    String userId = (String) session.getAttribute("userId");
 
@@ -60,9 +68,11 @@ public class MyPage extends HttpServlet{
 		    
 		    // DAO를 통해 정보 업데이트
 		    UserDAO dao = DAOManager.getUserDAO();
-		    int result = dao.save(dto);
+		    int count = dao.save(dto);
+		    
+		    
 
-		    if (result > 0) {
+		    if (count > 0) {
 		        // 업데이트 성공
 		        // 마이페이지로 이동
 		        resp.sendRedirect(req.getContextPath() + "/user/mypage.do");

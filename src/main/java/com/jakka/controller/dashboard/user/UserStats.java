@@ -76,14 +76,50 @@ public class UserStats extends HttpServlet{
 		String formattedNum1 = num1.substring(2).replace("-", "/");
 	    String formattedNum2 = num2.substring(2).replace("-", "/");
 	    
+	    
 	    // 변경된 값 확인
 	    System.out.println(formattedNum1); // 출력: 21/06
 	    System.out.println(formattedNum2); // 출력: 21/06
-//	    
-//	    UserDAO dao = DAOManager.getUserDAO();
-//	    int newcnt = dao.newCnt(formattedNum1,formattedNum2);
-//	    
-//	    System.out.println(newcnt);
+	    
+	    UserDAO dao = DAOManager.getUserDAO();
+	    Map<String,Integer> newcnt  = dao.newCnt(formattedNum1,formattedNum2);
+		
+	    int date1 = newcnt.get("user_count_23_06");
+	    int date2 = newcnt.get("user_count_23_07");
+	    
+	    System.out.println(date1);
+	    System.out.println(date2);
+	    
+	    JsonObject UserDate = new JsonObject();
+	    JsonArray labels = new JsonArray();
+	    labels.add("가입자수");
+	    labels.add("탈퇴자수");
+	    UserDate.add("labels", labels);
+
+	    JsonArray counts = new JsonArray();
+	    counts.add(date1);
+	    counts.add(date2);
+
+	    UserDate.add("data", counts);
+	    
+	    JsonArray month = new JsonArray();
+	    month.add(formattedNum1);
+	    month.add(formattedNum2);
+
+	    UserDate.add("month", month);
+	 
+	    System.out.println(counts);
+	    System.out.println(labels);
+	    System.out.println(month);
+	    
+	    Gson gson = new Gson();
+	    String DateBar = gson.toJson(UserDate);
+	    System.out.println(DateBar);
+	    //req.setAttribute("DateBar", DateBar);
+	    
+	    resp.setContentType("application/json");
+	    resp.setCharacterEncoding("UTF-8");
+	    resp.getWriter().write(DateBar);
 	    
 	}
 	

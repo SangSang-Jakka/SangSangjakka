@@ -29,7 +29,7 @@ public class BookmakingView extends HttpServlet {
         String userId = (String) request.getSession().getAttribute("userId");
 
         if (userId == null) {
-            response.sendRedirect(request.getContextPath() + "/login"); // Redirect to login if not authenticated
+            response.sendRedirect(request.getContextPath() + "/user/login.do"); // Redirect to login if not authenticated
             return;
         }
 
@@ -59,10 +59,14 @@ public class BookmakingView extends HttpServlet {
                 page.setPageSeq("1"); // Assuming you start page numbering at 1
                 page.setPageUrl("/sangsangjakka/resources/img/empty.jpg");
                 page.setPageContents("내용");
-                page.setCmntYN(type.equals("recommendedBook") ? "y" : "n");
-                page.setImgYN(type.equals("recommendedBook") ? "y" : "n");
+                page.setCmntYN(type.equals("y") ? "y" : "n");
+                page.setImgYN(type.equals("y") ? "y" : "n");
 
                 pageDao.add(page);
+                
+                PageDTO pageDto = pageDao.findById("1", bookSeq+"");
+                
+                request.setAttribute("pageDto", pageDto);
 
                 // Redirect to the book view page with the new bookSeq
                 response.sendRedirect(request.getContextPath() + "/board/bookmaking/view.do?bookSeq=" + bookSeq);

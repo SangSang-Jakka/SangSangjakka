@@ -28,9 +28,9 @@
 	              <table class="boardTitle">
 	                <tbody>
 	                    <tr>
-	                        <td scope="col" class="tdTitle">동화책 제작하는데 오류가 나요</td>
-	                        <td scope="col" class="tdDate">2017.06.15</td>
-	                        <td scope="col" class="tdViews">1</td>
+	                        <td scope="col" class="tdTitle">${dto.sgstTitle}</td>
+	                        <td scope="col" class="tdDate">${dto.sgstRegdate}</td>
+	                        <td scope="col" class="tdViews">${dto.sgstCnt}</td>
 	                    </tr>
 	                </tbody>
 	                  </table>
@@ -41,7 +41,7 @@
 	                  </div>
 	
 	                      <div class="boardMain">
-	                        새로고침하면 날라가는데 고쳐주세요
+	                        <c:out value="${dto.sgstContents}" escapeXml="false"/>
 	                      </div>
 	
 	                      
@@ -78,7 +78,7 @@
 
 
                       <div class="btnListTable">
-                        <input type="button" class="btnList" value="목록">
+                        <input type="button" class="btnList" value="목록" onclick="location.href='/sangsangjakka/board/suggestion/list.do';">
                       </div>
 
                       <div class="listWrap">

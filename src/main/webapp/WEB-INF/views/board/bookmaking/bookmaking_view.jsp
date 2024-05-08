@@ -13,7 +13,6 @@
 	<script src="https://kit.fontawesome.com/e075b9b5dc.js"	crossorigin="anonymous"></script>
     <script src="/sangsangjakka/resources/js/jquerypp.custom.js"></script>
     <script src="/sangsangjakka/resources/js/jquery.bookblock.js"></script>
-    <script src="/sangsangjakka/resources/js/bookmaking/bookmaking_view.js"></script>
 </head>
 <body>
 
@@ -29,7 +28,7 @@
 				<div class="bookmakingOptionContainer">
 				    <div class="bookmakingOptionBox">
 				        <form method="get" action="<c:url value='/board/bookmaking/view.do'/>">
-				            <input type="hidden" name="type" value="recommendedBook" id="recommendedBook"> <!-- Ensure value attribute is set -->
+				            <input type="hidden" name="type" value="y" id="recommendedBook"> <!-- Ensure value attribute is set -->
 				            <button type="submit" class="bookmakingOptionItem pointer">
 				                <h3 class="bookmakingOptionElement">취향 저격 책 만들기</h3>
 				                <p class="bookmakingOptionElement">취향을 저격하는 맞춤형 동화책 만들기</p>
@@ -40,7 +39,7 @@
 				<div class="bookmakingOptionContainer">
 				    <div class="bookmakingOptionBox">
 				        <form method="get" action="<c:url value='/board/bookmaking/view.do'/>">
-				            <input type="hidden" name="type" value="customBook" id="customBook"> <!-- Ensure value attribute is set -->
+				            <input type="hidden" name="type" value="n" id="customBook"> <!-- Ensure value attribute is set -->
 				            <button type="submit" class="bookmakingOptionItem pointer">
 				                <h3 class="bookmakingOptionElement">새로운 형식 책 만들기</h3>
 				                <p class="bookmakingOptionElement">혁신적인 형식과 스타일의 동화책 만들기</p>
@@ -205,5 +204,6 @@
 	<!-- footer -->
 	<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
+    <script src="/sangsangjakka/resources/js/bookmaking/bookmaking_view.js"></script>
 </body>
 </html>

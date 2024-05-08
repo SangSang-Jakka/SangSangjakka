@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$('.bookmakingWrap').hide();
 	$('.coverMaker').hide();
 	$('.titleMaker').hide();
-
+	
 	function initBookmaking() {
 		$('.bookmakingOptionContainer').hide();
 		$('.bookmakingWrap').show();
