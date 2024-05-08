@@ -292,12 +292,11 @@ function del(answSeq, adId) {
 	            if (result.result == '1') {
 	            	
 	            	// alert('성공');
-	            	
-	            	 commentItem.find('.commentContent').text(editedContent); // 수정된 내용으로 변경
-                commentItem.find('.commentEditRow').remove(); // 수정 창 제거
-	            	
-	              // commentItem.find('.commentContent').text(editedContent);
-	              // commentItem.find('.commentEditRow').remove();
+	    
+	            	// $('.commentEditRow').remove();
+	            	 
+	            	location.reload();
+	
 	                
 	            } else {
 	                alert('답변 수정을 실패했습니다.');
