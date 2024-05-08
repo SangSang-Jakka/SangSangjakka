@@ -66,15 +66,13 @@ public class PageDAOImpl implements PageDAO{
 
 		try (Connection conn = DBUtil.open();
 		  PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-		 pstmt.setString(1, dto.getBookSeq());
+		 pstmt.setString(1, dto.getPageSeq());
 		 pstmt.setString(2, dto.getBookSeq());
 		 pstmt.setString(3, dto.getPageUrl());
 		 pstmt.setString(4, dto.getPageContents());
 		 pstmt.setString(5, dto.getCmntYN());
 		 pstmt.setString(6, dto.getImgYN());
-		 int result = pstmt.executeUpdate();
-		 conn.commit();
-		 return result;
+		 return pstmt.executeUpdate();
 		} catch (Exception e) {
 		 System.out.println("PageDAO.| add");
 		 e.printStackTrace();
@@ -95,11 +93,10 @@ public class PageDAOImpl implements PageDAO{
 		final String SQL = "SELECT * FROM tblPage WHERE pageSeq = ? AND bookSeq = ?";
 
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-	        pstmt.setString(1, pageSeq);
-	        pstmt.setString(2, bookSeq);
-	        ResultSet rs = pstmt.executeQuery();
-
+	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
+	        pstat.setInt(1, Integer.parseInt(pageSeq));
+	        pstat.setInt(2, Integer.parseInt(bookSeq));
+	        ResultSet rs = pstat.executeQuery();
 	        if (rs.next()) {
 	            PageDTO dto = new PageDTO();
 	            dto.setPageSeq(rs.getString("pageSeq"));
@@ -177,6 +174,31 @@ public class PageDAOImpl implements PageDAO{
 	        e.printStackTrace();
 	    }
 	    
+	    return null;
+	}
+	
+	public PageDTO lastpage(String bookSeq) {
+		
+		final String SQL = "SELECT MAX(pageseq) as pageSeq FROM tblPage WHERE bookSeq = ?";
+
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
+	    	if (bookSeq == null) {
+	    		PageDTO dto = new PageDTO();
+	    		dto.setPageSeq("0");
+	    		return dto;
+	    	}
+	        pstat.setInt(1, Integer.parseInt(bookSeq));
+	        ResultSet rs = pstat.executeQuery();
+	        if (rs.next()) {
+	            PageDTO dto = new PageDTO();
+	            dto.setPageSeq(rs.getString("pageSeq"));
+	            return dto;
+	        }
+	    } catch (Exception e) {
+	        System.out.println("PageDAO.| lastpage");
+	        e.printStackTrace();
+	    }
 	    return null;
 	}
 	

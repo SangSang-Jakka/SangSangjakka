@@ -24,13 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sliderItemBox.style.transform = `translateX(${movePercentage}%)`;
     }
 
-    // Add event listeners to slider items for navigation
-    sliderItems.forEach(item => {
-        item.addEventListener('click', function() {
-            window.location.href = '/sangsangjakka/board/bookmaking/view.do';
-        });
-    });
-
     checkItemNum();
     document.querySelector('.sliderBtn.left').onclick = () => moveSlide(-1);
     document.querySelector('.sliderBtn.right').onclick = () => moveSlide(1);
