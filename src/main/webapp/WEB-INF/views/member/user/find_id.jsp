@@ -32,7 +32,7 @@
 
             <!-- id input -->
             <div class="first-input input__block first-input__block">
-                <input type="text" placeholder="이름을 입력해주세요." class="input" id="name" required>
+                <input type="text" placeholder="이름을 입력해주세요." class="input" id="name" name="userNick" required>
             </div>
 
             <!-- password input -->
@@ -40,7 +40,7 @@
             <!-- password input -->
             <div class="input__block">
                 <div class="emailInput inputBorder">
-                    <input type="email" placeholder="이메일을 입력해주세요." class="input" id="email" required>
+                    <input type="email" placeholder="이메일을 입력해주세요." class="input" id="email" name="userEmail" required>
                 </div>
             </div>
 

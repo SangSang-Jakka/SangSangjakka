@@ -13,6 +13,128 @@
 	
 	<style>
 	
+	/* 임시 */
+.commentContainer {
+	margin-top: 20px;
+
+}
+
+.commentItem {
+
+	border-bottom: 1px solid #DEE2E6;
+	padding: 10px;
+	position: relative;
+
+}
+
+.commentHeader {
+	display: flex;
+	align-items: center;
+}
+
+.commentWriter {
+	font-weight: bold;
+}
+
+.commentTime {
+	color: #666;
+	font-size: 12px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+}
+
+.commentReport {
+	color: #b81414;
+	font-size: 12px;
+	position: absolute;
+	top: 30px;
+	right: 10px;
+
+
+
+}
+
+.commentLike {
+
+	color: #b81414;
+	font-size: 12px;
+	position: absolute;
+	top: 30px;
+	right: 90px; 
+
+}
+
+.commentContent {
+	margin-top: 5px;
+}
+
+.commentInput {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.commentInput input[type="text"] {
+	width: calc(100% - 80px);
+	height: 40px;
+	padding: 8px;
+	border: 1px solid #DEE2E6;
+	border-radius: 5px 0 0 5px;
+}
+
+/* 댓글 수정, 삭제 */
+.commentActions {
+
+	display: flex;
+	align-items: center;
+
+/* 여기부터 기존*/
+	margin-left: 10px;
+	display: flex;
+}
+
+.btnEdit, .btnDel {
+	padding: 3px 8px;
+	margin-left: 5px;
+	cursor: pointer;
+	border: none;
+	border-radius: 3px;
+	background-color: #007bff;
+	color: #fff;
+	font-size: 10px;
+	margin-left: 5px;
+}
+
+.btnEdit:hover, .btnDel:hover {
+	background-color: #0056b3;
+}
+
+.full {
+	margin-top: 10px;
+	width: 100%;
+	height: 40px;
+	padding: 8px;
+	border: 1px solid #DEE2E6;
+	border-radius: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+  .left {
+    float: left;
+    margin-top: 10px;
+   
+  }
+  
+  .right {
+  
+  	float: right;
+  	margin-top: 10px;
+   
+  }
+	
+	
 	
 	</style>
 	</head>
@@ -98,25 +220,28 @@
                         <div class="commentContainer">
                         <div class="commentItem">
                             <div>
-                                <div class="commentWriter">닉네임</div>
+                            	<div class="commentHeader">
+                                	<div class="commentWriter">닉네임</div>
+                                	<div class="commentActions">
+                                	<button class="btnEdit">공개</button>
+                                	<button class="btnDel">비공개</button>
+                            	</div>
+                            	</div>
                                 <div class="commentTime">2024-05-03</div>
+                                <div class= "commentLike"> 추천수: 1000 </div>
+                                <div class="commentReport">신고수: 1000 </div>
                             </div>
                             <div class="commentContent">감동적이에요</div>
                         </div>
-                        <div class="commentItem">
-                            <div>
-                                <div class="commentWriter">닉네임</div>
-                                <div class="commentTime">2024-04-30</div>
-                            </div>
-                            <div class="commentContent">재밌어요.</div>
                         </div>
                         
-                        <!-- 댓글 입력 폼 -->
+                        <!-- 
                         <div class="commentInput">
                             <input type="text" placeholder="소감평을 남겨보세요.">
                             <input type="button" class="btn btn-primary" value="작성">
                         </div>
                     </div>
+                    -->
 
                         <span class="left">
                             <input type="button" value="이전" class="btn btn-primary">

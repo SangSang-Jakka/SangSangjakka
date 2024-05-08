@@ -15,7 +15,6 @@
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 		
-		
 	<section class="notice">
     <div class="pageTitle">
           <div>
@@ -23,7 +22,18 @@
           </div>
       </div>
 
-     
+     <div class="pageBanner">
+      		<div class="pageWrap">
+      			<div class="noticeInfo">
+      				<div class="noticeHeader">자유게시판 안내</div>
+      				<div class="noticeContents">자유롭게 소통할 수 있는 공간입니다.</div>
+      			</div>
+      			<div class="noticeImg">
+      				<img src="/sangsangjakka/resources/img/free.png" alt="" />
+      			</div>
+      		</div>
+      </div>
+      
       <div>
         <form>
            <select class="notice">
@@ -47,58 +57,23 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <tr class>
-                      <td>7</td>
-                      <th><a href="/sangsangjakka/board/freeboard/view.do">날씨가 좋네요</a><p>[3]</p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>23</td>
-                  </tr>
-                  <tr>
-                      <td>6</td>
-                      <th><a href="#!">자유 게시판 글입니다</a><p>[1]</p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                      <td>5</td>
-                      <th><a href="#!">자유 게시판 글입니다</a><p></p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                      <td>4</td>
-                      <th><a href="#!">자유 게시판 글입니다</a><p>[3]</p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                      <td>3</td>
-                      <th>
-                        <a href="#!">자유 게시판 글입니다</a><p></p></th>
-                        <td>홍길동</td>
-                      <td>2017.07.13</td>
-                      <td>0</td>
-                  </tr>
-  
-                  <tr>
-                      <td>2</td>
-                      <th><a href="#!">자유 게시판 글입니다</a><p>[5]</p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-  
-                  <tr>
-                      <td>1</td>
-                      <th><a href="#!">자유 게시판 글입니다</a><p>[1]</p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
+                  
+                  <c:if test="${list.size() == 0}">
+					<tr>
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
+				  </c:if>
+				  
+				  <c:forEach items="${list}" var="dto">
+				  		<tr>
+	                      <td>${dto.boardSeq}</td>
+	                      <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle }</a><p>${dto.cmntCnt}</p></th>
+	                      <td>${dto.userNick}</td>
+	                      <td>${dto.boardRegdate}</td>
+	                      <td>${dto.boardCnt}</td>
+	                   </tr>
+				  </c:forEach>
+         
                   </tbody>
               </table>
           </div>
@@ -115,36 +90,25 @@
       <div id="boardSearch">
         <div>
             <div class="searchWindow">
-                <form action="">
+                <form method="GET" action="/sangsangjakka/board/freeboard/list.do">
                     <div class="searchWrap">
                         <label for="search" class="blind">공지사항 내용 검색</label>
-                          <select class="column">
-                              <option value="subject">제목</option>
-                              <option value="subject">내용</option>
+                          <select class="column" name="column">
+                              <option value="boardTitle">제목</option>
+                              <option value="boardContents">내용</option>
+                              <option value="userNick">닉네임</option>
                           </select>
-                        <input id="search" type="search" placeholder="검색어를 입력해주세요." value="">
-                        <input type="button" class="btnSearch" value="검색">
+                        <input id="search" type="text" name="word" placeholder="검색어를 입력해주세요." required value="${map.word}">
+                        <input type="submit" class="btnSearch" value="검색">
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+
     <div class="paging">
-      <a href=""><<</a>
-      <a href=""><</a>
-      <a href="">1</a>
-      <a href="">2</a>
-      <a href="">3</a>
-      <a href="">4</a>
-      <a href="">5</a>
-      <a href="">6</a>
-      <a href="">7</a>
-      <a href="">8</a>
-      <a href="">9</a>
-      <a href="">10</a>
-      <a href="">></a>
-      <a href="">>></a>
+      <div id="pagebar">${pagebar}</div>
     </div>
   
   </section>
@@ -154,6 +118,13 @@
 
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
+		
+		<c:if test="${map.search == 'y'}">
+		//검색중 상태 유지
+		$('input[name=word]').val('${map.word}');
+		$('select[name=column]').val('${map.column}');
+		</c:if>
+		
 	</script>
 	</body>
 </html>

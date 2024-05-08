@@ -25,7 +25,7 @@
           </div>
 
 
-          <form>
+          <form method="POST" action="/sangsangjakka/user/signup.do" enctype="multipart/form-data">
             <table>
                 <tr>
                     <th>제목</th>

@@ -40,6 +40,7 @@ public class FindPw extends HttpServlet{
 		dto.setUserLeftSsn(userLeftSsn);
 
 		UserDTO seq = dao.findPw(dto);
+		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = resp.getWriter();
 
 		if(seq != null) {
@@ -52,11 +53,10 @@ public class FindPw extends HttpServlet{
 
 
 		} else {
-			resp.setContentType("text/html; charset=UTF-8");
 
 			writer.println("<script type='text/javascript'>");
 			writer.print("alert('ID 혹은 PASSWORD가 일치하지 않습니다.');");
-			writer.print("location.href='/sangsangjakka/user/change_pw.do';");
+			writer.print("location.href='/sangsangjakka/user/find_pw.do';");
 			writer.println("</script>");
 
 		}

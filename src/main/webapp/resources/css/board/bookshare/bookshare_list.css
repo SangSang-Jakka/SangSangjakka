@@ -19,10 +19,7 @@ h2 {
     
 }
 
-.boardBox1,
-.boardBox2,
-.boardBox3,
-.boardBox4 {
+.boardBox{
     width: 100%; /* 부모 요소인 .boardContainer의 너비의 반 이상을 차지하도록 설정 */ 
     margin-top:10px;
 }
@@ -30,10 +27,7 @@ h2 {
 
 
 
-.boardBox1 img,
-.boardBox2 img, 
-.boardBox3 img,
-.boardBox4 img {
+.boardBox img{
     float: right; /* 이미지를 오른쪽으로 정렬 */
     width: 250px;
     height: 250px;

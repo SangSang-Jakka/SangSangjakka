@@ -25,7 +25,7 @@ public class SuggestionManagementView extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		
+
 		HttpSession session = req.getSession();
 
 		String seq = req.getParameter("seq");
@@ -64,9 +64,9 @@ public class SuggestionManagementView extends HttpServlet {
 
 		req.setAttribute("answerList", answerList);
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/suggestion_manage_view.jsp");
+		RequestDispatcher dispatcher = req
+				.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/suggestion_manage_view.jsp");
 		dispatcher.forward(req, resp);
-        
 
 	}
 
@@ -74,14 +74,14 @@ public class SuggestionManagementView extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		
+
 		// 세션에 로그인한 관리자
 		HttpSession session = req.getSession();
 		String adId = (String) session.getAttribute("adId");
 
 		if (adId == null) {
 			req.setAttribute("errorMessage", "로그인 후 답변을 작성할 수 있습니다.");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/admin/admin_login.jsp"); 
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/admin/admin_login.jsp");
 			dispatcher.forward(req, resp);
 		} else {
 
@@ -107,27 +107,7 @@ public class SuggestionManagementView extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/admin/dashboard/suggestion/manageview.do?seq=" + seq);
 
 		}
-		
-		// 답변 수정
-		String seq = req.getParameter("seq");
-		String content = req.getParameter("content");
-		
-		
-		SuggestionAnswerDAO suggestionAnswerDAO = DAOManager.getSuggestionAnswerDAO();
-		SuggestionAnswerDTO dto = new SuggestionAnswerDTO();
-		dto.setAnswSeq(seq);
-		dto.setSgstAnsw(content);
-		
-		int result = suggestionAnswerDAO.save(dto);
-		resp.setContentType("application/json");
 
-		PrintWriter writer = resp.getWriter();
-		writer.print("{");
-		writer.print("\"result\": " + result); //"result": 1
-		writer.print("}");
-		writer.close();
-
-		
 	}
 
 }// End of class

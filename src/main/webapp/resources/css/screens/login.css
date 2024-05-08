@@ -86,6 +86,10 @@
     }
   }
   
+  .links a {
+  	margin-left : 25px;
+  }
+  
   form {
     width: 100%;
     max-width: 680px;

@@ -5,11 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
-import com.jakka.model.dao.BasicDAO;
-import com.jakka.model.dao.Cnt;
-import com.jakka.model.dto.board.NoticeDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 import com.jakka.model.enums.UserLog;
 
@@ -24,7 +22,36 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	public static SuggestionDAOImpl getInstance() {
 		return DAO;
 	}//getInstance()
-
+	
+	public int whiteTotalCnt(HashMap<String, String> map) {
+		
+		String where = "";
+		
+		if(map.get("search").equals("y")) {
+			where = String.format("where %s like '%%%s%%'"
+					, map.get("column")
+					, map.get("word"));
+		}
+		
+		String sql = String.format("select count(*) as cnt from vwSuggestion %s", where);
+		
+		System.out.println("SQL Query: " + sql);
+		
+		// 연결
+		try(
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(sql);	
+		) {
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+			return 0;
+		}
 	//건의사항 전체 리스트
 	@Override
 	public ArrayList<SuggestionDTO> findAll() {
@@ -131,9 +158,9 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			pstat.setString(2, dto.getSgstContents());
 			pstat.setString(3, dto.getSgstSecretYN());
 			pstat.setString(4, dto.getSgstSeq());
-			
+			System.out.println(dto.getUserSeq());
 			int result = pstat.executeUpdate();
-			
+			System.out.println(result);
 			if (result > 0) {
 				log.setString(1, dto.getUserSeq());
 				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getSgstSeq() + "' 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 '수정'했습니다.");
@@ -142,7 +169,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			}
 			
 			conn.commit();
-			
+			System.out.println(result);
 			return result;
 			
 		} catch (Exception e) {
@@ -458,6 +485,52 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	    return null;
 	}
 	
+	public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map) {
+		
+		String where = "where rnum BETWEEN ? AND ?";
+		
+		if(map.get("search").equals("y")) {
+			where = where + String.format("and %s like '%%%s%%'", map.get("column"), map.get("word"));
+		}
+		
+		String sql = String.format("select * from vwSuggestion %s order by sgstRegdate desc", where);
+
+		try (
+
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			
+				pstat.setString(1, map.get("begin"));
+				pstat.setString(2, map.get("end"));
+				ResultSet rs = pstat.executeQuery();
+				ArrayList<SuggestionDTO> list = new ArrayList<>();
+				
+				while (rs.next()) {
+					
+					SuggestionDTO dto = new SuggestionDTO();
+					
+					// 데이터 설정
+					dto.setSgstSeq(rs.getString("sgstSeq"));
+					dto.setSgstTitle(rs.getString("sgstTitle"));
+					dto.setSgstContents(rs.getString("sgstContents"));
+					dto.setSgstRegdate(rs.getString("sgstRegdate"));
+					dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setSgstCnt(rs.getString("sgstCnt"));
+					dto.setUserNick(rs.getString("userNick"));
+					list.add(dto);
+				
+				}
+				
+				return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}// list()
 }//End of class
 
 

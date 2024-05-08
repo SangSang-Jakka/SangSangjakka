@@ -33,7 +33,7 @@
             <div id="userBestSeller">
                 <div class="userBestSellerWrap"> 
                     <div class="userBestSellerTitle">
-                        <div class="mainTitle">어제의 인기도서</div>
+                        <div class="mainTitle">📍 어제의 인기도서</div>
                     </div>
                     <div class="userBestSellerList">
                         <ul>
@@ -75,7 +75,7 @@
 
                 <div class="recommendBookWrap"> 
                     <div class="recommendBookTitle">
-                        <div class="mainTitle">이 책은 어떠세요?</div>
+                        <div class="mainTitle">🪄 이 책은 어떠세요?</div>
                     </div>
                 </div>
                 <div class="recommendBookWrap">
@@ -93,7 +93,7 @@
 
                 <div class="bookAwardWrap">
                     <div class="bookAwardWrapTitle">
-                        <div class="mainTitle">명예의 전당</div>
+                        <div class="mainTitle">🏆 명예의 전당</div>
                     </div>
                     <div class="bookAwardContainer">
                         <div class="bookAwardPrev">

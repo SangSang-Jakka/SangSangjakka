@@ -23,7 +23,7 @@
           </div>
 
 
-          <form action="/sangsangjakka/board/suggestion/edit.do" method="POST" enctype="multipart/form-data">
+          <form action="/sangsangjakka/board/suggestion/edit.do?sgstSeq=${dto.sgstSeq}" method="POST">
             <table>
                 <tr>
                     <th>제목</th>
@@ -53,9 +53,9 @@
             <input type="hidden" name="reply" value="${reply}">
             <input type="hidden" name="thread" value="${thread}">
             <input type="hidden" name="depth" value="${depth}">
-            <input type="hidden" name="seq" value="${SgstSeq}">
-            <input type="hidden" name="secret" value="${SgstSecretYN}">
-             
+            <input type="hidden" name="seq" value="${dto.sgstSeq}">	<!-- 글 번호 -->
+            <input type="hidden" name="secret" value="${dto.sgstSecretYN}">	<!-- 비밀 유무 -->
+            
             </form>
       
         

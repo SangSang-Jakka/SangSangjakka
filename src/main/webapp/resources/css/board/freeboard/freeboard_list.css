@@ -274,3 +274,28 @@ select.notice{
   border-color: #e98358;
   color: #fff;
 }
+
+
+.pageWrap{
+	background-color: #DCE0C7;
+	width:100%;
+	margin-bottom: 40px;
+	height: 200px;
+	display: flex;
+	align-items :center;
+}
+
+.noticeInfo{
+	width: 70%;
+	margin-left :70px;
+}
+
+.noticeHeader {
+	margin-bottom: 20px;
+	font-size:25px;
+	font-weight : bold;
+}
+
+.noticeImg img {
+	width : 120%;
+}

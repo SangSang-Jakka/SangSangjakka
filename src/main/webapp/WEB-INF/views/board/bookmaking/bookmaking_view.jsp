@@ -13,7 +13,6 @@
 	<script src="https://kit.fontawesome.com/e075b9b5dc.js"	crossorigin="anonymous"></script>
     <script src="/sangsangjakka/resources/js/jquerypp.custom.js"></script>
     <script src="/sangsangjakka/resources/js/jquery.bookblock.js"></script>
-    <script src="/sangsangjakka/resources/js/bookmaking/bookmaking_view.js"></script>
 </head>
 <body>
 
@@ -27,20 +26,26 @@
 			<h2>나만의 동화책 만들기</h2>
 			<div class="bookmakingOptionWrap">
 				<div class="bookmakingOptionContainer">
-					<div class="bookmakingOptionBox">
-						<div class="bookmakingOptionItem pointer" id="recommendedBook">
-							<h3 class="bookmakingOptionElement">취향 저격 책 만들기</h3>
-							<p class="bookmakingOptionElement">취향을 저격하는 맞춤형 동화책 만들기</p>
-						</div>
-					</div>
+				    <div class="bookmakingOptionBox">
+				        <form method="get" action="<c:url value='/board/bookmaking/add.do'/>">
+				            <input type="hidden" name="type" value="y" id="recommendedBook"> <!-- Ensure value attribute is set -->
+				            <button type="submit" class="bookmakingOptionItem pointer">
+				                <h3 class="bookmakingOptionElement">취향 저격 책 만들기</h3>
+				                <p class="bookmakingOptionElement">취향을 저격하는 맞춤형 동화책 만들기</p>
+				            </button>
+				        </form>
+				    </div>
 				</div>
 				<div class="bookmakingOptionContainer">
-					<div class="bookmakingOptionBox">
-						<div class="bookmakingOptionItem pointer" id="customBook">
-							<h3 class="bookmakingOptionElement">새로운 형식 책 만들기</h3>
-							<p class="bookmakingOptionElement">혁신적인 형식과 스타일의 동화책 만들기</p>
-						</div>
-					</div>
+				    <div class="bookmakingOptionBox">
+				        <form method="get" action="<c:url value='/board/bookmaking/add.do'/>">
+				            <input type="hidden" name="type" value="n" id="customBook"> <!-- Ensure value attribute is set -->
+				            <button type="submit" class="bookmakingOptionItem pointer">
+				                <h3 class="bookmakingOptionElement">새로운 형식 책 만들기</h3>
+				                <p class="bookmakingOptionElement">혁신적인 형식과 스타일의 동화책 만들기</p>
+				            </button>
+				        </form>
+				    </div>
 				</div>
 			</div>
 			<div class="bookmakingWrap">
@@ -56,21 +61,19 @@
 					<div class="bb-custom-wrapper">
 
 						<div id="bb-bookblock" class="bb-bookblock">
-							<div class="bb-item">
-								<div class="pageImage"
-									style="background-image: url('/sangsangjakka/resources/img/book1.jpg');">
-								</div>
-								<p>Pastry bear claw oat cake danish croissant
-									jujubes danish. Wypas soufflé muffin. Liquorice powder pastry
-									danish. Candy toffee gummi bears chocolate bar lollipop
-									applicake chocolate cake danish brownie.</p>
-							</div>
+							<c:forEach items="${dto}" var="dto" varStatus="status">
+							    <div class="bb-item" id="${dto.pageSeq}">
+							        <div class="pageImage" style="background-image: url('${dto.pageUrl}');">
+							        </div>
+							        <p>${dto.pageContents}</p>
+							    </div>
+							</c:forEach>
 						</div>
 
 						<div class="pageOptionBox flex btnBox">
 							<div class="pageOptionItem btnItem pointer" id="pageEdit">수정</div>
 							<div class="pageOptionItem btnItem pointer" id="pageAdd">페이지 추가</div>
-							<div class="pageOptionItem btnItem pointer" id="bookSave">완성</div>
+							<div class="pageOptionItem btnItem pointer" id="pageNext">표지</div>
 							<div class="pageOptionItem btnItem pointer" id="pageDelete">삭제</div>
 						</div>
 					</div>
@@ -173,6 +176,26 @@
 						</div>
 					</div>
 				</div>
+				<div class="coverMaker">
+					<div>
+						
+					</div>
+					<div class="coverOptionBox full flex">
+						<div class="coverOptionItem btnItem pointer" id="coverPrev">이전으로</div>
+						<div class="coverOptionItem btnItem pointer" id="coverNext">제목</div>
+					</div>
+				</div>
+				<div class="titleMaker">
+					<div>
+						
+					</div>
+					<div class="titleOptionBox full flex">
+						<div class="titleOptionItem btnItem pointer" id="titlePrev">이전으로</div>
+						<a href="/sangsangjakka/board/bookmaking/fin.do">
+							<div class="titleOptionItem btnItem pointer" id="titleNext">완성</div>
+						</a>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -182,5 +205,339 @@
 	<!-- footer -->
 	<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
+	<script>
+			console.log(${bookSeq});
+			var cmntYN = '${firstpage.cmntYN}';
+			var imgYN = '${firstpage.imgYN}';
+			var textYN = '';
+			var imageYN = '';
+			var lastpage = ${lastpage.pageSeq};
+			var $currentVisible;
+			var Page = (function() {
+
+				var config = {
+					$bookBlock: $('#bb-bookblock'),
+					$navNext: $('#bb-nav-next'),
+					$navPrev: $('#bb-nav-prev'),
+					$navFirst: $('#bb-nav-first'),
+					$navLast: $('#bb-nav-last')
+				},
+					init = function() {
+						config.$bookBlock.bookblock({
+							speed: 800,
+							shadowSides: 0.8,
+							shadowFlip: 0.7
+						});
+						initEvents();
+					},
+					initEvents = function() {
+
+						var $slides = config.$bookBlock.children();
+
+						// add navigation events
+						config.$navNext.on('click touchstart', function() {
+							config.$bookBlock.bookblock('next');
+							$('.pageMaker').hide();
+							return false;
+						});
+
+						config.$navPrev.on('click touchstart', function() {
+							config.$bookBlock.bookblock('prev');
+							$('.pageMaker').hide();
+							return false;
+						});
+
+						config.$navFirst.on('click touchstart', function() {
+							config.$bookBlock.bookblock('first');
+							$('.pageMaker').hide();
+							return false;
+						});
+
+						config.$navLast.on('click touchstart', function() {
+							config.$bookBlock.bookblock('last');
+							$('.pageMaker').hide();
+							return false;
+						});
+
+						// add swipe events
+						$slides.on({
+							'swipeleft': function(event) {
+								config.$bookBlock.bookblock('next');
+								return false;
+							},
+							'swiperight': function(event) {
+								config.$bookBlock.bookblock('prev');
+								return false;
+							}
+						});
+
+						// add keyboard events
+						$(document).keydown(function(e) {
+							var keyCode = e.keyCode || e.which,
+								arrow = {
+									left: 37,
+									up: 38,
+									right: 39,
+									down: 40
+								};
+
+							switch (keyCode) {
+								case arrow.left:
+									config.$bookBlock.bookblock('prev');
+									break;
+								case arrow.right:
+									config.$bookBlock.bookblock('next');
+									break;
+							}
+						});
+					};
+
+				return { init: init };
+
+			})();
+			
+			$(document).ready(function() {
+				$('.bookmakingWrap').hide();
+				$('.coverMaker').hide();
+				$('.titleMaker').hide();
+				
+			    setupCheckboxHandlers();
+			    check();
+			    
+				function setupCheckboxHandlers() {
+			        $('#textAiSupport').change(function() {
+			            if ($(this).is(':checked')) {
+			                $('.pageTextMakerBox').show();
+			                $('.pageDescriptionBox').hide();
+			                textYN = 'y';
+			            } else {
+			                $('.pageTextMakerBox').hide();
+			                $('.pageDescriptionBox').show();
+			                textYN = 'n';
+			            }
+			        });
+
+			        $('#imageAiSupport').change(function() {
+			            if ($(this).is(':checked')) {
+			                $('.pageImageMakerBox').show();
+			                $('.pageImageDesBox').show();
+			                $('.pageImageUploadBox').hide();
+			                imageYN = 'y';
+			            } else {
+			                $('.pageImageMakerBox').hide();
+			                $('.pageImageDesBox').hide();
+			                $('.pageImageUploadBox').show();
+			                imageYN = 'n';
+			            }
+			        });
+			    }
+
+			    function check() {
+			    	if ('${firstpage.cmntYN}' != '') {
+			        
+			        $('.bookmakingOptionContainer').hide();
+			        $('.bookmakingWrap').show();
+			        Page.init();
+
+			        $('#textAiSupport').prop('checked', cmntYN === 'y');
+			        $('#imageAiSupport').prop('checked', imgYN === 'y');
+
+			        $('#textAiSupport').change();
+			        $('#imageAiSupport').change();
+			    	}
+			    }
+
+
+				function initBookmaking() {
+					$('.bookmakingOptionContainer').hide();
+					$('.bookmakingWrap').show();
+					Page.init();
+
+					var bookType = this.id;
+					$('#textAiSupport').prop('checked', bookType === 'recommendedBook');
+					$('#imageAiSupport').prop('checked', bookType === 'recommendedBook');
+
+					$('#textAiSupport').trigger('change');
+					$('#imageAiSupport').trigger('change');
+				}
+
+				$('#recommendedBook, #customBook').click(initBookmaking);
+				
+				$('#bb-bookblock .bb-item').hide().first().show();
+
+				$('#pageAdd').click(function() {
+					++lastpage;
+					
+					$.ajax({
+							type: 'POST',
+							url: '/sangsangjakka/board/bookmaking/addpage.do',
+							data: {
+								bookSeq: ${bookSeq},
+								pageSeq: lastpage,
+								cmntYN: cmntYN,
+								imgYN: imgYN
+							},
+							dataType: 'json',
+							success: function(result) {
+								
+								if (result.result == '1') {
+									var $newPage = $(`<div class="bb-item" id="\${result.dto.pageSeq}"></div>`).html(`
+											<div class="pageImage" style="background-image: url('\${result.dto.pageUrl}');"></div>
+											<p>\${result.dto.pageContents}</p>
+										`);
+									$('#bb-bookblock').append($newPage);
+									Page.init();
+									$('#bb-nav-last').click();
+									$('.pageMaker').show();
+								} else {
+									alert('페이지 추가에 실패했습니다.');
+								}
+								
+							},
+							error: function(a,b,c) {
+								console.log(a,b,c);
+							}
+						});
+				});
+				
+				function pageChange() {
+					$currentVisible = $('#bb-bookblock .bb-item:visible');
+					var currentVisibleId = $('#bb-bookblock .bb-item:visible').attr('id');
+					var text = $currentVisible.find('p').text();
+					// Fetching the background image style property
+					var imageUrl = $('#' + currentVisibleId + ' .pageImage').css('background-image');
+					console.log(imageUrl);
+					// Correcting the regular expression to accurately extract the URL
+					var cleanUrl = imageUrl.replace(/^url\(["']?([^"')]+)["']?\)$/, '$1');
+					console.log(cleanUrl);
+
+					// Ensure the URL is stripped off any domain or absolute path parts
+					if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+					    var urlParts = new URL(cleanUrl);
+					    cleanUrl = urlParts.pathname;
+					}
+					console.log(cleanUrl);
+					$.ajax({
+						type: 'POST',
+						url: '/sangsangjakka/board/bookmaking/editpage.do',
+						data: {
+							bookSeq: ${bookSeq},
+							pageSeq: currentVisibleId,
+							cmntYN: textYN,
+							imgYN: imageYN,
+							pageUrl: cleanUrl,
+							pageContents: text
+						},
+						dataType: 'json',
+						success: function(result) {
+							
+							if (result.result == '1') {
+							} else {
+								alert('내용을 채워주세요.');
+							}
+							
+						},
+						error: function(a,b,c) {
+							console.log(a,b,c);
+						}
+					});
+				}
+
+				$('#bb-nav-next').click(function() {
+					var $visiblePage = $('#bb-bookblock .bb-item:visible');
+					var $nextPage = $visiblePage.next('.bb-item');
+					if ($nextPage.length > 0) {
+						$visiblePage.hide();
+						$nextPage.show();
+					}
+				});
+
+				$('#bb-nav-prev').click(function() {
+					var $visiblePage = $('#bb-bookblock .bb-item:visible');
+					var $prevPage = $visiblePage.prev('.bb-item');
+					if ($prevPage.length > 0) {
+						$visiblePage.hide();
+						$prevPage.show();
+					}
+				});
+
+				$('#pageDelete').click(function() {
+					$currentVisible = $('#bb-bookblock .bb-item:visible');
+					if ($currentVisible.prev('.bb-item').length) {
+						$currentVisible.remove();
+						Page.init();  // Reinitialize after deleting a page
+						$('#bb-nav-last').click();	// Navigate to the last page
+					} else {
+						alert("Cannot delete the first page.");  // Added alert to prevent deletion of the first page
+					}
+				});
+				
+				// Click handler for the "전송" button
+				$('.pageDescriptionBox input[type="button"]').click(function() {
+					// Fetch the text from the input field
+					var newText = $(this).closest('.pageDescriptionBox').find('input[type="text"]').val();
+
+					// Find the visible bb-item and update its <p> tag with the new text
+					var $visibleBbItem = $('#bb-bookblock .bb-item:visible');
+					$visibleBbItem.find('p').text(newText);
+					pageChange();
+				});
+				
+				$('selectTextBox').click(function() {
+					//
+				});
+				
+				$('.pageImageUploadBox input[type="button"]').click(function() {
+					var fileInput = document.getElementById('pageImageUpload');
+					if (fileInput.files && fileInput.files[0]) {
+						var reader = new FileReader();
+						
+						reader.onload = function(e) {
+							// Get the data URL of the image file
+							var imageUrl = e.target.result;
+
+							// Find the visible bb-item and update its .pageImage div with the new background image
+							var $visiblePageImage = $('#bb-bookblock .bb-item:visible .pageImage');
+							$visiblePageImage.css('background-image', 'url(' + imageUrl + ')');
+
+							// Reset the file input after updating the image
+							fileInput.value = ''; // This line resets the file input
+						};
+
+						// Read the image file as a data URL to use as a background image
+						reader.readAsDataURL(fileInput.files[0]);
+					} else {
+						alert('Please select an image file to upload.');
+					}
+				});
+				
+				
+				$('#pageNext').click(function() {
+					$('.makedPageViewer').hide();
+					$('.pageMaker').hide();
+					$('.coverMaker').show();
+				});
+
+				$('#coverNext').click(function() {
+					$('.coverMaker').hide();
+					$('.titleMaker').show();
+				});
+				
+				$('#titlePrev').click(function() {
+					$('.titleMaker').hide();
+					$('.coverMaker').show();
+				});
+				
+				$('#coverPrev').click(function() {
+					$('.coverMaker').hide();
+					$('.makedPageViewer').show();
+				});
+				
+				$('#pageEdit').click(function() {
+					$('.pageMaker').show();
+				});
+
+			});
+	</script>
 </body>
 </html>

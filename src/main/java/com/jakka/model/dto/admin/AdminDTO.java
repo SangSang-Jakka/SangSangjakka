@@ -21,6 +21,30 @@ public class AdminDTO {
 	
 	
 	
+	public String getAdLogSeq() {
+		return adLogSeq;
+	}
+	public void setAdLogSeq(String adLogSeq) {
+		this.adLogSeq = adLogSeq;
+	}
+	public String getAdLogDate() {
+		return adLogDate;
+	}
+	public void setAdLogDate(String adLogDate) {
+		this.adLogDate = adLogDate;
+	}
+	public String getAdCatContents() {
+		return adCatContents;
+	}
+	public void setAdCatContents(String adCatContents) {
+		this.adCatContents = adCatContents;
+	}
+	public String getAdLogContents() {
+		return adLogContents;
+	}
+	public void setAdLogContents(String adLogContents) {
+		this.adLogContents = adLogContents;
+	}
 	public String getAdId() {
 		return adId;
 	}

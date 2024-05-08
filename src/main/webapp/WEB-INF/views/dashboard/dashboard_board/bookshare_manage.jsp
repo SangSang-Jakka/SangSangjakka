@@ -69,15 +69,16 @@
 							</thead>
 						
 							<tbody>
+								<c:forEach var="book" items="${bookList}">
 								<tr>
-									<td class="table-plus">1</td>
-									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do">이상하고 신비한 동물사전</a></td>
-									<td>공주</td>
-									<td>2024-05-01</td>
-									<td>15</td>
-									<td>20</td>
-									<td>22</td>
-									<td>23</td>
+									<td class="table-plus">${book.bookSeq}</td>
+									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do">${book.bookTitle}</a></td>
+									<td>${book.userNick}</td>
+									<td>${book.bookRegdate}</td>
+									<td>${book.bookCnt}</td>
+									<td>${book.bookScrapCnt}</td>
+									<td>${book.likeCnt}</td>
+									<td>${book.bookReviewCnt}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -91,28 +92,7 @@
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do">이상하고 신비한 식물사전</a></td>
-									<td>왕자</td>
-									<td>2024-05-01</td>
-									<td>15</td>
-									<td>20</td>
-									<td>22</td>
-									<td>23</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/bookshare/manageview.do"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
+								</c:forEach>
 							</tbody>
 					
 						</table>

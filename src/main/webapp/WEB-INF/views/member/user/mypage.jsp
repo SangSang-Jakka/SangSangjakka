@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/template/asset.jsp"%>
@@ -10,6 +11,7 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 	
 	<link rel="stylesheet" href="/sangsangjakka/resources/css/screens/mypage.css">
 </head>
@@ -38,14 +40,14 @@
 								<div class="userInfoEmail">
 									<span>이메일</span>
 									<div class="emailContainer">
-										<input type="text" class="userEmail w70pc" required />
+										<input type="text" class="userEmail w70pc" value="${dto.userEmail}" id="userEmailInput" name="email" required readonly/>
 									</div>
 								</div>
 								<div class="userInfoNcikName title">
 									<span>닉네임</span>
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
-											<input type="text" id="nickName" required />
+											<input type="text" id="nickName" name="nickName" value="${dto.userNick}" required readonly />
 										</div>
 										<div class="changebtnbox change">
 											<input type="button" value="변경" id="nickNameChangeBtn" class="pointer">
@@ -57,7 +59,7 @@
 									<span>아이디</span>
 									<div class="idContainer">
 										<div class="idInput inputBorder w70pc">
-											<input type="text" id="id" required />
+											<input type="text" id="id" value="${dto.userId}" required readonly/>
 										</div>
 									</div>
 								</div>
@@ -67,7 +69,7 @@
 									<span>비밀번호</span>
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
-											<input type="password" id="passwordInput" required />
+											<input type="password" id="passwordInput" required readonly/>
 										</div>
 										<div class="changebtnbox change">
 											<input type="button" value="변경" id="passwordCheck" class="pointer">
@@ -79,7 +81,7 @@
 									<span>이름</span>
 									<div class="nameContainer">
 										<div class="nameInput inputBorder w70pc">
-											<input id="nameInput" type="text" />
+											<input id="nameInput" type="text" value="${dto.userName}" readonly/>
 										</div>
 									</div>
 								</div>
@@ -90,9 +92,9 @@
 									<div class="ssnContainer">
 										<div class="ssnInput">
 											<input type="text" maxlength="6" class="leftSsn inputBorder"
-												oninput="formatSSN(this)" required />
+												oninput="formatSSN(this)" value="${dto.userLeftSsn}" required readonly/>
 											<span>-</span>
-											<input type="password" maxlength="7" class="rightSsn" required />
+											<input type="password" maxlength="7" class="rightSsn" value="${dto.userRightSsn}" required readonly/>
 										</div>
 									</div>
 								</div>
@@ -101,14 +103,19 @@
 									<span>연락처</span>
 									<div class="telContainer">
 										<div class="telInput">
-											<input type="text" id="phoneStart" class="phoneInput" maxlength="3"
-												required>
+										<!-- 전화번호 받아오기 -->
+										<c:set var="userTel" value="${dto.userTel}"/>
+										<!-- "-" 기준으로 쪼개기 -->
+										<c:set var="telArray" value="${fn:split(userTel,'-')}"/>
+					
+											<input type="text" id="phoneStart" name="phoneStart" class="phoneInput" maxlength="3"
+												value="${telArray[0]}" required readonly>
 											<span>-</span>
-											<input type="text" id="phoneInput1" class="phoneInput" maxlength="4"
-												required>
+											<input type="text" id="phoneInput1" name="phoneInput1" class="phoneInput" maxlength="4"
+												value="${telArray[1]}" required readonly>
 											<span>-</span>
-											<input type="text" id="phoneInput2" class="phoneInput" maxlength="4"
-												required>
+											<input type="text" id="phoneInput2" name="phoneInput2" class="phoneInput" maxlength="4"
+												value="${telArray[2]}" required readonly>
 										</div>
 										<div class="changebtnbox change">
 											<input type="button" value="변경" id="telChangebtn" class="pointer">
@@ -123,7 +130,7 @@
 											<div class="addressFind">
 												<div class="inputBorder postNum">
 													<input type="text" id="sample6_postcode" placeholder="우편번호"
-														required>
+														readonly required>
 												</div>
 												<div class="changebtnbox change">
 													<input type="button" value="우편번호 찾기" id="addressFind"
@@ -131,83 +138,20 @@
 												</div>
 											</div>
 											<div class="inputBorder">
-												<input type="text" id="sample6_address" placeholder="주소" required>
+												<input type="text" id="sample6_address" name="address" placeholder="주소" required value="${dto.userAddress}" readonly>
 											</div>
 											<div class="inputBorder">
-												<input type="text" id="sample6_detailAddress" placeholder="상세주소"
-													required>
+												<input type="text" id="sample6_detailAddress" placeholder="상세주소" readonly
+													>
 											</div>
 											<div class="inputBorder">
-												<input type="text" id="sample6_extraAddress" placeholder="참고항목"
-													required>
+												<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly
+													>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="userInfo-childrenAge title">
-									<span>자녀 연령대</span>
-									<div class="childrenAgeContainer">
-										<div>
-											<input type="checkbox" id="age1" name="childAge" value="1세이상">
-											<label for="age3">1세 이상</label>
-										</div>
-										<div>
-											<input type="checkbox" id="age3" name="childAge" value="3세이상">
-											<label for="age3">3세 이상</label>
-										</div>
-										<div>
-											<input type="checkbox" id="age5" name="childAge" value="5세이상">
-											<label for="age5">5세 이상</label>
-										</div>
-										<div>
-											<input type="checkbox" id="age7" name="childAge" value="7세이상">
-											<label for="age7">7세 이상</label>
-										</div>
-										<div>
-											<input type="checkbox" id="age13" name="childAge" value="13세이상">
-											<label for="age13">10세 이상</label>
-										</div>
-
-									</div>
-								</div>
-
-
-								<div class="userInfo-inFlow title">
-									<span>유입경로</span>
-									<div class="inFlowContainer">
-										<div>
-											<input type="checkbox" id="internetSearch" name="inflow" value="인터넷 검색">
-											<label for="internetSearch">인터넷 검색</label>
-										</div>
-										<div>
-											<input type="checkbox" id="friendReferral" name="inflow" value="지인 소개">
-											<label for="friendReferral">지인 소개</label>
-										</div>
-										<div>
-											<input type="checkbox" id="cafe" name="inflow" value="카페">
-											<label for="cafe">카페</label>
-										</div>
-										<div>
-											<input type="checkbox" id="blog" name="inflow" value="블로그">
-											<label for="blog">블로그</label>
-										</div>
-										<div>
-											<input type="checkbox" id="socialMedia" name="inflow" value="소셜 미디어 플랫폼">
-											<label for="socialMedia">소셜 미디어 플랫폼</label>
-										</div>
-										<div>
-											<input type="checkbox" id="advertisement" name="inflow" value="광고지">
-											<label for="advertisement">광고지</label>
-										</div>
-										<div>
-											<input type="checkbox" id="other" name="inflow" value="기타">
-											<label for="other">기타</label>
-											<input type="text" id="otherInput" placeholder="기타 유입경로 입력"
-												style="display: none;">
-										</div>
-									</div>
-								</div>
 							</div>
 							<div class="agree-check">
 								<input type="checkbox" /> <a href="#!">이용약관</a>과 <a href="#!">개인정보 정책</a>에
@@ -220,7 +164,7 @@
 								</div>
 								<div class="change full">
 									<div class="changegroup">
-										<div class="changebtnbox">
+										<div class="changebtnbox">                                                                                                                                                                                                                                                                          
 											<input type="submit" value="수정완료" id="changecompletebtn"
 												class="pointer"></input>
 										</div>
@@ -285,7 +229,34 @@
 					</ul>
 					<div class="tabcontent subtabcontent">
 						<div id="tab05">
-							tab5 content
+							<table class="boardTable">
+                  <thead>
+                    <tr>
+                        <th scope="col" class="thNum">번호</th>
+                        <th scope="col" class="thTitle">제목</th>
+                        <th scope="col" class="thDate">등록일</th>
+                        <th scope="col" class="thViews">조회수</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  <c:if test="${list.size() == 0}">
+					<tr>
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
+				  </c:if>
+				  
+				  <c:forEach items="${list}" var="dto">
+				  		<tr>
+	                      <td>${dto.boardSeq}</td>
+	                      <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle }</a><p>${dto.cmntCnt}</p></th>
+	                      <td>${dto.boardRegdate}</td>
+	                      <td>${dto.boardCnt}</td>
+	                   </tr>
+				  </c:forEach>
+         
+                  </tbody>
+              </table>
 						</div>
 						<div id="tab06">
 							tab6 content
@@ -300,6 +271,8 @@
 	<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="validation.js"></script>
 <script>
 		$(document).ready(function () {
 			// 로딩 시 모든 탭 컨텐츠를 숨기고 첫 번째 탭 컨텐츠를 표시
@@ -351,6 +324,7 @@
 			$('#changecompletebtn').click(function () {
 				$('.changecomplete').css('display', 'flex');
 				$('.change').css('display', 'none');
+				$('.userInfoForm').submit()
 				alert('변경사항이 저장되었습니다.');
 			});
 			//수정 취소 버튼
@@ -363,6 +337,20 @@
 			$('#changebtn').click(function () {
 				$('.changecomplete').css('display', 'none');
 				$('.change').css('display', 'flex');
+			});
+			
+			//changebtn 눌렀을때만 입력 가능
+			document.getElementById('changebtn').addEventListener('click', function() {
+			    document.getElementById('userEmailInput').removeAttribute('readonly');
+			    document.getElementById('nickName').removeAttribute('readonly');
+			    document.getElementById('phoneStart').removeAttribute('readonly');
+			    document.getElementById('phoneInput1').removeAttribute('readonly');
+			    document.getElementById('phoneInput2').removeAttribute('readonly');
+			    document.getElementById('sample6_postcode').removeAttribute('readonly');
+			    document.getElementById('sample6_address').removeAttribute('readonly');
+			    document.getElementById('sample6_detailAddress').removeAttribute('readonly');
+			    document.getElementById('sample6_extraAddress').removeAttribute('readonly');
+			    
 			});
 
 			//내 동화책 차트
@@ -615,6 +603,60 @@
 			renderBooks(filteredBooks);
 			updatePagination();
 		}
+		
+		
+		
+		
+		//주소 입력
+		function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+		
+
 </script>
 </body>
 </html>

@@ -32,7 +32,7 @@
 
             <!-- id input -->
             <div class="first-input input__block first-input__block">
-                <input type="text" placeholder="아이디를 입력해주세요." class="input" id="id" name="userId">
+                <input type="text" placeholder="비밀번호를 입력해주세요." class="input" id="id" name="userId">
             </div>
 
             <!-- password input -->

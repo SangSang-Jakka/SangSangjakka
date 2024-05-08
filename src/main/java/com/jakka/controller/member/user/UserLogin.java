@@ -33,16 +33,27 @@ public class UserLogin extends HttpServlet{
 		String userPw = req.getParameter("userPw");
 	
 		UserDAO dao = DAOManager.getUserDAO();
+		
 		UserDTO dto = new UserDTO();
+		dto.setUserId(userId);
+		dto.setUserPw(userPw);
+		
+		dto.setUserId(userId);
+		dto.setUserPw(userPw);
 		
 		UserDTO result = dao.login(dto);
-		
-		if(result != null) {
+
+		if(result.getUserId() != null) {
 			HttpSession session = req.getSession();
 			
 			session.setAttribute("userId", result.getUserId());
+			session.setAttribute("userSeq", result.getUserSeq());
 			session.setAttribute("userNick", result.getUserNick());
 			session.setAttribute("userLV", result.getUserLV());
+			
+			//로그인 로그
+			dao.loginLog(result.getUserSeq());
+			
 			resp.sendRedirect("/sangsangjakka/index.do");
 		}  else {
 			resp.setContentType("text/html; charset=UTF-8");

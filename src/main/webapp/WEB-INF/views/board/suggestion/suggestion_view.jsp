@@ -28,9 +28,9 @@
 	              <table class="boardTitle">
 	                <tbody>
 	                    <tr>
-	                        <td scope="col" class="tdTitle">동화책 제작하는데 오류가 나요</td>
-	                        <td scope="col" class="tdDate">2017.06.15</td>
-	                        <td scope="col" class="tdViews">1</td>
+	                        <td scope="col" class="tdTitle">${dto.sgstTitle}</td>
+	                        <td scope="col" class="tdDate">${dto.sgstRegdate}</td>
+	                        <td scope="col" class="tdViews">${dto.sgstCnt}</td>
 	                    </tr>
 	                </tbody>
 	                  </table>
@@ -41,18 +41,19 @@
 	                  </div>
 	
 	                      <div class="boardMain">
-	                        새로고침하면 날라가는데 고쳐주세요
+	                        <c:out value="${dto.sgstContents}" escapeXml="false"/>
 	                      </div>
 	
 	                      
 	                      
 	                     
 	                  
-	                  
+	                  <c:if test="${dto.userSeq == userSeq}">
 	                  <div class="btnWrap">
-	                        <input type="button" class="btnEdit" value="수정" data-userseq="as">
-	                        <input type="button" class="btnDel" value="삭제">
+	                        <input type="button" class="btnEdit" value="수정" onclick="location.href='/sangsangjakka/board/suggestion/edit.do?sgstSeq=${dto.sgstSeq}';">
+	                        <input type="button" class="btnDel" value="삭제" onclick="location.href='/sangsangjakka/board/suggestion/del.do?sgstSeq=${dto.sgstSeq}';">
 	                  </div>
+	              	  </c:if>
                   
                   
 
@@ -78,7 +79,7 @@
 
 
                       <div class="btnListTable">
-                        <input type="button" class="btnList" value="목록">
+                        <input type="button" class="btnList" value="목록" onclick="location.href='/sangsangjakka/board/suggestion/list.do';">
                       </div>
 
                       <div class="listWrap">
@@ -119,17 +120,7 @@
   
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-                  var editContent = document.querySelector('.btnEdit');
-                  editContent.addEventListener('click', function() {
-                  var userId = <%=(String)session.getAttribute("userId")%>
-                  var userSeq = this.getAttribute('data-userseq');
-                  		if(userId != userSeq) {
-                  			alert('수정 권한이 없습니다. 본인만 수정 가능합니다.');
-                  		} else {
-                  			location.href='/sangsangjakka/board/suggestion/edit.do';
-                  		}
-                  		location.href='/sangsangjakka/board/suggestion/edit.do?sgstSeq=' + 7;
-                  });
-    </script>
+
+	</script>
 </body>
 </html>

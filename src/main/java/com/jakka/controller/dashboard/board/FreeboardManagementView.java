@@ -61,7 +61,7 @@ public class FreeboardManagementView extends HttpServlet {
 		// 댓글 가져오기
 		BoardCommentsDAO boardCommentsDAO = DAOManager.getBoardCommentDAO();
 		
-		ArrayList<BoardCommentDTO> cmntList = boardCommentsDAO.findChild(seq);
+		ArrayList<BoardCommentDTO> cmntList = boardCommentsDAO.findAllChild(seq);		
 
 		// 댓글 내용 이스케이프 처리
 		
@@ -86,27 +86,58 @@ public class FreeboardManagementView extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		String adId = (String) session.getAttribute("adId");
 		
-		// 댓글 수정 
-		String seq = req.getParameter("seq");
-		String content = req.getParameter("content");
+		if (adId == null) {
+			req.setAttribute("errorMessage", "로그인이 필요합니다.");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/admin/admin_login.jsp");
+			dispatcher.forward(req, resp);
+		}
+		
+		String action = req.getParameter("action");
+	
+		// 댓글 비활성화
+		if ("disableComment".equals(action)) {
+			String cmntSeq = req.getParameter("cmntSeq");
+			BoardCommentsDAO dao = DAOManager.getBoardCommentDAO();
+			int result = dao.disable(cmntSeq, adId);
+			
+			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/plain");
+			PrintWriter writer = resp.getWriter();
+			
+			if (result > 0) {
+				writer.print("댓글이 비활성화되었습니다.");
+			} else {
+				writer.print("댓글 비활성화에 실패했습니다.");
 				
-
-		BoardCommentsDAO dao = DAOManager.getBoardCommentDAO();
-		BoardCommentDTO dto = new BoardCommentDTO();
-
-		dto.setCmntSeq(seq);
-		dto.setCmntContents(content);
+			}
+		}
 		
-		int result = dao.save(dto);
+		// 댓글 활성화
+		else if ("activation".equals(action)) {
+			String cmntSeq = req.getParameter("cmntSeq");
+			BoardCommentsDAO dao = DAOManager.getBoardCommentDAO();
+			int result = dao.activation(cmntSeq, adId);
+			
+			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/plain");
+			PrintWriter writer = resp.getWriter();
+			
+			if (result > 0) {
+				writer.print("댓글이 활성화되었습니다.");
+			} else {
+				writer.print("댓글 활성화에 실패했습니다.");
+				
+			}
+			
+		}
 		
-		resp.setContentType("application/json");
-
-		PrintWriter writer = resp.getWriter();
-		writer.print("{");
-		writer.print("\"result\": " + result); //"result": 1
-	    writer.print("}");
-		writer.close();
-	}
+		
+	}// doPost
+		
+		
 
 }//End of class

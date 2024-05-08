@@ -25,6 +25,7 @@ public class UserManagement extends HttpServlet{
 		UserDAO userDAO = DAOManager.getUserDAO();
 		
 		ArrayList<UserDTO> list = userDAO.findAll();
+		System.out.println(list);
 		
 		req.setAttribute("userList", list);
 		

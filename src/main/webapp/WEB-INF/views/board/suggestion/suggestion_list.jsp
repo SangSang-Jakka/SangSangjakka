@@ -15,12 +15,24 @@
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 	
-		<section class="suggestion">
+		<section class="notice">
     	<div class="pageTitle">
           <div>
               <h3>건의사항</h3>
           </div>
       	</div>
+      	
+      	<div class="pageBanner">
+      		<div class="pageWrap">
+      			<div class="noticeInfo">
+      				<div class="noticeHeader">건의사항 안내</div>
+      				<div class="noticeContents">여러분의 소중한 의견을 들려주세요.</div>
+      			</div>
+      			<div class="noticeImg">
+      				<img src="/sangsangjakka/resources/img/email.png" alt="" />
+      			</div>
+      		</div>
+      </div>
 
     	<!-- board list area -->
 	   <div>
@@ -46,58 +58,28 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <c:if test="${list.size()} == 0">
                   <tr>
-                      <td>7</td>
-                      <th><a href="/sangsangjakka/board/suggestion/View.do"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>23</td>
-                  </tr>
-                  <tr>
-                      <td>6</td>
-                      <th><a href="#!">동화책 오류</a><p>[1]</p></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                      <td>5</td>
-                      <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a></th>
-                      <td>홍길동</td>
-                      <td>2017.06.15</td>
-                      <td>0</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[3]</p></th>
-                    <td>홍길동</td>
-                    <td>2017.06.15</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a></th>
-                    <td>홍길동</td>
-                    <td>2017.06.15</td>
-                    <td>0</td>
-                </tr>
-  
-                <tr>
-                    <td>2</td>
-                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[5]</p></th>
-                    <td>홍길동</td>
-                    <td>2017.06.15</td>
-                    <td>0</td>
-                </tr>
-  
-                <tr>
-                    <td>1</td>
-                    <th><a href="#!"><i class="fa-solid fa-lock"></i> 비밀글입니다</a><p>[1]</p></th>
-                    <td>홍길동</td>
-                    <td>2017.06.15</td>
-                    <td>0</td>
-                </tr>
+                  	<td colspan="5">조회할 게시물이 없습니다.</td>
+                  </c:if>
+                  
+                  <c:forEach items="${list}" var="dto">
+                  	<tr>
+                  		<!-- 글 번호 -->
+                  		<td>${dto.sgstSeq}</td>
+                  		<!-- 제목 -->
+                  		<td><a href="/sangsangjakka/board/suggestion/View.do?page=${dto.sgstSeq}">${dto.sgstTitle}</a></td>
+                  		<!-- 작성자 -->
+                  		<td>${dto.userNick}</td>
+                  		<!-- 등록일 -->
+                  		<td>${dto.sgstRegdate}</td>
+                  		<!-- 조회수 -->
+                  		<td>${dto.sgstCnt}</td>
+                  	</tr>	
+                  </c:forEach>
+
                   </tbody>
+                  <footer></footer>
               </table>
           </div>
       </div>
@@ -105,23 +87,21 @@
      <!-- 작성 -->
 
       <div class="WrittenBox">
-          <input type="button" class="btnWritten" value="쓰기">
-          <!--  onclick="location.href='/sangsangjakka/board/suggestion/add.do'" -->
-          
+          <input type="button" class="btnWritten" value="쓰기" onclick="location.href='/sangsangjakka/board/suggestion/add.do'">
       </div>
       
       <!-- board seach area -->
       <div id="boardSearch">
         <div>
             <div class="searchWindow">
-                <form action="">
+                <form action="/sangsangjakka/board/suggestion/list.do" method="GET">
                     <div class="searchWrap">
                         <label for="search" class="blind">건의사항 내용 검색</label>
-                          <select class="column">
-                              <option value="subject">제목</option>
-                              <option value="subject">내용</option>
+                          <select class="column" name="column">
+                              <option value="sgstTitle">제목</option>
+                              <option value="sgstContents">내용</option>
                           </select>
-                        <input id="search" type="search" placeholder="검색어를 입력해주세요." value="">
+                        <input id="search" type="search" name="word" placeholder="검색어를 입력해주세요." value="${map.word}">
                         <input type="button" class="btnSearch" value="검색">
                     </div>
                 </form>
@@ -130,20 +110,7 @@
     </div>
 
     <div class="paging">
-      <a href=""><<</a>
-      <a href=""><</a>
-      <a href="">1</a>
-      <a href="">2</a>
-      <a href="">3</a>
-      <a href="">4</a>
-      <a href="">5</a>
-      <a href="">6</a>
-      <a href="">7</a>
-      <a href="">8</a>
-      <a href="">9</a>
-      <a href="">10</a>
-      <a href="">></a>
-      <a href="">>></a>
+      <div id="pagebar">${pageBar}</div>
     </div>
   
   </section>
@@ -170,22 +137,6 @@
 // 			}
 // 		});
 		
-		// 쓰기 버튼을 눌렀을 때 제한
-		var write = document.querySelector('.btnWritten');
-        write.addEventListener('click', function() {
-        	
-        	if(userId == "null") {
-    			const result = confirm('회원만 작성 가능합니다. 로그인 창으로 이동하시겠습니까?');
-    			if(result) {
-    				location.href='/sangsangjakka/user/login.do';
-    			} else {
-    				location.href='/sangsangjakka/board/suggestion/list.do';
-    			}
-    		} else {
-    			location.href='/sangsangjakka/board/suggestion/add.do';
-    		}
-            
-        });
 	</script>
 	</body>
 </html>

@@ -54,8 +54,10 @@
 
 
                         <span class="right">
+                        <c:if test="${not empty adId}">
                         <button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/notice/manageedit.do?seq=${dto.noticeSeq}';">수정</button>
-                        <input type="button" value="삭제" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="deleteNotice(${dto.noticeSeq}, '${dto.adId}');">삭제</button>
+                        </c:if>
                         </span>
                 
                         <table>
@@ -99,28 +101,35 @@
 			
 		</div>
 	</div>
+	
+	<script>
+	function deleteNotice(noticeSeq, adId) {
+	    if (confirm("정말로 삭제하시겠습니까?")) { // 삭제 전 사용자 확인
+	        $.ajax({
+	            type: "POST",
+	            url: "/sangsangjakka/admin/dashboard/notice/managedel.do",
+	            data: { noticeSeq: noticeSeq, adId: adId}, 
+	            success: function(response) {
+	                if (response === "success") {
+	                    alert("게시물이 삭제되었습니다.");
+	                    // 삭제 성공 시 필요한 처리
+	                    window.location.href = "/sangsangjakka/admin/dashboard/notice/manage.do";
+	                } else {
+	                    alert("게시물 삭제에 실패했습니다.");
+	                }
+	            },
+	            error: function() {
+	                alert("서버와의 통신 중 문제가 발생했습니다.");
+	            }
+	        });
+	    }
+	}
+	</script>
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 	
-	<!-- buttons for Export datatable -->
-	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/pdfmake.min.js"></script>
-	<script src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
-	
-	<!-- Datatable Setting js -->
-	<script src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
 	</script>
 	</body>

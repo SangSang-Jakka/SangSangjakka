@@ -30,9 +30,9 @@
               <table class="boardTitle">
                 <tbody>
                     <tr>
-                        <td scope="col" class="tdTitle">날씨가 좋네요</td>
-                        <td scope="col" class="tdDate">2017.06.15</td>
-                        <td scope="col" class="tdViews">23</td>
+                        <td scope="col" class="tdTitle">${dto.boardTitle}</td>
+                        <td scope="col" class="tdDate">${dto.boardRegdate}</td>
+                        <td scope="col" class="tdViews">${dto.boardCnt}</td>
                     </tr>
                 </tbody>
                   </table>
@@ -43,7 +43,7 @@
                   </div>
 
                       <div class="boardMain">
-                        소풍 가기 딱 좋아요~~~
+                        ${dto.boardContents}
                       </div>
 
                       
@@ -52,7 +52,7 @@
                         <div class="condtionContainer">
                           <button class="reportIcon"><i class="fa-regular fa-bell"></i></button>
                           <span class="reportName">신고</span>
-                          <span class="reportCount">5</span>
+                          <span class="reportCount">${dto.boardReportCnt}</span>
                         </div>
 
   
@@ -60,7 +60,7 @@
                         <div class="condtionContainer">
                           <button class="commentIcon"><i class="fa-regular fa-message"></i></button>
                           <span class="commentName">댓글</span>
-                          <span class="commentCount">5</span>
+                          <span class="commentCount">${dto.cmntCnt}</span>
                         </div>
                       </div>
                   
@@ -74,37 +74,33 @@
                   <div class="commentWrap">
                         <!-- 전체 -->
                         <div class="commmentContainer">
-                          <ul class="commentArea">
+                        
+                        <c:forEach items="${list}" var="dto">
+                        
+                        	<ul class="commentArea">
                             <li>
-                              <div class="commentNick">김뫄뫄</div>
+                              <div class="commentNick">${dto.userNick}</div>
                                 <div class="commentBtnBlock">
+                                <c:if test="${dto.userSeq == userSeq}">
                                   <input type="button" class="btnCommentEdit" value="수정">
                                   <input type="button" class="btnCommentDel" value="삭제">
                                 </div>
-                           
-                              <div class="commentText">너무 좋네요~</div>
+                           		</c:if>
+                              <div class="commentText">${dto.cmntContents}</div>
                               <div class="commentInfo">
-                                <span class="commentInfoDate">2024.05.03</span>
-                              </div>
-                            </li>
-                            
-                          </ul>
-
-                          <ul class="commentArea">
-                            <li>
-                              <div class="commentNick">박솨솨</div>
-                              <span class="commentText">짱!</span>
-                              <div class="commentInfo">
-                                <span class="commentInfoDate">2024.05.03</span>
+                                <span class="commentInfoDate">${dto.cmntRegdate}</span>
                               </div>
                             </li>
                           </ul>
+                          
+                        </c:forEach>
+                        
                         </div>
 
                         <!-- 댓글 추가 창 -->
                         <div class="commentAddBox">
                           <div class="commentAdd">
-                            <div class="commentAddNick">홍라라</div>
+                            <div class="commentAddNick">${userNick}</div>
                             <textarea class="commentAddText"></textarea>
                           </div>
                      

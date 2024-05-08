@@ -66,13 +66,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >이름 :</label>
-											<input type="text" class="form-control" name ="adname" value="${adminedit.adName}">
+											<input type="text" class="form-control" name ="adName" value="${adminedit.adName}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >주소 : </label>
-											<input type="text" class="form-control" name ="adaddress" value="${adminedit.adAddress}">
+											<input type="text" class="form-control" name ="adAddress" value="${adminedit.adAddress}">
 										</div>
 									</div>
 								</div>
@@ -80,13 +80,13 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>전화번호 :</label>
-											<input type="text" class="form-control" name ="adtel" value="${adminedit.adTel}">
+											<input type="text" class="form-control" name ="adTel" value="${adminedit.adTel}">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>닉네임 :</label>
-											<input type="text" class="form-control" name="adnick" value="${adminedit.adNick}">
+											<input type="text" class="form-control" name="adNick" value="${adminedit.adNick}">
 										</div>
 									</div>
 								</div>
