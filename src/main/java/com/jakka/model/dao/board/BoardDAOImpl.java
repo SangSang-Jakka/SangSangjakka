@@ -692,18 +692,23 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map) {
-
+		
 		String where = "where rnum BETWEEN ? AND ?";
-
+		String col = "";
+		
 		if (map.get("search").equals("y")) {
-			where = where + String.format(" and %s like '%%%s%%'", map.get("column"), map.get("word"));
+			col = col + String.format(" where %s like '%%%s%%'", map.get("column"), map.get("word"));
 		}
-
-		String sql = String.format("select * from vwBoardWhite %s order by boardRegdate desc", where);
-
 		
+		String sql = String.format("SELECT boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq, userNick, cmntCnt " +
+                "FROM (SELECT ROWNUM RNUM, f.boardSeq, f.boardTitle, f.boardContents, f.boardRegdate, f.boardReportCnt, f.boardCnt, f.userSeq, f.userNick, f.cmntCnt " +
+                "FROM (SELECT * FROM vwBoardWhite %s ORDER BY boardRegdate desc) f) " +
+                "%s", col, where);
 		
-		try (Connection conn = DBUtil.open(); PreparedStatement pstat = conn.prepareStatement(sql);) {
+		try (
+				Connection conn = DBUtil.open(); 
+				PreparedStatement pstat = conn.prepareStatement(sql);
+		) {
 			pstat.setString(1, map.get("begin"));
 			pstat.setString(2, map.get("end"));
 

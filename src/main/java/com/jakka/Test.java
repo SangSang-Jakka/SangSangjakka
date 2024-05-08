@@ -1,5 +1,7 @@
 package com.jakka;
 
+import java.util.ArrayList;
+
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
@@ -10,13 +12,14 @@ public class Test {
 		
 		UserDAO dao = DAOManager.getUserDAO();
 		
-		UserDTO dto = new UserDTO();
-		dto.setUserId("user0001");
-		dto.setUserPw("1111");
+		ArrayList<UserDTO> list = dao.findAll();
 		
-		UserDTO result = dao.login(dto);
-		
-		System.out.println(result);
+		for(UserDTO dto : list) {
+			
+			String userId = dto.getUserId();
+			dao.createUserFolder(userId);
+			
+		}
 				
 	
     }

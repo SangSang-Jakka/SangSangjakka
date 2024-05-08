@@ -105,14 +105,18 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public ArrayList<NoticeDTO> findAll(HashMap<String, String> map) {
 		
 		String where = "where rnum BETWEEN ? AND ?";
+		String col = "";
 
-		if(map.get("search").equals("y")) {
-		    where = where + String.format(" and %s like '%%%s%%'"
-		    		, map.get("column")
-		    		, map.get("word"));
+		if (map.get("search").equals("y")) {
+			col = col + String.format(" where %s like '%%%s%%'"
+								, map.get("column")
+								, map.get("word"));
 		}
 		
-		String sql = String.format("select * from vwNotice %s order by noticeRegdate desc", where);
+		String sql = String.format("SELECT noticeSeq, noticeTitle, noticeContents, noticeRegdate, noticeCnt, adId " +
+                "FROM (SELECT ROWNUM RNUM, f.noticeSeq, f.noticeTitle, f.noticeContents, f.noticeRegdate, f.noticeCnt, f.adId " +
+                "FROM (SELECT * FROM vwNotice %s ORDER BY noticeRegdate desc) f) " +
+                "%s", col, where);
 		
 		try (
 			
