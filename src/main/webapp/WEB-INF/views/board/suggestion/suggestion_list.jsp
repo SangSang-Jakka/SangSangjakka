@@ -15,7 +15,7 @@
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 	
-		<section class="suggestion">
+		<section class="notice">
     	<div class="pageTitle">
           <div>
               <h3>건의사항</h3>
@@ -88,8 +88,8 @@
                     <div class="searchWrap">
                         <label for="search" class="blind">건의사항 내용 검색</label>
                           <select class="column" name="column">
-                              <option value="subject">제목</option>
-                              <option value="subject">내용</option>
+                              <option value="sgstTitle">제목</option>
+                              <option value="sgstContents">내용</option>
                           </select>
                         <input id="search" type="search" name="word" placeholder="검색어를 입력해주세요." value="${map.word}">
                         <input type="button" class="btnSearch" value="검색">
