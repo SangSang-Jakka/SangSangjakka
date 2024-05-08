@@ -207,14 +207,20 @@ $(document).ready(function(){
                   var myChart = new Chart(context, {
                 	  type: 'bar',
                 	    data: {
-                	        labels: response.month,
+                	        labels: response.months,
                 	        datasets: [
                 	            {
                 	                label: response.labels[0], // "가입자수"
-                	                data: response.data, // [date1, date2]
+                	                data: response.data.map(item => item[0]), // [date1, date2]
                 	                backgroundColor: '#00C7E2',
                 	                maxBarThickness: 30
-                	            }
+                	            },
+                	            {
+                	                   label: response.labels[1], // "탈퇴자수"
+                	                   data: response.data.map(item => item[1]), // 두 번째 요소만 추출 (탈퇴자 수)
+                	                   backgroundColor: '#FF6384',
+                	                   maxBarThickness: 30
+                	               }
                 	        ]
                 
                       },

@@ -611,7 +611,6 @@ public class UserDAOImpl implements UserDAO{
 					
 			){
 
-				
 				pstat.setString(1, dto.getUserId());
 				pstat.setString(2, dto.getUserPw());
 				pstat.setString(3, dto.getUserNick());
@@ -623,6 +622,9 @@ public class UserDAOImpl implements UserDAO{
 				pstat.setString(9, dto.getUserName());
 				
 				int newUserId = pstat.executeUpdate();
+				
+				System.out.println(newUserId);
+				
 		        if (newUserId > 0) {
 		            // 새로 생성된 사용자의 아이디 반환
 		            return dto.getUserId();
@@ -778,67 +780,109 @@ public int userCnt(String userRegdate) {
 //		return count;
 //	}
 	
-	@Override
-	 public Map<String, Integer> newCnt(String formattedNum1, String formattedNum2) {
-         Map<String, Integer> countsMap = new HashMap<>();
-
-         String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_07 FROM dual";
-
-         try {
-             Connection conn = DBUtil.open();
-             PreparedStatement pstat = conn.prepareStatement(sql);
-             
-             // 매개변수 설정
-             pstat.setString(1, formattedNum1);
-             pstat.setString(2, formattedNum2);
-
-             ResultSet rs = pstat.executeQuery();
-
-             if (rs.next()) {
-                 // 결과에서 각 값을 맵에 추가
-                 int userCount_23_06 = rs.getInt("user_count_23_06");
-                 int userCount_23_07 = rs.getInt("user_count_23_07");
-
-                 countsMap.put("user_count_23_06", userCount_23_06);
-                 countsMap.put("user_count_23_07", userCount_23_07);
-             }
-         } catch (Exception e) {
-             System.out.println("UserDAOImpl.newCnt");
-             e.printStackTrace();
-         }
-
-         return countsMap;
-     }
+//	@Override
+//	 public Map<String, Integer> newCnt(String formattedNum1, String formattedNum2) {
+//         Map<String, Integer> countsMap = new HashMap<>();
+//
+//         String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_07 FROM dual";
+//
+//         try {
+//             Connection conn = DBUtil.open();
+//             PreparedStatement pstat = conn.prepareStatement(sql);
+//             
+//             // 매개변수 설정
+//             pstat.setString(1, formattedNum1);
+//             pstat.setString(2, formattedNum2);
+//
+//             ResultSet rs = pstat.executeQuery();
+//
+//             if (rs.next()) {
+//                 // 결과에서 각 값을 맵에 추가
+//                 int userCount_23_06 = rs.getInt("user_count_23_06");
+//                 int userCount_23_07 = rs.getInt("user_count_23_07");
+//
+//                 countsMap.put("user_count_23_06", userCount_23_06);
+//                 countsMap.put("user_count_23_07", userCount_23_07);
+//             }
+//         } catch (Exception e) {
+//             System.out.println("UserDAOImpl.newCnt");
+//             e.printStackTrace();
+//         }
+//
+//         return countsMap;
+//     }
 
 	
 	@Override
-	public int findPK(UserDTO dto) {
-		
-		final String SQL = "SELECT USERSEQ FROM tblUser where USERID = ? ";
-		
-		try (
-		        Connection conn = DBUtil.open();
-		        PreparedStatement pstat = conn.prepareStatement(SQL);
-				ResultSet rs = pstat.executeQuery();
-		    ){
+	 public Map<String, Map<String, Integer>> newCnt(String formattedNum1, String formattedNum2) {
+		 Map<String, Map<String, Integer>> countsMap = new HashMap<>();
 
+		 String sql = "SELECT " +
+				 "    TO_CHAR(userregdate, 'YY/MM') AS month," +
+				 "    COUNT(CASE WHEN USERSTATE = 'y' THEN 1 END) AS user_count," +
+				 "    COUNT(CASE WHEN USERSTATE = 'n' THEN 1 END) AS user_left " +
+				 "FROM " +
+				 "    tblUser " +
+				 "WHERE " +
+				 "    TO_CHAR(userregdate, 'YY/MM') >= ? AND" +
+				 "    TO_CHAR(userregdate, 'YY/MM') <= ? " +
+				 "GROUP BY " +
+				 "    TO_CHAR(userregdate, 'YY/MM') " +
+				 "ORDER BY " +
+				 "    TO_CHAR(userregdate, 'YY/MM')";
+       try {
+           Connection conn = DBUtil.open();
+           PreparedStatement pstat = conn.prepareStatement(sql);
+           
+           // 매개변수 설정
+           pstat.setString(1, formattedNum1);
+           pstat.setString(2, formattedNum2);
 
-			pstat = conn.prepareStatement(SQL);
-			pstat.setString(1, dto.getUserId());
+           
+          
+           try (ResultSet rs = pstat.executeQuery()) {
+               while (rs.next()) {
+                   String month = rs.getString("month");
+                   int userCount = rs.getInt("user_count");
+                   int userLeft = rs.getInt("user_left");
+                   
+                   Map<String, Integer> countMap = new HashMap<>();
+                   countMap.put("user_count", userCount);
+                   countMap.put("user_left", userLeft);
 
-			rs = pstat.executeQuery();
+                   countsMap.put(month, countMap);
+               }
+           }
+       } catch (Exception e) {
+           System.out.println("UserDAOImpl.newCnt");
+           e.printStackTrace();
+       }
 
-			if (rs.next()) {
-
-				return rs.getString("column");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return 0;
+       return countsMap;
 	}
+	
+	@Override
+	public int findPK(UserDTO dto) {
+	    final String SQL = "SELECT USERSEQ FROM tblUser where USERID = ?";
+	    int primaryKey = 0;
+	    
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, dto.getUserId());
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            if (rs.next()) {
+	                primaryKey = rs.getInt("USERSEQ");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return primaryKey;
+	}
+
 
 
 }//End of class

@@ -81,45 +81,85 @@ public class UserStats extends HttpServlet{
 	    System.out.println(formattedNum1); // 출력: 21/06
 	    System.out.println(formattedNum2); // 출력: 21/06
 	    
+//	    UserDAO dao = DAOManager.getUserDAO();
+//	    Map<String,Integer> newcnt  = dao.newCnt(formattedNum1,formattedNum2);
+//		
+//	    int date1 = newcnt.get("user_count_23_06");
+//	    int date2 = newcnt.get("user_count_23_07");
+//	    
+//	    System.out.println(date1);
+//	    System.out.println(date2);
+//	    
+//	    JsonObject UserDate = new JsonObject();
+//	    JsonArray labels = new JsonArray();
+//	    labels.add("가입자수");
+//	    labels.add("탈퇴자수");
+//	    UserDate.add("labels", labels);
+//
+//	    JsonArray counts = new JsonArray();
+//	    counts.add(date1);
+//	    counts.add(date2);
+//
+//	    UserDate.add("data", counts);
+//	    
+//	    JsonArray month = new JsonArray();
+//	    month.add(formattedNum1);
+//	    month.add(formattedNum2);
+//
+//	    UserDate.add("month", month);
+//	 
+//	    System.out.println(counts);
+//	    System.out.println(labels);
+//	    System.out.println(month);
+//	    
+//	    Gson gson = new Gson();
+//	    String DateBar = gson.toJson(UserDate);
+//	    System.out.println(DateBar);
+//	    //req.setAttribute("DateBar", DateBar);
+//	    
+//	    resp.setContentType("application/json");
+//	    resp.setCharacterEncoding("UTF-8");
+//	    resp.getWriter().write(DateBar);
+	    
+	    
 	    UserDAO dao = DAOManager.getUserDAO();
-	    Map<String,Integer> newcnt  = dao.newCnt(formattedNum1,formattedNum2);
-		
-	    int date1 = newcnt.get("user_count_23_06");
-	    int date2 = newcnt.get("user_count_23_07");
-	    
-	    System.out.println(date1);
-	    System.out.println(date2);
-	    
-	    JsonObject UserDate = new JsonObject();
+	    Map<String, Map<String, Integer>> countsMap = dao.newCnt(formattedNum1, formattedNum2);
+
+	    JsonObject userData = new JsonObject();
+
 	    JsonArray labels = new JsonArray();
 	    labels.add("가입자수");
 	    labels.add("탈퇴자수");
-	    UserDate.add("labels", labels);
+	    userData.add("labels", labels);
 
-	    JsonArray counts = new JsonArray();
-	    counts.add(date1);
-	    counts.add(date2);
+	    JsonArray data = new JsonArray();
+	    JsonArray months = new JsonArray();
 
-	    UserDate.add("data", counts);
-	    
-	    JsonArray month = new JsonArray();
-	    month.add(formattedNum1);
-	    month.add(formattedNum2);
+	    for (Map.Entry<String, Map<String, Integer>> entry : countsMap.entrySet()) {
+	       String month = entry.getKey();
+	       Map<String, Integer> countMap = entry.getValue();
+	       int userCount = countMap.get("user_count");
+	       int userLeft = countMap.get("user_left");
+	       
+	       months.add(month);
+	       
+	       JsonArray monthData = new JsonArray();
+	       monthData.add(userCount);
+	       monthData.add(userLeft);
+	       data.add(monthData);
+	    }
 
-	    UserDate.add("month", month);
-	 
-	    System.out.println(counts);
-	    System.out.println(labels);
-	    System.out.println(month);
-	    
+	    userData.add("data", data);
+	    userData.add("months", months);
+
 	    Gson gson = new Gson();
-	    String DateBar = gson.toJson(UserDate);
-	    System.out.println(DateBar);
-	    //req.setAttribute("DateBar", DateBar);
-	    
+	    String jsonData = gson.toJson(userData);
+
+	    System.out.println(jsonData);
+
 	    resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");
-	    resp.getWriter().write(DateBar);
+	    resp.getWriter().write(jsonData);
 	    
 	}
 	

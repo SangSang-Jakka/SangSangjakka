@@ -19,7 +19,7 @@
         </div>
         
         
-        <form method="POST" action="" class="signUpForm">
+        <form method="POST" class="signUpForm">
             <div class="member-container">
                 <div class="header">
                     <div>회원 가입을 위해</div>
@@ -194,7 +194,7 @@
                     	<div id="childInputSSN" style="display: none;">
                     	<div class="childinputWrap">
 	    					 <div class="childInput">
-					        	자녀 주민등록번호 앞자리: <input type="password" id="childID" name="childSsn" maxlength="6" onkeypress="allowOnlyNumbers(event)" >
+					        	자녀 생년월일(yyyymmdd): <input type="password" id="childID" name="childSsn" maxlength="8" onkeypress="allowOnlyNumbers(event)" >
 					    	</div>
 					    	<div class="toggleSSN" onclick="togglechildSSNVisibility()">
 	                              <i id="childToggleSSNIcon" class="fa-solid fa-eye-slash"></i>
@@ -669,14 +669,14 @@
 	//중복검사
 	function signUp() {
     var idDuplicationValue = document.getElementById("idHidden").value;
-    var nicknameDuplicationValue = document.getElementsByName("nicknameDuplication")[0].value;
+    var nickDuplicationValue = document.getElementsById("nickHidden").value;
 
     if (idDuplicationValue !== "idChecked") {
         alert("아이디 중복검사를 먼저 실행해주세요.");
         return false;
     }
 
-    if (nicknameDuplicationValue !== "nicknameChecked") {
+    if (nickDuplicationValue !== "nickChecked") {
         alert("닉네임 중복검사를 먼저 실행해주세요.");
         return false;
     }
@@ -696,12 +696,17 @@
     if (otherInput.style.display !== 'none' && otherInput.value.trim() !== '') {
         selectedValues.push(otherInput.value.trim());
     }
+    
+    var childSsn = document.getElementById('childID').value;
 
     // AJAX를 사용하여 서버에 선택된 체크 박스의 값을 전송합니다.
 	   $.ajax({
 	    type: 'POST',
 	    url: '/user/signok.do', // 서버의 URL을 입력합니다.
-	    data: { selectedValues: selectedValues }, // 선택된 값들을 서버로 전송합니다.
+	    data: { 
+	    	selectedValues: selectedValues,
+	    	childSsn: childSsn	
+	    }, 
 	    success: function(response) {
 	        // 서버로부터의 응답을 처리하는 부분입니다. 필요에 따라 추가적인 로직을 작성할 수 있습니다.
 	        console.log('서버로부터의 응답:', response);

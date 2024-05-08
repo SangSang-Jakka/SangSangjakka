@@ -31,7 +31,7 @@
 		<div class="awardContainer">
 			<div class="awardBox">
 				<div class="awardItems">
-	
+
 				</div>
 				<div class="awardItems">
 	
