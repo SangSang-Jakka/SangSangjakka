@@ -51,7 +51,7 @@ public class SuggestionAnswerManagementDel extends HttpServlet {
 			dto.setAdId(adId);
 		
 
-			int result = dao.del(dto);
+			int result = dao.del(answSeq, adId);
 
 			if (result > 0) {
 				// 삭제 성공
@@ -59,7 +59,7 @@ public class SuggestionAnswerManagementDel extends HttpServlet {
 				logger.info("답변 삭제 성공 - answSeq: " + answSeq + ", adId: " + adId);
 			} else {
 				resp.getWriter().write("fail");
-				logger.warning("게시물 삭제 실패 - answSeq: " + answSeq + ", adId: " + adId);
+				logger.warning("답변 삭제 실패 - answSeq: " + answSeq + ", adId: " + adId);
 			}
 		} else {
 			// 권한 없음
