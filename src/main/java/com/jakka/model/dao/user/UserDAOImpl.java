@@ -643,12 +643,15 @@ public class UserDAOImpl implements UserDAO{
 	public String signUp(UserDTO dto) {
 		
 		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, limitStorage,userName) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser),?, ?, ?, ?, ?, ?, ?, ?, 'y', 1, SYSDATE, 10737418240,?)";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 		
 		try (
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
+				PreparedStatement log = conn.prepareStatement(LOGSQL);
 					
 			){
+				conn.setAutoCommit(false);
 
 				pstat.setString(1, dto.getUserId());
 				pstat.setString(2, dto.getUserPw());
@@ -666,6 +669,15 @@ public class UserDAOImpl implements UserDAO{
 				
 		        if (newUserId > 0) {
 		            // 새로 생성된 사용자의 아이디 반환
+		        	
+		        	log.setString(1, dto.getUserSeq());
+					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
+					log.setString(3, UserLog.SignUp.getValue());
+					log.executeUpdate();
+		        	
+		        	
+		        	conn.commit();
+		        	
 		            return dto.getUserId();
 		        }
 				
@@ -730,7 +742,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	
-public int userCnt(String userRegdate) {
+		public int userCnt(String userRegdate) {
 		
 		int userCount = 0;  
 		
