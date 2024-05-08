@@ -314,6 +314,7 @@ public class UserDAOImpl implements UserDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserState(rs.getString("userState"));
 				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
 				
 				list.add(dto);
 			}
@@ -803,65 +804,6 @@ public class UserDAOImpl implements UserDAO{
 
 	
 
-//	@Override
-//	public int newCnt(String formattedNum1,String formattedNum2) {
-//	
-//		int count = 0;
-//		String sql = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM') BETWEEN '?' AND '?'";
-//		
-//		try {
-//			
-//			Connection conn = DBUtil.open();
-//			PreparedStatement pstat = conn.prepareStatement(sql);
-//			ResultSet rs = pstat.executeQuery();
-//			
-//			pstat.setString(1, formattedNum1);
-//			pstat.setString(2, formattedNum2);
-//			
-//			if (rs.next()) {
-//	            
-//				count = rs.getInt("user_count");
-//	        }
-//			
-//		} catch (Exception e) {
-//			System.out.println("UserDAOImpl.newCnt");
-//			e.printStackTrace();
-//		}
-//		
-//		return count;
-//	}
-	
-//	@Override
-//	 public Map<String, Integer> newCnt(String formattedNum1, String formattedNum2) {
-//         Map<String, Integer> countsMap = new HashMap<>();
-//
-//         String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_07 FROM dual";
-//
-//         try {
-//             Connection conn = DBUtil.open();
-//             PreparedStatement pstat = conn.prepareStatement(sql);
-//             
-//             // 매개변수 설정
-//             pstat.setString(1, formattedNum1);
-//             pstat.setString(2, formattedNum2);
-//
-//             ResultSet rs = pstat.executeQuery();
-//
-//             if (rs.next()) {
-//                 // 결과에서 각 값을 맵에 추가
-//                 int userCount_23_06 = rs.getInt("user_count_23_06");
-//                 int userCount_23_07 = rs.getInt("user_count_23_07");
-//
-//                 countsMap.put("user_count_23_06", userCount_23_06);
-//                 countsMap.put("user_count_23_07", userCount_23_07);
-//             }
-//         } catch (Exception e) {
-//             System.out.println("UserDAOImpl.newCnt");
-//             e.printStackTrace();
-//         }
-//
-//         return countsMap;
-//     }
 
 	
 	@Override
@@ -1001,6 +943,53 @@ public class UserDAOImpl implements UserDAO{
 			e.printStackTrace();
 		}
 		 return userAgeRange;
+	}
+	
+	
+	@Override
+	public ArrayList<UserDTO> findAllBlackList() {
+		
+		final String SQL = "select * from tblBlackList b join tblUser u  on b.userSeq = u.userSeq";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<UserDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
 	}
 	
 

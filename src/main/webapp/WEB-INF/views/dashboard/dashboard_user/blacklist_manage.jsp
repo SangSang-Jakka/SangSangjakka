@@ -63,6 +63,7 @@
 									<th>이름</th>
 									<th>생년월일</th>
 									<th>가입일</th>
+									<th>버튼</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
@@ -76,6 +77,7 @@
 										<td>${user.userName}</td>
 										<td>${user.userLeftSsn}</td>
 										<td>${user.userRegdate}</td>
+										<td><button type="button" class="btn btn-outline-primary">복구</button>
 										<td>
 											<div class="dropdown">
 												<a
