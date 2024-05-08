@@ -30,7 +30,7 @@ public class SuggestionView extends HttpServlet{
 			return;
 		}
 		String page = req.getParameter("page");
-		
+		System.out.println("페이지" + page);
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
 
 		
@@ -41,7 +41,7 @@ public class SuggestionView extends HttpServlet{
 		}
 		
 		SuggestionDTO dto = dao.findById(page);
-		
+		System.out.println(dto);
 		//게시글 조작
 		dto.setSgstTitle(dto.getSgstTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 		dto.setSgstContents(dto.getSgstContents().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
