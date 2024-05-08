@@ -518,6 +518,7 @@ public class UserDAOImpl implements UserDAO{
 	public int disable(String userSeq, String adId) {
 		
 		final String SQL = "insert into tblBlackList(userSeq) values(?)";
+		
 		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 1)";
 		
 		try (
@@ -990,6 +991,35 @@ public class UserDAOImpl implements UserDAO{
 		
 		
 		return null;
+	}
+	
+	@Override
+	public int blaklistReStore(String userSeq) {
+		
+		final String SQL = "delete from tblBlacklist where userseq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+				
+		){
+			
+			
+			pstat.setString(1, userSeq);
+			
+			return pstat.executeUpdate();
+			
+
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAO.| disable");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	
 	}
 	
 

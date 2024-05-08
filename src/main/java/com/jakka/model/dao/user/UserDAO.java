@@ -29,5 +29,6 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public Map<String, Integer> userAge();
     public ArrayList<UserDTO> findAllBlackList();
     public void loginLog(String userSeq);
+    public int blaklistReStore(String userSeq);
 
 }
