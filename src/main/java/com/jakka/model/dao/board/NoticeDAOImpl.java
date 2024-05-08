@@ -123,6 +123,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 			pstat.setString(1, map.get("begin"));
 			pstat.setString(2, map.get("end"));
 			
+			
 			ResultSet rs = pstat.executeQuery();
 				
 			ArrayList<NoticeDTO> list = new ArrayList<>();

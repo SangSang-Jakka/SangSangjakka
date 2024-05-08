@@ -701,6 +701,8 @@ public class BoardDAOImpl implements BoardDAO {
 
 		String sql = String.format("select * from vwBoardWhite %s order by boardRegdate desc", where);
 
+		
+		
 		try (Connection conn = DBUtil.open(); PreparedStatement pstat = conn.prepareStatement(sql);) {
 			pstat.setString(1, map.get("begin"));
 			pstat.setString(2, map.get("end"));

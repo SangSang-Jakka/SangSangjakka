@@ -13,7 +13,7 @@ SELECT
     COALESCE(r.reviewCnt, 0) AS bookReviewCnt,
     COALESCE(s.scrapCnt, 0) AS bookScrapCnt,
     COALESCE(re.bookReportCnt, 0) AS bookReportCnt,
-    COALESCE(sb.bookCnt, 0) AS booCnt,
+    COALESCE(sb.bookCnt, 0) AS bookCnt,
     b.userSeq,
     b.parentBookSeq,
     b.rcmAgeSeq,
@@ -28,7 +28,9 @@ FROM tblBook b
                 LEFT JOIN (SELECT bookSeq, COUNT(*) AS scrapCnt FROM tblScrap GROUP BY bookSeq) s
                 ON b.bookSeq = s.bookSeq
                     LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookReportCnt FROM tblBookShareReport GROUP BY bookSeq) re
-                    ON b.bookSeq = re.bookSeq;
+                    ON b.bookSeq = re.bookSeq
+                        LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookCnt FROM tblBookShare GROUP BY bookSeq) sb
+                        ON b.bookSeq = sb.bookSeq;
     
 -- 동화책 화이트리스트
 CREATE OR REPLACE VIEW vwBookWhite
@@ -50,7 +52,8 @@ FROM (
         b.userSeq,
         b.parentBookSeq,
         b.rcmAgeSeq,
-        b.userNick
+        b.userNick,
+        b.bookCnt
     FROM VWBOOK B
     INNER JOIN tblBookWhiteList bw
         ON b.bookSeq = bw.bookSeq
@@ -59,7 +62,10 @@ FROM (
 -- 동화책 블랙리스트
 CREATE OR REPLACE VIEW vwBookBlack 
 AS
-SELECT 
+SELECT *
+FROM (
+SELECT
+    ROWNUM AS RNUM,
     b.bookSeq,
     b.bookTitle,
     b.bookInfo, 
@@ -70,14 +76,19 @@ SELECT
     b.userSeq,
     b.parentBookSeq,
     b.rcmAgeSeq,
-    b.userNick
+    b.userNick,
+    b.bookCnt
 FROM vwBook b
-WHERE b.bookSeq NOT IN(SELECT bookSeq FROM tblBookWhiteList);
+WHERE b.bookSeq NOT IN(SELECT bookSeq FROM tblBookWhiteList)
+);
 
 
 create or replace view vwSuggestion
 as
+select * from
+(
 select
+    rownum as rnum,
     s.sgstSeq,
     s.sgstTitle,
     s.sgstContents,
@@ -88,7 +99,8 @@ select
     u.userNick
 from tblSuggestion s
     inner join tblUser u
-    on s.userSeq = u.userSeq;
+    on s.userSeq = u.userSeq
+);
 
 --  게시판 테이블 + 신고횟수
 CREATE OR REPLACE VIEW vwBoard

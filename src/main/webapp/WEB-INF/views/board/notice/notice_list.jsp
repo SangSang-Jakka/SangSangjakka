@@ -83,8 +83,8 @@
                     <div class="searchWrap">
                         <label for="search" class="blind">공지사항 내용 검색</label>
                           <select class="column" name="column">
-                              <option value="boardTitle">제목</option>
-                              <option value="boardContents">내용</option>
+                              <option value="noticeTitle">제목</option>
+                              <option value="noticeContents">내용</option>
                           </select>
                         <input id="search" type="text" name="word" placeholder="검색어를 입력해주세요." required value="${map.word}">
                         <input type="submit" class="btnSearch" value="검색">

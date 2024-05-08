@@ -47,18 +47,16 @@ public class FreeboardList extends HttpServlet {
 		
 		
 		
-		String column = req.getParameter("column");
-		String word = req.getParameter("word");
+		String column = req.getParameter("column") != null ? req.getParameter("column") : "";
+		String word = req.getParameter("word") != null ? req.getParameter("word") : "";
 		String search = "n";	//목록보기(n), 검색하기(y)
-		
-		
-		if((column != null && word != null)) {
-			search = "y";
+
+		if((column != null && !column.equals("")) || (word != null && !word.equals(""))) {
+		    search = "y";
 		} else {
-			search = "n";
-			
-			column = "";
-			word = "";
+		    search = "n";
+		    column = "";
+		    word = "";
 		}
 		
 		HashMap<String, String> map = new HashMap<>();
@@ -115,7 +113,7 @@ public class FreeboardList extends HttpServlet {
 			builder.append(String.format(" <a href='#!'>[이전 %d페이지]</a> ",blockSize));
 				
 		} else {
-			builder.append(String.format(" <a href='/sangsangjakka/board/freeboard/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a> ", n - 1, column, word, blockSize));
+			builder.append(String.format(" <a href='/sangsangjakka/board/freeboard/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a> ", n - 1, column != null ? column : "", word != null ? word : "", blockSize));
 		}
 		
 		while (!(loop > blockSize || n > totalPage)) {
@@ -123,7 +121,7 @@ public class FreeboardList extends HttpServlet {
 			if (n == nowPage) {
 				builder.append(String.format(" <a href='#!' style='color: tomato;'>%d</a> ", n));
 			} else {
-				builder.append(String.format(" <a href='/sangsangjakka/board/freeboard/list.do?page=%d&column=%s&word=%s'>%d</a> ", n, column, word, n));
+				builder.append(String.format(" <a href='/sangsangjakka/board/freeboard/list.do?page=%d&column=%s&word=%s'>%d</a> ", n, column != null ? column : "", word != null ? word : "", n));
 			}
 			
 			loop++;
@@ -134,7 +132,7 @@ public class FreeboardList extends HttpServlet {
 		if(n >= totalPage) {
 			builder.append(String.format(" <a href='#!'>[다음 %d페이지]</a> ", blockSize));
 		}else {
-			builder.append(String.format(" <a href='/sangsangjakka/board/freeboard/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a> ", n, column, word, blockSize));
+			builder.append(String.format(" <a href='/sangsangjakka/board/freeboard/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a> ", n, column != null ? column : "", word != null ? word : "", blockSize));
 		}
 		
 		
