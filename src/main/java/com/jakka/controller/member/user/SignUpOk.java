@@ -1,6 +1,9 @@
 package com.jakka.controller.member.user;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,76 +11,110 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.jakka.model.DAOManager;
+import com.jakka.model.DBUtil;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
+import com.jakka.model.enums.Inflow;
 
 @WebServlet("/user/signok.do")
-public class SignUpOk extends HttpServlet{
+public class SignUpOk extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 	
+    	
+    	
+    }
 
-	@Override
-protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	System.out.println("post");
         
-        // 요청을 해당 JSP 페이지로 포워딩합니다.
+    	String newUserId = req.getParameter("userId");
+    	String userSeq = req.getParameter("userSeq");
+        String childSsn = req.getParameter("childSsn");
+        String[] selectedInflowValues = req.getParameterValues("selectedValues");
+        
+        System.out.println("aaaaaaa");
+        System.out.println("New User ID: " + newUserId);
+        System.out.println("Child SSN: " + childSsn);
+        System.out.println("Selected Inflow Values: " + Arrays.toString(selectedInflowValues));
+        
+        req.setAttribute("newUserId", newUserId);
+
+        System.out.println("newUserId" + newUserId);
+        System.out.println("UserPk: " + userSeq);
+        
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/signup_ok.jsp");
         dispatcher.forward(req, resp);
-
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String newUserId = (String)req.getAttribute("newUserId");
-	    String childSsn = (String)req.getAttribute("childSsn");
-	    String[] selectedInflowValues = req.getParameterValues("selectedValues");
         
-        // JSP에서 사용할 수 있도록 새로운 사용자 ID를 요청 속성으로 설정합니다.
-        req.setAttribute("newUserId", newUserId);
         
-        // 전송된 유입 경로 값들을 이용하여 데이터베이스에 저장하는 로직을 추가합니다.
-        saveInflowData(newUserId, selectedInflowValues);
+        saveChildAgeData(childSsn, userSeq);
+        saveInflowData(userSeq, selectedInflowValues);
+    	
+    	
+    }
+
+    private int getUserPK(String userId) {
+        UserDTO dto = new UserDTO();
         
-	}
+        dto.setUserId(userId);
+        
+        UserDAO dao = DAOManager.getUserDAO();
+        
+        return dao.findPK(dto);
+    }
 
-	private void saveInflowData(String newUserId, String[] selectedInflowValues) {
-		 // 데이터베이스 연결 및 회원 정보 저장 로직을 구현합니다.
-	    // ...
+    private void saveChildAgeData(String childSsn, String userSeq) {
+        String SQL = "INSERT INTO tblChildAge (childBirth, userSeq) VALUES (?, ?)";
 
-	    // 회원 정보 저장 후 해당 회원의 PK 값을 가져옵니다.
-	    int userPK = getUserPK(userId);
+        try (Connection conn = DBUtil.open();
+             PreparedStatement pstat = conn.prepareStatement(SQL);) {
 
-	    // 유입 경로 값들을 이용하여 회원 유입 경로 테이블에 저장합니다.
-	    for (String inflowValue : inflowValues) {
-	        int inflowCategoryNumber = getInflowCategoryNumber(inflowValue);
-	        insertInflowData(userPK, inflowCategoryNumber);
-	    }
-		
-	}
-	
-	private int getUserPK(String userId) {
-	    // 회원 ID를 이용하여 회원 PK 값을 조회하는 로직을 구현합니다.
-		
-		UserDTO dto = new UserDTO();
-		
-		dto.setUserId(userId);
-		
-		UserDAO dao = DAOManager.getUserDAO();
-		
-		int userPk = dao.findPK(dto); // 회원가입 메서드 호출하여 아이디 반환
-		
-		return 0;
-	    
-	}
+            pstat.setString(1, childSsn);
+            pstat.setString(2, userSeq);
+            pstat.executeUpdate();
 
-	private int getInflowCategoryNumber(String inflowValue) {
-	    // 유입 경로 값을 이용하여 유입 경로 카테고리 번호를 조회하는 로직을 구현합니다.
-	    // ...
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	private void insertInflowData(int userPK, int inflowCategoryNumber) {
-	    // 회원 PK 값과 유입 경로 카테고리 번호를 이용하여 회원 유입 경로 테이블에 데이터를 저장하는 로직을 구현합니다.
-	    // ...
-	}
-	
+    private void saveInflowData(String userSeq, String[] selectedInflowValues) {
+        String SQL = "INSERT INTO tblUserInflow (userSeq, inflowCatSeq) VALUES (?, ?)";
+
+        try (Connection conn = DBUtil.open();
+             PreparedStatement pstat = conn.prepareStatement(SQL);) {
+
+            for (String inflowValue : selectedInflowValues) {
+                int inflowSeq = getInflowSeq(inflowValue);
+
+                pstat.setString(1, userSeq);
+                pstat.setInt(2, inflowSeq);
+                pstat.executeUpdate();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getInflowSeq(String inflowValue) {
+        switch (inflowValue) {
+            case "인터넷 검색":
+                return Integer.parseInt(Inflow.Internet_Search.getValue());
+            case "지인 소개":
+                return Integer.parseInt(Inflow.ACQUAINTANCE.getValue());
+            case "카페":
+                return Integer.parseInt(Inflow.CAFFE.getValue());
+            case "블로그":
+                return Integer.parseInt(Inflow.BLOG.getValue());
+            case "소셜 미디어 플랫폼":
+                return Integer.parseInt(Inflow.SOCIAL_MEDIA_PLATFORM.getValue());
+            case "광고지":
+                return Integer.parseInt(Inflow.FLYER.getValue());
+            default:
+                return Integer.parseInt(Inflow.ECT.getValue());
+        }
+    }
 }

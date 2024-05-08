@@ -23,6 +23,8 @@ public class SignUp extends HttpServlet{
 		
 		 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/signup.jsp");
 	     dispatcher.forward(req, resp);
+	     
+	     System.out.println("get");
 	}
 
 	@Override
@@ -78,8 +80,9 @@ public class SignUp extends HttpServlet{
 		
 		String newUserId = dao.signUp(dto); // 회원가입 메서드 호출하여 아이디 반환
 
-		if (newUserId != null) { // 회원가입 성공한 경우
-			req.setAttribute("newUserId", newUserId);
+
+		if (newUserId != null ) { // 회원가입 성공한 경우
+			req.setAttribute("newUserId", userId);
 
 	        // JSP 페이지로 포워딩
 	        req.getRequestDispatcher("/WEB-INF/views/member/user/signup_ok.jsp").forward(req, resp);

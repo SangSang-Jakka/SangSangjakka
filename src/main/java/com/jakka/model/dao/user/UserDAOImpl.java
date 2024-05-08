@@ -611,7 +611,6 @@ public class UserDAOImpl implements UserDAO{
 					
 			){
 
-				
 				pstat.setString(1, dto.getUserId());
 				pstat.setString(2, dto.getUserPw());
 				pstat.setString(3, dto.getUserNick());
@@ -623,6 +622,9 @@ public class UserDAOImpl implements UserDAO{
 				pstat.setString(9, dto.getUserName());
 				
 				int newUserId = pstat.executeUpdate();
+				
+				System.out.println(newUserId);
+				
 		        if (newUserId > 0) {
 		            // 새로 생성된 사용자의 아이디 반환
 		            return dto.getUserId();
@@ -780,32 +782,26 @@ public int userCnt(String userRegdate) {
 	
 	@Override
 	public int findPK(UserDTO dto) {
-		
-		final String SQL = "SELECT USERSEQ FROM tblUser where USERID = ? ";
-		
-		try (
-		        Connection conn = DBUtil.open();
-		        PreparedStatement pstat = conn.prepareStatement(SQL);
-				ResultSet rs = pstat.executeQuery();
-		    ){
-
-
-			pstat = conn.prepareStatement(SQL);
-			pstat.setString(1, dto.getUserId());
-
-			rs = pstat.executeQuery();
-
-			if (rs.next()) {
-
-				return rs.getString("column");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return 0;
+	    final String SQL = "SELECT USERSEQ FROM tblUser where USERID = ?";
+	    int primaryKey = 0;
+	    
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, dto.getUserId());
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            if (rs.next()) {
+	                primaryKey = rs.getInt("USERSEQ");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return primaryKey;
 	}
+
 
 
 }//End of class
