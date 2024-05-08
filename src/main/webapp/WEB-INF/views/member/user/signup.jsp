@@ -19,7 +19,7 @@
         </div>
         
         
-        <form method="POST" class="signUpForm">
+        <form method="POST" action="/sangsangjakka/user/signup.do" class="signUpForm">
             <div class="member-container">
                 <div class="header">
                     <div>회원 가입을 위해</div>
@@ -450,7 +450,7 @@
     });  
 
         function nickNameLength(value) {
-            return value.length >= 4 && value.length <= 10;
+            return value.length >= 3 && value.length <= 9;
         }
 
         function checkNickName(value) {
@@ -502,7 +502,7 @@
         });
 
         function idLength(value) {
-            return value.length >= 4 && value.length <= 12;
+            return value.length >= 3 && value.length <= 11;
         }
 
         function checkId(value) {
@@ -681,45 +681,6 @@
         return false;
     }
 
-    var selectedValues = []; // 선택된 값들을 저장할 배열
-
-    // 모든 체크 박스 요소를 가져옴
-    var checkboxes = document.querySelectorAll('input[name="inflow"]:checked');
-
-    // 각 체크 박스에서 선택된 값을 배열에 추가
-    checkboxes.forEach(function(checkbox) {
-        selectedValues.push(checkbox.value);
-    });
-
-    // 기타 입력란이 보이고 값이 있으면 해당 값을 추가
-    var otherInput = document.getElementById('otherInput');
-    if (otherInput.style.display !== 'none' && otherInput.value.trim() !== '') {
-        selectedValues.push(otherInput.value.trim());
-    }
-    
-    var childSsn = document.getElementById('childID').value;
-
-    // AJAX를 사용하여 서버에 선택된 체크 박스의 값을 전송합니다.
-	   $.ajax({
-	    type: 'POST',
-	    url: '/user/signok.do', // 서버의 URL을 입력합니다.
-	    data: { 
-	    	selectedValues: selectedValues,
-	    	childSsn: childSsn	
-	    }, 
-	    success: function(response) {
-	        // 서버로부터의 응답을 처리하는 부분입니다. 필요에 따라 추가적인 로직을 작성할 수 있습니다.
-	        console.log('서버로부터의 응답:', response);
-	    },
-	    error: function(xhr, status, error) {
-	        // 에러가 발생한 경우 처리하는 부분입니다.
-	        console.error('에러:', error);
-	    }
-	});
-
-    // 가입 처리 로직 등을 진행하고, 필요한 경우 true를 반환하여 폼이 제출되도록 함
-    // 여기서는 간단히 true를 반환하여 예시로 제공
-    return true;
 }
 
 
