@@ -183,6 +183,7 @@
     <script src="https://kit.fontawesome.com/4b3c3b390b.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
+	
 
 		$(document).ready(function() {
 		    $('#dashboard').on('click', function(event) {
@@ -193,6 +194,114 @@
 		    });
 		  });
 
+		
+		
+        document.addEventListener("DOMContentLoaded", function() {
+    const bookInfo = [
+        {
+            title: "제목: To The Sea",
+            intro: "한줄 소개: 고래를 타고 바다로 나아가는 태리의 여정입니다.",
+            reviews: [
+                "고래를 만나 교감하는게 감동 깊었어요!",
+                "태리를 계속 응원했어요!",
+                "마지막에 눈물나요 ㅠㅠ",
+                "와 프론트 눈물나요 ㅠㅠ",
+                "너무 어려워요 ㅠㅠ"
+            ],
+            image: "/sangsangjakka/resources/img/book1.jpg"
+        },
+        {
+            title: "제목: 당근 유치원",
+            intro: "한줄 소개: 토끼 선생님과 함께하는 당근 유치원이야기 입니다!",
+            reviews: [
+                "고래를 만나 교감하는게 감동 깊었어요!",
+                "태리를 계속 응원했어요!",
+                "마지막에 눈물나요 ㅠㅠ",
+                "와 프론트 눈물나요 ㅠㅠ",
+                "너무 어려워요 ㅠㅠ"
+            ],
+            image: "/sangsangjakka/resources/img/book2.jpg"
+        },
+        {
+            title: "제목: 화가 나서 그랬어!",
+            intro: "한줄 소개: 화가 나는데 어떡해요..감정을 표현하는 방법을 알려드립니다.",
+            reviews: [
+                "고래를 만나 교감하는게 감동 깊었어요!",
+                "태리를 계속 응원했어요!",
+                "마지막에 눈물나요 ㅠㅠ",
+                "와 프론트 눈물나요 ㅠㅠ",
+                "너무 어려워요 ㅠㅠ"
+            ],
+            image: "/sangsangjakka/resources/img/book3.jpg"
+        },
+        {
+            title: "제목: 할아버지와 순돌이는 닮았어요.",
+            intro: "한줄 소개: 세상에서 가장 따뜻한 강아지와 할아버지의 함께 살아가는 이야기입니다.",
+            reviews: [
+                "고래를 만나 교감하는게 감동 깊었어요!",
+                "태리를 계속 응원했어요!",
+                "마지막에 눈물나요 ㅠㅠ",
+                "와 프론트 눈물나요 ㅠㅠ",
+                "너무 어려워요 ㅠㅠ"
+            ],
+            image: "/sangsangjakka/resources/img/book4.jpg"
+        },
+        {
+            title: "제목: 세상에서 두 번째로 신기한 일",
+            intro: "한줄 소개: 첫 번째로 신기한 일은 과연 무엇이었을까요? 맞춰보세요!",
+            reviews: [
+                "고래를 만나 교감하는게 감동 깊었어요!",
+                "태리를 계속 응원했어요!",
+                "마지막에 눈물나요 ㅠㅠ",
+                "와 프론트 눈물나요 ㅠㅠ",
+                "너무 어려워요 ㅠㅠ"
+            ],
+            image: "/sangsangjakka/resources/img/book5.jpg"
+        },
+
+    ];
+
+    let currentIndex = 0;
+
+    function updateBookInfo() {
+        const bookTitle = document.querySelector(".bookAwardInfoTitile");
+        const bookIntro = document.querySelector(".bookAwardInfoIntro");
+        const reviewList = document.querySelector(".bookAwardInfoReview ul");
+        const bookImage = document.querySelector(".bookAwardImg img");
+
+        bookTitle.textContent = bookInfo[currentIndex].title;
+        bookIntro.textContent = bookInfo[currentIndex].intro;
+
+        // 리뷰 목록을 초기화하고 새로운 리뷰를 추가합니다.
+        reviewList.innerHTML = "";
+        bookInfo[currentIndex].reviews.forEach(review => {
+            const li = document.createElement("li");
+            li.textContent = review;
+            reviewList.appendChild(li);
+        });
+
+        // 이미지 주소 업데이트
+        bookImage.src = bookInfo[currentIndex].image;
+    }
+
+    const prevButton = document.querySelector(".bookAwardPrev button");
+    const nextButton = document.querySelector(".bookAwardNext button");
+
+    prevButton.addEventListener("click", function() {
+        currentIndex = (currentIndex === 0) ? bookInfo.length - 1 : currentIndex - 1;
+        updateBookInfo();
+    });
+
+    nextButton.addEventListener("click", function() {
+        currentIndex = (currentIndex === bookInfo.length - 1) ? 0 : currentIndex + 1;
+        updateBookInfo();
+    });
+
+    // 초기 책 정보 표시
+    updateBookInfo();
+});
+	</script>
+    </script>
 	</script>
 	</body>
 </html>

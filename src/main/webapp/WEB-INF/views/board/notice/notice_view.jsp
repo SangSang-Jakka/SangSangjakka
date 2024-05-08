@@ -5,6 +5,7 @@
 <html>
 	<%@include file="/WEB-INF/views/template/asset.jsp"%>
 	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/notice/notice_view.css">
+	
 	<style>
 	
 	
@@ -46,9 +47,7 @@
                       </div>
 
 
-                      <div class="btnTable">
-                        <input type="button" class="btnList" value="목록">
-                      </div>
+                     
 
                       <div class="listWrap">
                         <table class="listTable">
@@ -74,6 +73,10 @@
                         </table>
                       </div>
                     </div>
+                    
+                     <div class="btnTable">
+                        <input type="button" class="btnList" value="목록">
+                      </div>
                     
   </section>
 
