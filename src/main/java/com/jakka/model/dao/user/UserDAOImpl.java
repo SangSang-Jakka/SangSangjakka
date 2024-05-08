@@ -677,6 +677,7 @@ public class UserDAOImpl implements UserDAO{
 					log.setString(3, UserLog.SignUp.getValue());
 					log.executeUpdate();
 		        	
+					createUserFolder(dto.getUserNick());
 		        	
 		        	conn.commit();
 		        	
