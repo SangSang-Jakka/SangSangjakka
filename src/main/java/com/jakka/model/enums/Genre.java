@@ -2,29 +2,16 @@ package com.jakka.model.enums;
 
 public enum Genre {
 
-	ART("1"),							//예술
-    SCIENCE_FICTION("2"),				//공상과학
-    FANTASY("3"),						//판타지
-    HORROR("4"),						//공포
-    EDUCATION("5"),						//교육
-    HISTORY("6"),						//역사
-    NATURE("7"),						//자연생태
-    MYSTERY("8"),						//미스테리
-    ARTIFICIAL_INTELLIGENCE("9"),		//인공지능
-    FAIRYTALE("10"),					//동화
-    SPORTS("11"),						//스포츠
-    PUZZLE("12"),						//수수께끼
-    ROMANTIC("13"),						//로맨틱
-    HEARTWARMING("14"),				//따뜻한
-    SPACE("15"),						//우주
-    HEALTH("16"),						//건강
-    CREATIVE("17"),						//창조적
-    MYSTICAL("18"),						//신비
-    CLASSICAL("19"),					//고전적
-    COMEDY("20"),						//코믹
-    FRIENDSHIP("21"),					//우정
-    CREATIVITY("22");					//창의력
-    
+	Fantasytales("1"),				//판타지 동화
+	Adventuretales("2"),			//탐험 동화
+	FriendFamilyStories("3"),		//친구/가족 이야기 동화
+	HeartwarmingTales("4"),		//감동적인 동화
+	ScienceNatureTales("5"),		//과학/자연 동화
+	HistoricalTales("6"),			//역사 동화
+	HumorousTales("7"),			//익살스런 동화
+	WordplayTales("8"),			//말장난 동화
+	InventionRelatedTales("9"),	//발명품 관련 동화
+	ImaginativeTales("10");		//상상력 자극 동화
 	
 	private final String value;
 	

@@ -133,7 +133,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 		return null;
 	}
- 	
+	
 	//로그인 로그 작성
 	@Override
 	public void loginLog(String userSeq) {
