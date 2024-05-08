@@ -39,7 +39,7 @@ public class AdminEdit extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		
-		//1. 데이터 가져오기
+			//1. 데이터 가져오기
 				//2. DB 작업 > update
 				//3. 결과
 				

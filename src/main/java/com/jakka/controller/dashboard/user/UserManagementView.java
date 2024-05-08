@@ -20,12 +20,13 @@ public class UserManagementView extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		String userId = req.getParameter("sep");
+		String userId = req.getParameter("id");
 		
 		UserDAO dao = DAOManager.getUserDAO();
 		UserDTO dto = dao.findById(userId);
 		
 		req.setAttribute("user", dto);
+		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/user_manage_view.jsp");
 		dispatcher.forward(req, resp);

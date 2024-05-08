@@ -50,10 +50,11 @@
 
 
 				<!-- Simple Datatable start -->
+				<form  method ="POST" action="/sangsangjakka/dashboard/user/edit.do">
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">회원 정보</h4>
-						<a href="/sangsangjakka/dashboard/user/edit.do?id=${user.userId}" class="btn btn-primary pull-right">수정</a>
+						<button type="submit" class="btn btn-primary pull-right">확인</button>
 					</div>
 					<div class="wizard-content">
 						<form class="tab-wizard wizard-circle wizard">
@@ -63,13 +64,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>아이디 : </label> <input type="text" class="form-control"
-											value="${user.userId}">
+											value="${user.userId}" name="userId">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>비밀번호 : </label> <input type="text"
-											class="form-control" value="${user.userPw}" placeholder="****">
+											class="form-control" value="${user.userPw}" placeholder="****" name="userPw">
 									</div>
 								</div>
 							</div>
@@ -77,13 +78,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>이름 :</label> <input type="text" class="form-control"
-											value="${user.userName}">
+											value="${user.userName}" name="userName">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>닉네임 :</label> <input type="text" class="form-control"
-											value="${user.userNick}">
+											value="${user.userNick}" name="userNick">
 									</div>
 								</div>
 							</div>
@@ -91,13 +92,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>생년월일 :</label> <input type="text" class="form-control"
-											value="${user.userLeftSsn}">
+											value="${user.userLeftSsn}" name="userBirth">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>전화번호 : </label> <input type="text"
-											class="form-control" value="${user.userTel}">
+											class="form-control" value="${user.userTel}" name="userTel">
 									</div>
 								</div>
 							</div>
@@ -105,13 +106,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>이메일 :</label> <input type="text" class="form-control"
-											value="${user.userEmail}">
+											value="${user.userEmail}" name="userEmail">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>주소 :</label> <input type="text" class="form-control"
-											value="${user.userAddress}">
+											value="${user.userAddress}" name="userAddress">
 									</div>
 								</div>
 							</div>
@@ -119,13 +120,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>가입일 :</label> <input type="text" class="form-control"
-											value="${user.userRegdate}">
+											value="${user.userRegdate}"name="userRegdate">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>개인용량 :</label> <input type="text" class="form-control"
-											value="${user.limitStorage}">
+											value="${user.limitStorage}" name="userlimitStorage">
 									</div>
 								</div>
 							</div>
@@ -133,7 +134,7 @@
 					</div>
 				</div>
 
-
+		</form>
 
 				<!-- 푸터 -->
 				<%@include

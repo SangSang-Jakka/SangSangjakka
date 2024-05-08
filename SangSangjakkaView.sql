@@ -336,3 +336,40 @@ from
         from tblNotice n
 );
 
+-- 사용자 연령대 
+CREATE OR REPLACE VIEW vwUserAge AS
+SELECT
+    age_range,
+    COUNT(*) AS count
+FROM
+    (
+        SELECT
+            CASE
+                WHEN age BETWEEN 0 AND 10 THEN '10세이하'
+                WHEN age BETWEEN 11 AND 20 THEN '10세이상'
+                WHEN age BETWEEN 21 AND 30 THEN '20세이상'
+                WHEN age BETWEEN 31 AND 40 THEN '30세이상'
+                WHEN age BETWEEN 41 AND 50 THEN '40세이상'
+                ELSE '50세이상'
+            END AS age_range,
+            age
+        FROM
+            (
+                SELECT
+                    CASE
+                        WHEN SUBSTR(userleftssn, 1, 2) > TO_CHAR(SYSDATE, 'YY') THEN
+                            EXTRACT(YEAR FROM SYSDATE) - (1900 + SUBSTR(userleftssn, 1, 2)) + 1
+                        ELSE
+                            EXTRACT(YEAR FROM SYSDATE) - (2000 + SUBSTR(userleftssn, 1, 2)) + 1
+                    END AS age
+                FROM
+                    tblUser
+                WHERE
+                    userleftssn IS NOT NULL
+            )
+    )
+GROUP BY
+    age_range
+ORDER BY
+    age_range;
+
