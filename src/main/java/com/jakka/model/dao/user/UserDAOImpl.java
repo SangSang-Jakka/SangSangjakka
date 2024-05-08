@@ -12,13 +12,10 @@ import java.util.Map;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.user.UserDTO;
+import com.jakka.model.enums.UserLog;
+import com.jakka.model.enums.UserState;
 
 public class UserDAOImpl implements UserDAO{
-	@Override
-	public UserDTO getUser(String userSeq) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	private final static UserDAOImpl DAO = new UserDAOImpl();
 	
@@ -30,18 +27,33 @@ public class UserDAOImpl implements UserDAO{
 		return DAO;
 	}//getInstance()
 	
-	
 
 	public boolean unRegister(UserDTO dto) {
-		String SQL = "delete from tblUser where userSeq = ? and userPw = ?";
 		
-		try {
+		final String SQL = "update tblUser set userState = 'n' where userSeq = ?";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		
+		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
+		){
+			conn.setAutoCommit(false);
+			
+			
 			pstat.setString(1, dto.getUserSeq());
 			pstat.setString(2, dto.getUserPw());
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "' 아이디'" + dto.getUserId() + "'" + "이름'" + dto.getUserName() + "'님이 '회원탈퇴'했습니다.");
+				log.setString(3, UserLog.Withdrawal.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result > 0;
 			
@@ -122,10 +134,35 @@ public class UserDAOImpl implements UserDAO{
 		return null;
 	}
  	
+	//로그인 로그 작성
+	@Override
+	public void loginLog(String userSeq) {
+		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(LOGSQL);
+		){
+			
+			pstat.setString(1, userSeq);
+			pstat.setString(2, "사용자번호'" + userSeq + "'님이 '로그인'했습니다.");
+			pstat.setString(3, UserLog.Login.getValue());
+			pstat.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.| loginLog");
+			e.printStackTrace();
+		}
+		
+	}
+	
 	// 로그인
 	public UserDTO login(UserDTO dto) {
 		
-		String SQL = "select * from tblUser where userId = ? and userPw = ?";
+		String SQL = "select * from tblUser where userId = ? and userPw = ? and userState = ?";
 		
 		try (
 			Connection conn = DBUtil.open();
@@ -133,6 +170,7 @@ public class UserDAOImpl implements UserDAO{
 		){
 			pstat.setString(1, dto.getUserId());
 			pstat.setString(2, dto.getUserPw());
+			pstat.setString(3, UserState.ACTIVE.getValue());
 			
 			System.out.println(dto.getUserId());
 			System.out.println(dto.getUserPw());

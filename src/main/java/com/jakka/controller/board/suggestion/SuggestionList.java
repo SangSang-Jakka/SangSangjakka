@@ -107,14 +107,14 @@ public class SuggestionList extends HttpServlet {
 		if(n == 1) {
 			builder.append(String.format("<a href='#!'>[이전 %d페이지]</a>", blockSize));
 		} else {
-			builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a>", n-1, column, word, blockSize));
+			builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a>", n-1, column != null ? column : "", word != null ? word : "", blockSize));
 		}
 		
 		while(!(loop > blockSize || n > totalPage)) {
 			if(n == nowPage) {
 				builder.append(String.format("<a href='#!' style='color:tomato';>%d</a>", n));
 			} else {
-				builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>%d</a>", n, column, word, n));
+				builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>%d</a>", n, column != null? column : "", word != null ? word : "", n));
 			}
 			loop++;
 			n++;
