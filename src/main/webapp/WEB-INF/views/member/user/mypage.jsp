@@ -47,10 +47,10 @@
 									<span>닉네임</span>
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
-											<input type="text" id="nickName" name="nickName" value="${dto.userNick}" required readonly />
+											<input type="text" id="inputNick" name="nickName" value="${dto.userNick}" required readonly />
 										</div>
 										<div class="changebtnbox change">
-											<input type="button" value="변경" id="nickNameChangeBtn" class="pointer">
+											<input type="button" value="중복검사" id="nickNameChangeBtn" class="pointer" onclick="openNickCheck()">
 										</div>
 									</div>
 								</div>
@@ -352,6 +352,8 @@
 			    document.getElementById('sample6_extraAddress').removeAttribute('readonly');
 			    
 			});
+			
+			
 
 			//내 동화책 차트
 			Highcharts.chart('mybook', {
@@ -655,6 +657,113 @@
             }
         }).open();
     }
+		
+		function validateInput(input) {
+	        // 입력된 값이 숫자가 아니면 삭제
+	        input.value = input.value.replace(/\D/g, '');
+	        }
+
+	        // 입력창 자동 이동 함수
+	        document.getElementById('phoneInput1').addEventListener('input', function() {
+	            if (this.value.length >= this.maxLength) {
+	                document.getElementById('phoneInput2').focus();
+	            }
+	        });
+
+	        document.getElementById('phoneInput2').addEventListener('input', function() {
+	            if (this.value.length === 0) {
+	                document.getElementById('phoneInput1').focus();
+	            }
+	        });
+
+		
+		
+		// 닉네임 유효성 및 중복 검사
+		document.addEventListener("DOMContentLoaded", function() {
+		    let inputNickName = document.getElementById("nickName");
+
+		    inputNickName.addEventListener("input", function() {
+		        let value = inputNickName.value;
+		        let isValidLength = nickNameLength(value);
+		        let isValidNickName = checkNickName(value);
+
+		        // 이전에 추가된 모든 에러 메시지 삭제
+		        removeErrorMessages();
+
+		        // 글자수와 닉네임 형식이 모두 유효하지 않은 경우 메시지 표시
+		        if (!isValidLength || !isValidNickName) {
+		            showErrorMessage("닉네임은 4~10 글자로 한글, 영어소문자, 숫자만 입력 가능합니다.");
+		        }
+		    });
+
+		    function nickNameLength(value) {
+		        return value.length >= 4 && value.length <= 10;
+		    }
+
+		    function checkNickName(value) {
+		        return /^[a-zA-Z0-9가-힣]*$/.test(value);
+		    }
+
+		    function showErrorMessage(message) {
+		        let errorMessage = document.createElement("span");
+		        errorMessage.textContent = message;
+		        errorMessage.style.color = "red";
+		        errorMessage.style.fontSize = "0.8em";
+		        errorMessage.id = "nickNameErrorMessage";
+
+		        let errorContainer = document.querySelector(".userInfoNcikName.title");
+		        errorContainer.appendChild(errorMessage);
+		    }
+
+		    function removeErrorMessages() {
+		        let errorMessages = document.querySelectorAll("#nickNameErrorMessage");
+		        errorMessages.forEach(errorMessage => errorMessage.remove());
+		    }
+		});
+
+		//이메일
+		document.addEventListener("DOMContentLoaded", function() {
+		    let inputEmail = document.getElementById("userEmailInput");
+
+		    function showErrorMessage(message) {
+		        let errorMessage = document.createElement("span");
+		        errorMessage.textContent = message;
+		        errorMessage.style.color = "red";
+		        errorMessage.style.fontSize = "0.8em";
+		        errorMessage.id = "emailErrorMessage";
+
+		        let errorContainer = document.querySelector(".userInfoEmail");
+		        errorContainer.appendChild(errorMessage);
+		    }
+
+		    function removeErrorMessages() {
+		        let errorMessages = document.querySelectorAll("#emailErrorMessage");
+		        errorMessages.forEach(errorMessage => errorMessage.remove());
+		    }
+		});
+		
+		
+		//중복검사
+		function signUp() {
+	    var idDuplicationValue = document.getElementById("idHidden").value;
+	    var nickDuplicationValue = document.getElementsById("nickHidden").value;
+
+	    if (nickDuplicationValue !== "nickChecked") {
+	        alert("닉네임 중복검사를 먼저 실행해주세요.");
+	        return false;
+	    }
+
+	}
+		
+		
+		
+		//닉네임 중복체크 화면
+		function openNickCheck() {
+			window.name = "parent2Form";
+			window.open("/sangsangjakka/user/nickcheck.do",
+					"checkFrom","width=500, height=300, resizable=no, scrollbars=no");
+		}	
+		
 		
 
 </script>

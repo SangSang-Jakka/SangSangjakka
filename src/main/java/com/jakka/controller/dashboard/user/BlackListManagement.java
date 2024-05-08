@@ -33,5 +33,31 @@ public class BlackListManagement extends HttpServlet {
 		dispatcher.forward(req, resp);
 
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("hello");
+	
+		req.setCharacterEncoding("UTF-8");
+		
+		
+		
+		String userSeq = req.getParameter("userSeq");
+		System.out.println(userSeq);
+		
+
+		UserDAO dao = DAOManager.getUserDAO();
+		
+		
+		//String userSeq, String adId
+		
+		int result = dao.blaklistReStore(userSeq);
+		System.out.println(result);
+		
+		if (result == 1) {
+			//resp.sendRedirect("/toy/board/list.do");
+			resp.sendRedirect("/sangsangjakka/admin/dashboard/blacklist/manage.do");
+		}
+	}
 
 }// End

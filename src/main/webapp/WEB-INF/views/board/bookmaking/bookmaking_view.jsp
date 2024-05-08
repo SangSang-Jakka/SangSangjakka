@@ -483,32 +483,41 @@
 					pageChange();
 				});
 				
-				$('selectTextBox').click(function() {
-					//
-				});
-				
 				$('.pageImageUploadBox input[type="button"]').click(function() {
-					var fileInput = document.getElementById('pageImageUpload');
-					if (fileInput.files && fileInput.files[0]) {
-						var reader = new FileReader();
-						
-						reader.onload = function(e) {
-							// Get the data URL of the image file
-							var imageUrl = e.target.result;
+					var fileInput = $('#pageImageUpload')[0];
+				    var file = fileInput.files[0];
 
-							// Find the visible bb-item and update its .pageImage div with the new background image
-							var $visiblePageImage = $('#bb-bookblock .bb-item:visible .pageImage');
-							$visiblePageImage.css('background-image', 'url(' + imageUrl + ')');
+				    if (file) {
+				        // FileReader를 사용하여 이미지 파일을 읽습니다.
+				        var reader = new FileReader();
+				        reader.onload = function(e) {
+				            // currentVisibleId의 배경 이미지로 설정합니다.
+				            $('#' + currentVisibleId).css('background-image', 'url(' + e.target.result + ')');
 
-							// Reset the file input after updating the image
-							fileInput.value = ''; // This line resets the file input
-						};
+				            // FormData 객체를 생성하고 파일을 추가합니다.
+				            var formData = new FormData();
+				            formData.append('image', file);
 
-						// Read the image file as a data URL to use as a background image
-						reader.readAsDataURL(fileInput.files[0]);
-					} else {
-						alert('Please select an image file to upload.');
-					}
+				            // Ajax 요청을 통해 서버에 파일을 업로드합니다.
+				            $.ajax({
+				                url: '/webapp/generated/' + userId + '/' + bookSeq + '/' + pageSeq + '.jpg',
+				                type: 'POST',
+				                data: formData,
+				                processData: false,  // FormData를 사용할 때 필요
+				                contentType: false,  // FormData를 사용할 때 필요
+				                success: function(data) {
+				                    alert('이미지가 성공적으로 업로드되었습니다.');
+				                },
+				                error: function(xhr, status, error) {
+				                    alert('업로드 실패: ' + error);
+				                }
+				            });
+				        };
+				        reader.readAsDataURL(file);
+				        pageChange();
+				    } else {
+				        alert('파일이 선택되지 않았습니다.');
+				    }
 				});
 				
 				

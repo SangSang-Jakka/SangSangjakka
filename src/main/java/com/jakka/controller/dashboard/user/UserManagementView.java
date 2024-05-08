@@ -41,9 +41,7 @@ public class UserManagementView extends HttpServlet {
 		System.out.println("hello");
 		
 		
-				//1. 데이터 가져오기
-				//2. DB 작업 > update
-				//3. 결과
+				
 		
 				HttpSession session = req.getSession();
 				String adId = (String)session.getAttribute("adId");

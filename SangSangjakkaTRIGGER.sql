@@ -244,4 +244,15 @@ END;
 /
 
 
+CREATE OR REPLACE TRIGGER trgUserGenrepreference
+AFTER INSERT ON tblUser
+FOR EACH ROW
+BEGIN
+    FOR i IN 1..10 LOOP
+        INSERT INTO tblUserGenrePreference (userSeq, genreSeq, genreCnt)
+        VALUES (:NEW.userSeq, i, 0);
+    END LOOP;
+END;
+/
+
 commit;

@@ -133,7 +133,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 		return null;
 	}
- 	
+	
 	//로그인 로그 작성
 	@Override
 	public void loginLog(String userSeq) {
@@ -518,6 +518,7 @@ public class UserDAOImpl implements UserDAO{
 	public int disable(String userSeq, String adId) {
 		
 		final String SQL = "insert into tblBlackList(userSeq) values(?)";
+		
 		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 1)";
 		
 		try (
@@ -683,8 +684,22 @@ public class UserDAOImpl implements UserDAO{
 //		        	
 //		        	conn.commit();
 		        	
+<<<<<<< HEAD
 		            return newUserId;
 		       // }
+=======
+		        	log.setString(1, dto.getUserSeq());
+					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
+					log.setString(3, UserLog.SignUp.getValue());
+					log.executeUpdate();
+		        	
+					createUserFolder(dto.getUserNick());
+		        	
+		        	conn.commit();
+		        	
+		            return dto.getUserId();
+		        }
+>>>>>>> 50cb88327fc8264e0941e1f27466f150054ba84e
 				
 				
 			} catch (Exception e) {
@@ -745,6 +760,32 @@ public class UserDAOImpl implements UserDAO{
 		    System.out.println(0);
 		    return 0;
 	}
+	
+	@Override
+	public int checkEmail(UserDTO dto) {
+		final String SQL = "SELECT COUNT(*) FROM tblUser where userEmail = ?";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+		    ){
+		        pstat.setString(1, dto.getUserEmail());
+		        
+		        ResultSet rs = pstat.executeQuery();
+		        if (rs.next()) {
+		            int count = rs.getInt(1);
+		            System.out.println(count); // 디버깅을 위해 출력
+		            return count;
+		        }
+		    } catch (Exception e) {
+		        System.out.println("UserDAO.| disable");
+		        e.printStackTrace();
+		    }
+		    
+		    System.out.println(0);
+		    return 0;
+	}
+
 
 	
 		public int userCnt(String userRegdate) {
@@ -994,6 +1035,35 @@ public class UserDAOImpl implements UserDAO{
 		
 		
 		return null;
+	}
+	
+	@Override
+	public int blaklistReStore(String userSeq) {
+		
+		final String SQL = "delete from tblBlacklist where userseq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+				
+		){
+			
+			
+			pstat.setString(1, userSeq);
+			
+			return pstat.executeUpdate();
+			
+
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAO.| disable");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	
 	}
 	
 

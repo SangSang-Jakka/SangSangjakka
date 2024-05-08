@@ -185,6 +185,7 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 		
 	}
 	
+	// 답변 수정
 	@Override
 	public int save(SuggestionAnswerDTO dto) {
 		
@@ -202,6 +203,8 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 			conn.setAutoCommit(false);
 			
 			pstat.setString(1, dto.getSgstAnsw());
+			pstat.setString(2, dto.getAnswSeq());
+			
 			
 			int result = pstat.executeUpdate();
 			
@@ -262,43 +265,8 @@ public class SuggestionAnswerDAOImpl implements SuggestionAnswerDAO{
 	    return null;
 	}
 	
-/*
-	@Override
-	public int del(SuggestionAnswerDTO dto) {
-	    final String SQL = "DELETE FROM tblSuggestionAnswer WHERE answSeq = ?";
-	    final String LOGSQL = "INSERT INTO tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) VALUES ((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
-
-	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstat = conn.prepareStatement(SQL);
-	         PreparedStatement log = conn.prepareStatement(LOGSQL)) {
-
-	        conn.setAutoCommit(false);
-
-	        pstat.setString(1, dto.getAnswSeq());
-
-	        int result = pstat.executeUpdate();
-
-	        if (result > 0) {
-	            // 삭제 로그 기록
-	            log.setString(1, dto.getAdId());
-	            log.setString(2, "관리자'" + dto.getAdId() + "답변 번호'" + dto.getAnswSeq() + "'을 '삭제'했습니다.");
-	            log.setString(3, AdminLog.SuggestionAnsweredDeleted.getValue());
-	            log.executeUpdate();
-	        }
-
-	        conn.commit();
-
-	        return result;
-
-	    } catch (Exception e) {
-	        System.out.println("SuggestionAnswerDAO | delete");
-	        e.printStackTrace();
-	    }
-
-	    return 0;
-	}
-	*/
 	
+	// 삭제
 	@Override
 	public int del(String answSeq, String adId) {
 	    final String SQL = "DELETE FROM tblSuggestionAnswer WHERE answSeq = ?";
