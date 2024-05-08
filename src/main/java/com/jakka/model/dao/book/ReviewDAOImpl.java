@@ -112,11 +112,13 @@ public class ReviewDAOImpl implements ReviewDAO{
 				ReviewDTO dto = new ReviewDTO();
 				
 				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setReviewRegdate(rs.getString("reviewRegdate"));
 				dto.setReviewContents(rs.getString("reviewContents"));
 				dto.setReviewLikeCnt(rs.getString("reviewLikeCnt"));
 				dto.setReviewReportCnt(rs.getString("reviewReportCnt"));
 				dto.setReviewSeq(rs.getString("reviewSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 				
 			}
 			
