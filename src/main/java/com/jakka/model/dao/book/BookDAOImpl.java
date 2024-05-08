@@ -1,5 +1,6 @@
 package com.jakka.model.dao.book;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -76,7 +77,7 @@ public class BookDAOImpl implements BookDAO{
 			PreparedStatement pstat = conn.prepareStatement(SQL);
 				
 		){
-			pstat.setString(1, bookSeq);
+			pstat.setInt(1, Integer.parseInt(bookSeq));
 			
 			ResultSet rs = pstat.executeQuery();
 			
@@ -1152,6 +1153,27 @@ public class BookDAOImpl implements BookDAO{
 	        e.printStackTrace();
 	    }
 	    return null;
+	}
+	
+	public void createBookFolder(String userId, String bookSeq) {
+		
+		final String BASE_DIRECTORY = "src/main/webapp/generated/";
+		
+		String projectDirectory = System.getProperty("user.dir");
+        String folderPath = projectDirectory + File.separator + BASE_DIRECTORY + userId + "/" + bookSeq;
+        File userFolder = new File(folderPath);
+
+        if (!userFolder.exists()) {
+            boolean created = userFolder.mkdirs();
+            if (created) {
+                System.out.println("User folder created: " + folderPath);
+            } else {
+                System.err.println("Failed to create user folder: " + folderPath);
+            }
+        } else {
+            System.out.println("User folder already exists: " + folderPath);
+        }
+		
 	}
 	
 }//End of class
