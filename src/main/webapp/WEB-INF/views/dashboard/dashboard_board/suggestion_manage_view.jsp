@@ -254,8 +254,7 @@ function del(answSeq, adId) {
 	    let commentItem = $(event.target).parents('.commentItem');
 	    let content = $(event.target).parents('.commentItem').find('.commentContent').text(); 
 	    
-	    // 1
-	   alert(content);
+	    // 1 alert(content);
 
 	    $(event.target).parents('.commentItem').after(`
 	        <div class="commentEditRow">
@@ -272,10 +271,8 @@ function del(answSeq, adId) {
 
 	function editComment(answSeq, sgstAnsw) {
 		
-		// 2
-		alert(answSeq);
-		// 3 
-		alert($('#txtComment').val());
+		// 2 alert(answSeq);
+		// 3 alert($('#txtComment').val());
 		
 	    let editedContent = $('#txtComment').val();
 	    let commentItem = $(event.target).parents('.commentItem');
