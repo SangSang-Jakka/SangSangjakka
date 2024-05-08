@@ -410,3 +410,9 @@ insert into tblAdmin(adId, adPw, adName, adNick, adAddress, adTel, adLv)
 values('super', '1111', '최고관리자', '최고관리자', ' ', ' ', 3);
 
 commit;
+
+SELECT * 
+FROM (
+SELECT ROWNUM NUM, f.*
+FROM(SELECT * FROM vwBoardWhite where boardTitle like '%꿈%' ORDER BY boardRegdate desc) f
+) where num between 1 and 10;

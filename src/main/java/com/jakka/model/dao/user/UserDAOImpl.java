@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -817,19 +818,19 @@ public int userCnt(String userRegdate) {
 	 public Map<String, Map<String, Integer>> newCnt(String formattedNum1, String formattedNum2) {
 		 Map<String, Map<String, Integer>> countsMap = new HashMap<>();
 
-		 String sql = "SELECT " +
-				 "    TO_CHAR(userregdate, 'YY/MM') AS month," +
-				 "    COUNT(CASE WHEN USERSTATE = 'y' THEN 1 END) AS user_count," +
-				 "    COUNT(CASE WHEN USERSTATE = 'n' THEN 1 END) AS user_left " +
-				 "FROM " +
-				 "    tblUser " +
-				 "WHERE " +
-				 "    TO_CHAR(userregdate, 'YY/MM') >= ? AND" +
-				 "    TO_CHAR(userregdate, 'YY/MM') <= ? " +
-				 "GROUP BY " +
-				 "    TO_CHAR(userregdate, 'YY/MM') " +
-				 "ORDER BY " +
-				 "    TO_CHAR(userregdate, 'YY/MM')";
+		 String sql = "SELECT \r\n"
+		 		+ "    TO_CHAR(userregdate, 'YY/MM') AS month,\r\n"
+		 		+ "    COUNT(CASE WHEN USERSTATE = 'y' THEN 1 END) AS user_count,\r\n"
+		 		+ "    COUNT(CASE WHEN USERSTATE = 'n' THEN 1 END) AS user_left\r\n"
+		 		+ "FROM\r\n"
+		 		+ "    tblUser\r\n"
+		 		+ "WHERE\r\n"
+		 		+ "    TO_CHAR(userregdate, 'YY/MM') >= ? AND\r\n"
+		 		+ "    TO_CHAR(userregdate, 'YY/MM') <= ?\r\n"
+		 		+ "GROUP BY\r\n"
+		 		+ "    TO_CHAR(userregdate, 'YY/MM')\r\n"
+		 		+ "ORDER BY\r\n"
+		 		+ "    TO_NUMBER(REPLACE(TO_CHAR(userregdate, 'YY/MM'), '/', ''))";
        try {
            Connection conn = DBUtil.open();
            PreparedStatement pstat = conn.prepareStatement(sql);
@@ -883,6 +884,75 @@ public int userCnt(String userRegdate) {
 	    return primaryKey;
 	}
 
+	@Override
+	public Map<String, Integer> childAge() {
+		
+		Map<String, Integer> ageRange = new HashMap<>();
+		
+		 String SQL = "SELECT\r\n"
+		 		+ "    ac.agerange,\r\n"
+		 		+ "    COALESCE(ct.count, 0) AS count\r\n"
+		 		+ "FROM\r\n"
+		 		+ "    tblAgeCat ac\r\n"
+		 		+ "    LEFT JOIN (\r\n"
+		 		+ "        SELECT\r\n"
+		 		+ "            ta.agerange,\r\n"
+		 		+ "            COUNT(*) AS count\r\n"
+		 		+ "        FROM\r\n"
+		 		+ "            tblChildAge tc\r\n"
+		 		+ "            JOIN tblAgeCat ta ON tc.agecatseq = ta.agecatseq\r\n"
+		 		+ "        GROUP BY\r\n"
+		 		+ "            ta.agerange\r\n"
+		 		+ "    ) ct ON ac.agerange = ct.agerange\r\n"
+		 		+ "ORDER BY\r\n"
+		 		+ "    ac.agecatseq";
+		
+		 try {
+			 	Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				ResultSet rs = pstat.executeQuery();
+				
+				while (rs.next()) {
+		            String range = rs.getString("agerange");
+		            int count = rs.getInt("count");
+		            ageRange.put(range, count);
+		        }
+				
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.childAge");
+			e.printStackTrace();
+		}
+		 return ageRange;
+	}
+	
+	
+	
+	
+	@Override
+	public Map<String, Integer> userAge() {
+		
+		Map<String, Integer> userAgeRange = new HashMap<>();
+		
+		 String SQL = "select * from vwUserAge";
+		
+		 try {
+			 	Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				ResultSet rs = pstat.executeQuery();
+				
+				while (rs.next()) {
+		            String userRange = rs.getString("age_range");
+		            int userAgeCount = rs.getInt("count");
+		            userAgeRange.put(userRange, userAgeCount);
+		        }
+				
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.childAge");
+			e.printStackTrace();
+		}
+		 return userAgeRange;
+	}
+	
 
 
 }//End of class

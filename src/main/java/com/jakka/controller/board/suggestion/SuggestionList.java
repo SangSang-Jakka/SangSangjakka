@@ -68,6 +68,7 @@ public class SuggestionList extends HttpServlet {
 		map.put("begin", begin + "");
 		map.put("end", end + "");
 		
+		System.out.println(map);
 		// 조회수 관련
 		HttpSession session = req.getSession();
 		session.setAttribute("read", "n");

@@ -10,8 +10,7 @@ public interface SuggestionAnswerDAO extends BasicDAO<SuggestionAnswerDTO>, Comm
 
 	public ArrayList<SuggestionAnswerDTO> list(String parentSgstSeq);
 
-	int del(SuggestionAnswerDTO dto);
-
+	public int del(String answSeq, String adId);
 
 	
 	

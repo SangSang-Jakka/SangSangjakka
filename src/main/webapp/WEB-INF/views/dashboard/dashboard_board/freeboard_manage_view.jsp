@@ -120,7 +120,7 @@
    
   }
   
-  }
+
 
 </style>
 </head>
@@ -159,12 +159,9 @@
 					<div class="viewContainer">
 						<h2>게시글 상세</h2>
 
-
-
 						<span class="right"> 
-						<button type="button" class="btn btn-primary" button type="button" class="btn btn-primary" onclick="hidePost();">비공개</button>
-						<button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/freeboard/manageedit.do?seq=${dto.boardSeq}';">수정</button>
-					<!--  	<button type="button" class="btn btn-primary" onclick="delBoard(${dto.boardSeq});">삭제</button> -->
+						<button type="button" class="btn btn-primary" onclick="activationPage('${dto.boardSeq}')">공개</button>
+						<button type="button" class="btn btn-primary" onclick="disablePage('${dto.boardSeq}')">비공개</button>
 						</span>
 
 						<table>
@@ -230,7 +227,52 @@
 	</div>
 	
 	<script>
+	
+	// 게시물 활성화
+	
+	function activationPage(boardSeq) {
+		
+		
+		var xhr = new XMLHttpRequest();
+	    xhr.open('POST', '/sangsangjakka/admin/dashboard/freeboard/managedel.do', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            // 서블릿으로부터 받은 응답 처리
+	            alert(xhr.responseText);
+	            // 페이지 리로드 또는 다른 작업 수행
+	        }
+	    };
+	    // 서블릿으로 전달할 파라미터 설정
+	    var params = 'boardSeq=' + encodeURIComponent(boardSeq) + '&action=activationPage';
+	    xhr.send(params);
+	
+	}
+	
+	
+	
+	
+	// 게시물 비활성화
+	
+	function disablePage(boardSeq) {
+		
+		var xhr = new XMLHttpRequest(); 
+        xhr.open('POST', '/sangsangjakka/admin/dashboard/freeboard/managedel.do', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 서블릿으로부터 받은 응답 처리
+                alert(xhr.responseText);
+                // 페이지 리로드 또는 다른 작업 수행
+            }
+        };
+        
+        var params = 'boardSeq=' + encodeURIComponent(boardSeq) + '&action=disablePage';
+	    xhr.send(params);
+		
+	}
 
+	
 	
 	// 댓글 활성화
 	function activation(cmntSeq) {
@@ -249,9 +291,7 @@
 	    // 서블릿으로 전달할 파라미터 설정
 	    var params = 'cmntSeq=' + encodeURIComponent(cmntSeq) + '&action=activation';
 	    xhr.send(params);
-		
-		
-		
+	
 		
 	}
 	

@@ -35,29 +35,25 @@ FROM tblBook b
 -- 동화책 화이트리스트
 CREATE OR REPLACE VIEW vwBookWhite
 AS
-SELECT *
-FROM (
-    SELECT
-        ROWNUM AS rnum,
-        b.bookSeq,
-        b.bookTitle,
-        b.bookInfo,
-        b.bookCover,
-        b.bookRegdate,
-        b.bookModDate,
-        b.likeCnt,
-        b.bookReviewCnt,
-        b.bookScrapCnt,
-        b.bookReportCnt,
-        b.userSeq,
-        b.parentBookSeq,
-        b.rcmAgeSeq,
-        b.userNick,
-        b.bookCnt
-    FROM VWBOOK B
-    INNER JOIN tblBookWhiteList bw
-        ON b.bookSeq = bw.bookSeq
-);
+SELECT
+    b.bookSeq,
+    b.bookTitle,
+    b.bookInfo,
+    b.bookCover,
+    b.bookRegdate,
+    b.bookModDate,
+    b.likeCnt,
+    b.bookReviewCnt,
+    b.bookScrapCnt,
+    b.bookReportCnt,
+    b.userSeq,
+    b.parentBookSeq,
+    b.rcmAgeSeq,
+    b.userNick,
+    b.bookCnt
+FROM VWBOOK B
+INNER JOIN tblBookWhiteList bw
+    ON b.bookSeq = bw.bookSeq;
 
 -- 동화책 블랙리스트
 CREATE OR REPLACE VIEW vwBookBlack 
@@ -142,10 +138,12 @@ WHERE b.boardSeq NOT IN (SELECT boardSeq FROM tblBoardWhiteList);
 -- 블라인드제외 자유게시판 글
 CREATE OR REPLACE VIEW vwBoardWhite
 AS
-select * from 
+select 
+    o.* ,
+    rownum as rnum
+    from 
 (
     SELECT
-        rownum as rnum,
         b.boardSeq,
         b.boardTitle,
         b.boardContents,
@@ -160,7 +158,7 @@ select * from
         on b.boardSeq = w.boardSeq
             left join (select boardSeq, COUNT(*) AS cmntCnt from vwBoardCommentsWhite GROUP BY boardSeq) cm
             on b.boardSeq = cm.boardSeq
-);
+) o;
 
 -- 자유게시판 댓글 + 신고횟수
 create or replace view vwBoardComments

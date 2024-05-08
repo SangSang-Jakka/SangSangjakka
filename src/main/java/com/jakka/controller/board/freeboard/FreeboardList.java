@@ -78,6 +78,8 @@ public class FreeboardList extends HttpServlet {
 		
 		ArrayList<BoardDTO> list  = dao.findAllWhite(map);
 		
+		System.out.println(list);
+		
 		if(list != null) {
 		//데이터 조작
 			for (BoardDTO dto : list) {

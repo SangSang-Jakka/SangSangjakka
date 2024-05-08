@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
-import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 import com.jakka.model.enums.UserLog;
 
@@ -487,38 +486,43 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	}
 	
 	public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map) {
-
-		final String SQL = "select * from vwSuggestion order by sgstRegdate desc";
+		
+		String where = "where rnum BETWEEN ? AND ?";
+		
+		if(map.get("search").equals("y")) {
+			where = where + String.format("and %s like '%%%s%%'", map.get("column"), map.get("word"));
+		}
+		
+		String sql = String.format("select * from vwSuggestion %s order by sgstRegdate desc", where);
 
 		try (
 
 				Connection conn = DBUtil.open();
-				Statement stat = conn.createStatement();
-				ResultSet rs = stat.executeQuery(SQL);
-
-		) {
-
-			ArrayList<SuggestionDTO> list = new ArrayList<>();
-
-			while (rs.next()) {
-
-				SuggestionDTO dto = new SuggestionDTO();
-
-				// 데이터 설정
-	            dto.setSgstSeq(rs.getString("sgstSeq"));
-	            dto.setSgstTitle(rs.getString("sgstTitle"));
-	            dto.setSgstContents(rs.getString("sgstContents"));
-	            dto.setSgstRegdate(rs.getString("sgstRegdate"));
-	            dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
-	            dto.setUserSeq(rs.getString("userSeq"));
-	            dto.setSgstCnt(rs.getString("sgstCnt"));
-	            dto.setUserNick(rs.getString("userNick"));
-
-				list.add(dto);
-
-			}
-
-			return list;
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			
+				pstat.setString(1, map.get("begin"));
+				pstat.setString(2, map.get("end"));
+				ResultSet rs = pstat.executeQuery();
+				ArrayList<SuggestionDTO> list = new ArrayList<>();
+				
+				while (rs.next()) {
+					
+					SuggestionDTO dto = new SuggestionDTO();
+					
+					// 데이터 설정
+					dto.setSgstSeq(rs.getString("sgstSeq"));
+					dto.setSgstTitle(rs.getString("sgstTitle"));
+					dto.setSgstContents(rs.getString("sgstContents"));
+					dto.setSgstRegdate(rs.getString("sgstRegdate"));
+					dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setSgstCnt(rs.getString("sgstCnt"));
+					dto.setUserNick(rs.getString("userNick"));
+					list.add(dto);
+				
+				}
+				
+				return list;
 
 		} catch (Exception e) {
 			e.printStackTrace();
