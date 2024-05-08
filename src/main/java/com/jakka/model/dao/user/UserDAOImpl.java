@@ -742,6 +742,32 @@ public class UserDAOImpl implements UserDAO{
 		    System.out.println(0);
 		    return 0;
 	}
+	
+	@Override
+	public int checkEmail(UserDTO dto) {
+		final String SQL = "SELECT COUNT(*) FROM tblUser where userEmail = ?";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+		    ){
+		        pstat.setString(1, dto.getUserEmail());
+		        
+		        ResultSet rs = pstat.executeQuery();
+		        if (rs.next()) {
+		            int count = rs.getInt(1);
+		            System.out.println(count); // 디버깅을 위해 출력
+		            return count;
+		        }
+		    } catch (Exception e) {
+		        System.out.println("UserDAO.| disable");
+		        e.printStackTrace();
+		    }
+		    
+		    System.out.println(0);
+		    return 0;
+	}
+
 
 	
 		public int userCnt(String userRegdate) {

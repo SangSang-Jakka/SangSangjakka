@@ -23,6 +23,8 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	public Map<String, Integer> userGender();
 	//public int newCnt(String formattedNum1,String formattedNum2);
 	public int checkNick(UserDTO dto);
+	public int checkEmail(UserDTO dto);
+
 	public int findPK(UserDTO dto);
     public Map<String, Map<String, Integer>> newCnt(String formattedNum1, String formattedNum2);
     public Map<String, Integer> childAge();
