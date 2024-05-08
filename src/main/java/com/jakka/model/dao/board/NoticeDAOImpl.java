@@ -115,7 +115,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 		
 		String sql = String.format("SELECT noticeSeq, noticeTitle, noticeContents, noticeRegdate, noticeCnt, adId " +
                 "FROM (SELECT ROWNUM RNUM, f.noticeSeq, f.noticeTitle, f.noticeContents, f.noticeRegdate, f.noticeCnt, f.adId " +
-                "FROM (SELECT * FROM vwNotice %s ORDER BY noticeRegdate desc) f) " +
+                "FROM (SELECT * FROM tblNotice %s ORDER BY noticeRegdate desc) f) " +
                 "%s", col, where);
 		
 		try (
