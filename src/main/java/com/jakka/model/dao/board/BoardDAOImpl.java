@@ -787,6 +787,32 @@ public class BoardDAOImpl implements BoardDAO {
 			e.printStackTrace();
 			return 0;
 		}
+		
+		
+		
 	}
+	
+	
+	@Override
+	public int findSeq(String userSeq) {
+	    String SQL = "SELECT MAX(boardSeq) FROM tblBoard WHERE userSeq = ?";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, userSeq);
+	        ResultSet rs = pstat.executeQuery();
+
+	        if (rs.next()) {
+	            return rs.getInt(1); // 1번째 열의 값을 정수형으로 가져옴
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return 0; // 값을 찾지 못한 경우 0 반환
+	}
+	
 
 }// End of class

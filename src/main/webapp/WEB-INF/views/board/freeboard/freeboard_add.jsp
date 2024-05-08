@@ -5,7 +5,8 @@
 <head>
     <%@include file="/WEB-INF/views/template/asset.jsp"%>
     <link rel="stylesheet" href="/sangsangjakka/resources/css/board/freeboard/freeboard_add.css">
-    <link rel="stylesheet" href="/sangsangjakka/resources/css/summernote/summernote-lite.css">
+<link rel="stylesheet" href="/sangsangjakka/resources/css/summernote/summernote-lite.css">
+
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="/sangsangjakka/resources/js/summernote/summernote-lite.js"></script>
     <script src="/sangsangjakka/resources/js/summernote/lang/summernote-ko-KR.js"></script>
@@ -93,6 +94,9 @@
             var fileName = "첨부된 파일: " + e.target.files[0].name;
             document.getElementById('file-name').textContent = fileName;
         });
+        
+        $("#summernote").html(data.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g,'"').replace(/&#40;/g,'(').replace(/&#41;/g,')').replace(/&#35;/g,'#'));
+      
     </script>
 </body>
 </html>

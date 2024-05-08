@@ -33,6 +33,9 @@ public class FreeboardAdd extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
 		System.out.println("post");
 		
 		// 제목 받아오기
@@ -64,9 +67,10 @@ public class FreeboardAdd extends HttpServlet {
 		// 생성 int
 		int result = dao.add(dto);
 		
-		String boardSeq = dao.findSeq();
+		int boardSeq = dao.findSeq(dto.getUserSeq());
 
-		
+		System.out.println(boardSeq);
+		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = resp.getWriter();
 
@@ -82,7 +86,6 @@ public class FreeboardAdd extends HttpServlet {
 		    writer.println("</script>");
 		}
 
-		writer.close();
 		writer.close();
 				
 	}
