@@ -91,7 +91,7 @@ public class FreeboardManagementView extends HttpServlet {
 		String adId = (String) session.getAttribute("adId");
 		
 		if (adId == null) {
-			req.setAttribute("errorMessage", "로그인 후 답변을 작성할 수 있습니다.");
+			req.setAttribute("errorMessage", "로그인이 필요합니다.");
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/admin/admin_login.jsp");
 			dispatcher.forward(req, resp);
 		}
