@@ -74,9 +74,14 @@
 	                    </div>
 	                </div>
 	
-	                <div class="chartContainer">
-	                    <div id="boardChart"></div>
-	                </div>
+	               
+	                
+	                <div class="col-xl-8 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">Activity</h2>
+						<div id="chart"></div>
+					</div>
+				</div>
 	
 	
 	            <!-- 푸터 -->
@@ -90,51 +95,18 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script>
-		
-	Highcharts.chart('boardChart', {
+<!-- 	<script src="/sangsangjakka/resources/vendors/scripts/dashboard.js"></script> -->
+	<script src="/sangsangjakka/resources/plugins/apexcharts/apexcharts.min.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/dashboard-chart.js"></script>
 
-	    title: {
-	    text: '인기 게시판 통계'
-	},
+	 <script>
+    // getBarChartOptions 함수 사용
+    var options = getBarChartOptions();
 
-	subtitle: {
-	    text: '최근 7일 기준'
-	},
-
-	yAxis: {
-	    title: {
-	        text: '작성수'
-	    }
-	},
-
-	xAxis: {
-	    title: {
-	        text: '날짜'
-	    },
-
-	    categories: ['4월 30일', '5월 1일', '5월 2일', '5월 3일', '5월 4일', '5월 5일', '5월 7일', '5월 8일']
-	},
-	    
-	/* 범례를 우측 세로로 정렬 */
-	legend: {
-	    layout: 'vertical',
-	    align: 'right',
-	    verticalAlign: 'middle'
-	},
-
-	series: [{
-	    name: '자유게시판',
-	    data: [10, 15, 30, 15, 10, 16, 11, 8]
-	}, {
-	    name: '동화 공유 게시판',
-	    data: [5, 8, 7, 10, 15, 11, 3, 6]
-	}, {
-	    name: '건의사항',
-	    data: [1, 0, 3, 2, 5, 1, 2, 1]
-	}],
-	});
+    // 차트 생성
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+  </script>
 	
-	</script>
 	</body>
 </html>

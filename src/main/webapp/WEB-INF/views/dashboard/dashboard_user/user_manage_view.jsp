@@ -54,7 +54,8 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">회원 정보</h4>
-						<button type="submit" class="btn btn-danger">차단</button>
+						
+						<button type="submit" class="btn btn-danger" id="blockBtn">차단</button>
 						<a href="/sangsangjakka/dashboard/user/edit.do?id=${user.userId}" class="btn btn-primary pull-right">수정</a>
 						
 					</div>
@@ -187,5 +188,9 @@
 		<script>
 			
 		</script>
+		
+		
+		
+		
 </body>
 </html>
