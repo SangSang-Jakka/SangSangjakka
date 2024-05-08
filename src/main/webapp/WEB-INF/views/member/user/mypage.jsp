@@ -229,7 +229,34 @@
 					</ul>
 					<div class="tabcontent subtabcontent">
 						<div id="tab05">
-							tab5 content
+							<table class="boardTable">
+                  <thead>
+                    <tr>
+                        <th scope="col" class="thNum">번호</th>
+                        <th scope="col" class="thTitle">제목</th>
+                        <th scope="col" class="thDate">등록일</th>
+                        <th scope="col" class="thViews">조회수</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  <c:if test="${list.size() == 0}">
+					<tr>
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
+				  </c:if>
+				  
+				  <c:forEach items="${list}" var="dto">
+				  		<tr>
+	                      <td>${dto.boardSeq}</td>
+	                      <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle }</a><p>${dto.cmntCnt}</p></th>
+	                      <td>${dto.boardRegdate}</td>
+	                      <td>${dto.boardCnt}</td>
+	                   </tr>
+				  </c:forEach>
+         
+                  </tbody>
+              </table>
 						</div>
 						<div id="tab06">
 							tab6 content
