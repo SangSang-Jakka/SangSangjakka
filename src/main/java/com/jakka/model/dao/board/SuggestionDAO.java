@@ -12,6 +12,7 @@ public interface SuggestionDAO extends BasicDAO<SuggestionDTO>, Cnt, Search<Sugg
 
 	ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map);
 	int whiteTotalCnt(HashMap<String, String> map);
+	int del(String seq);
 	
 	
 	

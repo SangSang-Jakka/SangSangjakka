@@ -64,7 +64,6 @@ public class FreeboardAdd extends HttpServlet {
 		// 생성 int
 		int result = dao.add(dto);
 		
-		String boardSeq = dao.findSeq();
 
 		
 		resp.setContentType("text/html; charset=UTF-8");
@@ -73,7 +72,7 @@ public class FreeboardAdd extends HttpServlet {
 		if(result > 0) {
 		    writer.println("<script>");
 		    writer.println("alert('작성이 완료되었습니다.');");
-		    writer.println("location.href='/sangsangjakka/board/freeboard/view.do?no=" + boardSeq + "';");
+		    writer.println("location.href='/sangsangjakka/board/freeboard/view.do?no=");
 		    writer.println("</script>");
 		} else {
 		    writer.println("<script>");
