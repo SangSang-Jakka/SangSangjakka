@@ -158,9 +158,9 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			pstat.setString(2, dto.getSgstContents());
 			pstat.setString(3, dto.getSgstSecretYN());
 			pstat.setString(4, dto.getSgstSeq());
-			
+			System.out.println(dto.getUserSeq());
 			int result = pstat.executeUpdate();
-			
+			System.out.println(result);
 			if (result > 0) {
 				log.setString(1, dto.getUserSeq());
 				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 글번호'" + dto.getSgstSeq() + "' 글제목'" + dto.getSgstTitle() + "' 글내용'" + dto.getSgstContents() + "' 건의사항을 '수정'했습니다.");
@@ -169,7 +169,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			}
 			
 			conn.commit();
-			
+			System.out.println(result);
 			return result;
 			
 		} catch (Exception e) {

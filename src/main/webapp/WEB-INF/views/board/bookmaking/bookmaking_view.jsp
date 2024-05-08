@@ -209,6 +209,8 @@
 			console.log(${bookSeq});
 			var cmntYN = '${firstpage.cmntYN}';
 			var imgYN = '${firstpage.imgYN}';
+			var textYN = '';
+			var imageYN = '';
 			var lastpage = ${lastpage.pageSeq};
 			var $currentVisible;
 			var Page = (function() {
@@ -307,9 +309,11 @@
 			            if ($(this).is(':checked')) {
 			                $('.pageTextMakerBox').show();
 			                $('.pageDescriptionBox').hide();
+			                textYN = 'y';
 			            } else {
 			                $('.pageTextMakerBox').hide();
 			                $('.pageDescriptionBox').show();
+			                textYN = 'n';
 			            }
 			        });
 
@@ -318,10 +322,12 @@
 			                $('.pageImageMakerBox').show();
 			                $('.pageImageDesBox').show();
 			                $('.pageImageUploadBox').hide();
+			                imageYN = 'y';
 			            } else {
 			                $('.pageImageMakerBox').hide();
 			                $('.pageImageDesBox').hide();
 			                $('.pageImageUploadBox').show();
+			                imageYN = 'n';
 			            }
 			        });
 			    }
@@ -393,6 +399,49 @@
 							}
 						});
 				});
+				
+				function pageChange() {
+					$currentVisible = $('#bb-bookblock .bb-item:visible');
+					var currentVisibleId = $('#bb-bookblock .bb-item:visible').attr('id');
+					var text = $currentVisible.find('p').text();
+					// Fetching the background image style property
+					var imageUrl = $('#' + currentVisibleId + ' .pageImage').css('background-image');
+					console.log(imageUrl);
+					// Correcting the regular expression to accurately extract the URL
+					var cleanUrl = imageUrl.replace(/^url\(["']?([^"')]+)["']?\)$/, '$1');
+					console.log(cleanUrl);
+
+					// Ensure the URL is stripped off any domain or absolute path parts
+					if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+					    var urlParts = new URL(cleanUrl);
+					    cleanUrl = urlParts.pathname;
+					}
+					console.log(cleanUrl);
+					$.ajax({
+						type: 'POST',
+						url: '/sangsangjakka/board/bookmaking/editpage.do',
+						data: {
+							bookSeq: ${bookSeq},
+							pageSeq: currentVisibleId,
+							cmntYN: textYN,
+							imgYN: imageYN,
+							pageUrl: cleanUrl,
+							pageContents: text
+						},
+						dataType: 'json',
+						success: function(result) {
+							
+							if (result.result == '1') {
+							} else {
+								alert('내용을 채워주세요.');
+							}
+							
+						},
+						error: function(a,b,c) {
+							console.log(a,b,c);
+						}
+					});
+				}
 
 				$('#bb-nav-next').click(function() {
 					var $visiblePage = $('#bb-bookblock .bb-item:visible');
@@ -431,6 +480,7 @@
 					// Find the visible bb-item and update its <p> tag with the new text
 					var $visibleBbItem = $('#bb-bookblock .bb-item:visible');
 					$visibleBbItem.find('p').text(newText);
+					pageChange();
 				});
 				
 				$('selectTextBox').click(function() {
