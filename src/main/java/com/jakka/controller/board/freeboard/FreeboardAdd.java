@@ -19,5 +19,6 @@ public class FreeboardAdd extends HttpServlet {
 		dispatcher.forward(req, resp);
 		
 	}
+	
 
 }

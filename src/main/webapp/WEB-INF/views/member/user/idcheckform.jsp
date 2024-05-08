@@ -9,6 +9,36 @@
 <link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
 <style>
 
+#checkForm {
+	display: flex;
+}
+
+#userId {
+	width: 80%;
+	height: 30px;
+}
+
+#checkBtn {
+	width:20%;
+}
+
+.inputBtn {
+	display: flex;
+	margin-top: 30px;
+	justify-content: center;
+	align-items: center;
+}
+
+.inputBtn input {
+	margin-right:10px;
+}
+
+ .availableInfo {
+    color: tomato;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
 </style>
 </head>
 <body onload="pValue()">
@@ -20,10 +50,14 @@
 		<div id="checkWrap">
 			<form id="checkForm" >
 				<input type="text" name="idInput" id="userId" />
-				<input type="button" value="중복확인" onclick="idCheck()" />
+				<input type="button" value="중복확인" id="checkBtn" onclick="idCheck()" />
 			</form>
-			<input type="button" id="cancelBtn" value="취소" onclick="window.close()" />
-			<input type="button" id="useBtn" value="사용하기" onclick="sendCheckValue()" disabled />
+			<div class="availableInfo" id="infoMessage">
+			</div>
+			<div class="inputBtn">
+				<input type="button" id="cancelBtn" value="취소" onclick="window.close()" />
+				<input type="button" id="useBtn" value="사용하기" onclick="sendCheckValue()" disabled />
+			</div>
 		</div>
 	</div>
 	
@@ -47,10 +81,12 @@
                 var response = xhr.responseText;
                 // 받은 응답에 따라 처리
                 if (response === "true") {
-                    alert("이미 사용중인 아이디입니다.");
+                	var infoMessage = document.getElementById("infoMessage");
+                    infoMessage.textContent = "이미 사용 중인 아이디입니다.";
                     document.getElementById("useBtn").disabled = true; // 이미 사용 중인 경우 버튼 비활성화
                 } else {
-                    alert("사용 가능한 아이디입니다.");
+                	var infoMessage = document.getElementById("infoMessage");
+                    infoMessage.textContent = "사용 가능한 아이디입니다.";
                     document.getElementById("useBtn").disabled = false; // 사용 가능한 경우 버튼 활성화
                 }
             }

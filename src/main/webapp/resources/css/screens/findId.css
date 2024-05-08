@@ -20,5 +20,7 @@
     font-weight: bold;
   } 
 
-  
+  .links a {
+  	margin-left : 25px;
+  }
   

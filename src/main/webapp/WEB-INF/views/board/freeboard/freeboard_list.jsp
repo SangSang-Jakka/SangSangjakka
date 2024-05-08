@@ -22,7 +22,18 @@
           </div>
       </div>
 
-     
+     <div class="pageBanner">
+      		<div class="pageWrap">
+      			<div class="noticeInfo">
+      				<div class="noticeHeader">자유게시판 안내</div>
+      				<div class="noticeContents">자유롭게 소통할 수 있는 공간입니다.</div>
+      			</div>
+      			<div class="noticeImg">
+      				<img src="/sangsangjakka/resources/img/free.png" alt="" />
+      			</div>
+      		</div>
+      </div>
+      
       <div>
         <form>
            <select class="notice">

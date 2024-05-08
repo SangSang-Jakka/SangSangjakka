@@ -21,6 +21,18 @@
               <h3>건의사항</h3>
           </div>
       	</div>
+      	
+      	<div class="pageBanner">
+      		<div class="pageWrap">
+      			<div class="noticeInfo">
+      				<div class="noticeHeader">건의사항 안내</div>
+      				<div class="noticeContents">여러분의 소중한 의견을 들려주세요.</div>
+      			</div>
+      			<div class="noticeImg">
+      				<img src="/sangsangjakka/resources/img/email.png" alt="" />
+      			</div>
+      		</div>
+      </div>
 
     	<!-- board list area -->
 	   <div>

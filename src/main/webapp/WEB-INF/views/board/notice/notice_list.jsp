@@ -21,6 +21,18 @@
               <h3>공지사항</h3>
           </div>
       </div>
+      
+      <div class="pageBanner">
+      		<div class="pageWrap">
+      			<div class="noticeInfo">
+      				<div class="noticeHeader">공지사항 안내</div>
+      				<div class="noticeContents">상상자까의 새로운 소식을 알려드립니다.</div>
+      			</div>
+      			<div class="noticeImg">
+      				<img src="/sangsangjakka/resources/img/notice_banner_img.png" alt="" />
+      			</div>
+      		</div>
+      </div>
 
      
       <div>
