@@ -488,12 +488,13 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map) {
 		
 		String where = "where rnum BETWEEN ? AND ?";
+		String col = "";
 		
 		if(map.get("search").equals("y")) {
-			where = where + String.format("and %s like '%%%s%%'", map.get("column"), map.get("word"));
+			col = col + String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 		}
 		
-		String sql = String.format("select * from vwSuggestion %s order by sgstRegdate desc", where);
+		String sql = String.format("SELECT sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt, userNick " + " FROM (SELECT ROWNUM RNUM, f.sgstSeq, f.sgstTitle, f.sgstContents, f.sgstRegdate, f.sgstSecretYN, f.userSeq, f.sgstCnt, f.userNick " + "FROM (SELECT * FROM vwSuggestion %s ORDER BY sgstRegdate desc) F) " + "%s", col, where);
 
 		try (
 
@@ -531,6 +532,57 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 		return null;
 
 	}// list()
+	
+	public int del(String seq) {
+		//queryParamNoReturn
+		Connection conn = DBUtil.open();
+		PreparedStatement pstat = null;
+		try {
+			
+			String pSQL = "delete from tblSuggestion where sgstSeq = ?";
+			pstat = conn.prepareStatement(pSQL);
+			pstat.setString(1, seq);
+			pstat.executeUpdate();
+			
+			String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
+			pstat = conn.prepareStatement(cSQL);
+			pstat.setString(1, seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("SuggestionDAO.| del");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+//	public int del(String seq) {
+//		String pSQL = "delete from tblSuggestion where sgstSeq = ?";
+//		String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
+//	    try (
+//	    	Connection conn = DBUtil.open();
+//	        PreparedStatement pstmt = conn.prepareStatement(cSQL);
+//	    ) {
+//	    	
+//	    	conn.setAutoCommit(false);
+//	    	
+//	        System.out.println("seq의 값 확인 : " + seq + "넘어오는지 확인");
+//	    	pstmt.setString(1, seq);
+////	        pstmt.setString(2, seq);
+//	        System.out.println("pstmt? : " + pstmt);
+//	        int result = pstmt.executeUpdate();
+//	        System.out.println("쿼리 실행 후 결과 : " + result);
+//	        
+//	        return result;
+//	        
+//	        } catch (Exception e) {
+//	        System.out.println("SuggestionDAO.| findByRegdateBetween");
+//	        e.printStackTrace();
+//	    }
+//	    return 0;
+//	}
 }//End of class
 
 

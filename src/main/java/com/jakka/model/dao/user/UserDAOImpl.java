@@ -687,7 +687,10 @@ public class UserDAOImpl implements UserDAO{
 
 		            return newUserId;
 		       // }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 77258ffbc36d7ca7c80eff30770691c833ac75e8
 				
 				
 			} catch (Exception e) {

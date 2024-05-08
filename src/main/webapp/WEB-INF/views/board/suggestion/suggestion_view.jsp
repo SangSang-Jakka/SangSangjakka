@@ -50,8 +50,8 @@
 	                  
 	                  <c:if test="${dto.userSeq == userSeq}">
 	                  <div class="btnWrap">
-	                        <input type="button" class="btnEdit" value="수정" onclick="location.href='/sangsangjakka/board/suggestion/edit.do?sgstSeq=${dto.sgstSeq}';">
-	                        <input type="button" class="btnDel" value="삭제" onclick="location.href='/sangsangjakka/board/suggestion/del.do?sgstSeq=${dto.sgstSeq}';">
+	                        <input type="button" class="btnEdit" value="수정" onclick="location.href='/sangsangjakka/board/suggestion/edit.do?sgstseq=${dto.sgstSeq}';">
+	                        <input type="button" class="btnDel" value="삭제" onclick="location.href='/sangsangjakka/board/suggestion/del.do?sgstseq=${dto.sgstSeq}';">
 	                  </div>
 	              	  </c:if>
                   

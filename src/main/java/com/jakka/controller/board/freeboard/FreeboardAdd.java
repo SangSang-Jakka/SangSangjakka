@@ -67,7 +67,9 @@ public class FreeboardAdd extends HttpServlet {
 		// 생성 int
 		int result = dao.add(dto);
 		
+
 		int boardSeq = dao.findSeq(dto.getUserSeq());
+
 
 		System.out.println(boardSeq);
 		req.setCharacterEncoding("UTF-8");

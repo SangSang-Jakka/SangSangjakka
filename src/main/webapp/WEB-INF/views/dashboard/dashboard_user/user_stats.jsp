@@ -76,36 +76,76 @@
 	                </div>
 	
 
- 	               <p>성별</p>
-           			<div style="width: 300px; height: 300px; background-color: white;
-           			border-radius: 10px;">
-				 	<canvas id="genderChart"></canvas>
-   					</div>
+<!--  	               <p>성별</p> -->
+<!--            			<div style="width: 300px; height: 300px; background-color: white; -->
+<!--            			border-radius: 10px;"> -->
+<%-- 				 	<canvas id="genderChart"></canvas> --%>
+<!--    					</div> -->
     			
-
-
-					<p>날짜 입력</p>
+    			
+    		<div class="row">
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">성별</h2>
+						<canvas id="genderChart"></canvas>
+					</div>
+				</div>
+				<div class="col-xl-8 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">자녀연령대</h2>
+						<canvas id="AgeChart"></canvas>
+					</div>
+				</div>
+			</div>
+			
+			
+				
+				
+				<div class="row">
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">가입자수, 탈퇴자수</h2>
+							<p>날짜 입력</p>
 					<input type="text" id="monthPicker" name="monthPicker">
    					<input type="text" id="monthPicker3" name="monthPicker3">
     				<button id="sendButton">Send</button>
+						 <canvas id="userChart" width="800" height="400"></canvas>
+					</div>
+				</div>
+				<div class="col-xl-8 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">사용자연령대</h2>
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+			</div>
+
+
 			       
-			        <p>가입자수, 탈퇴자수</p>
-					<div style="width: 800px; height: 400px; background-color: white;
-			        border-radius: 10px;">
-			             <canvas id="userChart" width="800" height="400"></canvas>
-			        </div>
+<!-- 			        <p>가입자수, 탈퇴자수</p> -->
+<!-- 					<div style="width: 800px; height: 400px; background-color: white; -->
+<!-- 			        border-radius: 10px;"> -->
+<%-- 			             <canvas id="userChart" width="800" height="400"></canvas> --%>
+<!-- 			        </div> -->
 					
-					<p>자녀 연령대</p>	        
-			        <div style="width: 800px; height: 400px; background-color: white;">
-					<!--차트가 그려질 부분-->
-					<canvas id="AgeChart"></canvas>
-					</div>
+<!-- 					<p>자녀 연령대</p>	         -->
+<!-- 			        <div style="width: 800px; height: 400px; background-color: white;"> -->
+<!-- 					차트가 그려질 부분 -->
+<%-- 					<canvas id="AgeChart"></canvas> --%>
+<!-- 					</div> -->
 					
-				     <p>사용자 연령대</p>
-					<div style="width: 800px; height: 400px; background-color: white;">
-					<!--차트가 그려질 부분-->
-					<canvas id="myChart"></canvas>
-					</div>
+<!-- 				     <p>사용자 연령대</p> -->
+<!-- 					<div style="width: 800px; height: 400px; background-color: white;"> -->
+<!-- 					차트가 그려질 부분 -->
+<%-- 					<canvas id="myChart"></canvas> --%>
+<!-- 					</div> -->
+					
+<!-- 					  <div class="col-xl-8 mb-30"> -->
+<!-- 					<div class="card-box height-100-p pd-20"> -->
+<!-- 						<h2 class="h4 mb-20">Activity</h2> -->
+<!-- 						<div id="chart"></div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 			        
 	            <!-- 푸터 -->
 				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
@@ -127,7 +167,8 @@
 <script src="/sangsangjakka/resources/vendors/scripts/jquery.mtz.monthpicker.js"></script>
 <script src="/sangsangjakka/resources/js/dashboard/chart.js"></script>
 
-	
+	<script src="/sangsangjakka/resources/plugins/apexcharts/apexcharts.min.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/dashboard-chart.js"></script>
 <script>
     // 성별
 	var genderChartData = <%= request.getAttribute("jsonData") %>;
@@ -248,7 +289,14 @@ $(document).ready(function(){
 
 </script>
 
+ <script>
+    // getBarChartOptions 함수 사용
+    var options = getBarChartOptions();
 
+    // 차트 생성
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+  </script>
   
 	</body>
 </html>

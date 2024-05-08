@@ -958,14 +958,18 @@ public class BookDAOImpl implements BookDAO{
 	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map) {
 		
 		String where = "where rnum BETWEEN ? AND ?";
+		String col = "";
 		
-		if(map.get("search").equals("y")) {
-		    where = where + String.format(" and %s like '%%%s%%'"
-		    		, map.get("column")
-		    		, map.get("word"));
+		if (map.get("search").equals("y")) {
+			col = col + String.format(" where %s like '%%%s%%'"
+							, map.get("column")
+							, map.get("word"));
 		}
 		
-		String sql = String.format("select * from vwBookWhite %s order by bookRegdate desc", where);
+		String sql = String.format("SELECT bookSeq, bookTitle, bookInfo, bookRegdate, bookReportCnt, bookCnt, userSeq, userNick, bookReviewCnt, bookScrapCnt, likeCnt, bookCover, bookModDate, parentBookSeq, rcmAgeSeq " +
+                "FROM (SELECT ROWNUM RNUM, f.bookSeq, f.bookTitle, f.bookInfo, f.bookRegdate, f.bookReportCnt, f.bookCnt, f.userSeq, f.userNick, f.bookReviewCnt, f.bookScrapCnt, f.likeCnt, f.bookCover, f.bookModDate, f.parentBookSeq, f.rcmAgeSeq " +
+                "FROM (SELECT * FROM vwBook %s ORDER BY boardRegdate desc) f) " +
+                "%s", col, where);
 		
 		try (
 				Connection conn = DBUtil.open();
