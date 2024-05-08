@@ -144,6 +144,8 @@ public class BookDAOImpl implements BookDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserNick(rs.getString("userNick"));
 				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
 				list.add(dto);
 				
 			}
@@ -322,6 +324,8 @@ public class BookDAOImpl implements BookDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserNick(rs.getString("userNick"));
 				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
 				list.add(dto);
 				
 			}
@@ -367,6 +371,8 @@ public class BookDAOImpl implements BookDAO{
 					dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 					dto.setUserSeq(rs.getString("userSeq"));
 					dto.setUserNick(rs.getString("userNick"));
+					
+					dto.setBookCnt(rs.getString("bookCnt"));
 					
 					list.add(dto);
 					
@@ -465,6 +471,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
 	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        
@@ -509,6 +517,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
 	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        return list;
@@ -551,6 +561,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
 	            
 	            list.add(dto);
 	        }
@@ -597,6 +609,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
 	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        
@@ -642,6 +656,9 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        
@@ -687,6 +704,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
 	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        return list;
@@ -727,6 +746,9 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        
@@ -772,6 +794,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
 	            
 	            list.add(dto);
 	        }
@@ -972,6 +996,8 @@ public class BookDAOImpl implements BookDAO{
 					dto.setUserSeq(rs.getString("userSeq"));
 					dto.setUserNick(rs.getString("userNick"));
 					
+					dto.setBookCnt(rs.getString("bookCnt"));
+					
 					list.add(dto);
 					
 				}
@@ -1021,6 +1047,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
 	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        
@@ -1068,6 +1096,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
 	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            
 	            list.add(dto);
 	        }
 	        return list;
@@ -1111,6 +1141,8 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            dto.setBookCnt(rs.getString("bookCnt"));
 	            
 	            list.add(dto);
 	        }

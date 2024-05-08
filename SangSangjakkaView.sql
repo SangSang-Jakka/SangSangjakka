@@ -13,6 +13,7 @@ SELECT
     COALESCE(r.reviewCnt, 0) AS bookReviewCnt,
     COALESCE(s.scrapCnt, 0) AS bookScrapCnt,
     COALESCE(re.bookReportCnt, 0) AS bookReportCnt,
+    COALESCE(sb.bookCnt, 0) AS booCnt,
     b.userSeq,
     b.parentBookSeq,
     b.rcmAgeSeq,

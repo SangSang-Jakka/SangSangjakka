@@ -22,6 +22,8 @@ public class BookDTO {
 	private String rcmAgeSeq;
 	private String userNick;
 	
+	private String bookCnt;
+	
 	private HashMap<Integer, PageDTO> pages;
 
 	public String getBookSeq() {
