@@ -684,22 +684,10 @@ public class UserDAOImpl implements UserDAO{
 //		        	
 //		        	conn.commit();
 		        	
-<<<<<<< HEAD
+
 		            return newUserId;
 		       // }
-=======
-		        	log.setString(1, dto.getUserSeq());
-					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
-					log.setString(3, UserLog.SignUp.getValue());
-					log.executeUpdate();
-		        	
-					createUserFolder(dto.getUserNick());
-		        	
-		        	conn.commit();
-		        	
-		            return dto.getUserId();
-		        }
->>>>>>> 50cb88327fc8264e0941e1f27466f150054ba84e
+
 				
 				
 			} catch (Exception e) {
