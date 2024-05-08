@@ -23,10 +23,12 @@
                 <button class="sliderBtn left">&nbsp;&#10094;&nbsp;</button>
                 <div class="slider">
                     <div class="sliderItemBox">
-                        <c:forEach items="${bookDtoList}" var="dto" varStatus="index">
-			                <div class="sliderItem pointer" data-page-url="${pageDtoList[index.index].pageUrl}">
+                        <c:forEach items="${bookDtoList}" var="dto" varStatus="status">
+                        <a href="/sangsangjakka/board/bookmaking/view.do?no=${dto.bookSeq}">
+			                <div class="sliderItem pointer" data-page-url="${pageDtoList[status.index].pageUrl}">
 			                    ${dto.bookTitle}
 			                </div>
+                        </a>
 			            </c:forEach>
                     </div>
                 </div>

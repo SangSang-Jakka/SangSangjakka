@@ -87,9 +87,7 @@
      <!-- 작성 -->
 
       <div class="WrittenBox">
-          <input type="button" class="btnWritten" value="쓰기">
-          <!--  onclick="location.href='/sangsangjakka/board/suggestion/add.do'" -->
-          
+          <input type="button" class="btnWritten" value="쓰기" onclick="location.href='/sangsangjakka/board/suggestion/add.do'">
       </div>
       
       <!-- board seach area -->
@@ -139,22 +137,6 @@
 // 			}
 // 		});
 		
-		// 쓰기 버튼을 눌렀을 때 제한
-		var write = document.querySelector('.btnWritten');
-        write.addEventListener('click', function() {
-        	
-        	if(userId == "null") {
-    			const result = confirm('회원만 작성 가능합니다. 로그인 창으로 이동하시겠습니까?');
-    			if(result) {
-    				location.href='/sangsangjakka/user/login.do';
-    			} else {
-    				location.href='/sangsangjakka/board/suggestion/list.do';
-    			}
-    		} else {
-    			location.href='/sangsangjakka/board/suggestion/add.do';
-    		}
-            
-        });
 	</script>
 	</body>
 </html>

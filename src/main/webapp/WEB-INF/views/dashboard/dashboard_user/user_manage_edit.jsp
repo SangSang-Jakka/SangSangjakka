@@ -131,9 +131,13 @@
 								</div>
 							</div>
 						</form>
-					</div>
-				</div>
-
+					
+				
+				
+	            <button type="button" class="btn btn-primary pull-right" onclick ="location.href='/sangsangjakka/admin/dashboard/user/manageview.do?id=${user.userId}';"> 돌아가기</button>
+		
+		</div>
+		</div>
 		</form>
 
 				<!-- 푸터 -->

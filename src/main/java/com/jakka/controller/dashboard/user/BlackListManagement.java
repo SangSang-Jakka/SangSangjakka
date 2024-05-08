@@ -24,7 +24,7 @@ public class BlackListManagement extends HttpServlet {
 
 		UserDAO userDAO = DAOManager.getUserDAO();
 
-		ArrayList<UserDTO> list = userDAO.findAllBlack();
+		ArrayList<UserDTO> list = userDAO.findAllBlackList();
 
 		req.setAttribute("userList", list);
 

@@ -12,13 +12,10 @@ import java.util.Map;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.user.UserDTO;
+import com.jakka.model.enums.UserLog;
+import com.jakka.model.enums.UserState;
 
 public class UserDAOImpl implements UserDAO{
-	@Override
-	public UserDTO getUser(String userSeq) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	private final static UserDAOImpl DAO = new UserDAOImpl();
 	
@@ -30,18 +27,33 @@ public class UserDAOImpl implements UserDAO{
 		return DAO;
 	}//getInstance()
 	
-	
 
 	public boolean unRegister(UserDTO dto) {
-		String SQL = "delete from tblUser where userSeq = ? and userPw = ?";
 		
-		try {
+		final String SQL = "update tblUser set userState = 'n' where userSeq = ?";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		
+		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
+		){
+			conn.setAutoCommit(false);
+			
+			
 			pstat.setString(1, dto.getUserSeq());
 			pstat.setString(2, dto.getUserPw());
 			
 			int result = pstat.executeUpdate();
+			
+			if (result > 0) {
+				log.setString(1, dto.getUserSeq());
+				log.setString(2, "사용자번호'" + dto.getUserSeq() + "' 아이디'" + dto.getUserId() + "'" + "이름'" + dto.getUserName() + "'님이 '회원탈퇴'했습니다.");
+				log.setString(3, UserLog.Withdrawal.getValue());
+				log.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result > 0;
 			
@@ -122,10 +134,35 @@ public class UserDAOImpl implements UserDAO{
 		return null;
 	}
  	
+	//로그인 로그 작성
+	@Override
+	public void loginLog(String userSeq) {
+		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(LOGSQL);
+		){
+			
+			pstat.setString(1, userSeq);
+			pstat.setString(2, "사용자번호'" + userSeq + "'님이 '로그인'했습니다.");
+			pstat.setString(3, UserLog.Login.getValue());
+			pstat.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.| loginLog");
+			e.printStackTrace();
+		}
+		
+	}
+	
 	// 로그인
 	public UserDTO login(UserDTO dto) {
 		
-		String SQL = "select * from tblUser where userId = ? and userPw = ?";
+		String SQL = "select * from tblUser where userId = ? and userPw = ? and userState = ?";
 		
 		try (
 			Connection conn = DBUtil.open();
@@ -133,6 +170,7 @@ public class UserDAOImpl implements UserDAO{
 		){
 			pstat.setString(1, dto.getUserId());
 			pstat.setString(2, dto.getUserPw());
+			pstat.setString(3, UserState.ACTIVE.getValue());
 			
 			System.out.println(dto.getUserId());
 			System.out.println(dto.getUserPw());
@@ -276,6 +314,7 @@ public class UserDAOImpl implements UserDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserState(rs.getString("userState"));
 				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
 				
 				list.add(dto);
 			}
@@ -605,12 +644,15 @@ public class UserDAOImpl implements UserDAO{
 	public String signUp(UserDTO dto) {
 		
 		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, limitStorage,userName) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser),?, ?, ?, ?, ?, ?, ?, ?, 'y', 1, SYSDATE, 10737418240,?)";
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 		
 		try (
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
+				PreparedStatement log = conn.prepareStatement(LOGSQL);
 					
 			){
+				conn.setAutoCommit(false);
 
 				pstat.setString(1, dto.getUserId());
 				pstat.setString(2, dto.getUserPw());
@@ -628,6 +670,15 @@ public class UserDAOImpl implements UserDAO{
 				
 		        if (newUserId > 0) {
 		            // 새로 생성된 사용자의 아이디 반환
+		        	
+		        	log.setString(1, dto.getUserSeq());
+					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
+					log.setString(3, UserLog.SignUp.getValue());
+					log.executeUpdate();
+		        	
+		        	
+		        	conn.commit();
+		        	
 		            return dto.getUserId();
 		        }
 				
@@ -692,7 +743,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	
-public int userCnt(String userRegdate) {
+		public int userCnt(String userRegdate) {
 		
 		int userCount = 0;  
 		
@@ -753,65 +804,6 @@ public int userCnt(String userRegdate) {
 
 	
 
-//	@Override
-//	public int newCnt(String formattedNum1,String formattedNum2) {
-//	
-//		int count = 0;
-//		String sql = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM') BETWEEN '?' AND '?'";
-//		
-//		try {
-//			
-//			Connection conn = DBUtil.open();
-//			PreparedStatement pstat = conn.prepareStatement(sql);
-//			ResultSet rs = pstat.executeQuery();
-//			
-//			pstat.setString(1, formattedNum1);
-//			pstat.setString(2, formattedNum2);
-//			
-//			if (rs.next()) {
-//	            
-//				count = rs.getInt("user_count");
-//	        }
-//			
-//		} catch (Exception e) {
-//			System.out.println("UserDAOImpl.newCnt");
-//			e.printStackTrace();
-//		}
-//		
-//		return count;
-//	}
-	
-//	@Override
-//	 public Map<String, Integer> newCnt(String formattedNum1, String formattedNum2) {
-//         Map<String, Integer> countsMap = new HashMap<>();
-//
-//         String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_07 FROM dual";
-//
-//         try {
-//             Connection conn = DBUtil.open();
-//             PreparedStatement pstat = conn.prepareStatement(sql);
-//             
-//             // 매개변수 설정
-//             pstat.setString(1, formattedNum1);
-//             pstat.setString(2, formattedNum2);
-//
-//             ResultSet rs = pstat.executeQuery();
-//
-//             if (rs.next()) {
-//                 // 결과에서 각 값을 맵에 추가
-//                 int userCount_23_06 = rs.getInt("user_count_23_06");
-//                 int userCount_23_07 = rs.getInt("user_count_23_07");
-//
-//                 countsMap.put("user_count_23_06", userCount_23_06);
-//                 countsMap.put("user_count_23_07", userCount_23_07);
-//             }
-//         } catch (Exception e) {
-//             System.out.println("UserDAOImpl.newCnt");
-//             e.printStackTrace();
-//         }
-//
-//         return countsMap;
-//     }
 
 	
 	@Override
@@ -951,6 +943,53 @@ public int userCnt(String userRegdate) {
 			e.printStackTrace();
 		}
 		 return userAgeRange;
+	}
+	
+	
+	@Override
+	public ArrayList<UserDTO> findAllBlackList() {
+		
+		final String SQL = "select * from tblBlackList b join tblUser u  on b.userSeq = u.userSeq";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<UserDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
 	}
 	
 
