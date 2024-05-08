@@ -24,6 +24,7 @@
         </div>
         <div class="shareContainer">
             <div class="carousel">
+            	
                 <div class="cell"><img src="/sangsangjakka/resources/img/book1.jpg" alt="book1"></div>
                 <div class="cell"><img src="/sangsangjakka/resources/img/book2.jpg" alt="book2"></div>
                 <div class="cell"><img src="/sangsangjakka/resources/img/book3.jpg" alt="book3"></div>
@@ -58,8 +59,8 @@
             <div class="next-button"><i class="fas fa-duotone fa-forward-step"></i></div>
         </div>    -->
         
-	    <h2>이상하고 신비한 동물 사전</h2>
-	    <p class="contentItem" style="text-align: center;">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재밌게 봐주세요</p>
+	    <h2>${dto.bookTitle}</h2>
+	    <p class="contentItem" style="text-align: center;">${dto.bookInfo}</p>
 	    
 		<div class="commentline">
             <hr>
