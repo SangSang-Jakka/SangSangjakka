@@ -75,26 +75,37 @@
 	                    </div>
 	                </div>
 	
-<!--  	                <div class="chartContainer">  -->
-<!-- 	                 	  <div id="boardChart"></div> -->
- 	               	<div>
-	                	<div style="width: 300px; height: 300px; background-color: white;
-	                	border-radius: 10px;">
-       					 <canvas id="myChart"></canvas>
-    					</div>
-    				</div>
-<!-- 	 				</div>  -->
 
-<!-- 				날짜 구하기 -->
+ 	               <p>성별</p>
+           			<div style="width: 300px; height: 300px; background-color: white;
+           			border-radius: 10px;">
+				 	<canvas id="genderChart"></canvas>
+   					</div>
+    			
+
+
+					<p>날짜 입력</p>
 					<input type="text" id="monthPicker" name="monthPicker">
    					<input type="text" id="monthPicker3" name="monthPicker3">
     				<button id="sendButton">Send</button>
-			      
-				<div style="width: 400px; height: 400px; background-color: white;
+			       
+			        <p>가입자수, 탈퇴자수</p>
+					<div style="width: 800px; height: 400px; background-color: white;
 			        border-radius: 10px;">
-			             <canvas id="userChart" width="400" height="400"></canvas>
+			             <canvas id="userChart" width="800" height="400"></canvas>
 			        </div>
-			        
+					
+					<p>자녀 연령대</p>	        
+			        <div style="width: 800px; height: 400px; background-color: white;">
+					<!--차트가 그려질 부분-->
+					<canvas id="AgeChart"></canvas>
+					</div>
+					
+				     <p>사용자 연령대</p>
+					<div style="width: 800px; height: 400px; background-color: white;">
+					<!--차트가 그려질 부분-->
+					<canvas id="myChart"></canvas>
+					</div>
 			        
 	            <!-- 푸터 -->
 				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
@@ -106,56 +117,29 @@
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> 
 	<!-- jquery UI -->
 
-<script src="//code.jquery.com/jquery.min.js"></script>
+<!-- <script src="//code.jquery.com/jquery.min.js"></script> -->
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<!-- // jquery UI -->
+
 <script src="/sangsangjakka/resources/vendors/scripts/jquery.mtz.monthpicker.js"></script>
+<script src="/sangsangjakka/resources/js/dashboard/chart.js"></script>
 
 	
-	<script type="text/javascript">
-        // 서버에서 받은 데이터를 사용하여 차트를 그립니다.
-        var chartData = <%= request.getAttribute("jsonData") %>;
-        console.log(chartData);
-        // 차트 생성을 위한 설정
-        var context = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(context, {
-            type: 'doughnut', // 도넛 차트 설정
-            data: {
-            	
-                labels: chartData.labels, // 차트의 라벨을 설정합니다.
-                datasets: [{
-                	
-                	
-                    label: chartData.label, // 데이터셋의 라벨을 설정합니다.
-                    data: chartData.data, // 차트에 표시될 데이터를 설정합니다.
-                    backgroundColor: [
-                        //색상
-                        
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
-                        
-                    ],
-                    borderColor: [
-                        //경계선 색상
-                       
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 99, 132, 1)'
-                        
-                    ],
- // 데이터의 테두리 색을 설정합니다.
-                    borderWidth: 1 // 데이터의 테두리 두께를 설정합니다.
-                }]
-            },
-            options: {
-                // 차트의 옵션 설정을 추가할 수 있습니다.
-            }
-        });
-    </script>
-	
+<script>
+    // 성별
+	var genderChartData = <%= request.getAttribute("jsonData") %>;
+	drawGenderChart(genderChartData);
+    // 자녀 연령대
+	var childAgeChartData = <%= request.getAttribute("jsonAgeData") %>;
+	drawChildAgeChart(childAgeChartData);
+    // 사용자 연령대
+	var userAgeChartData = <%= request.getAttribute("jsonUserAgeData") %>;
+	drawUserAgeChart(userAgeChartData);
+
+</script>
 
 <script>
 $(document).ready(function(){
@@ -173,15 +157,13 @@ $(document).ready(function(){
     };
 
 
-    // 방법1) options 따로 지정
+   
     $("#monthPicker").monthpicker(options);
     $("#monthPicker3").monthpicker(options);
   
     
 
-     // 선택한 월 값을 변수에 저장
-   // var selectedMonth1 = $("#monthPicker").val();
-    //var selectedMonth2 = $("#monthPicker2").val();
+  
     
     
     $('#sendButton').click(function() {

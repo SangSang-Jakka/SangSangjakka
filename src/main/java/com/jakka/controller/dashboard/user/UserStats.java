@@ -36,6 +36,8 @@ public class UserStats extends HttpServlet{
 		int userCnt = dao.userCnt("23/03/11");
 		
 		Map<String,Integer> userCounts  = dao.userGender();
+		System.out.println(123);
+		System.out.println(userCounts);
 		int manCount = userCounts.get("man");
 		int womanCount = userCounts.get("woman");
 		
@@ -50,17 +52,80 @@ public class UserStats extends HttpServlet{
 		counts.add(womanCount);
 		chartData.add("data", counts);
 
-		// Gson을 사용하여 JSON 형식의 문자열로 변환
-		Gson gson = new Gson();
-		String jsonData = gson.toJson(chartData);
-		String script = "<script>var chartData = " + jsonData + ";</script>";
+	
 		
 		
-		 req.setAttribute("jsonData", jsonData);
-	     req.setAttribute("userCnt", userCnt); // 신규 가입
 	        
+	     
+			// 사용자 나이 보여주는 차트
 	    
 		
+	       
+			
+			Map<String,Integer> child  = dao.childAge();
+			System.out.println(child);
+			
+			JsonObject ageData = new JsonObject();
+			JsonArray ageRanges = new JsonArray();
+			JsonArray ageCounts = new JsonArray();
+
+			for (Map.Entry<String, Integer> entry : child.entrySet()) {
+			    String ageRange = entry.getKey();
+			    int ageCount = entry.getValue();
+			    ageRanges.add(ageRange);
+			    ageCounts.add(ageCount);
+			}
+
+			ageData.add("labels", ageRanges);
+			ageData.add("data", ageCounts);
+			
+			
+			
+			// 사용자 연령대 보여주는 차트
+			Map<String,Integer> userAge  = dao.userAge();
+			System.out.println(child);
+			
+			JsonObject userAgeData = new JsonObject();
+			JsonArray userAgeRanges = new JsonArray();
+			JsonArray userAgeCounts = new JsonArray();
+
+			for (Map.Entry<String, Integer> entry : userAge.entrySet()) {
+			    String userAgeRange = entry.getKey();
+			    int userAgeCount = entry.getValue();
+			    userAgeRanges.add(userAgeRange);
+			    userAgeCounts.add(userAgeCount);
+			}
+
+			userAgeData.add("labels", userAgeRanges);
+			userAgeData.add("data", userAgeCounts);
+			
+			
+
+			// Gson을 사용하여 JSON 형식의 문자열로 변환
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(chartData);
+			String script = "<script>var chartData = " + jsonData + ";</script>";
+			
+			
+			String jsonAgeData = gson.toJson(ageData);
+			String ageScript = "<script>var chartData = " + jsonAgeData + ";</script>";
+			
+
+			String jsonUserAgeData = gson.toJson(userAgeData);
+			String userAgeScript = "<script>var chartData = " + jsonUserAgeData + ";</script>";
+			
+			System.out.println(jsonUserAgeData);
+			
+			 req.setAttribute("jsonData", jsonData);
+			 req.setAttribute("jsonAgeData", jsonAgeData);
+			 req.setAttribute("jsonUserAgeData", jsonUserAgeData);
+		     req.setAttribute("userCnt", userCnt); // 신규 가입
+	     
+	     
+	     
+	     
+	     
+	     
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/user_stats.jsp");
 		dispatcher.forward(req, resp);
 		
@@ -81,45 +146,7 @@ public class UserStats extends HttpServlet{
 	    System.out.println(formattedNum1); // 출력: 21/06
 	    System.out.println(formattedNum2); // 출력: 21/06
 	    
-//	    UserDAO dao = DAOManager.getUserDAO();
-//	    Map<String,Integer> newcnt  = dao.newCnt(formattedNum1,formattedNum2);
-//		
-//	    int date1 = newcnt.get("user_count_23_06");
-//	    int date2 = newcnt.get("user_count_23_07");
-//	    
-//	    System.out.println(date1);
-//	    System.out.println(date2);
-//	    
-//	    JsonObject UserDate = new JsonObject();
-//	    JsonArray labels = new JsonArray();
-//	    labels.add("가입자수");
-//	    labels.add("탈퇴자수");
-//	    UserDate.add("labels", labels);
-//
-//	    JsonArray counts = new JsonArray();
-//	    counts.add(date1);
-//	    counts.add(date2);
-//
-//	    UserDate.add("data", counts);
-//	    
-//	    JsonArray month = new JsonArray();
-//	    month.add(formattedNum1);
-//	    month.add(formattedNum2);
-//
-//	    UserDate.add("month", month);
-//	 
-//	    System.out.println(counts);
-//	    System.out.println(labels);
-//	    System.out.println(month);
-//	    
-//	    Gson gson = new Gson();
-//	    String DateBar = gson.toJson(UserDate);
-//	    System.out.println(DateBar);
-//	    //req.setAttribute("DateBar", DateBar);
-//	    
-//	    resp.setContentType("application/json");
-//	    resp.setCharacterEncoding("UTF-8");
-//	    resp.getWriter().write(DateBar);
+
 	    
 	    
 	    UserDAO dao = DAOManager.getUserDAO();
