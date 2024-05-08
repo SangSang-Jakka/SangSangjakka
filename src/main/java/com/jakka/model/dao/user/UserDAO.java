@@ -16,7 +16,6 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	public UserDTO findId(UserDTO dto);
 	public UserDTO findPw(UserDTO dto);
 	public boolean unRegister(UserDTO dto);
-	public UserDTO getUser(String userSeq);
 	public String signUp(UserDTO dto);
 	public int checkId(UserDTO dto);
 	public int userCnt(String userRegdate);
@@ -28,7 +27,6 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public Map<String, Integer> childAge();
     public Map<String, Integer> userAge();
 	  
-
-	
+    public void loginLog(String userSeq);
 
 }

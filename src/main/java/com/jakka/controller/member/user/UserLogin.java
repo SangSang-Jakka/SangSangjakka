@@ -50,6 +50,10 @@ public class UserLogin extends HttpServlet{
 			session.setAttribute("userSeq", result.getUserSeq());
 			session.setAttribute("userNick", result.getUserNick());
 			session.setAttribute("userLV", result.getUserLV());
+			
+			//로그인 로그
+			dao.loginLog(result.getUserSeq());
+			
 			resp.sendRedirect("/sangsangjakka/index.do");
 		}  else {
 			resp.setContentType("text/html; charset=UTF-8");
