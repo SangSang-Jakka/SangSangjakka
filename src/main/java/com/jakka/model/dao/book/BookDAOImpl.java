@@ -180,8 +180,7 @@ public class BookDAOImpl implements BookDAO{
 			pstat.setString(2, dto.getBookInfo());
 			pstat.setString(3, dto.getBookCover());
 			pstat.setString(4, dto.getRcmAgeSeq());
-			pstat.setString(5, dto.getUserSeq());
-			
+			pstat.setString(5, dto.getBookSeq());
 			int result = pstat.executeUpdate();
 			
 			return result;

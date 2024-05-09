@@ -52,7 +52,13 @@
        </form>
        </div>
        
+<<<<<<< HEAD
         <div class="bookShareWrap">
+=======
+       
+  <div class="bookShareWrap">
+  
+>>>>>>> c1b7fc8bd5e9dacdaf0c54d8ab1b1b9430af222b
        <c:forEach items="${list}" var="dto">
 		  		<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
 				    <div class="bookImg">
@@ -89,9 +95,14 @@
 				    </div>
 				  </div>
 		  </c:forEach>
+<<<<<<< HEAD
 		  </div>
        
   <div class="bookShareWrap">
+=======
+		  
+		  
+>>>>>>> c1b7fc8bd5e9dacdaf0c54d8ab1b1b9430af222b
   <div class="bookShareContainer">
     <div class="bookImg">
       <img src="/sangsangjakka/resources/img/book1.jpg" alt="책 표지 이미지" />

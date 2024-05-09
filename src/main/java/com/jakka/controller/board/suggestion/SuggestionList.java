@@ -26,6 +26,10 @@ public class SuggestionList extends HttpServlet {
 		HttpSession session = req.getSession();
 		String userSeq = (String)session.getAttribute("Seq");
 		req.setAttribute("userSeq", userSeq);
+		
+		String userId = (String)session.getAttribute("userId");
+		req.setAttribute("userId", userId);
+		
 		String page = req.getParameter("page");
 		
 		int nowPage = 0;	// 현재 페이지 번호
@@ -138,6 +142,10 @@ public class SuggestionList extends HttpServlet {
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pageBar", builder.toString());
 		
+//		System.out.println("list안에 들어있는건? 여기는 list.do(GET): " + list);
+//		list안에 들어있는건? 여기는 list.do(GET): [SuggestionDTO(sgstSeq=53, sgstTitle=고객 지원 강화 요청, sgstContents=보안변경제안합니다, sgstRegdate=2024-05-08, sgstSecretYN=n, userSeq=29, sgstCnt=0, userNick=user0028NICK, attach=null), SuggestionDTO(sgstSeq=106, sgstTitle=사용자 경험 향상 방법, sgstContents=성능추가좋겠다, sgs
+		System.out.println("userId안에 들어있는건? 여기는 list.do(GET) : " + userId);
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		dispatcher.forward(req, resp);
 
@@ -150,7 +158,7 @@ public class SuggestionList extends HttpServlet {
 		writer.println("<script type='text/javascript'");
 		writer.println("location.href='/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		writer.println("</script>");
-		
+			
 	}
 
 }

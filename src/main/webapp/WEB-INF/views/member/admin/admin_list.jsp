@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/dashboard.css">
 	
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
@@ -40,50 +41,15 @@
 	                       </div>
 	                   </div>
 	               </div>
+	               <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+
+
+		<!-- 배너 -->
+        <%@include file="/WEB-INF/views/dashboard/dashboard_template/admin_dashboard_banner.jsp"%>
 	
 	
-	               <div class="row clearfix">
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 동화책</div>
-	                                   <div class="weight-600 font-14">Book</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 게시글</div>
-	                                   <div class="weight-600 font-14">Post</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 유저</div>
-	                                   <div class="weight-600 font-14">User</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-	                   <div class="col-xl-3 mb-30">
-	                       <div class="card-box height-100-p widget-style1">
-	                           <div class="d-flex flex-wrap align-items-center">
-	                               <div class="widget-data">
-	                                   <div class="h4 mb-0">새로운 건의사항</div>
-	                                   <div class="weight-600 font-14">Suggestion</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                   </div>
-				</div>
+	               
 	
 	
 				

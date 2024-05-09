@@ -25,7 +25,6 @@
                 <div class="bannerImg"></div>
             </div>
         </div>
-        
 
         <article id="article">
             <div class="articleLeft"></div>

@@ -2,7 +2,6 @@ package com.jakka.controller.board.suggestion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.SuggestionDAO;
@@ -36,32 +37,41 @@ public class SuggestionDel extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// Logger 객체 생성
-		final Logger logger = Logger.getLogger(SuggestionDel.class.getName());
+		// AJAX에서 del> post 메서드
+		System.out.println("==================AJAX > del의 Post=======================");
+		// AJAX에서 보낸 데이터 가져오기
+		String sgstSeq = req.getParameter("sgstSeq");
+		String userSeq = req.getParameter("userSeq");
 		
-		// 세션에서 로그인 한 아이디 찾아오기
-		HttpSession session = req.getSession();
-		String userId = (String)session.getAttribute("userId");
+		System.out.println("post userSeq값 " + userSeq);
 		
-		String seq = req.getParameter("seq");
-		System.out.println("post seq값 " + seq);
-		
-		// 아이디가 
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
+		SuggestionDTO dto = new SuggestionDTO();
 		
-		int result = dao.del(seq);
+		int result = dao.del(sgstSeq);
 		System.out.println(result);
+		
 		resp.setContentType("text/html; charset=UTF-8");
-		PrintWriter writer = resp.getWriter();
-		writer.println("<script type='text/javascript'>");
-		if(result == 1) {
-			writer.println("alert('삭제가 완료되었습니다.');");
-			writer.println("location.href='/sangsangjakka/board/suggestion/list.do';");
-			writer.println("</script>");
+		
+		if(result > 0) {
+			// JSON 객체 생성
+			JSONObject json = new JSONObject();
+			json.put("code", 0);
+			json.put("message", "삭제가 완료되었습니다.");
+			
+			// JSON 데이터 반환
+		    resp.setContentType("application/json");
+		    resp.setCharacterEncoding("UTF-8");
+		    resp.getWriter().write(json.toString());
 		} else {
-			writer.println("alert('삭제 실패, 오류입니다.');");
-			writer.println("location.href='/sangsangjakka/board/suggestion/list.do';");
-			writer.println("</script>");
+			JSONObject json = new JSONObject();
+		    json.put("code", 1); // 실패 코드
+		    json.put("message", "삭제 실패, 오류입니다.");
+
+		    // JSON 데이터 반환
+		    resp.setContentType("application/json");
+		    resp.setCharacterEncoding("UTF-8");
+		    resp.getWriter().write(json.toString());
 		}
 		
 	}

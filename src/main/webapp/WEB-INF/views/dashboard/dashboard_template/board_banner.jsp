@@ -33,10 +33,13 @@
     
     
     
-    int boardReportCount = dao.boardReportCount("23/11/11");
+    int boardReportCount = dao.boardReportCount(currentDate);
     System.out.println("신고된 게시글: " + boardReportCount);
     
-    System.out.println("새 건의사항: " + newSuggestionCount);
+    int CommReportCount = dao.CommReportCount(currentDate);
+    System.out.println("신고된 댓글: " + CommReportCount);
+    
+
     
 %>
 
@@ -70,7 +73,7 @@
 			</div>
 			<div class="info">
 				<div class="titleElement">신고댓글</div>
-				<div class="countElement">해야함</div>
+				<div class="countElement"><%=CommReportCount%></div>
 			</div>
 		</div>
 	</div>

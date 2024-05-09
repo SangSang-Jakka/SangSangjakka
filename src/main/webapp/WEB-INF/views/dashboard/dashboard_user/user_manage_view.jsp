@@ -55,7 +55,7 @@
 					<div class="clearfix">
 						<h4 class="text-blue h4">회원 정보</h4>
 						<c:if test="${blacklistSeq !=1}">
-						<button type="submit" class="btn btn-danger" id="blockBtn">차단</button>
+						<button type="submit" class="btn btn-danger" id="blockBtn" onclick="return confirmBlock()">차단</button>
 						</c:if>
 						
 						<a href="/sangsangjakka/dashboard/user/edit.do?seq=${user.userSeq}&id=${user.userId}" class="btn btn-primary pull-right">수정</a>
@@ -191,7 +191,11 @@
 			
 		</script>
 		
-		
+		<script>
+		function confirmBlock() {
+		    return confirm("차단하시겠습니까?");
+		}
+		</script>
 		
 		
 </body>

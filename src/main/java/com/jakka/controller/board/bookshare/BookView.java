@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dao.book.PageDAO;
@@ -60,9 +61,9 @@ public class BookView extends HttpServlet{
 	    ArrayList<ReviewDTO> reviewList = reviewDao.findChild(bookSeq);
 	    
 	    req.setAttribute("dto", dto);
-		req.setAttribute("reviewList", reviewList);
 		req.setAttribute("pageMap", pageMap);
-	    
+		req.setAttribute("reviewList", reviewList);
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookshare/bookshare_view.jsp");
 		dispatcher.forward(req, resp);
 		

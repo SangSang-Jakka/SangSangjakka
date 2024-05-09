@@ -106,8 +106,8 @@
 								</div>
 							 <div>
 
-                       
-                        <button type="button" class="btn btn-danger">계정 삭제</button>
+                       <button class="btn btn-danger" onclick="del(adId);">삭제</button>
+                        //<button type="submit" class="btn btn-danger">계정 삭제</button>
                         <button type="button" class="btn btn-primary pull-right" onclick ="location.href='/sangsangjakka/admin/edit.do?id=${adminedit.adId}';"> 돌아가기</button>
                   		
                     </div>
@@ -150,6 +150,31 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
 	
+	
+	</script>
+	
+	<script>
+	
+	function del(adId) {
+	    if (confirm("정말로 삭제하시겠습니까?")) {
+	        $.ajax({
+	            type: "POST",
+	            url: "/sangsangjakka/admin/admin/edit.do",
+	            data: { action: 'delete', adId: adId },
+	            dataType: 'json',
+	            success: function(data) {
+	                if (data.result === 1) {
+	                    window.location.href = "/sangsangjakka/admin/list.do";
+	                } else {
+	                    alert('삭제에 실패했습니다.');
+	                }
+	            },
+	            error: function() {
+	                alert("서버와의 통신 중 문제가 발생했습니다.");
+	            }
+	        });
+	    }
+	}
 	
 	</script>
 	</body>
