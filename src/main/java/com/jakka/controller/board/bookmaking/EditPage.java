@@ -12,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -86,8 +87,6 @@ public class EditPage extends HttpServlet {
         				// 같은 파일을 로컬 개발 경로에 복사
         	            File localFile = new File(devUploadPath + newFileName);
         	            Files.copy(file.toPath(), localFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        				System.out.println("File saved as " + file.getAbsolutePath());
-        				System.out.println("localFile saved as " + localFile.getAbsolutePath());
         			}
         		}
         	} catch (Exception e) {
@@ -98,50 +97,6 @@ public class EditPage extends HttpServlet {
         	writer.print("File uploaded to: " + uploadPath);
         	writer.close();
         } else {
-        	
-        	bookSeq = req.getParameter("bookSeq");
-        	pageSeq = req.getParameter("pageSeq");
-        	String cmntYN = req.getParameter("cmntYN");
-        	String imgYN = req.getParameter("imgYN");
-        	String pageContents = req.getParameter("pageContents");
-        	
-        	
-        	PageDAO dao = new DAOManager().getPageDAO();
-        	PageDTO dto = new PageDTO();
-        	
-        	dto.setBookSeq(bookSeq);
-        	dto.setPageSeq(pageSeq);
-        	dto.setCmntYN(cmntYN);
-        	dto.setImgYN(imgYN);
-        	//pageUrl = pageUrl.substring(pageUrl.indexOf("sangsangjakka")-1);
-        	dto.setPageUrl(pageUrl);
-        	dto.setPageContents(pageContents);
-        	
-        	int result = dao.save(dto);
-        	//방금 만들어진 페이지 가져오기
-        	HashMap<Integer, PageDTO> pages = new HashMap<>();
-        	pages = dao.findPages(bookSeq);
-        	PageDTO dto2 = pages.get(Integer.parseInt(pageSeq));
-        	resp.setContentType("application/json");
-        	
-        	JSONObject obj = new JSONObject();
-        	obj.put("result", result);
-        	
-        	JSONObject subObj = new JSONObject();
-        	subObj.put("bookSeq", dto2.getBookSeq());
-        	subObj.put("pageSeq", dto2.getPageSeq());
-        	subObj.put("cmntYN", dto2.getCmntYN());
-        	subObj.put("imgYN", dto2.getImgYN());
-        	subObj.put("pageUrl", dto2.getPageUrl());
-        	subObj.put("pageContents", dto2.getPageContents());
-        	
-        	obj.put("dto", subObj);
-        	
-        	resp.setCharacterEncoding("UTF-8");
-        	writer.print(obj);
-        	writer.close();
-        	
-        	
         }
 	}
 	private String getValue(Part part) throws IOException {
@@ -151,6 +106,54 @@ public class EditPage extends HttpServlet {
 	    try (BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"))) {
 	        return reader.lines().collect(Collectors.joining(System.lineSeparator()));
 	    }
+	}
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		String bookSeq = req.getParameter("bookSeq");
+		String pageSeq = req.getParameter("pageSeq");
+    	String cmntYN = req.getParameter("cmntYN");
+    	String imgYN = req.getParameter("imgYN");
+    	String pageUrl = req.getParameter("pageUrl");
+    	String pageContents = req.getParameter("pageContents");
+    	
+    	
+    	PageDAO dao = new DAOManager().getPageDAO();
+    	PageDTO dto = new PageDTO();
+    	
+    	dto.setBookSeq(bookSeq);
+    	dto.setPageSeq(pageSeq);
+    	dto.setCmntYN(cmntYN);
+    	dto.setImgYN(imgYN);
+    	//pageUrl = pageUrl.substring(pageUrl.indexOf("sangsangjakka")-1);
+    	dto.setPageUrl(pageUrl);
+    	dto.setPageContents(pageContents);
+    	
+    	int result = dao.save(dto);
+    	//방금 만들어진 페이지 가져오기
+    	HashMap<Integer, PageDTO> pages = new HashMap<>();
+    	pages = dao.findPages(bookSeq);
+    	PageDTO dto2 = pages.get(Integer.parseInt(pageSeq));
+    	resp.setContentType("application/json");
+    	
+    	JSONObject obj = new JSONObject();
+    	obj.put("result", result);
+    	
+    	JSONObject subObj = new JSONObject();
+    	subObj.put("bookSeq", dto2.getBookSeq());
+    	subObj.put("pageSeq", dto2.getPageSeq());
+    	subObj.put("cmntYN", dto2.getCmntYN());
+    	subObj.put("imgYN", dto2.getImgYN());
+    	subObj.put("pageUrl", dto2.getPageUrl());
+    	subObj.put("pageContents", dto2.getPageContents());
+    	
+    	obj.put("dto", subObj);
+    	
+    	PrintWriter writer = resp.getWriter();
+    	resp.setCharacterEncoding("UTF-8");
+    	writer.print(obj);
+    	writer.close();
+    	
 	}
 
 }

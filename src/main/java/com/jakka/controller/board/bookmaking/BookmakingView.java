@@ -60,18 +60,19 @@ public class BookmakingView extends HttpServlet {
 				}
 			}
 			req.setAttribute("firstpage", dto.get(0));
-			req.setAttribute("lastpage", lastpage);
+			req.setAttribute("lastpage", lastpage.getPageSeq());
 			req.setAttribute("dto", dto);
 			req.setAttribute("bookSeq", bookSeq);
 			req.setAttribute("userId", userId);
 			req.setAttribute("basePath", basePath);
+			req.setAttribute("cover", bookDao.findById(bookSeq).getBookCover());
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_view.jsp");
 			dispatcher.forward(req, resp);
 
 		} else {
 			HashMap<Integer, PageDTO> pages = pageDao.findPages("0");
 			PageDTO lastpage = pageDao.lastpage(bookSeq);
-			req.setAttribute("lastpage", lastpage);
+			req.setAttribute("lastpage", lastpage.getPageSeq());
 			req.setAttribute("basePath", basePath);
 			req.setAttribute("bookSeq", 0);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_view.jsp");

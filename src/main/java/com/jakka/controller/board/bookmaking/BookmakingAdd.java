@@ -83,7 +83,9 @@ public class BookmakingAdd extends HttpServlet {
 			// ServletContext를 통해 리소스 스트림 얻기
 	        ServletContext context = getServletContext();
 			bookDao.createBookFolder(userDto.getUserId(), bookSeq, context);
-
+			PageDTO lastpage = pageDao.lastpage(bookSeq);
+			
+			req.setAttribute("lastpage", lastpage.getPageSeq());
 			req.setAttribute("bookSeq", bookSeq);
 			req.setAttribute("link", req.getContextPath());
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_add.jsp");
@@ -116,6 +118,10 @@ public class BookmakingAdd extends HttpServlet {
 			req.setAttribute("bookDtoList", bookDtoList);
 			req.setAttribute("pageDtoList", pageDtoList);
 			}
+			PageDTO lastpage = pageDao.lastpage(null);
+			
+			req.setAttribute("lastpage", lastpage.getPageSeq());
+			req.setAttribute("bookSeq", "0");
 			// Redirect to other servlets based on condition
 			String redirectUrl = bookDtoList.isEmpty() ? "view.jsp"	: "list.jsp";
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_"+redirectUrl);
