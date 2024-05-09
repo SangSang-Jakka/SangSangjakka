@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css"> -->
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/dashboard.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<style>
 	
@@ -39,42 +40,11 @@
 	                    </div>
 	                </div>
 	
-	                <div class="row">
+		<div class="pd-ltr-20 xs-pd-20-10">
+		 <div class="min-height-200px">
 	
-	                    <div class="postBox">
-	                        <div class="today">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>신규 가입자수</h4>
-	                            <p>+${userCnt}</p>
-	                        </div>
-	                        <div class="yesterday">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>차단된 사용자수</h4>
-	                            <p>3</p>
-	                        </div>
-	                        <div class="accumulate">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>탈퇴회원수</h4>
-	                            <p>300</p>
-	                        </div>
-	                    </div>
-	                </div>
-	
-	                <div class="boardTotal">
-	                    <div class="boardSection">
-	                        <h4>동화공유게시판</h4>
-	                        <p>10</p>
-	                    </div>
-	                    <div class="boardSection">
-	                        <h4>자유게시판</h4>
-	                        <p>85</p>
-	                    </div>
-	                    <div class="boardSection">
-	                        <h4>건의사항</h4>
-	                        <p>5</p>
-	                    </div>
-	                </div>
-	
+		<!-- 배너 -->
+        <%@include file="/WEB-INF/views/member/user/user_template/banner.jsp"%>
 
 <!--  	               <p>성별</p> -->
 <!--            			<div style="width: 300px; height: 300px; background-color: white; -->
@@ -149,6 +119,8 @@
 			        
 	            <!-- 푸터 -->
 				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
+				</div>
+				</div>
 				
 	        	</div>
 	    	</div>
