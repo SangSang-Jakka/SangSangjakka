@@ -21,6 +21,7 @@ public interface BoardDAO extends BasicDAO<BoardDTO>, Cnt, ReportCnt
 	public BoardDTO findInfo(String freeSeq);
 	public int saveEdit(BoardDTO dto);
 	public int freeDel(String boardSeq);
+	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map, String orderBy);
 	
 	
 }

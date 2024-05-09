@@ -115,6 +115,131 @@ public class BoardDAOImpl implements BoardDAO {
 		return null;
 
 	}// list()
+	
+	@Override
+    public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map) {
+
+        String where = "where rnum BETWEEN ? AND ?";
+        String col = "";
+
+        if (map.get("search").equals("y")) {
+            col = col + String.format(" where %s like '%%%s%%'", map.get("column"), map.get("word"));
+        }
+
+        String sql = String.format("SELECT boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq, userNick, cmntCnt " +
+                "FROM (SELECT ROWNUM RNUM, f.boardSeq, f.boardTitle, f.boardContents, f.boardRegdate, f.boardReportCnt, f.boardCnt, f.userSeq, f.userNick, f.cmntCnt " +
+                "FROM (SELECT * FROM vwBoardWhite %s ORDER BY boardRegdate desc) f) " +
+                "%s", col, where);
+
+        try (
+                Connection conn = DBUtil.open(); 
+                PreparedStatement pstat = conn.prepareStatement(sql);
+        ) {
+            pstat.setString(1, map.get("begin"));
+            pstat.setString(2, map.get("end"));
+
+            ResultSet rs = pstat.executeQuery();
+
+            ArrayList<BoardDTO> list = new ArrayList<>();
+
+            while (rs.next()) {
+
+                BoardDTO dto = new BoardDTO();
+
+                dto.setBoardCnt(rs.getString("boardCnt"));
+                dto.setBoardContents(rs.getString("boardContents"));
+                dto.setBoardRegdate(rs.getString("boardRegdate"));
+                dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+                dto.setBoardSeq(rs.getString("boardSeq"));
+                dto.setBoardTitle(rs.getString("boardTitle"));
+                dto.setUserSeq(rs.getString("userSeq"));
+                dto.setUserNick(rs.getString("userNick"));
+                dto.setCmntCnt(rs.getString("cmntCnt"));
+
+                list.add(dto);
+
+            }
+
+            return list;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+	
+	
+	
+	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map, String orderBy) {
+		
+		//System.out.println(orderBy);
+	    String SQL = "SELECT boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq, userNick, cmntCnt " +
+	                 "FROM (SELECT ROWNUM RNUM, f.boardSeq, f.boardTitle, f.boardContents, f.boardRegdate, f.boardReportCnt, f.boardCnt, f.userSeq, f.userNick, f.cmntCnt " +
+	                 "FROM (SELECT * FROM vwBoardWhite ";
+
+	    if (map.get("search").equals("y")) {
+	        SQL += String.format("WHERE %s like '%%%s%%' ", map.get("column"), map.get("word"));
+	    }
+
+	    SQL += "ORDER BY ";
+
+	    switch (orderBy) {
+	        case "newest":
+	            SQL += "boardRegdate DESC";
+	            break;
+	        case "view_count":
+	            SQL += "boardCnt DESC";
+	            break;
+	        case "comment_count":
+	            SQL += "CMNTCNT DESC";
+	            break;
+	        default:
+	            SQL += "boardRegdate DESC";
+	    }
+
+	    SQL += ") f) " +
+	           "WHERE RNUM BETWEEN ? AND ?";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    ) {
+	        pstmt.setString(1, map.get("begin"));
+	        pstmt.setString(2, map.get("end"));
+
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<BoardDTO> list = new ArrayList<>();
+	        
+	        System.out.println(SQL);
+
+	        while (rs.next()) {
+	            BoardDTO dto = new BoardDTO();
+	            dto.setBoardCnt(rs.getString("boardCnt"));
+	            dto.setBoardContents(rs.getString("boardContents"));
+	            dto.setBoardRegdate(rs.getString("boardRegdate"));
+	            dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+	            dto.setBoardSeq(rs.getString("boardSeq"));
+	            dto.setBoardTitle(rs.getString("boardTitle"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            dto.setCmntCnt(rs.getString("cmntCnt"));
+	            list.add(dto);
+	        }
+
+	        System.out.println(list);
+	        return list;
+
+	    } catch (Exception e) {
+	        System.out.println("BoardDAO.| list");
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
+
+
 
 	// 블라인드된 자유게시판 글
 	@Override
@@ -691,58 +816,6 @@ public class BoardDAOImpl implements BoardDAO {
 		return 0;
 	}
 
-	@Override
-	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map) {
-		
-		String where = "where rnum BETWEEN ? AND ?";
-		String col = "";
-		
-		if (map.get("search").equals("y")) {
-			col = col + String.format(" where %s like '%%%s%%'", map.get("column"), map.get("word"));
-		}
-		
-		String sql = String.format("SELECT boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq, userNick, cmntCnt " +
-                "FROM (SELECT ROWNUM RNUM, f.boardSeq, f.boardTitle, f.boardContents, f.boardRegdate, f.boardReportCnt, f.boardCnt, f.userSeq, f.userNick, f.cmntCnt " +
-                "FROM (SELECT * FROM vwBoardWhite %s ORDER BY boardRegdate desc) f) " +
-                "%s", col, where);
-		
-		try (
-				Connection conn = DBUtil.open(); 
-				PreparedStatement pstat = conn.prepareStatement(sql);
-		) {
-			pstat.setString(1, map.get("begin"));
-			pstat.setString(2, map.get("end"));
-
-			ResultSet rs = pstat.executeQuery();
-
-			ArrayList<BoardDTO> list = new ArrayList<>();
-
-			while (rs.next()) {
-
-				BoardDTO dto = new BoardDTO();
-
-				dto.setBoardCnt(rs.getString("boardCnt"));
-				dto.setBoardContents(rs.getString("boardContents"));
-				dto.setBoardRegdate(rs.getString("boardRegdate"));
-				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
-				dto.setBoardSeq(rs.getString("boardSeq"));
-				dto.setBoardTitle(rs.getString("boardTitle"));
-				dto.setUserSeq(rs.getString("userSeq"));
-				dto.setUserNick(rs.getString("userNick"));
-				dto.setCmntCnt(rs.getString("cmntCnt"));
-
-				list.add(dto);
-
-			}
-
-			return list;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
 
 	//  임시  > 외래키로 삭제 불가 작동X
 	// 게시물 삭제 
