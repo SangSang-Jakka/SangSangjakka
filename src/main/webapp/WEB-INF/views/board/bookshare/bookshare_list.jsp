@@ -52,6 +52,7 @@
        </form>
        </div>
        
+        <div class="bookShareWrap">
        <c:forEach items="${list}" var="dto">
 		  		<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
 				    <div class="bookImg">
@@ -73,21 +74,22 @@
 				      </div>
 				      <div class="iconItems">
 				        <div class="subItems">
-				          <i class="fa-regular fa-bookmark"></i>
+				          <i class="fa-solid fa-bookmark bookmarker"></i>
 				          <p>${dto.bookScrapCnt}</p>
 				        </div>
 				        <div class="subItems">
-				          <i class="fa-regular fa-heart"></i>
+				          <i class="fa-solid fa-heart heart"></i>
 				          <p>${dto.likeCnt}</p>
 				        </div>
 				        <div class="subItems">
-				          <i class="fa-regular fa-comment"></i>
+				          <i class="fa-solid fa-comment comment"></i>
 				          <p>${dto.bookReportCnt}</p>
 				        </div>
 				      </div>
 				    </div>
 				  </div>
 		  </c:forEach>
+		  </div>
        
   <div class="bookShareWrap">
   <div class="bookShareContainer">
@@ -110,15 +112,15 @@
       </div>
       <div class="iconItems">
         <div class="subItems">
-          <i class="fa-regular fa-bookmark"></i>
+          <i class="fa-solid fa-bookmark bookmarker"></i>
           <p>20</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-heart"></i>
+          <i class="fa-solid fa-heart heart"></i>
           <p>30</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-comment"></i>
+          <i class="fa-solid fa-comment comment"></i>
           <p>10</p>
         </div>
       </div>
@@ -145,15 +147,15 @@
       </div>
       <div class="iconItems">
         <div class="subItems">
-          <i class="fa-regular fa-bookmark"></i>
+          <i class="fa-solid fa-bookmark bookmarker"></i>
           <p>20</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-heart"></i>
+         <i class="fa-solid fa-heart heart"></i>
           <p>30</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-comment"></i>
+          <i class="fa-solid fa-comment comment"></i>
           <p>10</p>
         </div>
       </div>
@@ -180,15 +182,15 @@
       </div>
       <div class="iconItems">
         <div class="subItems">
-          <i class="fa-regular fa-bookmark"></i>
+          <i class="fa-solid fa-bookmark bookmarker"></i>
           <p>20</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-heart"></i>
+          <i class="fa-solid fa-heart heart"></i>
           <p>30</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-comment"></i>
+          <i class="fa-solid fa-comment comment"></i>
           <p>10</p>
         </div>
       </div>
@@ -215,15 +217,15 @@
       </div>
       <div class="iconItems">
         <div class="subItems">
-          <i class="fa-regular fa-bookmark"></i>
+          <i class="fa-solid fa-bookmark bookmarker"></i>
           <p>20</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-heart"></i>
+          <i class="fa-solid fa-heart heart"></i>
           <p>30</p>
         </div>
         <div class="subItems">
-          <i class="fa-regular fa-comment"></i>
+          <i class="fa-solid fa-comment comment"></i>
           <p>10</p>
         </div>
       </div>
