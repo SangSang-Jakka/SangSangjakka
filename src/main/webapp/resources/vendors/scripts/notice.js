@@ -16,7 +16,7 @@ $('document').ready(function() {
 			infoEmpty: "데이터 없음",
 			lengthMenu: "페이지당 _MENU_ 개씩 보기",
 			infoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
-			search: "에서 검색: ",
+			/* search: "검색어: ", */
 			zeroRecords: "일치하는 데이터 없음",
 			loadingRecords: "로딩중",
 			processing: "잠시만 기다려주세요.",
@@ -27,6 +27,7 @@ $('document').ready(function() {
 			}
 		}
 	});
+
 
 	// 커스텀 검색 기능을 추가하여 날짜 범위에 따라 필터링
 	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {

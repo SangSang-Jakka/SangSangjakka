@@ -42,30 +42,7 @@
   transition: border-color 0.3s;
 }
 
-/* 날짜 박스 스타일 */
-#toDate {
-  height: 35px;
-  padding: 8px 12px;
-  margin-right: 30px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.3s;
-}
 
-
-#fromDate {
-
-  height: 35px;
-  padding: 8px 12px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.3s;
-}
 
 
 /* 업데이트 박스들 */
