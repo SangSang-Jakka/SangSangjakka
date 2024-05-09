@@ -1054,6 +1054,94 @@ public class UserDAOImpl implements UserDAO{
 	
 	}
 	
+	@Override
+	public int findBlacklistSeq(String userSeq) {
+		
+
+		final String SQL = "SELECT * FROM tblBlackList b JOIN tblUser u ON b.userSeq = u.userSeq WHERE u.userId = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				
+				//return rs.getInt("userSeq");
+				return 1;
+						
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.| findSeq");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int getNewPostCount(String userRegdate) {
+	
+		int postCount = 0;  
+		
+		
+		String SQL = "SELECT COUNT(*) AS post_count FROM tblBoard WHERE TO_CHAR(boardregdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 	postCount = rs.getInt("post_count");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.getNewPostCount");
+			e.printStackTrace();
+		}
+		 return postCount;
+	}
+	
+	@Override
+	public int getNewSuggestionCount(String userRegdate) {
+		int sgstCount = 0;  
+		
+		
+		String SQL = "SELECT COUNT(*) AS sgst_count FROM tblSuggestion WHERE TO_CHAR(sgstregdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 sgstCount = rs.getInt("sgst_count");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.getNewPostCount");
+			e.printStackTrace();
+		}
+		 return sgstCount;
+	}
 
 
 }//End of class

@@ -1,6 +1,7 @@
 package com.jakka.controller.dashboard.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -17,53 +18,108 @@ import com.jakka.model.dto.board.NoticeDTO;
 
 @WebServlet("/admin/dashboard/notice/manageview.do")
 public class NoticeManagementView extends HttpServlet {
-	
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		req.setCharacterEncoding("UTF-8");
-		
+
 		HttpSession session = req.getSession();
-		
+
 		String seq = req.getParameter("seq");
-		
-		//1. 데이터 가져오기(seq)
-		//2. DB 작업 > select .. where seq = 10
-		//3. 결과 > 출력  
-		
+
+		// 1. 데이터 가져오기(seq)
+		// 2. DB 작업 > select .. where seq = 10
+		// 3. 결과 > 출력
+
 		NoticeDAO noticeDAO = DAOManager.getNoticeDAO();
-		
+
 		// 게시물 가져오기
 		NoticeDTO dto = noticeDAO.findById(seq);
-		    
+
 		// 데이터 조작
 		String noticeContents = dto.getNoticeContents();
-		
-		//글내용 > 태그 > 이스케이프
+
+		// 글내용 > 태그 > 이스케이프
 		noticeContents = noticeContents.replace(">", "&gt;").replace("<", "&lt;");
-		
-		//글내용 > 개행 문자 처리
+
+		// 글내용 > 개행 문자 처리
 		noticeContents = noticeContents.replace("\r\n", "<br>");
-		
+
 		dto.setNoticeContents(noticeContents);
-		
+
 		// 제목
 		String noticeTitle = dto.getNoticeTitle();
-		
-		//제목 > 태그 > 이스케이프
+
+		// 제목 > 태그 > 이스케이프
 		noticeTitle = noticeTitle.replace(">", "&gt;").replace("<", "&lt;");
-		
+
 		dto.setNoticeTitle(noticeTitle);
-		
+
 		req.setAttribute("dto", dto);
-		
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/notice_manage_view.jsp");
+
+		RequestDispatcher dispatcher = req
+				.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/notice_manage_view.jsp");
 		dispatcher.forward(req, resp);
-	
-		
+
 	}
 
-	
-}//End of class
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		String adId = (String) session.getAttribute("adId");
+
+		if (adId == null) {
+			req.setAttribute("errorMessage", "로그인이 필요합니다.");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/admin/admin_login.jsp");
+			dispatcher.forward(req, resp);
+		}
+
+		String action = req.getParameter("action");
+		
+		// 고정
+		
+		if ("activationFix".equals(action)) {
+			String noticeSeq = req.getParameter("noticeSeq");
+			NoticeDAO dao = DAOManager.getNoticeDAO();
+			int result = dao.fixed(noticeSeq, adId);
+			
+			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/plain");
+			PrintWriter writer = resp.getWriter();
+			
+			if (result > 0) {
+				writer.print("공지사항을 고정하였습니다.");
+			} else {
+				writer.print("공지사항이 이미 고정되어 있습니다.");
+			}
+			
+		}
+		
+		
+		// 고정 취소
+		else if ("unFix".equals(action)) {
+			String noticeSeq = req.getParameter("noticeSeq");
+			NoticeDAO dao = DAOManager.getNoticeDAO();
+			int result = dao.Unfixing(noticeSeq, adId);
+			
+			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/plain");
+			PrintWriter writer = resp.getWriter();
+			
+			if (result > 0) {
+				writer.print("공지사항을 고정 해제하였습니다.");
+			} else {
+				writer.print("공지사항이 이미 고정 해제되어 있습니다.");
+				
+			}
+
+			
+		}
+		
+
+	}
+
+}// End of class
