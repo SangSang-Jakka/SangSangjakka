@@ -64,8 +64,9 @@
                       </div>
                   
                   
+                  
                   <div class="btnWrap">
-                        <input type="button" class="btnEdit" value="수정">
+                        <input type="button" class="btnEdit" value="수정" onclick="location.href='/sangsangjakka/board/freeboard/edit.do?no=' + ${dto.boardSeq}">
                         <input type="button" class="btnDel" value="삭제">
                   </div>
 
@@ -111,9 +112,7 @@
                   </div>
 
 
-                      <div class="btnListTable">
-                        <input type="button" class="btnList" value="목록">
-                      </div>
+                     
 
                       <div class="listWrap">
                         <table class="listTable">
@@ -139,6 +138,10 @@
                         </table>
                       </div>
                    
+                   
+                    <div class="btnListTable">
+                        <input type="button" class="btnList" value="목록">
+                      </div>
 
 
      

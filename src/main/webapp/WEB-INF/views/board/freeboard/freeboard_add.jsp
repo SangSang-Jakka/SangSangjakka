@@ -5,7 +5,7 @@
 <head>
     <%@include file="/WEB-INF/views/template/asset.jsp"%>
     <link rel="stylesheet" href="/sangsangjakka/resources/css/board/freeboard/freeboard_add.css">
-<link rel="stylesheet" href="/sangsangjakka/resources/css/summernote/summernote-lite.css">
+	<link rel="stylesheet" href="/sangsangjakka/resources/css/summernote/summernote-lite.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="/sangsangjakka/resources/js/summernote/summernote-lite.js"></script>
@@ -21,9 +21,10 @@
             <h3>자유 게시판</h3>
         </div>
     </div>
+    
     <section class="freeBoard">
     
-        <form method="POST" action="/sangsangjakka/board/freeboard/add.do" >
+        <form method="POST" action="/sangsangjakka/board/freeboard/edit.do" >
             <div class="freeboardWrap">
                 <div class="freeTitleContainer">
                     <div class="freeTitle">제목</div>
@@ -57,6 +58,7 @@
         <input type="hidden" name="thread" value="${thread}">
         <input type="hidden" name="depth" value="${depth}">
     </section>
+    
     <!-- footer -->
     <%@include file="/WEB-INF/views/template/footer.jsp"%>
     <script src="https://kit.fontawesome.com/8a0ce49d35.js" crossorigin="anonymous"></script>

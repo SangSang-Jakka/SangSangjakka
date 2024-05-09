@@ -215,6 +215,7 @@ public class BoardDAOImpl implements BoardDAO {
 			pstat.setString(1, dto.getBoardTitle());
 			pstat.setString(2, dto.getBoardContents());
 			pstat.setString(3, dto.getBoardSeq());
+			
 
 			int result = pstat.executeUpdate();
 
@@ -814,5 +815,70 @@ public class BoardDAOImpl implements BoardDAO {
 	    return 0; // 값을 찾지 못한 경우 0 반환
 	}
 	
+	@Override
+	public BoardDTO findInfo(String freeSeq) {
+	    String SQL = "SELECT * FROM tblBoard WHERE boardSeq = ?";
+	    BoardDTO dto = null;
 
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, freeSeq); // 매개변수 값 설정
+	        ResultSet rs = pstat.executeQuery(); // executeQuery() 실행
+
+	        if (rs.next()) { // 결과가 있을 경우
+	            dto = new BoardDTO();
+	            dto.setBoardSeq(rs.getString("boardSeq"));
+	            dto.setBoardTitle(rs.getString("boardTitle"));
+	            dto.setBoardContents(rs.getString("boardContents"));
+	            dto.setBoardRegdate(rs.getString("boardRegdate"));
+	            dto.setBoardCnt(rs.getString("boardCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return dto;
+	}
+	
+	 
+	
+	@Override
+	public int saveEdit(BoardDTO dto) {
+		
+		final String SQL = "update tblBoard set boardTitle = ?, boardContents = ? where boardSeq = ?";
+		
+
+		try (
+
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+
+		) {
+
+			conn.setAutoCommit(false);
+
+			pstat.setString(1, dto.getBoardTitle());
+			pstat.setString(2, dto.getBoardContents());
+			pstat.setString(3, dto.getBoardSeq());
+			
+
+			int result = pstat.executeUpdate();
+
+			if (result > 0) {
+				
+				return result;
+			}
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| set");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 }// End of class
