@@ -26,10 +26,38 @@
 	margin-bottom: 20px;
 }
 
-.red {
+.fixbtn {
 
 background-color : red;
+padding-left: 35px;
+font-size: 16px;
+
 }
+
+.topleft .btn {
+    background-color: #ff0000;
+    border-color: #ff0000;
+    color: white; 
+}
+
+/* 마우스를 올리고 있는 동안 */
+.topleft .btn:hover {
+    background-color: #cc0000;
+    border-color: #cc0000;
+    color: white;
+}
+
+/* 마우스를 클릭하고 있는 동안 */
+.topleft .btn:active {
+
+    background-color: #cc0000;
+    border-color: #cc0000;
+    color: white;
+}
+
+
+
+
 </style>
 </head>
 <body>
@@ -71,9 +99,10 @@ background-color : red;
 
 
 						<span class="topleft">
-							<button type="button" class="btn btn-primary red">고정</button>
-							<button type="button" class="btn btn-primary red">고정 해제</button>
-						</span> <span class="topright"> <c:if test="${not empty adId}">
+							<button type="button" class="btn btn-primary" onclick="activationFix('${dto.noticeSeq}')">고정</button>
+							<button type="button" class="btn btn-primary" onclick="unFix('${dto.noticeSeq}')">고정 해제</button>
+						</span>
+						<span class="topright"> <c:if test="${not empty adId}">
 								<button type="button" class="btn btn-primary"
 									onclick="location.href='/sangsangjakka/admin/dashboard/notice/manageedit.do?seq=${dto.noticeSeq}';">수정</button>
 								<button type="button" class="btn btn-primary"
@@ -122,6 +151,52 @@ background-color : red;
 	</div>
 
 	<script>
+	
+	// 고정
+	function activationFix(noticeSeq) {
+		
+		
+		var xhr = new XMLHttpRequest();
+	    xhr.open('POST', '/sangsangjakka/admin/dashboard/notice/manageview.do', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            // 서블릿으로부터 받은 응답 처리
+	            alert(xhr.responseText);
+	            // 페이지 리로드 또는 다른 작업 수행
+	        }
+	    };
+	    // 서블릿으로 전달할 파라미터 설정
+	    var params = 'noticeSeq=' + encodeURIComponent(noticeSeq) + '&action=activationFix';
+	    xhr.send(params);
+	
+		
+	}
+	
+	
+	// 고정 해제
+	function unFix(noticeSeq) {
+		
+		
+		var xhr = new XMLHttpRequest();
+	    xhr.open('POST', '/sangsangjakka/admin/dashboard/notice/manageview.do', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            // 서블릿으로부터 받은 응답 처리
+	            alert(xhr.responseText);
+	            // 페이지 리로드 또는 다른 작업 수행
+	        }
+	    };
+	    // 서블릿으로 전달할 파라미터 설정
+	    var params = 'noticeSeq=' + encodeURIComponent(noticeSeq) + '&action=unFix';
+	    xhr.send(params);
+	
+		
+	}
+	
+	
+	// 삭제
 	function deleteNotice(noticeSeq, adId) {
 	    if (confirm("정말로 삭제하시겠습니까?")) { // 삭제 전 사용자 확인
 	        $.ajax({
@@ -143,6 +218,48 @@ background-color : red;
 	        });
 	    }
 	}
+	
+	
+	/* 버튼 색깔 변경
+	document.addEventListener('DOMContentLoaded', function() {
+	    var btns = document.querySelectorAll('.topleft .btn');
+
+	    btns.forEach(function(btn) {
+	        btn.addEventListener('click', function() {
+	            btn.style.backgroundColor = '#cc0000';
+	            btn.style.borderColor = '#cc0000';
+	            btn.style.color = 'white';
+	        });
+	    });
+	});
+	*/
+
+
+	document.addEventListener('DOMContentLoaded', function() {
+	    var btns = document.querySelectorAll('.topleft .btn');
+
+	    btns.forEach(function(btn) {
+	        btn.addEventListener('click', function() {
+	            // 현재 색상 확인
+	            var currentColor = btn.style.backgroundColor || window.getComputedStyle(btn).backgroundColor;
+
+	            // 현재 색상이 빨간색이거나 짙은 빨간색인지 확인
+	            if (currentColor === 'rgb(255, 0, 0)' || currentColor === '#ff0000') {
+	                // 현재 색상이 빨간색이면 짙은 빨간색으로 변경
+	                btn.style.backgroundColor = '#cc0000';
+	                btn.style.borderColor = '#cc0000';
+	                btn.style.color = 'white';
+	            } else {
+	                // 현재 색상이 짙은 빨간색이면 빨간색으로 변경
+	                btn.style.backgroundColor = '#ff0000';
+	                btn.style.borderColor = '#ff0000';
+	                btn.style.color = 'white';
+	            }
+	        });
+	    });
+	});
+
+	
 	</script>
 
 	<!-- js -->
