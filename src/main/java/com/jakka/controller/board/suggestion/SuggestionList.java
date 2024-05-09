@@ -156,7 +156,7 @@ public class SuggestionList extends HttpServlet {
 		writer.println("<script type='text/javascript'");
 		writer.println("location.href='/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		writer.println("</script>");
-		
+			
 	}
 
 }

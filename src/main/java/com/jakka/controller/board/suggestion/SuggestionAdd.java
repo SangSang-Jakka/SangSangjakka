@@ -50,7 +50,8 @@ public class SuggestionAdd extends HttpServlet {
 //				"UTF-8",
 //				new DefaultFileRenamePolicy()
 //		);
-				
+		HttpSession session = req.getSession();
+	    String userSeq = (String) session.getAttribute("userSeq");		
 		
 		// 제목 받아오기
 		String subject = req.getParameter("subject");
@@ -89,7 +90,7 @@ public class SuggestionAdd extends HttpServlet {
 		// 비밀글 체크 여부
 		dto.setSgstSecretYN(secret);
 		// Seq
-		dto.setUserSeq(seq);
+		dto.setUserSeq(userSeq);
 		// dto를 들고 DB 작업
 		// 생성 int
 		System.out.println("dto:" + dto);
