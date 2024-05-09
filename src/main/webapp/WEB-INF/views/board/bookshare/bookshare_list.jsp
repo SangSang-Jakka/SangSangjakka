@@ -16,6 +16,8 @@
 	
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
+	
+	
 		
 	<section class="notice">
 	
@@ -50,6 +52,42 @@
        </form>
        </div>
        
+       <c:forEach items="${list}" var="dto">
+		  		<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
+				    <div class="bookImg">
+				      <img src="${dto.bookCover}" alt="책 표지 이미지" />
+				    </div>
+				    <div class="bookDetails">
+				      <div class="bookDate">
+				        <div class="createDate">${dto.bookRegdate}</div>
+				      </div>
+				      <div class="bookOwner">
+				      	<i class="fa-regular fa-user"></i>
+				       <div class="createAuthor">${dto.userNick}</div>
+					  </div>
+				      <div class="bookTitle">
+				        <div class="createTitle">${dto.bookTitle}</div>
+				      </div>
+				      <div class="bookContents">
+				        <div class="createContents">${dto.bookInfo}</div>
+				      </div>
+				      <div class="iconItems">
+				        <div class="subItems">
+				          <i class="fa-regular fa-bookmark"></i>
+				          <p>${dto.bookScrapCnt}</p>
+				        </div>
+				        <div class="subItems">
+				          <i class="fa-regular fa-heart"></i>
+				          <p>${dto.likeCnt}</p>
+				        </div>
+				        <div class="subItems">
+				          <i class="fa-regular fa-comment"></i>
+				          <p>${dto.bookReportCnt}</p>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+		  </c:forEach>
        
   <div class="bookShareWrap">
   <div class="bookShareContainer">
