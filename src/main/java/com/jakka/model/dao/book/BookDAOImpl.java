@@ -970,7 +970,7 @@ public class BookDAOImpl implements BookDAO{
 		
 		String sql = String.format("SELECT bookSeq, bookTitle, bookInfo, bookRegdate, bookReportCnt, bookCnt, userSeq, userNick, bookReviewCnt, bookScrapCnt, likeCnt, bookCover, bookModDate, parentBookSeq, rcmAgeSeq " +
                 "FROM (SELECT ROWNUM RNUM, f.bookSeq, f.bookTitle, f.bookInfo, f.bookRegdate, f.bookReportCnt, f.bookCnt, f.userSeq, f.userNick, f.bookReviewCnt, f.bookScrapCnt, f.likeCnt, f.bookCover, f.bookModDate, f.parentBookSeq, f.rcmAgeSeq " +
-                "FROM (SELECT * FROM vwBook %s ORDER BY bookRegdate desc) f) " +
+                "FROM (SELECT * FROM vwBookWhite %s ORDER BY bookRegdate desc) f) " +
                 "%s", col, where);
 		
 		try (
