@@ -18,6 +18,8 @@ public interface BoardDAO extends BasicDAO<BoardDTO>, Cnt, ReportCnt
 	
 	public int remove(String boardSeq);
 	public int findSeq(String userSeq);
+	public BoardDTO findInfo(String freeSeq);
+	public int saveEdit(BoardDTO dto);
 	
 	
 }

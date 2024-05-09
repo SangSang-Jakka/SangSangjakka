@@ -1,85 +1,124 @@
-body, input.btnBack, input, textarea, button{
+body, input.btnBack, input, textarea, button {
     font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
 }
 
-form{
-  width: 1080px;
-  text-align: center;
-  margin: 50px;
+form {
+    width: 1300px;
+    margin: 50px auto;
 }
 
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 section.freeBoard {
-  margin: auto;
-  padding: 80px 0;
-  width: 1080px;
+    margin: auto;
+    max-width: 1300px;
 }
 
-
-th, td{
-    height: 40px;
-    border: 1px solid #b6b6b6;
-}
-
-th{
-    width: 170px;
-    background-color: #e6e6e6;
-    font-size: 18px;
-}
-
-td{
-    width: 810px;
-    text-align: left;
-    padding: 10px;
-    padding-left: 12px;
-}
-
-td .content {
-    min-height: 250px;
-    
-}
-
-.pageTitle {
-  margin-bottom: 60px;
-}
-
-.pageTitle h3 {
-  font-size: 40px;
-  color: #333333;
-  font-weight:600;
-  text-align: center;
-}
-
-.pageTitle h3 small{
-    color: #9e9e9e;
-}
-
-.subject, .content, .attatch{
-    min-width:809px;
-    min-height: 41px;
-    border: 1px solid #b6b6b6;
-    font-size: 15px;
-}
-
-.subject, .content {
-    padding: 10px;
-}
-
-.btnBox{
+.btnBox {
     margin-top: 30px;
 }
 
-.btnBack, .btnWrite{
+.btnBack, .btnWrite {
     text-align: center;
     font-size: 16px;
     padding: 8px;
     height: 35px;
     margin: 5px;
+    cursor: pointer;
+}
+
+.freeboardWrap {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border: 4px dashed orange;
+    border-radius: 20px;
+}
+
+.freeTitleContainer, .freeFileContainer, .freeContentContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.freeboardType {
+    margin-top: 80px;
+}
+
+.freeboardType {
+    font-size: 30px;
+    color: #333333;
+    font-weight: 600;
+    text-align: center;
 }
 
 
+.freeTitle {
+    width: 100px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.subject, .content {
+    flex: 1;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size :18px;
+}
+
+
+.content {
+    min-height: 200px;
+}
+
+.pageTitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 15px 16px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.file-input {
+    display: none;
+}
+
+#file-name {
+	margin-top: 10px;
+    margin-left: 10px;
+    font-size: 14px;
+    color: #666;
+    
+}
+
+.btnBox {
+	display: flex;
+	justify-content : flex-end;
+	margin-bottom: 50px;
+}
+
+.btnBack {
+	border: 1px solid #DBDCDF;
+	border-radius: 4px;
+	height : 45px;
+	width : 120px;
+}
+
+.btnWrite {
+	border: 1px solid #DBDCDF;
+	border-radius: 4px;
+	height : 45px;
+	width : 120px;
+	background-color: orange;
+}
 
