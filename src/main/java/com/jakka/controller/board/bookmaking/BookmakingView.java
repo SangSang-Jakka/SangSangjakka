@@ -33,7 +33,6 @@ public class BookmakingView extends HttpServlet {
 		String type = req.getParameter("type");
 		String userId = (String) req.getSession().getAttribute("userId");
 		String bookSeq = req.getParameter("no");
-		System.out.println(bookSeq);
 
 		if (userId == null) {
 			resp.sendRedirect(req.getContextPath() + "/user/login.do"); // Redirect to login if not authenticated

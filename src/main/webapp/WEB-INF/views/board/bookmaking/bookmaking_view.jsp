@@ -293,7 +293,6 @@
 	<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
 	<script>
-			console.log(${bookSeq});
 			var cmntYN = '${firstpage.cmntYN}';
 			var imgYN = '${firstpage.imgYN}';
 			var textYN = '';
