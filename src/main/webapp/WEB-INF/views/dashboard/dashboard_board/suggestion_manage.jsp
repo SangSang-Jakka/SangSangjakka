@@ -78,7 +78,7 @@ margin-top : 50px;
   height: 38px;
   margin-right: 10px;
   transition: border-color 0.3s;
-  margin-bottom : 10px;
+  margin-bottom : 30px;
 }
 
 #conditionSelect:focus {
