@@ -5,6 +5,29 @@ display: flex;
 .full {
 width: 100%;
 }
+
+
+h3 {
+	margin: 0;
+}
+section.notice {
+  margin: auto;
+  padding: 80px 0;
+  max-width: 1300px;
+  /* background-color : tomato; */
+}
+
+
+.pageTitle {
+  margin-bottom: 80px;
+}
+
+.pageTitle h3 {
+  font-size: 40px;
+  color: #333333;
+  font-weight:600;
+  text-align: center;
+}
 #bookmakingGrid {
   display: grid;
   grid-template-columns: 1fr; /* 한 개의 열로 설정 */
@@ -30,14 +53,21 @@ margin-bottom: 30px;
 .bb-custom-wrapper {
   height: 600px;
   vertical-align: middle;
-  margin: 50px auto; /* 상하 마진 조정 */
-  padding: 20px 0; /* 상하 패딩 추가 */
+  margin: 70px auto; /* 상하 마진 조정 */
+  box-shadow: 8px 8px 15px 0 rgba(207, 171, 120, 0.5), /* 부드러운 그라데이션 그림자 */
+              4px 4px 10px 0 rgba(255, 241, 208, 1); /* 강조 그림자 */
 }
 
 .makedPageViewer {
-  height: 100%;
+  width: 1300px;
+  height: 800px;
+  margin: 0 auto; /* 너비를 원하는 크기로 조정합니다. */
   display: grid;
-  grid-template-columns: 5% 90% 5%;
+  grid-template-columns: 20% 60% 20%;
+  background-image: url('/sangsangjakka/resources/img/back.jpg');
+  background-size: cover; /* 배경 이미지가 요소의 너비에 맞게 확대됩니다. */
+  background-repeat: no-repeat; /* 배경 이미지 반복을 중지합니다. */
+ 
 }
 .containerLeft, .containerRight {
 display: table;
@@ -61,19 +91,22 @@ background: #03CB8F;
 background: #9CC624;
 }
 .pageImage {
-height: 100%;
-background-size: contain;
-background-repeat: no-repeat;
-background-position: center;
+	height: 70%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	position : relative;
+	margin-top :30px;
 }
 .pointer:hover {
 opacity: 0.8;
 cursor: pointer;
 }
 
-.makedPageViewer {
-	width : 900px;
-	height: 800px;
-  	margin: 0 auto; /* 상하 마진은 0, 좌우 마진은 auto로 설정하여 중앙 정렬 */
-}
+.pageContents {
+	display : flex;
+	margin-top: 20px;
+	justify-content:center;
+} 
+
 

@@ -18,6 +18,14 @@
 	<!-- header -->
 	<%@include file="/WEB-INF/views/template/header.jsp"%>
 
+<section class="notice">
+
+<div class="pageTitle">
+          <div>
+              <h3>동화 공유 게시판 </h3>
+          </div>
+      </div>
+
     <div class="makedPageViewer">
         <div class="containerLeft">
             <nav class="flex">
@@ -34,7 +42,7 @@
                 <c:forEach items="${pageMap}" var="entry">
                     <div class="bb-item">
                         <div class="pageImage" style="background-image: url('${entry.value.pageUrl}');"></div>
-                        <p>${entry.value.pageContents}</p>
+                        <div class="pageContents">${entry.value.pageContents}</div>
                     </div>
                 </c:forEach>
             </div>
@@ -51,9 +59,9 @@
         </div>
     </div>
     
-    <div>
-    	Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus sed facilis repellat veritatis nisi eveniet ratione, ipsa corporis esse error aspernatur omnis porro reiciendis sequi harum. Iusto totam libero iure facere, ratione possimus soluta aspernatur laudantium itaque consectetur. Tempore consequuntur cum tempora aut sed hic, blanditiis nulla fugiat esse a! Tempore sunt eos velit consequuntur assumenda, fugit explicabo eum molestiae corrupti aspernatur? Mollitia asperiores nulla aperiam numquam esse consequatur. Esse assumenda temporibus, labore asperiores velit sint aliquid consequuntur fugit voluptatum ab iure aperiam! Fugiat, eveniet dolorem illum sequi excepturi cupiditate illo eligendi distinctio, architecto minima error repellat odio sed. Quaerat eos tempore inventore ratione quasi odit dolorum itaque similique recusandae aliquam, reprehenderit saepe iure iste fuga pariatur in delectus atque aut ab distinctio quibusdam. Quidem labore ex laudantium rerum sit quam adipisci exercitationem ad fuga. Reprehenderit laboriosam minus nesciunt quisquam inventore qui, impedit officiis necessitatibus quos excepturi fugiat sapiente nostrum perspiciatis enim voluptatibus quis repellat. Cum omnis suscipit nam at accusantium numquam praesentium. Inventore iure laudantium fugiat assumenda ipsum voluptas maiores? Magni consectetur enim aperiam non voluptatem, doloribus incidunt ad praesentium ab quo neque impedit beatae deleniti nostrum nisi optio dolor itaque dolores ex dicta. Eaque, laudantium id? Ratione, obcaecati?
-    </div>
+     </section>
+    
+    
     
     <!-- footer -->
 	<%@include file="/WEB-INF/views/template/footer.jsp"%>
