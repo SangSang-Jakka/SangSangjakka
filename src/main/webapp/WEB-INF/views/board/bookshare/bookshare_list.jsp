@@ -30,8 +30,8 @@
       <div class="pageBanner">
       		<div class="pageWrap">
       			<div class="noticeInfo">
-      				<div class="noticeHeader">자유게시판 안내</div>
-      				<div class="noticeContents">자유롭게 소통할 수 있는 공간입니다.</div>
+      				<div class="noticeHeader">동화 공유 게시판 안내</div>
+      				<div class="noticeContents">아이들의 상상력이 담긴 동화책을 볼 수 있습니다.</div>
       			</div>
       			<div class="noticeImg">
       				<img src="/sangsangjakka/resources/img/book.png" alt="" />
@@ -52,6 +52,9 @@
        </form>
        </div>
        
+       
+  <div class="bookShareWrap">
+  
        <c:forEach items="${list}" var="dto">
 		  		<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
 				    <div class="bookImg">
@@ -88,8 +91,8 @@
 				    </div>
 				  </div>
 		  </c:forEach>
-       
-  <div class="bookShareWrap">
+		  
+		  
   <div class="bookShareContainer">
     <div class="bookImg">
       <img src="/sangsangjakka/resources/img/book1.jpg" alt="책 표지 이미지" />

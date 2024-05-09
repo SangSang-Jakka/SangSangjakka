@@ -24,7 +24,7 @@
     
     <section class="freeBoard">
     
-        <form method="POST" action="/sangsangjakka/board/freeboard/edit.do" >
+        <form method="POST" action="/sangsangjakka/board/freeboard/add.do" >
             <div class="freeboardWrap">
                 <div class="freeTitleContainer">
                     <div class="freeTitle">제목</div>

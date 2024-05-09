@@ -25,7 +25,7 @@
       
     <!-- board list area -->
       <div>
-
+	
               <table class="boardTitle">
                 <tbody>
                     <tr>
@@ -66,8 +66,10 @@
                   
                   
                   <div class="btnWrap">
+                  <c:if test="${dto.userSeq == userSeq}">
                         <input type="button" class="btnEdit" value="수정" onclick="location.href='/sangsangjakka/board/freeboard/edit.do?no=' + ${dto.boardSeq}">
                         <input type="button" class="btnDel" value="삭제">
+                  </c:if>
                   </div>
 
 
@@ -142,6 +144,7 @@
                       </div>
 
 
+					<input type="hidden" name=delUserSeq value="${dto.userSeq}">
      
 
   </section>
@@ -156,6 +159,37 @@
 	
 	<script>
 		
+	$(".btnDel").on("click", function() {
+	    if(confirm("정말 삭제 하시겠습니까?") == true) {
+	        // 정말 삭제하겠다고 했을 때, ajax 통신
+	        $.ajax({
+	            type: "POST",
+	            url: "/sangsangjakka/board/freeboard/del.do",
+	            data: {
+	                boardSeq: '${dto.boardSeq}',
+	                userSeq: '${dto.userSeq}'
+	            },
+	            dataType: "JSON",
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("AJAX", "true");
+	            },
+	            success: function(response) {
+	                if (response.code === 0) {
+	                    alert(response.message);
+	                    location.href = "/sangsangjakka/board/freeboard/list.do";
+	                } else {
+	                    alert(response.message);
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                alert("AJAX 요청 중 오류가 발생했습니다: " + error);
+	            }
+	        });
+	    }
+	});
+
+
+	
 	</script>
 </body>
 </html>

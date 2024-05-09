@@ -44,7 +44,7 @@
 		 <div class="min-height-200px">
 	
 		<!-- 배너 -->
-        <%@include file="/WEB-INF/views/member/user/user_template/banner.jsp"%>
+        <%@include file="/WEB-INF/views/member/user/user_template/user_banner.jsp"%>
 
 <!--  	               <p>성별</p> -->
 <!--            			<div style="width: 300px; height: 300px; background-color: white; -->

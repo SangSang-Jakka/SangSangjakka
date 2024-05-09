@@ -36,6 +36,8 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public int getNewPostCount(String userRegdate);
     public int getNewSuggestionCount(String userRegdate);
     public int boardReportCount(String userRegdate);
+    public int CommReportCount(String userRegdate);
+    public int nUserCount();
     
 
 }

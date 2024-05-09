@@ -5,6 +5,7 @@
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/dashboard.css">
 	<style>
 	
 	
@@ -38,41 +39,13 @@
 	                    </div>
 	                </div>
 	
-	                <div class="row">
-	
-	                    <div class="postBox">
-	                        <div class="today">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>신규 등록된 동화책 수</h4>
-	                            <p>+13</p>
-	                        </div>
-	                        <div class="yesterday">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>신고된 동화책 수</h4>
-	                            <p>3</p>
-	                        </div>
-	                        <div class="accumulate">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>데이터 용량</h4>
-	                            <p>50GB/100GB</p>
-	                        </div>
-	                    </div>
-	                </div>
-	
-	                <div class="boardTotal">
-	                    <div class="boardSection">
-	                        <h4>동화공유게시판</h4>
-	                        <p>10</p>
-	                    </div>
-	                    <div class="boardSection">
-	                        <h4>자유게시판</h4>
-	                        <p>85</p>
-	                    </div>
-	                    <div class="boardSection">
-	                        <h4>건의사항</h4>
-	                        <p>5</p>
-	                    </div>
-	                </div>
+	                
+	<div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+
+
+		<!-- 배너 -->
+        <%@include file="/WEB-INF/views/dashboard/dashboard_template/book_banner.jsp"%>
 	
 	               
 	                
