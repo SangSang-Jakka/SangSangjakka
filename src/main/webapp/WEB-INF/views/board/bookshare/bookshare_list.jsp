@@ -16,70 +16,195 @@
 	
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
+		
+	<section class="notice">
+	
+		<div class="pageTitle">
+          <div>
+              <h3>동화 공유 게시판 </h3>
+          </div>
+      </div>
+      
+      <div class="pageBanner">
+      		<div class="pageWrap">
+      			<div class="noticeInfo">
+      				<div class="noticeHeader">자유게시판 안내</div>
+      				<div class="noticeContents">자유롭게 소통할 수 있는 공간입니다.</div>
+      			</div>
+      			<div class="noticeImg">
+      				<img src="/sangsangjakka/resources/img/book.png" alt="" />
+      			</div>
+      		</div>
+      </div>
+      
+      <div>
+        <form>
+           <div class="bookOrderWrap">
+           		<div class="bookOrder">
+	               <button class="bookNew">최신순</button>
+	               <button class="bookGood">인기순</button>
+	               <button class="bookComment">댓글순</button>
+	               <button class="bookBasic">가나다순</button>
+               </div>
+           </div>
+       </form>
+       </div>
+       
+       
+  <div class="bookShareWrap">
+  <div class="bookShareContainer">
+    <div class="bookImg">
+      <img src="/sangsangjakka/resources/img/book1.jpg" alt="책 표지 이미지" />
+    </div>
+    <div class="bookDetails">
+      <div class="bookDate">
+        <div class="createDate">2024-05-09</div>
+      </div>
+      <div class="bookOwner">
+      	<i class="fa-regular fa-user user-icon"></i>
+       <div class="createAuthor">예지야놀자</div>
+	  </div>
+      <div class="bookTitle">
+        <div class="createTitle">To the Sea</div>
+      </div>
+      <div class="bookContents">
+        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
+      </div>
+      <div class="iconItems">
+        <div class="subItems">
+          <i class="fa-regular fa-bookmark"></i>
+          <p>20</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-heart"></i>
+          <p>30</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-comment"></i>
+          <p>10</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bookShareContainer">
+    <div class="bookImg">
+      <img src="/sangsangjakka/resources/img/book4.jpg" alt="책 표지 이미지" />
+    </div>
+    <div class="bookDetails">
+      <div class="bookDate">
+        <div class="createDate">2024-05-09</div>
+      </div>
+      <div class="bookOwner">
+      	<i class="fa-regular fa-user"></i>
+       <div class="createAuthor">예지야놀자</div>
+	  </div>
+      <div class="bookTitle">
+        <div class="createTitle">To the Sea</div>
+      </div>
+      <div class="bookContents">
+        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
+      </div>
+      <div class="iconItems">
+        <div class="subItems">
+          <i class="fa-regular fa-bookmark"></i>
+          <p>20</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-heart"></i>
+          <p>30</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-comment"></i>
+          <p>10</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bookShareContainer">
+    <div class="bookImg">
+      <img src="/sangsangjakka/resources/img/book3.jpg" alt="책 표지 이미지" />
+    </div>
+    <div class="bookDetails">
+      <div class="bookDate">
+        <div class="createDate">2024-05-09</div>
+      </div>
+      <div class="bookOwner">
+      	<i class="fa-regular fa-user"></i>
+       <div class="createAuthor">예지야놀자</div>
+	  </div>
+      <div class="bookTitle">
+        <div class="createTitle">To the Sea</div>
+      </div>
+      <div class="bookContents">
+        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
+      </div>
+      <div class="iconItems">
+        <div class="subItems">
+          <i class="fa-regular fa-bookmark"></i>
+          <p>20</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-heart"></i>
+          <p>30</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-comment"></i>
+          <p>10</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <div class="bookShareContainer">
+    <div class="bookImg">
+      <img src="/sangsangjakka/resources/img/book2.jpg" alt="책 표지 이미지" />
+    </div>
+    <div class="bookDetails">
+      <div class="bookDate">
+        <div class="createDate">2024-05-09</div>
+      </div>
+      <div class="bookOwner">
+      	<i class="fa-regular fa-user"></i>
+       <div class="createAuthor">예지야놀자</div>
+	  </div>
+      <div class="bookTitle">
+        <div class="createTitle">To the Sea</div>
+      </div>
+      <div class="bookContents">
+        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
+      </div>
+      <div class="iconItems">
+        <div class="subItems">
+          <i class="fa-regular fa-bookmark"></i>
+          <p>20</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-heart"></i>
+          <p>30</p>
+        </div>
+        <div class="subItems">
+          <i class="fa-regular fa-comment"></i>
+          <p>10</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+</div>
+    
 
-			<!-- 동화책 공유 게시판 -->
-		    <h2>동화 공유 게시판</h2>
-		    <div class="boardContainer">
-		    	
-		    	<c:if test="${list.size() == 0}">
-					<img>
-					게시글이 없습니다.
-				  </c:if>
-		    	
-		    	<!-- 동화책 표시 -->
-		    	<c:forEach items="${list}" var="dto">
-		    	
-		    		<div class="boardBox">
-						<img src="${dto.bookCover}" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
-						<p class="userItems"><i class="fas fa-user"></i>${dto.userNick} ${dto.bookRegdate}</p>
-						<p class="titleItems">${dto.bookTitle}</p>
-			        	<p class="contentItems">${dto.bookInfo}</p>
-			        	<div class="iconItems">
-			          		<div class="subItems">
-			            		<i class="fas fa-check"></i>
-			            		<p>${dto.bookReviewCnt}</p>
-			            	</div>
-			            	<div class="subItems">
-			            		<i class="fas fa-heart"></i>
-			            		<p>${dto.likeCnt}</p>
-			            	</div>
-			            		<div class="subItems">
-			            		<i class="fas fa-comments"></i>
-			            		<p>${dto.bookScrapCnt}</p>
-			            	</div>
-			        	</div>
-			        <hr>	    		
-		    		</div>
-		    		
-		    	</c:forEach>
-		    	
-		    	 <!-- board seach area -->
-			      <div id="boardSearch">
-			        <div>
-			            <div class="searchWindow">
-			                <form method="GET" action="/sangsangjakka/board/freeboard/list.do">
-			                    <div class="searchWrap">
-			                        <label for="search" class="blind">공지사항 내용 검색</label>
-			                          <select class="column" name="column">
-			                              <option value="boardTitle">제목</option>
-			                              <option value="boardContents">내용</option>
-			                              <option value="userNick">닉네임</option>
-			                          </select>
-			                        <input id="search" type="text" name="word" placeholder="검색어를 입력해주세요." required value="${map.word}">
-			                        <input type="submit" class="btnSearch" value="검색">
-			                    </div>
-			                </form>
-			            </div>
-			        </div>
-			    </div>
-					    
-				<div class="paging">
-			      <div id="pagebar">${pagebar}</div>
-			    </div>
-		    	
-		    	
-		    </div>
-	 
+     
+
+
+      
+      
+      
+		    
+	 </section>
 		
 		<!-- footer -->
 		<%@include file="/WEB-INF/views/template/footer.jsp"%>
