@@ -300,7 +300,7 @@ from tblScrap s
         on s.userSeq = u.userSeq;
 
 --자녀 연령대 범위
-CREATE VIEW vwAgeRangeCount
+CREATE or replace VIEW vwAgeRangeCount
 AS
 SELECT
   ac.agerange,
@@ -319,3 +319,5 @@ FROM
   ) ct ON ac.agerange = ct.agerange
 ORDER BY
   ac.agecatseq;
+  
+commit;
