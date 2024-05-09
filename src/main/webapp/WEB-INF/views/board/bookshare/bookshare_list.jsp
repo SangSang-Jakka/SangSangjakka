@@ -30,8 +30,7 @@
 		    	<c:forEach items="${list}" var="dto">
 		    	
 		    		<div class="boardBox">
-						<!-- <img src="${dto.bookCover}" onclick="location.href='/sansangjaka/board/book/view.do?no=${dto.bookSeq}';"> --> 
-						<img src="${dto.bookCover}" onclick="location.href='/sansangjaka/board/book/view.do';">
+						<img src="${dto.bookCover}" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
 						<p class="userItems"><i class="fas fa-user"></i>${dto.userNick} ${dto.bookRegdate}</p>
 						<p class="titleItems">${dto.bookTitle}</p>
 			        	<p class="contentItems">${dto.bookInfo}</p>

@@ -44,12 +44,7 @@
             </div>
         </div>
 <!--       </div> -->
-      
             
-              
-
-            
-        
         <div class="nextbuttonBox">
             <div class="next-button"><i class="fas fa-duotone fa-forward-step" style="font-size:70px;"></i></div>
         </div>    
@@ -61,10 +56,6 @@
         
 	    <h2>${dto.bookTitle}</h2>
 	    <p class="contentItem" style="text-align: center;">${dto.bookInfo}</p>
-	    
-		<div class="commentline">
-            <hr>
-        </div>
         
         <div class="buttonWrap">
             <input type="button" value="좋아요" class="sss">
@@ -76,10 +67,6 @@
             <textarea class="write"></textarea>
             <input type="button" value="작성하기" class="addComment">
         </div>
-
-        <div class="add">
-            
-        </div>
         
 	    <div class="commentsBox">
 	        <div class="commentsline">
@@ -87,89 +74,48 @@
 	                <p>Comments</p>
 	            <hr>
 	        </div>
+	    
+	    <!-- 댓글 부분 -->
+	    
+	    <c:if test="${list.size() == 0}">
+			<tr>
+				<td colspan="5">댓글이 없습니다.</td>
+			</tr>
+		</c:if>
+	    
+	    <c:forEach items="${list}" var="dto">
+	    
 	    <div class="left">
 	        <div class="infoItems">
 	        	<div class="userIcon">
 	            	<i class="fa-regular fa-user"></i>
-	            	<p>Peldi</p>
+	            	<p>${dto.userNick}</p>
 	        	</div>
-	        <div class="feelItems">
+	     		<div class="feelItems">
                         <div class="replyItems">
                             <i class="fa-regular fa-comment-dots"></i>
-                            <p class="commentCount">20</p>
+                            <p class="commentCount">${dto.reviewLikeCnt}</p>
                         </div>
                         <div class="likeItems">
                             <i class="fa-solid fa-heart"></i>
-                            <p>22</p>
+                            <p>${dto.reviewReportCnt}</p>
                         </div>
-                    </div>
                 </div>
-
-
-                <div class="loremItems">
-                    <span class="writeItems">Peldi commented 2 days ago</span>
-                    <br>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, ea illo! Quaerat, obcaecati
-                        neque
-                        quo maiores veniam voluptas, accusamus error quod itaque corporis, ipsa inventore magnam
-                        voluptate
-                        deserunt culpa ea.</p>
-                        <br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, veritatis inventore?
-                            Assumenda a recusandae inventore perspiciatis molestiae expedita aperiam minus, quam at.
-                            Quisquam, corporis similique rerum eius quos dignissimos impedit.</span>
+            </div>
+            <div class="loremItems">
+                 <span class="writeItems">${dto.reviewRegdate}</span>
+                 <br>
+                 <span>${dto.reviewContents}</span>
                 </div>
                 <div class="replyButton">
                     <div class="replyButtons">
-                        <input type="button" value="답변보기" class="reply">
-                        <input type="button" value="답변달기" class="reply">
+                        <input type="button" value="수정하기" class="reply">
+                        <input type="button" value="삭제하기" class="reply">
                     </div>
                 </div>
-
-            </div>
-            <div class="commentBoxLine">
-                <hr>
-            </div>
-            <div class="left">
-                <div class="infoItems">
-                    <div class="userIcon">
-                        <i class="fa-regular fa-user"></i>
-                        <p>Peldi</p>
-                    </div>
-                    <div class="feelItems">
-                        <div class="replyItems">
-                            <i class="fa-regular fa-comment-dots"></i>
-                            <p class="commentCount">20</p>
-                        </div>
-                        <div class="likeItems">
-                            <i class="fa-solid fa-heart"></i>
-                            <p>22</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="loremItems">
-                    <span class="writeItems">Peldi commented 2 days ago</span>
-                    <br>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, ea illo! Quaerat, obcaecati
-                        neque
-                        quo maiores veniam voluptas, accusamus error quod itaque corporis, ipsa inventore magnam
-                        voluptate
-                        deserunt culpa ea.</p>
-                        <br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, veritatis inventore?
-                            Assumenda a recusandae inventore perspiciatis molestiae expedita aperiam minus, quam at.
-                            Quisquam, corporis similique rerum eius quos dignissimos impedit.</span>
-                </div>
-                <div class="replyButton">
-                    <div class="replyButtons">
-                        <input type="button" value="답변보기" class="reply">
-                        <input type="button" value="답변달기" class="reply">
-                    </div>
-                </div>
-            </div>
-   		<div>
+        </div>
+        
+        </c:forEach>       
 
         <div class="commentBox">
             <p class="commentTitle">Leave a comment</p>
@@ -184,10 +130,6 @@
             <p><input type="button" value="Submit Comments" style="color:white" class="submit"></p>
         </div>
 
-        <div class="footerline">
-            <hr>
-        </div>
-
         <div class="controlContainer">
             <div class="buttonItems">
                 <input type="button" value="다음" class="nextItems">
@@ -198,8 +140,10 @@
             </div>
         </div>
 
-</div>
-</div>
+		</div>
+
+		<!-- footer -->
+		<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
