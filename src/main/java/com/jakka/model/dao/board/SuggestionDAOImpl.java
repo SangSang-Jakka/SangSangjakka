@@ -240,7 +240,7 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 				dto.setSgstSeq(rs.getString("sgstSeq"));
 				dto.setSgstTitle(rs.getString("sgstTitle"));
 				dto.setUserSeq(rs.getString("userSeq"));
-				
+				System.out.println("findById에서 dto확인 : " + dto);
 				return dto;
 			}
 			

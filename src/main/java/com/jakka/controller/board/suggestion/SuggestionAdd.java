@@ -25,8 +25,9 @@ public class SuggestionAdd extends HttpServlet {
 		HttpSession session = req.getSession();
 		// 로그인 여부 확인
 		String userSeq = (String)session.getAttribute("userSeq");
-		System.out.println("제발"+userSeq);
+		System.out.println("list.jsp에서 name=seq value=$userSeq쓴곳 값" + userSeq);
 		req.setAttribute("seq", userSeq);
+		System.out.println(userSeq);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/suggestion/suggestion_add.jsp");
 		dispatcher.forward(req, resp);
 		
@@ -34,6 +35,9 @@ public class SuggestionAdd extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html; charset=UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		
 		//1. 데이터 가져오기
 		//2. DB 작업 > update
 		//3. 결과
@@ -47,14 +51,15 @@ public class SuggestionAdd extends HttpServlet {
 //				new DefaultFileRenamePolicy()
 //		);
 				
-		resp.setContentType("text/html; charset=UTF-8");
+		
 		// 제목 받아오기
 		String subject = req.getParameter("subject");
 		String seq = req.getParameter("seq");
+		System.out.println(seq);
 				
 		System.out.println("1" + subject);
 		// 내용 받아오기
-		String content = req.getParameter("content");
+		String content = req.getParameter("editordata");
 		System.out.println("2" + content);
 		// 비밀글 받아오기
 		String secret = req.getParameter("secret");
