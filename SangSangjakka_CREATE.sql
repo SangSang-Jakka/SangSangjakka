@@ -59,7 +59,7 @@ create table tblAdmin(
     adId        varchar2(20) primary key,                       -- 아이디(PK)
     adPw        varchar2(20) default '0000' not null,           -- 비밀번호
     adName      varchar2(20) default '관리자' not null,         -- 이름
-    adNick      varchar2(50) unique not null,                   -- 닉네임(UQ)
+    adNick      varchar2(50) not null,                   -- 닉네임(UQ)
     adAddress   varchar2(500) not null,                         -- 주소
     adTel       varchar2(30) unique not null,                   -- 전화번호
     adLv        number default 2 not null                       -- 등급(2: 일반, 3: 루트)

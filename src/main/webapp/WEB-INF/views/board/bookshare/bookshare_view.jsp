@@ -4,8 +4,15 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/template/asset.jsp"%>
-	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookshare/bookshare_view.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/default.css" />
+    <link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookblock.css" />
+    <link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookmaking_view.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/sangsangjakka/resources/js/modernizr.custom.js"></script>
+	<script src="https://kit.fontawesome.com/e075b9b5dc.js"	crossorigin="anonymous"></script>
+    <script src="/sangsangjakka/resources/js/jquerypp.custom.js"></script>
+    <script src="/sangsangjakka/resources/js/jquery.bookblock.js"></script>
 	<style>
 	
 	
@@ -16,169 +23,130 @@
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 
-		<h2>동화 공유 게시판</h2>
+		    <div id="bookmakingGrid">
+		        <div class="bookmakingGridLeft"></div>
 		
-		<div class="slideContainer">
-        <div class="prevbuttonBox">
-            <div class="prev-button"><i class="fas fa-duotone fa-backward-step" style="font-size:70px;"></i></div>
-        </div>
-        <div class="shareContainer">
-            <div class="carousel">
-            	
-                <div class="cell"><img src="/sangsangjakka/resources/img/book1.jpg" alt="book1"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book2.jpg" alt="book2"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book3.jpg" alt="book3"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book4.jpg" alt="book4"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book5.jpg" alt="book5"></div>    
-            </div>
-            
-        </div>
-       
-          <div class="shareContainer">
-            <div class="carousel">
-                <div class="cell"><img src="/sangsangjakka/resources/img/book1.jpg" alt="book1"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book2.jpg" alt="book2"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book3.jpg" alt="book3"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book4.jpg" alt="book4"></div>
-                <div class="cell"><img src="/sangsangjakka/resources/img/book5.jpg" alt="book5"></div>    
-            </div>
-        </div>
-<!--       </div> -->
-            
-        <div class="nextbuttonBox">
-            <div class="next-button"><i class="fas fa-duotone fa-forward-step" style="font-size:70px;"></i></div>
-        </div>    
-    </div>
-        <!-- <div class="buttonBox">
-            <div class="prev-button"><i class="fas fa-duotone fa-backward-step"></i></div>
-            <div class="next-button"><i class="fas fa-duotone fa-forward-step"></i></div>
-        </div>    -->
-        
-	    <h2>${dto.bookTitle}</h2>
-	    <p class="contentItem" style="text-align: center;">${dto.bookInfo}</p>
-        
-        <div class="buttonWrap">
-            <input type="button" value="좋아요" class="sss">
-            <input type="button" value="스크랩" class="sss">
-            <input type="button" value="신고" class="sss">
-        </div>
-
-        <div class="writeComment">
-            <textarea class="write"></textarea>
-            <input type="button" value="작성하기" class="addComment">
-        </div>
-        
-	    <div class="commentsBox">
-	        <div class="commentsline">
-	            <hr>
-	                <p>Comments</p>
-	            <hr>
-	        </div>
-	    
-	    <!-- 댓글 부분 -->
-	    
-	    <c:if test="${list.size() == 0}">
-	    		<span>댓글이 없습니다.</span>
-		</c:if>
-	    
-	    <c:forEach items="${list}" var="dto">
-	    
-	    <div class="left">
-	        <div class="infoItems">
-	        	<div class="userIcon">
-	            	<i class="fa-regular fa-user"></i>
-	            	<p>${dto.userNick}</p>
-	        	</div>
-	     		<div class="feelItems">
-                        <div class="replyItems">
-                            <i class="fa-regular fa-comment-dots"></i>
-                            <p class="commentCount">${dto.reviewLikeCnt}</p>
-                        </div>
-                        <div class="likeItems">
-                            <i class="fa-solid fa-heart"></i>
-                            <p>${dto.reviewReportCnt}</p>
-                        </div>
-                </div>
-            </div>
-            <div class="loremItems">
-                 <span class="writeItems">${dto.reviewRegdate}</span>
-                 <br>
-                 <span>${dto.reviewContents}</span>
-                </div>
-                <div class="replyButton">
-                    <div class="replyButtons">
-                        <input type="button" value="수정하기" class="reply">
-                        <input type="button" value="삭제하기" class="reply">
-                    </div>
-                </div>
-        </div>
-        
-        </c:forEach>       
-
-        <div class="commentBox">
-            <p class="commentTitle">Leave a comment</p>
-            <hr>
-            <div class="userItems">
-                <i class="fa-regular fa-user"></i>
-                <span class="usernameItems">Mike</span>
-            </div>
-            <textarea class="textItems"></textarea>
-        </div>
-        <div class="submitItems">
-            <p><input type="button" value="Submit Comments" style="color:white" class="submit"></p>
-        </div>
-
-        <div class="controlContainer">
-            <div class="buttonItems">
-                <input type="button" value="다음" class="nextItems">
-                <input type="button" value="이전" class="beforeItems">
-            </div>
-            <div class="listBox">
-                <input type="button" value="목록" class="listItems">
-            </div>
-        </div>
-
-		</div>
+		        <section class="bookmakingGridCenter">
+		            <div class="bookmakingWrap">
+		                <div class="makedPageViewer">
+		                    <div class="containerLeft">
+		                        <nav class="flex">
+		                            <a id="bb-nav-first" href="#" class="bb-custom-icon pointer"> <i class="fa-solid fa-angles-left"></i></a>
+		                            <a id="bb-nav-prev" href="#" class="bb-custom-icon pointer"><i class="fa-solid fa-angle-left"></i></a>
+		                        </nav>
+		                    </div>
+		                    <div class="bb-custom-wrapper">
+		                        <div id="bb-bookblock" class="bb-bookblock">
+		                        	
+									<c:forEach items="${pageMap}" var="entry">
+									    <div class="bb-item" id="${entry.key}">
+									        <div class="pageImage" style="background-image: url('${entry.value.pageUrl}');"></div>
+									        <p>${entry.value.pageContents}</p>
+									    </div>
+									</c:forEach>
+		                        </div>
+		                    </div>
+		                    <div class="containerRight">
+		                        <nav class="flex">
+		                            <a id="bb-nav-next" href="#" class="bb-custom-icon pointer"><i class="fa-solid fa-angle-right"></i></a>
+		                            <a id="bb-nav-last" href="#" class="bb-custom-icon pointer"><i class="fa-solid fa-angles-right"></i></a>
+		                        </nav>
+		                    </div>
+		                </div>
+		            </div>
+		        </section>
+		
+		        <div class="bookmakingGridRight"></div>
+		    </div>
 
 		<!-- footer -->
 		<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-	   const CAROUSEL_LENGTH = document.querySelectorAll(".cell").length - 1;
-	    let current = 0;
+	   	
+	var Page = (function() {
 
-	    // 캐러셀의 갯수와 현재 캐러셀이 몇번째인지 나타내는 변수
-	    const $carousel = document.querySelector(".carousel");
-	    const $prevButton = document.querySelector(".prev-button");
-	    const $nextButton = document.querySelector(".next-button");
+	    var config = {
+	        $bookBlock: $('#bb-bookblock'),
+	        $navNext: $('#bb-nav-next'),
+	        $navPrev: $('#bb-nav-prev'),
+	        $navFirst: $('#bb-nav-first'),
+	        $navLast: $('#bb-nav-last')
+	    },
+	    init = function() {
+	        config.$bookBlock.bookblock({
+	            speed: 800,
+	            shadowSides: 0.8,
+	            shadowFlip: 0.7
+	        });
+	        initEvents();
+	    },
+	    initEvents = function() {
 
-	    const nextEvent = () => {
-	    if(current !== CAROUSEL_LENGTH) {
-	        \$carousel.style.transform = `translateX(\${(current + 1) * -400}px)`;
-	        current++;
-	        console.log(current);
-	    } else {
-	        current = 0;
-	        \$carousel.style.transform = `translateX(0px)`;
-	        console.log(current);
-	        }
+	        var $slides = config.$bookBlock.children();
+
+	        // add navigation events
+	        config.$navNext.on('click touchstart', function() {
+	            config.$bookBlock.bookblock('next');
+	            return false;
+	        });
+
+	        config.$navPrev.on('click touchstart', function() {
+	            config.$bookBlock.bookblock('prev');
+	            return false;
+	        });
+
+	        config.$navFirst.on('click touchstart', function() {
+	            config.$bookBlock.bookblock('first');
+	            return false;
+	        });
+
+	        config.$navLast.on('click touchstart', function() {
+	            config.$bookBlock.bookblock('last');
+	            return false;
+	        });
+
+	        // add swipe events
+	        $slides.on({
+	            'swipeleft': function(event) {
+	                config.$bookBlock.bookblock('next');
+	                return false;
+	            },
+	            'swiperight': function(event) {
+	                config.$bookBlock.bookblock('prev');
+	                return false;
+	            }
+	        });
+
+	        // add keyboard events
+	        $(document).keydown(function(e) {
+	            var keyCode = e.keyCode || e.which,
+	                arrow = {
+	                    left: 37,
+	                    up: 38,
+	                    right: 39,
+	                    down: 40
+	                };
+
+	            switch (keyCode) {
+	                case arrow.left:
+	                    config.$bookBlock.bookblock('prev');
+	                    break;
+	                case arrow.right:
+	                    config.$bookBlock.bookblock('next');
+	                    break;
+	            }
+	        });
 	    };
 
-	    const prevEvent = () => {
-	        if(current !== 0) {
-	            current--;
-	            $carousel.style.transform = `translateX(${current * -400}px)`;
-	            console.log(current);
-	        } else {
-	            current = CAROUSEL_LENGTH;
-	            $carousel.style.transform = `translateX(${CAROUSEL_LENGTH * -400}px)`;
-	            console.log(current);
-	        }
-	    };
+	    return { init: init };
 
-	    $nextButton.addEventListener('click', nextEvent);
-	    $prevButton.addEventListener('click', prevEvent);
+	})();
+
+	$(document).ready(function() {
+	    Page.init();
+	});
 
 	
 	</script>

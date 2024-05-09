@@ -56,6 +56,7 @@ public class BookView extends HttpServlet{
 	    PageDAO pageDAO = DAOManager.getPageDAO();
 	    HashMap<Integer, PageDTO> pageMap = pageDAO.findPages(bookSeq);
 	    
+	    System.out.println(pageMap.get(1).toString());
 	    
 	    ReviewDAO reviewDao = DAOManager.getReviewDAO();
 	    ArrayList<ReviewDTO> reviewList = reviewDao.findChild(bookSeq);
