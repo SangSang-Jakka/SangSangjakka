@@ -7,7 +7,7 @@
     <%@include file="/WEB-INF/views/template/asset.jsp"%>
 	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/default.css" />
     <link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookblock.css" />
-    <link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookshare_view.css">
+    <link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookmaking_view.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/sangsangjakka/resources/js/modernizr.custom.js"></script>
 	<script src="https://kit.fontawesome.com/e075b9b5dc.js"	crossorigin="anonymous"></script>
