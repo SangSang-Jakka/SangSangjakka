@@ -54,9 +54,11 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">회원 정보</h4>
-						
+						<c:if test="${blacklistSeq !=1}">
 						<button type="submit" class="btn btn-danger" id="blockBtn">차단</button>
-						<a href="/sangsangjakka/dashboard/user/edit.do?id=${user.userId}" class="btn btn-primary pull-right">수정</a>
+						</c:if>
+						
+						<a href="/sangsangjakka/dashboard/user/edit.do?seq=${user.userSeq}&id=${user.userId}" class="btn btn-primary pull-right">수정</a>
 						
 					</div>
 					<div class="wizard-content">

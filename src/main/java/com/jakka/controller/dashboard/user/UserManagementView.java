@@ -27,7 +27,15 @@ public class UserManagementView extends HttpServlet {
 		UserDAO dao = DAOManager.getUserDAO();
 		UserDTO dto = dao.findById(userId);
 		
+		
+		// 차단된 회원 확인
+		int blacklistSeq = dao.findBlacklistSeq(userId);
+		
+		
+		
+		
 		req.setAttribute("user", dto);
+		req.setAttribute("blacklistSeq", blacklistSeq);
 		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/user_manage_view.jsp");

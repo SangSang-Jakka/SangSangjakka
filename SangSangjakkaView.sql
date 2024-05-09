@@ -300,3 +300,23 @@ from tblScrap s
         on s.userSeq = u.userSeq;
 
 
+--자녀 연령대 범위
+CREATE VIEW vwAgeRangeCount
+AS
+SELECT
+  ac.agerange,
+  COALESCE(ct.count, 0) AS count
+FROM
+  tblAgeCat ac
+  LEFT JOIN (
+    SELECT
+      ta.agerange,
+      COUNT(*) AS count
+    FROM
+      tblChildAge tc
+      JOIN tblAgeCat ta ON tc.agecatseq = ta.agecatseq
+    GROUP BY
+      ta.agerange
+  ) ct ON ac.agerange = ct.agerange
+ORDER BY
+  ac.agecatseq;

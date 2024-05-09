@@ -32,5 +32,7 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public ArrayList<UserDTO> findAllBlackList();
     public void loginLog(String userSeq);
     public int blaklistReStore(String userSeq);
+    public int findBlacklistSeq(String userSeq);
+    
 
 }

@@ -1054,6 +1054,37 @@ public class UserDAOImpl implements UserDAO{
 	
 	}
 	
+	@Override
+	public int findBlacklistSeq(String userSeq) {
+		
+
+		final String SQL = "SELECT * FROM tblBlackList b JOIN tblUser u ON b.userSeq = u.userSeq WHERE u.userId = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				
+				//return rs.getInt("userSeq");
+				return 1;
+						
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.| findSeq");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	
 
 
 }//End of class
