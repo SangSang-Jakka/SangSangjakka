@@ -54,6 +54,10 @@ $('document').ready(function(){
 
         // 날짜 유효성 검사
         if (fromDateParsed.isValid() && toDateParsed.isValid()) {
+	
+		// DataTables에 적용된 검색 필터 제거
+        $.fn.dataTable.ext.search.pop();
+        
             // 검색 범위 지정
             $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
                 var targetDate = moment(data[3], 'YYYY-MM-DD', true);
