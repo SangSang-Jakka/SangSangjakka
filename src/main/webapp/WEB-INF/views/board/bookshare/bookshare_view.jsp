@@ -59,7 +59,13 @@
         </div>
     </div>
     
+    
+    <div class="userBestSellerTitle">
+         <div class="mainTitle">📍 어제의 인기도서</div>
+    </div>
+    
      </section>
+    
     
     
     
