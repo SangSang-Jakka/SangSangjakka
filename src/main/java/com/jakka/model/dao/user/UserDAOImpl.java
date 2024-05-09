@@ -1141,5 +1141,33 @@ public class UserDAOImpl implements UserDAO{
 		 return sgstCount;
 	}
 
+	@Override
+	public int boardReportCount(String userRegdate) {
+		int boardReportCount = 0;  
+		
+		
+		String SQL = "select count(*) as boardReportCount from tblUserLog where usercatseq = 6 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 boardReportCount = rs.getInt("boardReportCount");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.getNewPostCount");
+			e.printStackTrace();
+		}
+		 return boardReportCount;
+	}
 
 }//End of class

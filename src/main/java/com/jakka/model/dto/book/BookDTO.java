@@ -24,8 +24,6 @@ public class BookDTO {
 	
 	private String bookCnt;
 	
-	
-	
 	public String getBookCnt() {
 		return bookCnt;
 	}

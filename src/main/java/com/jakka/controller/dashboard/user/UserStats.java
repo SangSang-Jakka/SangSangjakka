@@ -26,15 +26,13 @@ public class UserStats extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		 LocalDate currentDate = LocalDate.now();
-		    // currentDate를 필요한 형식으로 포맷팅할 수 있습니다.
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
-		    // 포맷을 적용하여 문자열로 변환합니다.
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
 		 String formattedDate = currentDate.format(formatter);
 		
 		UserDAO dao = DAOManager.getUserDAO();
 		//int userCnt = dao.userCnt(formattedDate);
-		int userCnt = dao.userCnt("23/03/11");
-		
+		int userCnt = dao.userCnt("formattedDate");
+		System.out.println(userCnt);
 		Map<String,Integer> userCounts  = dao.userGender();
 		System.out.println(123);
 		System.out.println(userCounts);
