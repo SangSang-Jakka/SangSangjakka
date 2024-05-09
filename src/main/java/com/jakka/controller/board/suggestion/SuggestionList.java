@@ -26,8 +26,10 @@ public class SuggestionList extends HttpServlet {
 		HttpSession session = req.getSession();
 		String userSeq = (String)session.getAttribute("Seq");
 		req.setAttribute("userSeq", userSeq);
+		
 		String userId = (String)session.getAttribute("userId");
 		req.setAttribute("userId", userId);
+		
 		String page = req.getParameter("page");
 		
 		int nowPage = 0;	// 현재 페이지 번호

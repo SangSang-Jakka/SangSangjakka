@@ -51,7 +51,7 @@
 	                  <c:if test="${dto.userSeq == userSeq}">
 	                  <div class="btnWrap">
 	                        <input type="button" class="btnEdit" value="수정" onclick="location.href='/sangsangjakka/board/suggestion/edit.do?sgstseq=${dto.sgstSeq}';">
-	                        <input type="button" class="btnDel" value="삭제" onclick="location.href='/sangsangjakka/board/suggestion/del.do?sgstseq=${dto.sgstSeq}';">
+	                        <input type="button" class="btnDel" value="삭제">
 	                  </div>
 	              	  </c:if>
                   
@@ -120,7 +120,34 @@
   
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-
+	$(".btnDel").on("click", function() {
+	    if(confirm("정말 삭제 하시겠습니까?") == true) {
+	        // 정말 삭제하겠다고 했을 때, ajax 통신
+	        $.ajax({
+	            type: "POST",
+	            url: "/sangsangjakka/board/suggestion/del.do",
+	            data: {
+	                sgstSeq: '${dto.sgstSeq}',
+	                userSeq: '${dto.userSeq}'
+	            },
+	            dataType: "JSON",
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("AJAX", "true");
+	            },
+	            success: function(response) {
+	                if (response.code === 0) {
+	                    alert(response.message);
+	                    location.href = "/sangsangjakka/board/suggestion/list.do";
+	                } else {
+	                    alert(response.message);
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                alert("AJAX 요청 중 오류가 발생했습니다: " + error);
+	            }
+	        });
+	    }
+	});
 	</script>
 </body>
 </html>
