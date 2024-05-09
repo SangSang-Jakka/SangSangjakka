@@ -78,9 +78,6 @@
                   </div>
 
 
-                      <div class="btnListTable">
-                        <input type="button" class="btnList" value="목록" onclick="location.href='/sangsangjakka/board/suggestion/list.do';">
-                      </div>
 
                       <div class="listWrap">
                         <table class="listTable">
@@ -107,6 +104,9 @@
                       </div>
                    
 
+                      <div class="btnListTable">
+                        <input type="button" class="btnList" value="목록" onclick="location.href='/sangsangjakka/board/suggestion/list.do';">
+                      </div>
 
      
 

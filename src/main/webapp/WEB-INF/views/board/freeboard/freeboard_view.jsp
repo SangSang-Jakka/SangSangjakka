@@ -140,7 +140,7 @@
                    
                    
                     <div class="btnListTable">
-                        <input type="button" class="btnList" value="목록">
+                        <input type="button" class="btnList" value="목록" onclick="location.href='/sangsangjakka/board/freeboard/list.do'">
                       </div>
 
 

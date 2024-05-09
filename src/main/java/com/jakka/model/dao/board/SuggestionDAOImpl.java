@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 import com.jakka.model.enums.UserLog;
 
@@ -28,10 +29,9 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 		
 		String where = "";
 		
-		if(map.get("search").equals("y")) {
-			where = String.format("where %s like '%%%s%%'"
-					, map.get("column")
-					, map.get("word"));
+		if (map.get("search").equals("y")) {
+
+			where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 		}
 		
 		String sql = String.format("select count(*) as cnt from vwSuggestion %s", where);
@@ -489,22 +489,92 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	    }
 	    return null;
 	}
+public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String orderBy) {
+		
+		//System.out.println(orderBy);
+	    String SQL = "SELECT sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt, userNick " +
+	                 "FROM (SELECT ROWNUM RNUM, f.sgstSeq, f.sgstTitle, f.sgstContents, f.sgstRegdate, f.sgstSecretYN, f.userSeq, f.sgstCnt, f.userNick " +
+	                 "FROM (SELECT * FROM vwSuggestion ";
+
+	    if (map.get("search").equals("y")) {
+	        SQL += String.format("WHERE %s like '%%%s%%' ", map.get("column"), map.get("word"));
+	    }
+
+	    SQL += "ORDER BY ";
+
+	    switch (orderBy) {
+	        case "newest":
+	            SQL += "sgstRegdate DESC";
+	            break;
+	        case "view_count":
+	            SQL += "sgstCnt DESC";
+	            break;
+	        case "comment_count":
+	            SQL += "sgstCnt DESC";
+	            break;
+	        default:
+	            SQL += "sgstRegdate DESC";
+	    }
+
+	    SQL += ") f) " +
+	           "WHERE RNUM BETWEEN ? AND ?";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    ) {
+	        pstmt.setString(1, map.get("begin"));
+	        pstmt.setString(2, map.get("end"));
+
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<SuggestionDTO> list = new ArrayList<>();
+	        
+	        System.out.println(SQL);
+
+	        while (rs.next()) {
+	        	SuggestionDTO dto = new SuggestionDTO();
+	        	dto.setSgstSeq(rs.getString("sgstSeq"));
+				dto.setSgstTitle(rs.getString("sgstTitle"));
+				dto.setSgstContents(rs.getString("sgstContents"));
+				dto.setSgstRegdate(rs.getString("sgstRegdate"));
+				dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setSgstCnt(rs.getString("sgstCnt"));
+				dto.setUserNick(rs.getString("userNick"));
+				list.add(dto);
+	        }
+
+	        System.out.println(list);
+	        return list;
+
+	    } catch (Exception e) {
+	        System.out.println("SuggestionDAO.| list");
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
 	
 	public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map) {
 		
 		String where = "where rnum BETWEEN ? AND ?";
 		String col = "";
-		
+		System.out.println(map.get("column"));
 		if(map.get("search").equals("y")) {
-			col = col + String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
+			col = col + String.format(" where %s like '%%%s%%'", map.get("column"), map.get("word"));
 		}
 		
-		String sql = String.format("SELECT sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt, userNick " + " FROM (SELECT ROWNUM RNUM, f.sgstSeq, f.sgstTitle, f.sgstContents, f.sgstRegdate, f.sgstSecretYN, f.userSeq, f.sgstCnt, f.userNick " + "FROM (SELECT * FROM vwSuggestion %s ORDER BY sgstRegdate desc) F) " + "%s", col, where);
+		String sql = String.format("SELECT sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt, userNick " +
+				" FROM (SELECT ROWNUM RNUM, f.sgstSeq, f.sgstTitle, f.sgstContents, f.sgstRegdate, f.sgstSecretYN, f.userSeq, f.sgstCnt, f.userNick " +
+				" FROM (SELECT * FROM vwSuggestion %s ORDER BY sgstRegdate desc) F) " +
+				"%s", col, where);
 
 		try (
 
 				Connection conn = DBUtil.open();
-				PreparedStatement pstat = conn.prepareStatement(sql);) {
+				PreparedStatement pstat = conn.prepareStatement(sql);
+			) {
 			
 				pstat.setString(1, map.get("begin"));
 				pstat.setString(2, map.get("end"));
