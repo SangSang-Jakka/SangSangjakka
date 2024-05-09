@@ -1,3 +1,6 @@
+<%@page import="com.jakka.model.DAOManager"%>
+<%@page import="java.util.List"%>
+<%@page import="com.jakka.model.dao.admin.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,7 +16,18 @@
 	</style>
 	</head>
 	<body>
+	<%
 	
+	
+	AdminDAO dao = DAOManager.getAdminDAO();
+	 List<String> yearList = dao.getYear();
+	
+	
+	
+	
+	
+	
+	%>
 		<!-- 헤더 -->
 		<%@include file="/WEB-INF/views/dashboard/dashboard_template/header.jsp"%>
 	
@@ -44,7 +58,7 @@
 		 <div class="min-height-200px">
 	
 		<!-- 배너 -->
-        <%@include file="/WEB-INF/views/member/user/user_template/user_banner.jsp"%>
+<%--         <%@include file="/WEB-INF/views/member/user/user_template/user_banner.jsp"%> --%>
 
 <!--  	               <p>성별</p> -->
 <!--            			<div style="width: 300px; height: 300px; background-color: white; -->
@@ -85,12 +99,29 @@
 				<div class="col-xl-8 mb-30">
 					<div class="card-box height-100-p pd-20">
 						<h2 class="h4 mb-20">사용자연령대</h2>
-						<canvas id="myChart"></canvas>
+						<canvas id="myChart2"></canvas>
 					</div>
 				</div>
 			</div>
 
 
+				<div class="col-xl-8 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									
+									<select class="selectpicker form-control" data-size="5" data-style="btn-outline-success" data-selected-text-format="count" name="year" multiple ">
+										 <c:forEach var="year" items="<%= yearList %>">
+        <option value="20${year}">20${year}</option>
+    </c:forEach>
+										
+									</select>
+								</div>
+							</div>
+							
+						<canvas id="myChart"></canvas>
+			       	</div>
+			</div>
 			       
 <!-- 			        <p>가입자수, 탈퇴자수</p> -->
 <!-- 					<div style="width: 800px; height: 400px; background-color: white; -->

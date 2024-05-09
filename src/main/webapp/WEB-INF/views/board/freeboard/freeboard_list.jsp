@@ -35,13 +35,17 @@
       </div>
       
       <div>
-        <form>
-           <select class="notice">
-               <option value="recent">최신순</option>
-               <option value="view">조회순</option>
-               <option value="comment">댓글순</option>
-           </select>
-       </form>
+       
+           <div class="bookOrderWrap">
+			  <div class="bookOrder">
+			    <button type="button" class="bookNew" onclick="redirectTo('newest')">최신순</button>
+				<button type="button" class="bookClick" onclick="redirectTo('view_count')">조회순</button>
+				<button type="button" class="bookComments" onclick="redirectTo('comment_count')">댓글순</button>
+
+
+			  </div>
+			</div>
+    
        </div>
     <!-- board list area -->
       <div>
@@ -124,6 +128,16 @@
 		$('input[name=word]').val('${map.word}');
 		$('select[name=column]').val('${map.column}');
 		</c:if>
+		
+
+		function redirectTo(orderBy) {
+		    window.location.href = "http://localhost:8090/sangsangjakka/board/freeboard/list.do?orderBy=" + orderBy;
+		}
+
+
+			
+			
+
 		
 	</script>
 	</body>

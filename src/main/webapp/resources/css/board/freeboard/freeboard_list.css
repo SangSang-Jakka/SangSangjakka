@@ -25,6 +25,23 @@ section.notice {
   text-align: center;
 }
 
+.bookOrder{
+	display:flex;
+	justify-content:flex-start;
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+.bookOrder button {
+	font-size : 16px;
+	padding: 1px 6px;
+}
+
+.bookOrder button:hover {
+	cursor : pointer;
+	text-decoration: underline;
+}
+
 #boardSearch .searchWindow {
   padding: 15px 0;
   margin-bottom: 30px;

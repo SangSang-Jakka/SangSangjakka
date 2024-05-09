@@ -16,15 +16,6 @@ BEGIN
 END;
 /
 
--- 동화책 whiteList 트리거
-create or replace trigger trgBookWhiteList
-AFTER INSERT ON tblBook
-FOR EACH ROW
-BEGIN
-    INSERT INTO tblBookWhiteList (bookSeq) VALUES (:NEW.bookSeq);
-END;
-/
-
 -- 동화책 리뷰 whiteList 트리거
 create or replace trigger trgReviewWhiteList
 AFTER INSERT ON tblReview

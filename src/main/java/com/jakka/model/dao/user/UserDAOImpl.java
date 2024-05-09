@@ -970,7 +970,7 @@ public class UserDAOImpl implements UserDAO{
 		        }
 				
 		} catch (Exception e) {
-			System.out.println("UserDAOImpl.childAge");
+			System.out.println("UserDAOImpl.userAge");
 			e.printStackTrace();
 		}
 		 return userAgeRange;

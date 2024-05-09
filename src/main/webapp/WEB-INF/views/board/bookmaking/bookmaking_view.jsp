@@ -13,6 +13,38 @@
 	<script src="https://kit.fontawesome.com/e075b9b5dc.js"	crossorigin="anonymous"></script>
     <script src="/sangsangjakka/resources/js/jquerypp.custom.js"></script>
     <script src="/sangsangjakka/resources/js/jquery.bookblock.js"></script>
+    <style>
+    
+        #loading {
+            display: none;
+        }
+        
+        #loading > img {
+        	width : 370px;
+            height: 490px;
+        }
+        
+        #imageContainer > img {
+        	widht: 180px;
+        	height: 240px;
+        	
+        }
+        
+        #imageContainer {
+		  display: grid;
+		  grid-template-columns: repeat(2, 1fr);
+		  grid-gap: 20px;
+		}
+		
+		.pageImageMakerItem img {
+		  width: 100%;
+		  height: auto;
+		  max-width: 400px; /* 최대 너비 400px로 제한 */
+		  max-height: 533px; /* 가로세로 비율 3:4로 계산한 높이 */
+		  object-fit: contain;
+		}
+        
+    </style>
 </head>
 <body>
 
@@ -143,26 +175,22 @@
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
 						<div class="full flex pageImageDesBox">
-							<input type="text"><input type="submit" value="만들기"
-								class="btnItem orange middleBtn pointer">
+							<form>
+								<input type="text" name="prompt" required>
+								<button type="submit">만들기</button>
+							</form>
 						</div>
 						<div class="pageImageMakerBox">
-							<div class="pageImageMakerItem">
-								<img src="/sangsangjakka/resources/img/book1.jpg"
-									class="pageImageMakerItemImg">
-							</div>
-							<div class="pageImageMakerItem">
-								<img src="/sangsangjakka/resources/img/book1.jpg"
-									class="pageImageMakerItemImg">
-							</div>
-							<div class="pageImageMakerItem">
-								<img src="/sangsangjakka/resources/img/book1.jpg"
-									class="pageImageMakerItemImg">
-							</div>
-							<div class="pageImageMakerItem">
-								<img src="/sangsangjakka/resources/img/book1.jpg"
-									class="pageImageMakerItemImg">
-							</div>
+						
+							<!-- 로딩중 -->
+							<div id="loading">
+						        <img src="/sangsangjakka/resources/img/loading.gif">
+						    </div>
+						    
+						    <!-- 생성된 이미지 -->
+						    <div id="imageContainer"></div>
+						    
+
 						</div>
 						<div class="pageImageDesBox">
 							<div class="whitespace">&nbsp;</div>
@@ -189,8 +217,11 @@
 								<label><small>ai의 도움을 받아요</small></label>
 							</h3>
 							<div class="full flex coverImageDesBox">
-								<input type="text"><input type="submit" value="만들기"
-									class="btnItem orange middleBtn pointer">
+								<form>
+									<input type="text" name=""><input type="submit" value="만들기"
+										class="btnItem orange middleBtn pointer">
+									<button type="submit" >만들기</button>
+								</form>
 							</div>
 							<div class="coverImageMakerBox">
 								<div class="coverImageMakerItem">
@@ -744,6 +775,36 @@
 				});
 
 			});
+			
+			//이미지 동적 생성
+			$(document).ready(function() {
+			    $('form').submit(function(event) {
+			        event.preventDefault();
+			        var prompt = $('input[name="prompt"]').val();
+			        $('#loading').show(); // 로딩 이미지 표시
+			        $.ajax({
+			            url: '/sangsangjakka/board/bookmaking/view.do',
+			            method: 'POST',
+			            data: { prompt: prompt },
+			            success: function(response) {
+			                var imageContainer = $('#imageContainer');
+			                imageContainer.empty();
+			                response.forEach(function(imageDataBase64) {
+			                    var imgDiv = $('<div>').addClass('pageImageMakerItem');
+			                    var img = $('<img>').attr('src', 'data:image/png;base64,' + imageDataBase64).addClass('pageImageMakerItemImg');
+			                    imgDiv.append(img);
+			                    imageContainer.append(imgDiv);
+			                });
+			                $('#loading').hide(); // 로딩 이미지 숨기기
+			            },
+			            error: function() {
+			                alert('Error occurred while generating the image.');
+			                $('#loading').hide(); // 로딩 이미지 숨기기
+			            }
+			        });
+			    });
+			});	
+	
 	</script>
 </body>
 </html>

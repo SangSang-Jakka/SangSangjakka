@@ -319,5 +319,5 @@ FROM
   ) ct ON ac.agerange = ct.agerange
 ORDER BY
   ac.agecatseq;
-  
+   
 commit;

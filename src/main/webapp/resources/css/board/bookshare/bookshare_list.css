@@ -66,6 +66,7 @@ section.notice {
 
 .bookOrder button:hover {
 	cursor : pointer;
+	text-decoration: underline;
 }
 
 
@@ -183,4 +184,16 @@ section.notice {
 .subItems p {
   font-size: 12px;
   font-weight: bold;
+}
+
+.bookmarker{
+	color: #babab9;
+}
+
+.heart {
+	color:#FE2E64;
+}
+
+.comment {
+	color : #ee7143;
 }
