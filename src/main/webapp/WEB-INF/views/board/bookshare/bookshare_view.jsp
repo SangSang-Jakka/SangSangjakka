@@ -78,9 +78,7 @@
 	    <!-- 댓글 부분 -->
 	    
 	    <c:if test="${list.size() == 0}">
-			<tr>
-				<td colspan="5">댓글이 없습니다.</td>
-			</tr>
+	    		<span>댓글이 없습니다.</span>
 		</c:if>
 	    
 	    <c:forEach items="${list}" var="dto">
