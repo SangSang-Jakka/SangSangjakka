@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.BoardDAO;
@@ -49,6 +50,13 @@ public class FreeboardEdit extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = req.getSession();
+		
+		// 로그인 여부 확인
+	    String userSeq = (String) session.getAttribute("userSeq");
+	    
+	    System.out.println(userSeq);
+		
 		
 		String editTitle = req.getParameter("subject");
 		String editContents = req.getParameter("editordata");
@@ -62,8 +70,9 @@ public class FreeboardEdit extends HttpServlet {
 		dto.setBoardTitle(editContents);
 		dto.setBoardContents(editContents);
 		dto.setBoardSeq(editSeq);
+		dto.setUserSeq(userSeq);
 
-		int result = dao.saveEdit(dto);
+		int result = dao.save(dto);
 		
 		System.out.println(result); //0
 

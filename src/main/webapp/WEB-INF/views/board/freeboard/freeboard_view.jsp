@@ -112,8 +112,6 @@
                   </div>
 
 
-                     
-
                       <div class="listWrap">
                         <table class="listTable">
                             <tbody class="listBox">
