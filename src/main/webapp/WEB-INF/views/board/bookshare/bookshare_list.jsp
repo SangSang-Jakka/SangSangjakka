@@ -51,12 +51,10 @@
            </div>
        </form>
        </div>
-       
 
        
   <div class="bookShareWrap">
-  
-
+ 
        <c:forEach items="${list}" var="dto">
 		  		<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
 				    <div class="bookImg">
@@ -93,10 +91,7 @@
 				    </div>
 				  </div>
 		  </c:forEach>
-
-		  </div>
        
-<!--   <div class="bookShareWrap">
   <div class="bookShareContainer">
     <div class="bookImg">
       <img src="/sangsangjakka/resources/img/book1.jpg" alt="책 표지 이미지" />
@@ -239,15 +234,8 @@
   
   
   
-</div> -->
+</div>
     
-
-     
-
-
-      
-      
-      
 		    
 	 </section>
 		

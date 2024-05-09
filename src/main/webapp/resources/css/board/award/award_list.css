@@ -1,3 +1,426 @@
+
+body {
+    font-family: 'NEXON Lv1 Gothic OTF',sans-serif;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+
+#article {
+    display: grid;
+    grid-template-columns: 10% 80% 10%; 
+    margin-bottom: 100px;
+    height: auto;
+
+}
+
+.userBestSellerTitle {
+    margin-top: 100px;
+}
+
+.mainTitle {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.userBestSellerList ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.userBestSellerList2 ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.userBestSellerList3 ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.bookWrap img{
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+
+
+.imgThis{
+    width: 220px;
+    height: 275px;
+}
+
+.imgLast{
+    width: 200px;
+    height: 250px;
+}
+
+.bookWrap {
+  position: relative;
+    display: inline-block; /* 요소들이 인라인으로 배치되도록 설정 */
+
+}
+
+.category, .titleLink{
+    text-align: center;
+}
+
+.category{
+    margin-top: 15px;
+    color: #6e6e6e;
+    
+}
+
+
+
+.titleLink a {
+    text-decoration: none;
+    font-size: 20px;
+    color: black
+}
+
+.titleLink a:hover{
+    color: #e98358;
+}
+
+
+.textFirst{
+    margin-left: 70px;
+}
+
+.textLast{
+    margin-right: 75px;
+}
+
+#imgThisFirst{
+    margin-left: 70px;
+    width: 220px;
+    height: 275px;
+}
+
+#imgThisLast{
+    margin-right: 70px;
+    width: 220px;
+    height: 275px;
+}
+
+
+#imgBeforeFirst{
+    margin-left: 120px;
+
+}
+
+#imgBeforeBeforeFirst{
+    margin-left: 120px;
+
+}
+
+#imgBeforeLast{
+    margin-right: 120px;
+    
+}
+
+
+#imgBeforeBeforeLast{
+    margin-right: 120px;
+    
+}
+
+
+
+
+
+.bookInfo {
+    display: none; /* 초기에는 숨김 처리 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 250px;
+    background-color: rgba(0, 0, 0, 0.4); /* 투명한 검은 배경색 */
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: opacity 0.3s; /* 부드러운 효과를 위해 opacity 속성에 transition 적용 */
+}
+
+.bookWrap:hover .bookInfo {
+    display: block; /* 호버됐을 때 표시 */
+}
+
+
+.infoFirst{
+    margin-left: 120px;
+}
+
+
+ #nav ul li{
+    font-family: 'SOYOMapleBoldTTF';
+ }
+
+article#article{
+    align-items: center;
+
+
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    border:1px solid black;
+}
+
+#header {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+
+
+
+.empty {
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
+    flex: 1;
+}
+
+
+.headerWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerLogin {
+    width: 600px;
+    height: 100px;
+    background-color: transparent;
+    position: relative;
+    flex: 1;
+
+}
+
+.loginWrap {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    padding-left: 100px;
+}
+
+.loginWrap>button {
+    width: 80px;
+    height: 40px;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.loginBtn {
+    font-size: 16px;
+    font-family: 'NEXON Lv1 Gothic OTF';
+}
+
+.singUpBtn {
+    font-size: 16px;
+
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+#nav ul {
+    display: flex;
+    justify-content: center;
+
+}
+
+
+#nav li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 60px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: aliceblue;
+    margin-right: 20px;
+    font-size: 1.3rem;
+    font-family: Fredoka;
+}
+
+#nav li:nth-child(1) {
+    width: 160px;
+    background-color: #0E9AFF;
+}
+
+#nav li:nth-child(2) {
+    width: 160px;
+    background-color: #03CB8F;
+}
+
+#nav li:nth-child(3) {
+    background-color: #9CC624;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    border:1px solid black;
+}
+
+#header {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+
+
+
+.empty {
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
+    flex: 1;
+}
+
+
+.headerWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerLogin {
+    width: 600px;
+    height: 100px;
+    background-color: transparent;
+    position: relative;
+    flex: 1;
+
+}
+
+.loginWrap {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    padding-left: 100px;
+}
+
+.loginWrap>button {
+    width: 80px;
+    height: 40px;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.loginBtn {
+    font-size: 16px;
+    font-family: 'NEXON Lv1 Gothic OTF';
+}
+
+.singUpBtn {
+    font-size: 16px;
+
+}
+
+ul {
+    list-style: none;
+}
+
+#nav ul {
+    display: flex;
+    justify-content: center;
+
+}
+
+#nav li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 60px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: aliceblue;
+    margin-right: 20px;
+    font-size: 1.3rem;
+    font-family: Fredoka;
+}
+
+#nav li:nth-child(1) {
+    width: 160px;
+    background-color: #0E9AFF;
+}
+
+#nav li:nth-child(2) {
+    width: 160px;
+    background-color: #03CB8F;
+}
+
+#nav li:nth-child(3) {
+    background-color: #9CC624;
+}
+
+#nav li:nth-child(4) {
+    width: 180px;
+    background-color: #FFA012;
+}
+
+#nav li:nth-child(5) {
+
+    background-color: #FF7223;
+}
+
+#nav li:nth-child(6) {
+    width: 160px;
+    background-color: #FE4848;
+}
+
+#nav li:nth-child(7) {
+    background-color: #C61FA1;
+}
+
+#banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    background-color: #563CAB;
+    background-image: url("https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Vector-2.png");
+    background-size: cover;
+    color: #fff;
+    margin-top: -30px;
+}
+
 .bannerbtn {
     background-color: #FEE500;
     border-radius: 10px;
@@ -64,7 +487,7 @@
 .awardContainer .awardBox {
     display:flex;
     justify-content:space-around;
-    border:1px solid black;
+ 
     margin:10px 0 25px 50px;
     width:1600px;
     height:550px;
@@ -95,3 +518,44 @@
     width:450px;
     height:520px;
 }
+
+
+#userBestSeller{
+
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+
+
+
+.bookWrap img.medal1st {
+    position: absolute; /* 절대 위치 설정 */
+    top: 190px; /* 원하는 위치에 조정 */
+    left: 35px; /* 원하는 위치에 조정 */
+    
+}
+
+.bookWrap img.medal2nd {
+    position: absolute; /* 절대 위치 설정 */
+    top: 190px; /* 원하는 위치에 조정 */
+    left:-35px; /* 원하는 위치에 조정 */
+    
+}
+
+.bookWrap img.medal3rd {
+    position: absolute; /* 절대 위치 설정 */
+    top: 190px; /* 원하는 위치에 조정 */
+    left:-35px; /* 원하는 위치에 조정 */
+    
+}
+
+.bookWrap:hover .bookInfo {
+    display: block; /* 호버됐을 때 표시 */
+}
+
+.bookWrap:hover img {
+    opacity: 0.7; /* 호버됐을 때 이미지 투명도 변경 */
+}
+
