@@ -53,7 +53,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">관리자 정보</h4>
-                        <button type="submit" class="btn btn-primary pull-right">등록</button>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="return confirmSubmit()">등록</button>
 					</div>
 					<div class="wizard-content">
 						<form class="tab-wizard wizard-circle wizard">
@@ -154,5 +154,11 @@
 	
 	
 	</script>
+	
+	<script>
+function confirmSubmit() {
+    return confirm("등록하시겠습니까?");
+}
+</script>
 	</body>
 </html>

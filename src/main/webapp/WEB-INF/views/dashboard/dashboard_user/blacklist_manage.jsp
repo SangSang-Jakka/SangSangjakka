@@ -83,7 +83,7 @@
 										<td>${user.userLeftSsn}</td>
 										<td>${user.userRegdate}</td>
 										<input type="hidden" name="userSeq" value="${user.userSeq}">
-										<td><button type="submit" class="btn btn-outline-primary">복구</button>
+										<td><button type="submit" class="btn btn-outline-primary" onclick="return blicklistRestore()">복구</button>
 										<td>
 											<div class="dropdown">
 												<a
@@ -159,5 +159,11 @@
 	<script>
 		
 	</script>
+	
+	<script>
+		function blicklistRestore() {
+		    return confirm("복구하시겠습니까?");
+		}
+		</script>
 </body>
 </html>
