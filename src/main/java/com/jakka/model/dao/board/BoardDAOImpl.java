@@ -881,4 +881,31 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return 0;
 	}
+	
+	
+	@Override
+	public int freeDel(String boardSeq) {
+		
+
+		final String SQL = "delete from tblBoardWhiteList where boardSeq = ?";
+	
+
+		try (Connection conn = DBUtil.open();
+			 PreparedStatement pstat = conn.prepareStatement(SQL);)
+		{
+
+			pstat.setString(1, boardSeq);
+
+			int result = pstat.executeUpdate();
+
+
+			return result;
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| disable");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 }// End of class
