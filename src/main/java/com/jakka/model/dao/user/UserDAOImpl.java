@@ -1141,6 +1141,7 @@ public class UserDAOImpl implements UserDAO{
 		 return sgstCount;
 	}
 
+	// 신규 신고 게시글 갯수
 	@Override
 	public int boardReportCount(String userRegdate) {
 		int boardReportCount = 0;  
@@ -1168,6 +1169,59 @@ public class UserDAOImpl implements UserDAO{
 			e.printStackTrace();
 		}
 		 return boardReportCount;
+	}
+	
+	@Override
+	public int CommReportCount(String userRegdate) {
+		int CommReportCount = 0;  
+		
+		
+		String SQL = "select count(*) as CommReportCount from tblUserLog where usercatseq = 10 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 CommReportCount = rs.getInt("CommReportCount");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.CommReportCount");
+			e.printStackTrace();
+		}
+		 return CommReportCount;
+	}
+	
+	
+	@Override
+	public int nUserCount() {
+	    int nUserCount = 0;
+	    String SQL = "SELECT COUNT(*) AS nuser FROM tblUser WHERE userstate = 'n'";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        ResultSet rs = pstat.executeQuery();
+
+	        if (rs.next()) {
+	            nUserCount = rs.getInt("nuser");
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("UserDAOImpl.nUserCount");
+	        e.printStackTrace();
+	    }
+
+	    return nUserCount;
 	}
 
 }//End of class
