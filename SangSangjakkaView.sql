@@ -299,7 +299,6 @@ from tblScrap s
         inner join tblUser u
         on s.userSeq = u.userSeq;
 
-
 --자녀 연령대 범위
 CREATE VIEW vwAgeRangeCount
 AS

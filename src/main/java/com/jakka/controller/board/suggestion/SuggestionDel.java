@@ -2,6 +2,7 @@ package com.jakka.controller.board.suggestion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ public class SuggestionDel extends HttpServlet {
 		System.out.println("세션 : " + session);
 		String seq = req.getParameter("sgstseq");
 		System.out.println("GET seq값 : " + seq);
-		req.setAttribute("req", req);
+		req.setAttribute("seq", seq);
 		req.setAttribute("userId", userId);
 		System.out.println(userId);
 		
@@ -35,8 +36,17 @@ public class SuggestionDel extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// Logger 객체 생성
+		final Logger logger = Logger.getLogger(SuggestionDel.class.getName());
+		
+		// 세션에서 로그인 한 아이디 찾아오기
+		HttpSession session = req.getSession();
+		String userId = (String)session.getAttribute("userId");
+		
 		String seq = req.getParameter("seq");
 		System.out.println("post seq값 " + seq);
+		
+		// 아이디가 
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
 		
 		int result = dao.del(seq);
@@ -44,7 +54,7 @@ public class SuggestionDel extends HttpServlet {
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = resp.getWriter();
 		writer.println("<script type='text/javascript'>");
-		if(result == 0) {
+		if(result == 1) {
 			writer.println("alert('삭제가 완료되었습니다.');");
 			writer.println("location.href='/sangsangjakka/board/suggestion/list.do';");
 			writer.println("</script>");

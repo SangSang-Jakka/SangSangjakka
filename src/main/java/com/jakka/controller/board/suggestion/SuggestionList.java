@@ -23,6 +23,9 @@ public class SuggestionList extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 페이징
+		HttpSession session = req.getSession();
+		String userSeq = (String)session.getAttribute("Seq");
+		req.setAttribute("userSeq", userSeq);
 		String page = req.getParameter("page");
 		
 		int nowPage = 0;	// 현재 페이지 번호
@@ -70,7 +73,7 @@ public class SuggestionList extends HttpServlet {
 		
 		System.out.println(map);
 		// 조회수 관련
-		HttpSession session = req.getSession();
+
 		session.setAttribute("read", "n");
 		
 		// 리스트 뽑아오기

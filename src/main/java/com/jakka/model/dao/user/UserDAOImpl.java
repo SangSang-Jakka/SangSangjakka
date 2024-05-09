@@ -687,8 +687,6 @@ public class UserDAOImpl implements UserDAO{
 
 		            return newUserId;
 		       // }
-
-				
 				
 			} catch (Exception e) {
 				System.out.println("UserDAO.| singUp");

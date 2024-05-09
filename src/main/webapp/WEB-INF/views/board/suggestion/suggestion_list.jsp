@@ -86,9 +86,13 @@
       
      <!-- 작성 -->
 
+    <form action="location.href='/sangsangjakka/board/suggestion/add.do'" method="get">
       <div class="WrittenBox">
+      		<!-- 여기 EL? -->
           <input type="button" class="btnWritten" value="쓰기" onclick="location.href='/sangsangjakka/board/suggestion/add.do'">
       </div>
+      	<input type="hidden" name="seq" value="${userSeq}">
+    </form>
       
       <!-- board seach area -->
       <div id="boardSearch">

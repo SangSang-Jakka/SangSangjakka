@@ -3,6 +3,7 @@ package com.jakka.model.dao.board;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,12 +112,16 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 			){
 			
 			conn.setAutoCommit(false);
-			
+			System.out.println("pstat set하기 전 dto" + dto);
 			pstat.setString(1, dto.getSgstTitle());
 			pstat.setString(2, dto.getSgstContents());
 			pstat.setString(3, dto.getSgstSecretYN());
 			pstat.setString(4, dto.getUserSeq());
-			
+			System.out.println("add제목" + dto.getSgstTitle());
+			System.out.println("add내용" + dto.getSgstContents());
+			System.out.println("add비밀글" + dto.getSgstSecretYN());
+			System.out.println("add사용자번호" + dto.getUserSeq());
+
 			int result = pstat.executeUpdate();
 			
 			if (result > 0) {
@@ -534,30 +539,43 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	}// list()
 	
 	public int del(String seq) {
-		//queryParamNoReturn
-		Connection conn = DBUtil.open();
-		PreparedStatement pstat = null;
-		try {
-			
-			String pSQL = "delete from tblSuggestion where sgstSeq = ?";
-			pstat = conn.prepareStatement(pSQL);
-			pstat.setString(1, seq);
-			pstat.executeUpdate();
-			
-			String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
-			pstat = conn.prepareStatement(cSQL);
-			pstat.setString(1, seq);
+	    Connection conn = DBUtil.open();
+	    PreparedStatement pstat = null;
+	    
+	    try {
+	        String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
+	        pstat = conn.prepareStatement(cSQL);
+	        pstat.setString(1, seq);
+	        pstat.executeUpdate();
 
-			return pstat.executeUpdate();
+	        String pSQL = "delete from tblSuggestion where sgstSeq = ?";
+	        pstat = conn.prepareStatement(pSQL);
+	        pstat.setString(1, seq);
+	        return pstat.executeUpdate();
 
-		} catch (Exception e) {
-			System.out.println("SuggestionDAO.| del");
-			e.printStackTrace();
-		}
-		
-		return 0;
+	    } catch (Exception e) {
+	        System.out.println("SuggestionDAO.| del");
+	        e.printStackTrace();
+	    } finally {
+	        // 리소스 정리 코드 추가
+	        if (pstat != null) {
+	            try {
+	                pstat.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	    
+	    return 0;
 	}
-	
 //	public int del(String seq) {
 //		String pSQL = "delete from tblSuggestion where sgstSeq = ?";
 //		String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";

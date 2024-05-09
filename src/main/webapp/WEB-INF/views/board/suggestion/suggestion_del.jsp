@@ -19,7 +19,7 @@
 		<div class="">
 			<h3>삭제하시겠습니까?</h3>
 			<button type="submit">삭제하기</button>
-			<input type="button" value="돌아가기" onclick="location.href='/sangsangjakka/board/suggestion/list.do';">
+			<input type="button" value="돌아가기" class="delbtn" onclick="location.href='/sangsangjakka/board/suggestion/list.do';">
 		</div>
 	</div>
 	
@@ -29,7 +29,10 @@
 		
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-		
+		var del = document.querySelector('delbtn');
+		del.addEventListener('click', function() {
+			
+		})
 	</script>
 </body>
 </html>

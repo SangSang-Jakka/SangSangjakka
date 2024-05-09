@@ -24,7 +24,7 @@
           </div>
 
 			<!-- 파일 업로드를 위해 입력필드 추가함 -->
-          <form action="/sangsangjakka/board/suggestion/add.do" method="POST" enctype="multipart/form-data">
+          <form action="/sangsangjakka/board/suggestion/add.do" method="POST">
             <table>
                 <tr>
                     <th>제목</th>
@@ -56,6 +56,7 @@
             <input type="hidden" name="reply" value="${reply}">
             <input type="hidden" name="thread" value="${thread}">
             <input type="hidden" name="depth" value="${depth}">
+            <input type="hidden" name="seq" value="${userSeq}">
             </form>
       
         
