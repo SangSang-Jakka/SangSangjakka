@@ -404,14 +404,8 @@
 					$currentVisible = $('#bb-bookblock .bb-item:visible');
 					var currentVisibleId = $('#bb-bookblock .bb-item:visible').attr('id');
 					var text = $currentVisible.find('p').text();
-					// Fetching the background image style property
 					var imageUrl = $('#' + currentVisibleId + ' .pageImage').css('background-image');
-					console.log(imageUrl);
-					// Correcting the regular expression to accurately extract the URL
 					var cleanUrl = imageUrl.replace(/^url\(["']?([^"')]+)["']?\)$/, '$1');
-					console.log(cleanUrl);
-
-					// Ensure the URL is stripped off any domain or absolute path parts
 					if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
 					    var urlParts = new URL(cleanUrl);
 					    cleanUrl = urlParts.pathname;
@@ -484,29 +478,36 @@
 				});
 				
 				$('.pageImageUploadBox input[type="button"]').click(function() {
-					var fileInput = $('#pageImageUpload')[0];
+				    var fileInput = $('#pageImageUpload')[0];
 				    var file = fileInput.files[0];
 
 				    if (file) {
-				        // FileReader를 사용하여 이미지 파일을 읽습니다.
+				        var currentVisibleId = $('#bb-bookblock .bb-item:visible').attr('id');
+				        var userId = '${userId}';
+				        var bookSeq = ${bookSeq};
+				        var basePath = '${basePath}';
+				        // FileReader를 사용하여 이미지 파일을 Base64 형태로 읽습니다.
 				        var reader = new FileReader();
 				        reader.onload = function(e) {
-				            // currentVisibleId의 배경 이미지로 설정합니다.
-				            $('#' + currentVisibleId).css('background-image', 'url(' + e.target.result + ')');
 
 				            // FormData 객체를 생성하고 파일을 추가합니다.
 				            var formData = new FormData();
 				            formData.append('image', file);
+				            formData.append('userId', userId);
+				            formData.append('bookSeq', bookSeq);
+				            formData.append('pageSeq', currentVisibleId);
+				            formData.append('basePath', basePath);
 
 				            // Ajax 요청을 통해 서버에 파일을 업로드합니다.
 				            $.ajax({
-				                url: '/webapp/generated/' + userId + '/' + bookSeq + '/' + pageSeq + '.jpg',
 				                type: 'POST',
+				                url: '/sangsangjakka/board/bookmaking/editpage.do',
 				                data: formData,
-				                processData: false,  // FormData를 사용할 때 필요
-				                contentType: false,  // FormData를 사용할 때 필요
+				                processData: false,  // FormData를 사용할 때는 processData와 contentType을 false로 설정
+				                contentType: false,
 				                success: function(data) {
-				                    alert('이미지가 성공적으로 업로드되었습니다.');
+						            // currentVisibleId에 해당하는 요소의 배경 이미지로 설정
+						            $('#' + currentVisibleId + ' .pageImage').css('background-image', 'url(/sangsangjakka/generated/' +userId+'/'+bookSeq+'/'+currentVisibleId+'.jpg)');
 				                },
 				                error: function(xhr, status, error) {
 				                    alert('업로드 실패: ' + error);
@@ -514,7 +515,6 @@
 				            });
 				        };
 				        reader.readAsDataURL(file);
-				        pageChange();
 				    } else {
 				        alert('파일이 선택되지 않았습니다.');
 				    }

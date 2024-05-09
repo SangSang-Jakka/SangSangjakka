@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,6 +45,10 @@ public class BookmakingView extends HttpServlet {
 
 		BookDAO bookDao = DAOManager.getBookDAO();
 		PageDAO pageDao = DAOManager.getPageDAO();
+		ServletContext context = getServletContext();
+		final String BASE_DIRECTORY = "/generated/";
+		String basePath = context.getRealPath(BASE_DIRECTORY);
+		basePath = basePath.replace("\\", "\\\\");
 
 		if (bookSeq != null) {
 			HashMap<Integer, PageDTO> pages = pageDao.findPages(bookSeq);
@@ -58,6 +63,8 @@ public class BookmakingView extends HttpServlet {
 			req.setAttribute("lastpage", lastpage);
 			req.setAttribute("dto", dto);
 			req.setAttribute("bookSeq", bookSeq);
+			req.setAttribute("userId", userId);
+			req.setAttribute("basePath", basePath);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_view.jsp");
 			dispatcher.forward(req, resp);
 
@@ -65,6 +72,7 @@ public class BookmakingView extends HttpServlet {
 			HashMap<Integer, PageDTO> pages = pageDao.findPages("0");
 			PageDTO lastpage = pageDao.lastpage(bookSeq);
 			req.setAttribute("lastpage", lastpage);
+			req.setAttribute("basePath", basePath);
 			req.setAttribute("bookSeq", 0);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_view.jsp");
 			dispatcher.forward(req, resp);

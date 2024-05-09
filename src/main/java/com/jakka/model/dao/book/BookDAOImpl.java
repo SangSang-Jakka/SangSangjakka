@@ -1,6 +1,7 @@
 package com.jakka.model.dao.book;
 
 import java.io.File;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.ServletContext;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dao.ActiveStatus;
@@ -1159,13 +1162,13 @@ public class BookDAOImpl implements BookDAO{
 	    return null;
 	}
 	
-	public void createBookFolder(String userId, String bookSeq) {
+	public void createBookFolder(String userId, String bookSeq, ServletContext context) {
 		
-		final String BASE_DIRECTORY = "src/main/webapp/generated/";
-		
-		String projectDirectory = System.getProperty("user.dir");
-        String folderPath = projectDirectory + File.separator + BASE_DIRECTORY + userId + "/" + bookSeq;
-        File userFolder = new File(folderPath);
+		final String BASE_DIRECTORY = "/generated/";
+		// Get the real path to the WEB-INF directory
+	    String realPath = context.getRealPath(BASE_DIRECTORY);
+	    String folderPath = realPath + userId + "/" + bookSeq;
+	    File userFolder = new File(folderPath);
 
         if (!userFolder.exists()) {
             boolean created = userFolder.mkdirs();

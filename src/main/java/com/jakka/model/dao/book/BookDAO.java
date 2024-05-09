@@ -3,6 +3,8 @@ package com.jakka.model.dao.book;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.ServletContext;
+
 import com.jakka.model.dao.ActiveStatus;
 import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dao.Cnt;
@@ -26,6 +28,6 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	public ArrayList<BookDTO> findByContentsContains(HashMap<String, String> map);
 	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map);
 	public int whiteTotalCnt(HashMap<String, String> map);
-	public void createBookFolder(String userId, String bookSeq);
+	public void createBookFolder(String userId, String bookSeq, ServletContext context);
 	
 }//End of interface

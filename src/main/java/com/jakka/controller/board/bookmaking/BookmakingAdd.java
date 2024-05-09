@@ -1,11 +1,13 @@
 package com.jakka.controller.board.bookmaking;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +31,12 @@ public class BookmakingAdd extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		String userId = (String) session.getAttribute("userId");
+		
+		if (userId == null) {
+			resp.sendRedirect(req.getContextPath() + "/user/login.do"); // Redirect to login if not authenticated
+			return;
+		}
+		
 		String type = req.getParameter("type");
 
 		UserDAO userDao = DAOManager.getUserDAO();
@@ -36,44 +44,61 @@ public class BookmakingAdd extends HttpServlet {
 
 		BookDAO bookDao = DAOManager.getBookDAO();
 		PageDAO pageDao = DAOManager.getPageDAO();
+		
+		if (type != null) {
+			creatBook(req, resp, type, userDto, bookDao, pageDao);
+		} else {
+			notFinBook(req, resp, userDto, bookDao, pageDao);
+		}
+		
 
-		if (userDto != null) {
-			if (type != null) {
-				try {
+	}
 
-					BookDTO book = new BookDTO();
-					book.setBookTitle("작성중");
-					book.setBookInfo("작성중");
-					book.setBookCover("/sangsangjakka/resources/img/empty.jpg");
-					book.setUserSeq(userDto.getUserSeq());
-					book.setRcmAgeSeq("1");
+	private void creatBook(HttpServletRequest req, HttpServletResponse resp, String type, UserDTO userDto, BookDAO bookDao,
+			PageDAO pageDao) {
+		try {
 
-					String bookSeq = String.valueOf(bookDao.add(book));
-					if (bookSeq.equals("0")) {
-						throw new Exception("Failed to create a new book");
-					}
+			BookDTO book = new BookDTO();
+			book.setBookTitle("작성중");
+			book.setBookInfo("작성중");
+			book.setBookCover("/sangsangjakka/resources/img/empty.jpg");
+			book.setUserSeq(userDto.getUserSeq());
+			book.setRcmAgeSeq("1");
 
-					// Create the first page of the book
-					PageDTO page = new PageDTO();
-					page.setBookSeq(bookSeq);
-					page.setPageSeq("1"); // Assuming you start page numbering at 1
-					page.setPageUrl("/sangsangjakka/resources/img/empty.jpg");
-					page.setPageContents("내용");
-					page.setCmntYN(type.equals("y") ? "y" : "n");
-					page.setImgYN(type.equals("y") ? "y" : "n");
-
-					pageDao.add(page);
-
-					req.setAttribute("bookSeq", bookSeq);
-					req.setAttribute("link", req.getContextPath());
-					RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_add.jsp");
-					dispatcher.forward(req, resp);
-
-				} catch (Exception e) {
-					System.out.println("BookmakingAdd.doGet");
-					e.printStackTrace();
-				}
+			String bookSeq = String.valueOf(bookDao.add(book));
+			if (bookSeq.equals("0")) {
+				throw new Exception("Failed to create a new book");
 			}
+
+			// Create the first page of the book
+			PageDTO page = new PageDTO();
+			page.setBookSeq(bookSeq);
+			page.setPageSeq("1"); // Assuming you start page numbering at 1
+			page.setPageUrl("/sangsangjakka/resources/img/empty.jpg");
+			page.setPageContents("내용");
+			page.setCmntYN(type.equals("y") ? "y" : "n");
+			page.setImgYN(type.equals("y") ? "y" : "n");
+
+			pageDao.add(page);
+			// ServletContext를 통해 리소스 스트림 얻기
+	        ServletContext context = getServletContext();
+			bookDao.createBookFolder(userDto.getUserId(), bookSeq, context);
+
+			req.setAttribute("bookSeq", bookSeq);
+			req.setAttribute("link", req.getContextPath());
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_add.jsp");
+			dispatcher.forward(req, resp);
+
+		} catch (Exception e) {
+			System.out.println("BookmakingAdd.creatBook");
+			e.printStackTrace();
+		}
+
+	}
+
+	private void notFinBook(HttpServletRequest req, HttpServletResponse resp, UserDTO userDto, BookDAO bookDao,
+			PageDAO pageDao) {
+		try {
 
 			ArrayList<BookDTO> bookDtoList = bookDao.findByNick(userDto.getUserNick());
 			ArrayList<PageDTO> pageDtoList = new ArrayList<>();
@@ -86,19 +111,20 @@ public class BookmakingAdd extends HttpServlet {
 				} else {
 					iterator.remove();
 				}
-			}
 
 			req.setAttribute("userDto", userDto);
 			req.setAttribute("bookDtoList", bookDtoList);
 			req.setAttribute("pageDtoList", pageDtoList);
+			}
 			// Redirect to other servlets based on condition
-			String redirectUrl = bookDtoList.isEmpty() ? "/sangsangjakka/board/bookmaking/view.do"
-					: "/sangsangjakka/board/bookmaking/list.do";
-			resp.sendRedirect(redirectUrl); // Use sendRedirect to change the location
-		} else {
-			// Redirect to login page if user is not found or not logged in
-			resp.sendRedirect("/sangsangjakka/user/login.do"); // Update this URL based on your login page routing
-		}
+			String redirectUrl = bookDtoList.isEmpty() ? "view.jsp"	: "list.jsp";
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_"+redirectUrl);
+			dispatcher.forward(req, resp);
 
+
+		} catch (Exception e) {
+			System.out.println("BookmakingAdd.notFinBook");
+			e.printStackTrace();
+		}
 	}
 }
