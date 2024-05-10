@@ -27,6 +27,23 @@ public class BookDTO {
 	private String awardRegdate;
 	private String awardRank;
 	
+	
+	public String getAwardRegdate() {
+		return awardRegdate;
+	}
+
+	public void setAwardRegdate(String awardRegdate) {
+		this.awardRegdate = awardRegdate;
+	}
+
+	public String getAwardRank() {
+		return awardRank;
+	}
+
+	public void setAwardRank(String awardRank) {
+		this.awardRank = awardRank;
+	}
+
 	public String getBookCnt() {
 		return bookCnt;
 	}

@@ -100,6 +100,7 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setUserSeq(rs.getString("userSeq"));
 	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
 	            
 	            return dto;
 				
