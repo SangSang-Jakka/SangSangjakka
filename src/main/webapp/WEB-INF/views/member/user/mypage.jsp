@@ -340,7 +340,7 @@
 			//changebtn 눌렀을때만 입력 가능
 			document.getElementById('changebtn').addEventListener('click', function() {
 			    document.getElementById('userEmailInput').removeAttribute('readonly');
-			    document.getElementById('nickName').removeAttribute('readonly');
+			    document.getElementById('inputNick').removeAttribute('readonly');
 			    document.getElementById('phoneStart').removeAttribute('readonly');
 			    document.getElementById('phoneInput1').removeAttribute('readonly');
 			    document.getElementById('phoneInput2').removeAttribute('readonly');
