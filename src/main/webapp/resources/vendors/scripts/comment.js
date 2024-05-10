@@ -33,7 +33,7 @@ $('document').ready(function() {
 	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 		var minDate = $('#min').val() ? new Date($('#min').val()) : null;
 		var maxDate = $('#max').val() ? new Date($('#max').val()) : null;
-		var rowDate = new Date(data[3].substring(0, 10)); // 작성일에서 날짜 부분만 추출
+		var rowDate = new Date(data[2].substring(0, 10)); // 작성일에서 날짜 부분만 추출
 
 		if ((minDate === null && maxDate === null) ||
 			(minDate === null && rowDate <= maxDate) ||
@@ -66,18 +66,18 @@ $('document').ready(function() {
 				data.forEach(function(item) {
 					var row = [
 
-						item.noticeSeq,
-						'<a href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=' + item.noticeSeq + '">' + item.noticeTitle + '</a>',
-						item.adId,
-						item.noticeRegdate,
-						item.noticeCnt,
+						item.cmntSeq,
+						item.userNick,
+						item.cmntRegdate,
+						item.cmntContents,
+						item.cmntReportCnt,
 						// Action 열 추가
 						'<div class="dropdown">' +
 						'<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">' +
 						'<i class="dw dw-more"></i>' +
 						'</a>' +
 						'<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">' +
-						'<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=' + item.noticeSeq + '"><i class="dw dw-eye"></i> View</a>' +
+						'<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=' + item.boardSeq + '"><i class="dw dw-eye"></i> View</a>' +
 						'<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>' +
 						'<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>' +
 						'</div>' +

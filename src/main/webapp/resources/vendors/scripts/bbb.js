@@ -56,7 +56,7 @@ $('document').ready(function() {
 		var selectedCondition = $(this).val();
 		// AJAX를 통해 선택한 조회 조건에 해당하는 데이터를 서버로부터 가져옴
 		$.ajax({
-			url: '/sangsangjakka/admin/dashboard/review/manage.do',
+			url: '/sangsangjakka/admin/dashboard/notice/manage.do',
 			type: 'POST',
 			data: { condition: selectedCondition }, // 선택한 조회 조건 전달
 			success: function(data) {
@@ -66,12 +66,11 @@ $('document').ready(function() {
 				data.forEach(function(item) {
 					var row = [
 
-						item.reviewSeq,
+						item.cmntSeq,
 						item.userNick,
-						item.reviewRegdate,
-						item.reviewContents,
-						item.reviewLikeCnt,
-						item.reviewReportCnt,
+						item.cmntRegdate,
+						item.cmntContents,
+						item.cmntReportCnt,
 						// Action 열 추가
 						'<div class="dropdown">' +
 						'<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">' +
