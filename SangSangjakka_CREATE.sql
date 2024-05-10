@@ -183,7 +183,9 @@ create table tblBook(
     bookModDate     date default null,                                      -- 수정일
     userSeq         number references tblUser(userSeq) not null,            -- 회원번호(FK)
     parentBookSeq   number default null references tblBook(bookSeq),        -- 부모 동화책 번호(FK)
-    rcmAgeSeq       number references tblRecommendAge(rcmAgeSeq) not null   -- 추천 연령 번호(FK)
+    rcmAgeSeq       number references tblRecommendAge(rcmAgeSeq) not null,  -- 추천 연령 번호(FK)
+    shareRegdate    date default null,                                      -- 공유된 날짜
+    shareCnt        number default 0 not null                               -- 조회수
 );
 
 -- 동화책 화이트 리스트 테이블
@@ -274,7 +276,7 @@ create table tblBoardCommentsReport(
 
 -- 동화책 신고 기록
 create table tblBookShareReport(
-    bookSeq number references tblBookShare(bookSeq), -- 동화책 공유글 번호(PK, FK)
+    bookSeq number references tblBook(bookSeq),      -- 동화책 번호(PK, FK)
     userSeq number references tblUser(userSeq),      -- 사용자 번호(PK, FK)
     
     constraints tblBookShareReport_pk primary key(bookSeq, userSeq)
