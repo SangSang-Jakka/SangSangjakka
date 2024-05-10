@@ -4,33 +4,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@include file="/WEB-INF/views/template/asset.jsp"%>
+	<%@include file="/WEB-INF/views/template/asset.jsp"%>
 	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/default.css" />
-    <link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookblock.css" />
-    <link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookmaking_view.css">
+	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookblock.css" />
+	<link rel="stylesheet" href="/sangsangjakka/resources/css/board/bookmaking/bookmaking_view.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="/sangsangjakka/resources/js/modernizr.custom.js"></script>
+	<script src="/sangsangjakka/resources/js/modernizr.custom.js"></script>
 	<script src="https://kit.fontawesome.com/e075b9b5dc.js"	crossorigin="anonymous"></script>
-    <script src="/sangsangjakka/resources/js/jquerypp.custom.js"></script>
-    <script src="/sangsangjakka/resources/js/jquery.bookblock.js"></script>
-    <style>
-    
-        #loading {
-            display: none;
-        }
-        
-        #loading > img {
-        	width : 370px;
-            height: 490px;
-        }
-        
-        #imageContainer > img {
-        	widht: 180px;
-        	height: 240px;
-        	
-        }
-        
-        #imageContainer {
+	<script src="/sangsangjakka/resources/js/jquerypp.custom.js"></script>
+	<script src="/sangsangjakka/resources/js/jquery.bookblock.js"></script>
+	<!-- Additional links for jQuery UI for drag and drop -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<style>
+	
+		.loading {
+			display: none;
+		}
+		
+		.loading > img {
+			width : 370px;
+			height: 490px;
+		}
+		
+		#imageContainer > img {
+			widht: 180px;
+			height: 240px;
+			
+		}
+		
+		#imageContainer {
+		  display: grid;
+		  grid-template-columns: repeat(2, 1fr);
+		  grid-gap: 20px;
+		}
+		
+		#coverImageContainer > img {
+			widht: 180px;
+			height: 240px;
+			
+		}
+		
+		#coverImageContainer {
 		  display: grid;
 		  grid-template-columns: repeat(2, 1fr);
 		  grid-gap: 20px;
@@ -43,8 +58,8 @@
 		  max-height: 533px; /* 가로세로 비율 3:4로 계산한 높이 */
 		  object-fit: contain;
 		}
-        
-    </style>
+		
+	</style>
 </head>
 <body>
 
@@ -58,26 +73,26 @@
 			<h2>나만의 동화책 만들기</h2>
 			<div class="bookmakingOptionWrap">
 				<div class="bookmakingOptionContainer">
-				    <div class="bookmakingOptionBox">
-				        <form method="get" action="<c:url value='/board/bookmaking/add.do'/>">
-				            <input type="hidden" name="type" value="y" id="recommendedBook"> <!-- Ensure value attribute is set -->
-				            <button type="submit" class="bookmakingOptionItem pointer">
-				                <h3 class="bookmakingOptionElement">취향 저격 책 만들기</h3>
-				                <p class="bookmakingOptionElement">취향을 저격하는 맞춤형 동화책 만들기</p>
-				            </button>
-				        </form>
-				    </div>
+					<div class="bookmakingOptionBox">
+						<form method="get" action="<c:url value='/board/bookmaking/add.do'/>">
+							<input type="hidden" name="type" value="y" id="recommendedBook"> <!-- Ensure value attribute is set -->
+							<button type="submit" class="bookmakingOptionItem pointer">
+								<h3 class="bookmakingOptionElement">취향 저격 책 만들기</h3>
+								<p class="bookmakingOptionElement">취향을 저격하는 맞춤형 동화책 만들기</p>
+							</button>
+						</form>
+					</div>
 				</div>
 				<div class="bookmakingOptionContainer">
-				    <div class="bookmakingOptionBox">
-				        <form method="get" action="<c:url value='/board/bookmaking/add.do'/>">
-				            <input type="hidden" name="type" value="n" id="customBook"> <!-- Ensure value attribute is set -->
-				            <button type="submit" class="bookmakingOptionItem pointer">
-				                <h3 class="bookmakingOptionElement">새로운 형식 책 만들기</h3>
-				                <p class="bookmakingOptionElement">혁신적인 형식과 스타일의 동화책 만들기</p>
-				            </button>
-				        </form>
-				    </div>
+					<div class="bookmakingOptionBox">
+						<form method="get" action="<c:url value='/board/bookmaking/add.do'/>">
+							<input type="hidden" name="type" value="n" id="customBook"> <!-- Ensure value attribute is set -->
+							<button type="submit" class="bookmakingOptionItem pointer">
+								<h3 class="bookmakingOptionElement">새로운 형식 책 만들기</h3>
+								<p class="bookmakingOptionElement">혁신적인 형식과 스타일의 동화책 만들기</p>
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 			<div class="bookmakingWrap">
@@ -94,11 +109,11 @@
 
 						<div id="bb-bookblock" class="bb-bookblock">
 							<c:forEach items="${dto}" var="dto" varStatus="status">
-							    <div class="bb-item" id="${dto.pageSeq}">
-							        <div class="pageImage" style="background-image: url('${dto.pageUrl}');">
-							        </div>
-							        <p>${dto.pageContents}</p>
-							    </div>
+								<div class="bb-item" id="${dto.pageSeq}">
+									<div class="pageImage" style="background-image: url('${dto.pageUrl}');">
+									</div>
+									<p>${dto.pageContents}</p>
+								</div>
 							</c:forEach>
 						</div>
 
@@ -175,7 +190,7 @@
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
 						<div class="full flex pageImageDesBox">
-							<form>
+							<form class="pageImage">
 								<input type="text" name="prompt" required>
 								<button type="submit">만들기</button>
 							</form>
@@ -183,19 +198,16 @@
 						<div class="pageImageMakerBox">
 						
 							<!-- 로딩중 -->
-							<div id="loading">
-						        <img src="/sangsangjakka/resources/img/loading.gif">
-						    </div>
-						    
-						    <!-- 생성된 이미지 -->
-						    <div id="imageContainer"></div>
-						    
-
+							<div id="loading" class="loading">
+								<img src="/sangsangjakka/resources/img/loading.gif">
+							</div>
+							
+							<!-- 생성된 이미지 -->
+							<div id="imageContainer"></div>
+							
+							<div id="pageImageDesContainer"></div>
 						</div>
-						<div class="pageImageDesBox">
-							<div class="whitespace">&nbsp;</div>
-							<h4>그림을 선택해주세요!</h4>
-						</div>
+						
 						<div class="pageImageUploadBox">
 							<div class="pageImageUploadItem">
 								<input type="file" name="pageImageUpload" id="pageImageUpload">
@@ -217,33 +229,21 @@
 								<label><small>ai의 도움을 받아요</small></label>
 							</h3>
 							<div class="full flex coverImageDesBox">
-								<form>
-									<input type="text" name=""><input type="submit" value="만들기"
-										class="btnItem orange middleBtn pointer">
+								<form class="coverImageForm">
+									<input type="text" name="coverprompt" required>
 									<button type="submit" >만들기</button>
 								</form>
 							</div>
-							<div class="coverImageMakerBox">
-								<div class="coverImageMakerItem">
-									<img src="/sangsangjakka/resources/img/book1.jpg"
-										class="coverImageMakerItemImg">
+							<div class="coverImageMakerBox" id="coverImageMakerBox">
+								<!-- 로딩중 -->
+								<div id="coverloading" class="loading">
+									<img src="/sangsangjakka/resources/img/loading.gif">
 								</div>
-								<div class="coverImageMakerItem">
-									<img src="/sangsangjakka/resources/img/book1.jpg"
-										class="coverImageMakerItemImg">
-								</div>
-								<div class="coverImageMakerItem">
-									<img src="/sangsangjakka/resources/img/book1.jpg"
-										class="coverImageMakerItemImg">
-								</div>
-								<div class="coverImageMakerItem">
-									<img src="/sangsangjakka/resources/img/book1.jpg"
-										class="coverImageMakerItemImg">
-								</div>
-							</div>
-							<div class="coverImageDesBox">
-								<div class="whitespace">&nbsp;</div>
-								<h4>그림을 선택해주세요!</h4>
+								
+								<!-- 생성된 이미지 -->
+								<div id="coverImageContainer"></div>
+								
+								<div id="coverImageDesContainer"></div>
 							</div>
 							<div class="coverImageUploadBox">
 								<div class="coverImageUploadItem">
@@ -259,61 +259,32 @@
 					</div>
 				</div>
 				<div class="titleMaker">
-					<div class="titleItem">
-						<input type="text"/>
+					<div class="titleBox">
+					    <div class="titleItem">
+					        <input type="text" placeholder="제목" required/>
+					    </div>
 					</div>
-					<div>
-						<h3>
-							책의 제목을 만들어요!
-							<input type="checkbox" name="titleAiSupport" id="titleAiSupport" checked>
-							<label><small>ai의 도움을 받아요</small></label>
-						</h3>
+					<div class="descriptionBox">
+					    <div class="descriptionItem">
+					        <input type="text" placeholder="소개글" required/>
+					    </div>
 					</div>
-					<ul class="titleMakerBox">
-							<li class="titleMakerItem"><span>1. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
-							<li class="titleMakerItem"><span>2. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
-							<li class="titleMakerItem"><span>3. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
-							<li class="titleMakerItem"><span>4. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
-						</ul>
-						<div class="titleDescriptionBox">
-							<div class="titleDescriptionItem">
-								<input type="text" placeholder="내용을 입력해주세요.">
-							</div>
-							<div class="titleDescriptionItem">
-								<input type="button" value="전송" />
-							</div>
-						</div>
-					<div class="titleOptionBox full flex">
-						<div class="titleOptionItem btnItem pointer" id="titlePrev">이전으로</div>
-						<a href="/sangsangjakka/board/bookmaking/fin.do">
-							<div class="titleOptionItem btnItem pointer" id="titleNext">완성</div>
-						</a>
+					<div class="categoryMakerBox">
+					    <div class="categoryMaker">
+					    	<div class="categoryBox">
+						        <div class="draggableCategory">Category 1</div>
+							    <div class="draggableCategory">Category 2</div>
+							    <div class="draggableCategory">Category 3</div>
+					    	</div>
+						    <div class="categoryDropArea"></div>
+					    </div>
 					</div>
+				    <div class="titleOptionBox full flex">
+				        <div class="titleOptionItem btnItem pointer" id="titlePrev">이전으로</div>
+				        <div class="titleOptionItem btnItem pointer" id="titleNext">완성</div>
+				    </div>
 				</div>
+
 			</div>
 		</section>
 
@@ -332,7 +303,6 @@
 			var $currentVisible;
 			var imgChangeCheck = 'n';
 			var coverImageYN = 'y';
-			var titleImageYN = 'y';
 			var Page = (function() {
 
 				var config = {
@@ -421,78 +391,114 @@
 				$('.coverMaker').hide();
 				$('.titleMaker').hide();
 				
-			    setupCheckboxHandlers();
-			    check();
-			    
+				setupCheckboxHandlers();
+				check();
+				
 				function setupCheckboxHandlers() {
-			        $('#textAiSupport').change(function() {
-			            if ($(this).is(':checked')) {
-			                $('.pageTextMakerBox').show();
-			                $('.pageDescriptionBox').hide();
-			                textYN = 'y';
-			            } else {
-			                $('.pageTextMakerBox').hide();
-			                $('.pageDescriptionBox').show();
-			                textYN = 'n';
-			            }
-			        });
+					$('#textAiSupport').change(function() {
+						if ($(this).is(':checked')) {
+							$('.pageTextMakerBox').show();
+							$('.pageDescriptionBox').hide();
+							textYN = 'y';
+						} else {
+							$('.pageTextMakerBox').hide();
+							$('.pageDescriptionBox').show();
+							textYN = 'n';
+						}
+					});
 
-			        $('#imageAiSupport').change(function() {
-			            if ($(this).is(':checked')) {
-			                $('.pageImageMakerBox').show();
-			                $('.pageImageDesBox').show();
-			                $('.pageImageUploadBox').hide();
-			                imageYN = 'y';
-			            } else {
-			                $('.pageImageMakerBox').hide();
-			                $('.pageImageDesBox').hide();
-			                $('.pageImageUploadBox').show();
-			                imageYN = 'n';
-			            }
-			        });
+					$('#imageAiSupport').change(function() {
+						if ($(this).is(':checked')) {
+							$('.pageImageMakerBox').show();
+							$('.pageImageDesBox').show();
+							$('.pageImageUploadBox').hide();
+							imageYN = 'y';
+						} else {
+							$('.pageImageMakerBox').hide();
+							$('.pageImageDesBox').hide();
+							$('.pageImageUploadBox').show();
+							imageYN = 'n';
+						}
+					});
 
-			        $('#coverAiSupport').change(function() {
-			            if ($(this).is(':checked')) {
-			                $('.coverImageMakerBox').show();
-			                $('.coverImageDesBox').show();
-			                $('.coverImageUploadBox').hide();
-			                coverImageYN = 'y';
-			            } else {
-			                $('.coverImageMakerBox').hide();
-			                $('.coverImageDesBox').hide();
-			                $('.coverImageUploadBox').show();
-			                coverImageYN = 'n';
-			            }
-			        });
-			        
-			        $('#titleAiSupport').change(function() {
-			            if ($(this).is(':checked')) {
-			                $('.titleMakerBox').show();
-			                $('.titleDescriptionBox').hide();
-			                titleImageYN = 'y';
-			            } else {
-			                $('.titleMakerBox').hide();
-			                $('.titleDescriptionBox').show();
-			                titleImageYN = 'n';
-			            }
-			        });
+					$('#coverAiSupport').change(function() {
+						if ($(this).is(':checked')) {
+							$('.coverImageMakerBox').show();
+							$('.coverImageDesBox').show();
+							$('.coverImageUploadBox').hide();
+							coverImageYN = 'y';
+						} else {
+							$('.coverImageMakerBox').hide();
+							$('.coverImageDesBox').hide();
+							$('.coverImageUploadBox').show();
+							coverImageYN = 'n';
+						}
+					});
 
-			    }
+				}
 
-			    function check() {
-			    	if ('${firstpage.cmntYN}' != '') {
-			        
-			        $('.bookmakingOptionContainer').hide();
-			        $('.bookmakingWrap').show();
-			        Page.init();
+				function check() {
+					if ('${firstpage.cmntYN}' != '') {
+					
+					$('.bookmakingOptionContainer').hide();
+					$('.bookmakingWrap').show();
+					Page.init();
 
-			        $('#textAiSupport').prop('checked', cmntYN === 'y');
-			        $('#imageAiSupport').prop('checked', imgYN === 'y');
+					$('#textAiSupport').prop('checked', cmntYN === 'y');
+					$('#imageAiSupport').prop('checked', imgYN === 'y');
+					$('#coverAiSupport').prop('checked', coverImageYN === 'y');
 
-			        $('#textAiSupport').change();
-			        $('#imageAiSupport').change();
-			    	}
-			    }
+					$('#textAiSupport').change();
+					$('#imageAiSupport').change();
+					$('#coverAiSupport').change();
+					}
+				}
+				
+				// Setup the draggable categories
+			    $(".draggableCategory").draggable({
+			        helper: "clone", // Use a clone as drag helper
+			        cursor: "move",
+			        snap: ".selectedCategory", // Snap to other selected categories
+			        snapMode: "inner",
+			        snapTolerance: 20,
+			        revert: "invalid", // Revert if not dropped on droppable
+			        start: function(event, ui) {
+			            ui.helper.width($(this).width()); // Maintain original width
+			        }
+			    });
+
+			    // Setup the drop area
+			    $(".categoryDropArea").droppable({
+			        accept: ".draggableCategory",
+			        tolerance: "intersect",
+			        drop: function(event, ui) {
+			            // Create a new selectedCategory at the drop position
+			            var newCat = $('<div class="selectedCategory">' + ui.draggable.text() + '</div>').css({
+			                position: 'absolute',
+			                top: ui.offset.top - $(this).offset().top, // Adjust the top position
+			                left: ui.offset.left - $(this).offset().left, // Adjust the left position
+			                width: ui.helper.width() // Maintain the dragged width
+			            }).appendTo(this).draggable({
+			                snap: ".selectedCategory", // Snap to other categories
+			                snapMode: "outer",
+			                snapTolerance: 20
+			            });
+
+			            // Enable removing by dragging out of the drop area
+			            newCat.on("dragstop", function(event, ui) {
+			                var dropAreaOffset = $(".categoryDropArea").offset();
+			                var dropAreaHeight = $(".categoryDropArea").outerHeight();
+			                var dropAreaWidth = $(".categoryDropArea").outerWidth();
+			                // Check if the element is outside the drop area
+			                if (ui.offset.top < dropAreaOffset.top || 
+			                    ui.offset.top > dropAreaOffset.top + dropAreaHeight || 
+			                    ui.offset.left < dropAreaOffset.left || 
+			                    ui.offset.left > dropAreaOffset.left + dropAreaWidth) {
+			                    $(this).remove(); // Remove if dragged out
+			                }
+			            });
+			        }
+			    });
 
 
 				function initBookmaking() {
@@ -556,9 +562,10 @@
 					var imageUrl = $('#' + currentVisibleId + ' .pageImage').css('background-image');
 					var cleanUrl = imageUrl.replace(/^url\(["']?([^"')]+)["']?\)$/, '$1');
 					if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
-					    var urlParts = new URL(cleanUrl);
-					    cleanUrl = urlParts.pathname;
+						var urlParts = new URL(cleanUrl);
+						cleanUrl = urlParts.pathname;
 					}
+					var pageUrl = imgChangeCheck == 'y' ? '/sangsangjakka/generated/'+userId+'/'+bookSeq+'/'+currentVisibleId+'.jpg' : cleanUrl;
 					$.ajax({
 						type: 'GET',
 						url: '/sangsangjakka/board/bookmaking/editpage.do',
@@ -567,16 +574,13 @@
 							pageSeq: currentVisibleId,
 							cmntYN: textYN,
 							imgYN: imageYN,
-							pageUrl: imgChangeCheck == 'y' ? '/sangsangjakka/generated/'+userId+'/'+bookSeq+'/'+currentVisibleId+'.jpg' : cleanUrl,
+							pageUrl: pageUrl,
 							pageContents: text
 						},
 						dataType: 'json',
 						success: function(result) {
 							
-							if (result.result == '1') {
-							} else {
-								alert('내용을 채워주세요.');
-							}
+							$('#bb-bookblock .bb-item:visible .pageImage').css('background-image', 'url(' + pageUrl + ')');
 							
 						},
 						error: function(a,b,c) {
@@ -605,8 +609,23 @@
 
 				$('#pageDelete').click(function() {
 					$currentVisible = $('#bb-bookblock .bb-item:visible');
+					var pageSeq = $('#bb-bookblock .bb-item:visible').attr('id');
 					if ($currentVisible.prev('.bb-item').length) {
 						$currentVisible.remove();
+						$.ajax({
+							type: 'POST',
+							url: '/sangsangjakka/board/bookmaking/delpage.do',
+							data: {
+								bookSeq: ${bookSeq},
+								pageSeq: pageSeq
+							},
+							success: function(result) {
+								
+							},
+							error: function(a,b,c) {
+								console.log(a,b,c);
+							}
+						});
 						Page.init();  // Reinitialize after deleting a page
 						$('#bb-nav-last').click();	// Navigate to the last page
 					} else {
@@ -626,94 +645,94 @@
 				});
 				
 				$('.pageImageUploadBox input[type="button"]').click(function() {
-				    var fileInput = $('#pageImageUpload')[0];
-				    var file = fileInput.files[0];
+					var fileInput = $('#pageImageUpload')[0];
+					var file = fileInput.files[0];
 
-				    if (file) {
-				        var pageSeq = $('#bb-bookblock .bb-item:visible').attr('id');
-				        var userId = '${userId}';
-				        var bookSeq = ${bookSeq};
-				        var basePath = '${basePath}';
-				        // FileReader를 사용하여 이미지 파일을 Base64 형태로 읽습니다.
-				        var reader = new FileReader();
-				        reader.onload = function(e) {
-				        	// currentVisibleId에 해당하는 요소의 배경 이미지로 설정
-				            $('#' + pageSeq + ' .pageImage').css('background-image', 'url(' + e.target.result + ')');
-				            imgChangeCheck = 'y';
-				        	
-				            // FormData 객체를 생성하고 파일을 추가합니다.
-				            var formData = new FormData();
-				            formData.append('image', file);
-				            formData.append('userId', userId);
-				            formData.append('bookSeq', bookSeq);
-				            formData.append('pageSeq', pageSeq);
-				            formData.append('basePath', basePath);
+					if (file) {
+						var pageSeq = $('#bb-bookblock .bb-item:visible').attr('id');
+						var userId = '${userId}';
+						var bookSeq = ${bookSeq};
+						var basePath = '${basePath}';
+						// FileReader를 사용하여 이미지 파일을 Base64 형태로 읽습니다.
+						var reader = new FileReader();
+						reader.onload = function(e) {
+							// currentVisibleId에 해당하는 요소의 배경 이미지로 설정
+							$('#' + pageSeq + ' .pageImage').css('background-image', 'url(' + e.target.result + ')');
+							imgChangeCheck = 'y';
+							
+							// FormData 객체를 생성하고 파일을 추가합니다.
+							var formData = new FormData();
+							formData.append('image', file);
+							formData.append('userId', userId);
+							formData.append('bookSeq', bookSeq);
+							formData.append('pageSeq', pageSeq);
+							formData.append('basePath', basePath);
 
-				            // Ajax 요청을 통해 서버에 파일을 업로드합니다.
-				            $.ajax({
-				                type: 'POST',
-				                url: '/sangsangjakka/board/bookmaking/editpage.do',
-				                data: formData,
-				                processData: false,  // FormData를 사용할 때는 processData와 contentType을 false로 설정
-				                contentType: false,
-				                success: function(data) {
-				        			pageChange();
-				        			imgChangeCheck = 'n';
-				                },
-				                error: function(xhr, status, error) {
-				                    alert('업로드 실패: ' + error);
-				                }
-				            });
-				        };
-				        reader.readAsDataURL(file);
-				    } else {
-				        alert('파일이 선택되지 않았습니다.');
-				    }
+							// Ajax 요청을 통해 서버에 파일을 업로드합니다.
+							$.ajax({
+								type: 'POST',
+								url: '/sangsangjakka/board/bookmaking/editpage.do',
+								data: formData,
+								processData: false,  // FormData를 사용할 때는 processData와 contentType을 false로 설정
+								contentType: false,
+								success: function(data) {
+									pageChange();
+									imgChangeCheck = 'n';
+								},
+								error: function(xhr, status, error) {
+									alert('업로드 실패: ' + error);
+								}
+							});
+						};
+						reader.readAsDataURL(file);
+					} else {
+						alert('파일이 선택되지 않았습니다.');
+					}
 				});
 				
 				$('.coverImageUploadBox input[type="button"]').click(function() {
-				    var fileInput = $('#coverImageUpload')[0];
-				    var file = fileInput.files[0];
+					var fileInput = $('#coverImageUpload')[0];
+					var file = fileInput.files[0];
 
-				    if (file) {
-				        var pageSeq = 'cover';
-				        var userId = '${userId}';
-				        var bookSeq = ${bookSeq};
-				        var basePath = '${basePath}';
-				        // FileReader를 사용하여 이미지 파일을 Base64 형태로 읽습니다.
-				        var reader = new FileReader();
-				        reader.onload = function(e) {
-				        	// .coverImage의 배경 이미지로 설정
-				            $('.coverImageItem .coverImage').css('background-image', 'url(' + e.target.result + ')');
-				            imgChangeCheck = 'y';
-				        	
-				            // FormData 객체를 생성하고 파일을 추가합니다.
-				            var formData = new FormData();
-				            formData.append('image', file);
-				            formData.append('userId', userId);
-				            formData.append('bookSeq', bookSeq);
-				            formData.append('pageSeq', pageSeq);
-				            formData.append('basePath', basePath);
+					if (file) {
+						var pageSeq = 'cover';
+						var userId = '${userId}';
+						var bookSeq = ${bookSeq};
+						var basePath = '${basePath}';
+						// FileReader를 사용하여 이미지 파일을 Base64 형태로 읽습니다.
+						var reader = new FileReader();
+						reader.onload = function(e) {
+							// .coverImage의 배경 이미지로 설정
+							$('.coverImageItem .coverImage').css('background-image', 'url(' + e.target.result + ')');
+							imgChangeCheck = 'y';
+							
+							// FormData 객체를 생성하고 파일을 추가합니다.
+							var formData = new FormData();
+							formData.append('imageData', file);
+							formData.append('userId', userId);
+							formData.append('bookSeq', bookSeq);
+							formData.append('pageSeq', pageSeq);
+							formData.append('basePath', basePath);
 
-				            // Ajax 요청을 통해 서버에 파일을 업로드합니다.
-				            $.ajax({
-				                type: 'POST',
-				                url: '/sangsangjakka/board/bookmaking/editcover.do',
-				                data: formData,
-				                processData: false,  // FormData를 사용할 때는 processData와 contentType을 false로 설정
-				                contentType: false,
-				                success: function(data) {
-				        			imgChangeCheck = 'n';
-				                },
-				                error: function(xhr, status, error) {
-				                    alert('업로드 실패: ' + error);
-				                }
-				            });
-				        };
-				        reader.readAsDataURL(file);
-				    } else {
-				        alert('파일이 선택되지 않았습니다.');
-				    }
+							// Ajax 요청을 통해 서버에 파일을 업로드합니다.
+							$.ajax({
+								type: 'POST',
+								url: '/sangsangjakka/board/bookmaking/editcover.do',
+								data: formData,
+								processData: false,  // FormData를 사용할 때는 processData와 contentType을 false로 설정
+								contentType: false,
+								success: function(data) {
+									imgChangeCheck = 'n';
+								},
+								error: function(xhr, status, error) {
+									alert('업로드 실패: ' + error);
+								}
+							});
+						};
+						reader.readAsDataURL(file);
+					} else {
+						alert('파일이 선택되지 않았습니다.');
+					}
 				});
 				
 				// Click handler for the "전송" button
@@ -773,37 +792,167 @@
 				$('#pageEdit').click(function() {
 					$('.pageMaker').show();
 				});
+				
+				$('#imageContainer').on('click', '.pageImageMakerItem', function(event) {
+					event.preventDefault();
+					var imageDataUrl = $(this).find('img.pageImageMakerItemImg').attr('src');
+					var imageId = $(this).find('img.pageImageMakerItemImg').attr('id');
+	
+					if (imageId) {
+						var pageSeq = $('#bb-bookblock .bb-item:visible').attr('id');
+						var userId = '${userId}';
+						var bookSeq = ${bookSeq};
+						var basePath = '${basePath}';
+						var imagePath = basePath + userId + '/' + imageId;
+	
+						$('#' + pageSeq + ' .pageImage').css('background-image', 'url(' + imageDataUrl + ')');
+						imgChangeCheck = 'y';
+	
+						var formData = new FormData();
+						formData.append('image', imagePath);
+						formData.append('userId', userId);
+						formData.append('bookSeq', bookSeq);
+						formData.append('pageSeq', pageSeq);
+						formData.append('basePath', basePath);
+	
+						$.ajax({
+							type: 'POST',
+							url: '/sangsangjakka/board/bookmaking/editpage.do',
+							data: formData,
+							processData: false,
+							contentType: false,
+							success: function(data) {
+								pageChange();
+								imgChangeCheck = 'n';
+							},
+							error: function(xhr, status, error) {
+								// Handle errors
+								alert('업로드 실패: ' + error);
+							}
+						});
+					} else {
+						alert('이미지 발견 실패');
+					}
+				});
+				
+				$('#coverImageContainer').on('click', '.coverImageMakerItem', function(event) {
+					event.preventDefault();
+					var imageDataUrl = $(this).find('img.coverImageMakerItemImg').attr('src');
+					var imageId = $(this).find('img.coverImageMakerItemImg').attr('id');
+					var coverUrl = '/sangsangjakka/generated/'+userId+'/'+bookSeq+'/cover.jpg';
+					
+					if (imageId) {
+						var pageSeq = 'cover';
+						var userId = '${userId}';
+						var bookSeq = ${bookSeq};
+						var basePath = '${basePath}';
+						var imagePath = basePath + userId + '/' + imageId;
+	
+						$('.coverImage').css('background-image', 'url(' + imageDataUrl + ')');
+	
+						var formData = new FormData();
+						formData.append('imageData', imagePath);
+						formData.append('userId', userId);
+						formData.append('bookSeq', bookSeq);
+						formData.append('pageSeq', pageSeq);
+						formData.append('basePath', basePath);
+	
+						$.ajax({
+							type: 'POST',
+							url: '/sangsangjakka/board/bookmaking/editcover.do',
+							data: formData,
+							processData: false,
+							contentType: false,
+							success: function(data) {
+								$('#bb-bookblock .bb-item:visible').css('background-image', 'url(' + coverUrl + ')');
+							},
+							error: function(xhr, status, error) {
+								// Handle errors
+								alert('업로드 실패: ' + error);
+							}
+						});
+					} else {
+						alert('이미지 발견 실패');
+					}
+				});
 
-			});
+			});//$(document).ready
 			
 			//이미지 동적 생성
 			$(document).ready(function() {
-			    $('form').submit(function(event) {
-			        event.preventDefault();
-			        var prompt = $('input[name="prompt"]').val();
-			        $('#loading').show(); // 로딩 이미지 표시
-			        $.ajax({
-			            url: '/sangsangjakka/board/bookmaking/view.do',
-			            method: 'POST',
-			            data: { prompt: prompt },
-			            success: function(response) {
-			                var imageContainer = $('#imageContainer');
-			                imageContainer.empty();
-			                response.forEach(function(imageDataBase64) {
-			                    var imgDiv = $('<div>').addClass('pageImageMakerItem');
-			                    var img = $('<img>').attr('src', 'data:image/png;base64,' + imageDataBase64).addClass('pageImageMakerItemImg');
-			                    imgDiv.append(img);
-			                    imageContainer.append(imgDiv);
-			                });
-			                $('#loading').hide(); // 로딩 이미지 숨기기
-			            },
-			            error: function() {
-			                alert('Error occurred while generating the image.');
-			                $('#loading').hide(); // 로딩 이미지 숨기기
-			            }
-			        });
-			    });
-			});	
+				$('.pageImage').submit(function(event) {
+					event.preventDefault();
+					var prompt = $('input[name="prompt"]').val();
+					var imageContainer = $('#imageContainer');
+					var pageImageDesContainer = $('#pageImageDesContainer');
+					imageContainer.empty();
+					pageImageDesContainer.empty();
+					$('#loading').show(); // 로딩 이미지 표시
+					$.ajax({
+						url: '/sangsangjakka/board/bookmaking/view.do',
+						method: 'POST',
+						data: { prompt: prompt },
+						success: function(response) {
+							response.forEach(function(imageData) {
+								var imgDiv = $('<div>').addClass('pageImageMakerItem');
+								var img = $('<img>').attr({
+				                    'src': 'data:image/png;base64,' + imageData.imageBase64,
+				                    'id': imageData.fileName
+				                }).addClass('pageImageMakerItemImg');
+								imgDiv.append(img);
+								imageContainer.append(imgDiv);
+							});
+							var DesBox = $('<div>').addClass('pageImageDesBox');
+							var DesItem = $('<span>').addClass('pageImageDesItem');
+							DesItem.text('그림을 선택해주세요!');
+							DesBox.append(DesItem);
+							pageImageDesContainer.append(DesBox);
+							$('#loading').hide(); // 로딩 이미지 숨기기
+						},
+						error: function() {
+							alert('이미지 생성 실패');
+							$('#loading').hide(); // 로딩 이미지 숨기기
+						}
+					});
+				});
+				$('.coverImageForm').submit(function(event) {
+					event.preventDefault();
+					var prompt = $('input[name="coverprompt"]').val();
+					var coverImageContainer = $('#coverImageContainer');
+					var coverImageDesContainer = $('#coverImageDesContainer');
+					coverImageContainer.empty();
+					coverImageDesContainer.empty();
+					$('#coverloading').show(); // 로딩 이미지 표시
+					$.ajax({
+						url: '/sangsangjakka/board/bookmaking/view.do',
+						method: 'POST',
+						data: { prompt: prompt },
+						success: function(response) {
+							response.forEach(function(imageData) {
+								var imgDiv = $('<div>').addClass('coverImageMakerItem');
+								var img = $('<img>').attr({
+				                    'src': 'data:image/png;base64,' + imageData.imageBase64,
+				                    'id': imageData.fileName
+				                }).addClass('coverImageMakerItemImg');
+								imgDiv.append(img);
+								coverImageContainer.append(imgDiv);
+							});
+							var DesBox = $('<div>').addClass('coverImageDesBox');
+							var DesItem = $('<span>').addClass('coverImageDesItem');
+							DesItem.text('그림을 선택해주세요!');
+							DesBox.append(DesItem);
+							pageImageDesContainer.append(DesBox);
+							$('#coverloading').hide(); // 로딩 이미지 숨기기
+						},
+						error: function() {
+							alert('이미지 생성 실패');
+							$('#coverloading').hide(); // 로딩 이미지 숨기기
+						}
+					});
+				});
+				
+			});//$(document).ready
+			
 	
 	</script>
 </body>

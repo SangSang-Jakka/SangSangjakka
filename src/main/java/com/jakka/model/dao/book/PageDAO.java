@@ -12,5 +12,6 @@ public interface PageDAO extends BasicDAO<PageDTO>{
 	
 	public PageDTO findById(String pageSeq, String bookSeq);
 	public PageDTO lastpage(String bookSeq);
+	public int del(String pageSeq, String bookSeq);
 	
 }
