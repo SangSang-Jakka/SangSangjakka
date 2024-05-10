@@ -385,4 +385,50 @@ public class AdminDAOImpl implements AdminDAO{
 		 * return result; }
 		 */
 	
+		
+		public List<AdminDTO> getInflowCountData(String month) {
+	        List<AdminDTO> result = new ArrayList<>();
+	        String sql = "SELECT TO_CHAR(u.userregdate, 'YYYY/MM') AS registrationMonth,\r\n"
+	        		+ "       c.inflowName,\r\n"
+	        		+ "       COUNT(i.inflowcatseq) AS inflowCount\r\n"
+	        		+ "FROM tbluserinflow i\r\n"
+	        		+ "INNER JOIN tblUser u ON i.userseq = u.userseq\r\n"
+	        		+ "INNER JOIN tblinflowcat c ON i.inflowcatseq = c.inflowcatseq\r\n"
+	        		+ "WHERE TO_CHAR(u.userregdate, 'YYYY/MM') = ? \r\n"
+	        		+ "GROUP BY TO_CHAR(u.userregdate, 'YYYY/MM'), c.inflowname\r\n"
+	        		+ "ORDER BY COUNT(i.inflowcatseq) DESC";
+	       
+	        try(Connection conn = DBUtil.open();
+	    			PreparedStatement pstat = conn.prepareStatement(sql)) {
+	    		
+	    			pstat.setString(1, month);
+	    			
+	    			
+	    			ResultSet rs = pstat.executeQuery();
+	    			
+	    			
+	    			
+	    			 for (ResultSet row = rs; row.next(); ) {
+	    				
+	    				AdminDTO dto = new AdminDTO();
+	    				
+	    			
+	    				
+	    				dto.setRegistrationMonth(rs.getString("registrationMonth"));
+	    				dto.setInflowCount(rs.getString("inflowCount"));
+	    				dto.setInflowname(rs.getString("inflowName"));
+	    				
+	    				
+	    				result.add(dto);
+	    			}
+	    			
+	    			return result;
+	    			}
+	        catch (Exception e) {
+				System.out.println("AdminDAOImpl.getInflowCountData");
+				e.printStackTrace();
+			}
+	        
+	        return null;
+	    }
 }//End of class

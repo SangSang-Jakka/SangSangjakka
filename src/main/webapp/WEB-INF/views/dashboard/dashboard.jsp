@@ -73,6 +73,7 @@
                     <div class="form-group has-success">
 				<label class="form-control-label"> DATE</label>
 				<input type="text" id="monthPicker" name="monthPicker" class="form-control form-control-success" value="<%= currentYear%> ">
+				<canvas id="memberChart"></canvas>
 				</div>
 			</div>
                 </div>
@@ -84,18 +85,7 @@
                     <h4 class="h4 text-blue">Bar Chart</h4>
                     <div id="chart4"></div>
                 </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Mixed Chart</h4>
-                    <div id="chart5"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Timeline Chart</h4>
-                    <div id="chart6"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Candlestick Chart</h4>
-                    <div id="chart7"></div>
-                </div>
+                
                 <div class="row">
                     <div class="col-md-6 mb-30">
                         <div class="pd-20 card-box height-100-p">
@@ -146,26 +136,59 @@
 		    
 		 // Ajax POST 요청 전송
 		    $.ajax({
-		      type: "POST",
-		      url: "/sangsangjakka/admin/dashboard.do", // 서버 측 스크립트 경로
-		      data: { selectedMonth: newValue },
-		      success: function(response) {
-		        console.log("서버 응답:", response);
-		        // 추가 작업 수행
-		      },
-		      error: function(xhr, status, error) {
-		        console.error("Ajax 요청 실패:", error);
-		      }
-		    });  
-		    
-		    
-		    
-		    
-		  });
-		});
+		          type: "POST",
+		          url: "/sangsangjakka/admin/dashboard.do", // 서버 측 스크립트 경로
+		          data: { selectedMonth: newValue },
+		          success: function(response) {
+		            var inflowCountData = JSON.parse(response);
+		            console.log("서버 응답:", inflowCountData);
 
-	
-	</script>
+		            // 차트 데이터 추출
+		            var labels = [];
+		            var inflowCounts = [];
+
+		            for (var i = 0; i < inflowCountData.length; i++) {
+		              var data = inflowCountData[i];
+		              labels.push(data.registrationMonth);
+		              inflowCounts.push(data.inflowCount);
+		            }
+
+		            // 차트 렌더링
+		            var ctx = document.getElementById('myChart').getContext('2d');
+		            window.myChart = new Chart(ctx, {
+		              type: 'bar',
+		              data: {
+		                labels: labels,
+		                datasets: [{
+		                  label: '유입 수',
+		                  data: inflowCounts,
+		                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
+		                  borderColor: 'rgba(54, 162, 235, 1)',
+		                  borderWidth: 1
+		                }]
+		              },
+		              options: {
+		                scales: {
+		                  yAxes: [{
+		                    ticks: {
+		                      beginAtZero: true
+		                    }
+		                  }]
+		                },
+		                hover: {
+		                  mode: null // 마우스 호버 효과 비활성화
+		                },
+		                events: [] // 이벤트 핸들러 비활성화
+		              }
+		            });
+		          },
+		          error: function(xhr, status, error) {
+		            console.error("Ajax 요청 실패:", error);
+		          }
+		        });
+		      });
+		    });
+		  </script>
 
 <script>
  

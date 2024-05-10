@@ -22,7 +22,7 @@ public class AdminDTO {
 	// 유입경로...
 	private String registrationMonth;
     private String inflowname;
-    private int inflowCount;
+    private String inflowCount;
 	
 	
 	
