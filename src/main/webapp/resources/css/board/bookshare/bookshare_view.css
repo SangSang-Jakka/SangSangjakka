@@ -484,3 +484,20 @@ button.like.saveBtn:active::before {
 	font-size:20px;
 	margin-left:20px;
 }
+
+.hidden {
+	display:none;
+}
+
+
+
+#showMoreBtn {
+	border: 1px solid #DBDCDF;
+	border-radius: 4px;
+	height : 45px;
+	width : 120px;
+	background-color: orange;
+	margin-top:20px;
+	display: block;
+    margin: 30px auto;
+}

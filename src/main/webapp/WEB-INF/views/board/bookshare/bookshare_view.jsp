@@ -137,9 +137,9 @@
    		<div class="reviewCnt">전체 리뷰 27건</div>
    	</div>
    	
-   	<div id="reviewContainer">
+    <div id="reviewContainer">
         <!-- 최초 5개의 리뷰 렌더링 -->
-        <c:forEach items="${reviewList}" var="review">
+        <c:forEach items="${reviewList}" var="review" begin="0" end="4">
             <div class="reviewListWrap">
                 <div class="reviewListContainer">
                     <div class="reviewDate">${review.reviewRegdate}</div>
@@ -161,6 +161,30 @@
                 </div>
             </div>
         </c:forEach>
+        
+         <!-- 나머지 리뷰는 display:none으로 숨김 -->
+            <c:forEach items="${reviewList}" var="review" begin="5">
+                 <div class="reviewListWrap hidden">
+                <div class="reviewListContainer">
+                    <div class="reviewDate">${review.reviewRegdate}</div>
+                    <div class="reviewUser">
+                        <i class="fa-regular fa-user"></i>
+                        <div class="reviewNick">${review.userNick}</div>
+                    </div>
+                    <div class="reviewContents">${review.reviewContents}</div>
+                    <form action="">
+                        <div class="reviewListBtn">
+                            <div class="reviewLike">
+                                <button><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                            <div class="reviewReport">
+                                <button><i class="fa-regular fa-bell"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </c:forEach>
     </div>
 
     <button id="showMoreBtn">더보기</button>
@@ -256,29 +280,29 @@
 	    
 	    
 	    
-	      var startIndex = 0; 
-	       var increment = 5; 
+	    var startIndex = 5; // 초기 startIndex 설정
+        var increment = 5; // 한 번에 보여줄 리뷰 수
+        var hiddenReviews = $('.hidden');
 
-	        $('#showMoreBtn').click(function() {
-	            loadMoreReviews();
-	        });
+        $('#showMoreBtn').click(function() {
+            showMoreReviews();
+        });
 
-	        function loadMoreReviews() {
-	            var endIndex = startIndex + increment - 1;
+        function showMoreReviews() {
+            var visibleReviews = $('.review-list-wrap:not(.hidden)').length;
+            var endIndex = startIndex + increment - 1;
 
-	            $.ajax({
-	                url: '/sangsangjakka/board/book/view.do', // Replace with your server-side URL
-	                method: 'GET',
-	                data: { startIndex: startIndex, endIndex: endIndex },
-	                success: function(response) {
-	                    var list = response.reviewList;
-	                },
-	                error: function(xhr, status, error) {
-	                    console.error('Error occurred while loading more reviews:', error);
-	                }
-	            });
-	        }
-	
+            for (var i = startIndex; i <= endIndex; i++) {
+                if (i < hiddenReviews.length) {
+                    $(hiddenReviews[i - 5]).removeClass('hidden');
+                } else {
+                    $('#showMoreBtn').hide(); // 모든 리뷰를 보여주었으면 더보기 버튼 숨김
+                    break;
+                }
+            }
+
+            startIndex = endIndex + 1;
+        }
     </script>
 
 </body>
