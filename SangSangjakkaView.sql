@@ -362,4 +362,18 @@ ORDER BY
     age_range;
 
    
+
+-- 수상한 동화책
+CREATE or replace VIEW vwAward
+AS
+select
+    b.*,
+    a.awardRegdate,
+    a.awardRank
+from vwBookWhite b
+    inner join tblAward a
+    on b.bookSeq = a.bookSeq;
+   
+   
+   
 commit;

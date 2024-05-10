@@ -24,6 +24,9 @@ public class BookDTO {
 	
 	private String bookCnt;
 	
+	private String awardRegdate;
+	private String awardRank;
+	
 	public String getBookCnt() {
 		return bookCnt;
 	}
