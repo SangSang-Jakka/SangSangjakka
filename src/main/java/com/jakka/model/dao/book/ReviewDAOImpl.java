@@ -367,6 +367,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public ArrayList<ReviewDTO> findChildWhite(String parentSeq) {
 		
 		final String SQL = "SELECT * FROM vwReviewWhite WHERE bookSeq = ? order by reviewRegdate desc";
+		//final String SQL = "SELECT * FROM (SELECT rownum as rn, vwReviewWhite.* FROM vwReviewWhite WHERE bookSeq = ? order by reviewRegdate desc) WHERE rn BETWEEN ? AND ?";
 
 	    try (Connection conn = DBUtil.open();
 	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -533,6 +534,38 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return false;
 	}
 	
-	
+	@Override
+	public ArrayList<ReviewDTO> findChildWhite(String bookSeq, int startIndex, int endIndex) {
+		 final String SQL = "SELECT * FROM (SELECT rownum as rn, vwReviewWhite.* FROM vwReviewWhite WHERE bookSeq = ? ORDER BY reviewRegdate DESC) WHERE rn BETWEEN ? AND ?";
+
+		    try (Connection conn = DBUtil.open();
+		         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+		        pstmt.setString(1, bookSeq);
+		        pstmt.setInt(2, startIndex + 1); // Start index for Oracle rownum
+		        pstmt.setInt(3, endIndex + 1); // End index for Oracle rownum
+
+		        ResultSet rs = pstmt.executeQuery();
+		        ArrayList<ReviewDTO> list = new ArrayList<>();
+
+		        while (rs.next()) {
+		            ReviewDTO dto = new ReviewDTO();
+		            dto.setReviewSeq(rs.getString("reviewSeq"));
+		            dto.setReviewContents(rs.getString("reviewContents"));
+		            dto.setReviewLikeCnt(rs.getString("reviewLikeCnt"));
+		            dto.setReviewReportCnt(rs.getString("reviewReportCnt"));
+		            dto.setUserSeq(rs.getString("userSeq"));
+		            dto.setBookSeq(rs.getString("bookSeq"));
+		            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+		            list.add(dto);
+		        }
+
+		        return list;
+		    } catch (Exception e) {
+		        System.out.println("ReviewDAO.| findChildWhite");
+		        e.printStackTrace();
+		    }
+
+		    return null;
+	}
 	
 }//End of class

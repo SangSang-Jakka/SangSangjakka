@@ -137,49 +137,33 @@
    		<div class="reviewCnt">전체 리뷰 27건</div>
    	</div>
    	
-   	<c:forEach items="${reviewList}" var="dto">
-	   	<div class="reviewListWrap">
-	   		<div class="reviewListContainer">
-		   		<div class="reviewDate">${dto.reviewRegdate}</div>
-		   		<div class="reviewUser">
-		   			<i class="fa-regular fa-user"></i>
-		   			<div class="reviewNick">${dto.userNick}</div>
-		   		</div>
-		   		<div class="reviewContents">${dto.reviewContents}</div>
-		   	<form action="">
-		   		<div class="reviewListBtn">
-			   		<div class="reviewLike">
-			   			<button><i class="fa-regular fa-heart"></i></button>
-			   		</div>
-			   		<div class="reviewReport">
-			   			<button><i class="fa-regular fa-bell"></i></button>
-			   		</div>
-		   		</div>
-		   	</form>
-		   	</div>
-	   	</div>
-   	</c:forEach>
-   	
-   	<div class="reviewListWrap">
-   		<div class="reviewListContainer">
-	   		<div class="reviewDate">2024-05-10</div>
-	   		<div class="reviewUser">
-	   			<i class="fa-regular fa-user"></i>
-	   			<div class="reviewNick">상상주하</div>
-	   		</div>
-	   		<div class="reviewContents">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae expedita dolorum voluptatibus aliquam quam eius dolores cum earum temporibus illum doloribus aspernatur at laboriosam facere natus perferendis distinctio eveniet odit voluptatum libero aliquid saepe adipisci. Sed quas perspiciatis natus debitis quidem suscipit quibusdam aut esse necessitatibus illo voluptates consequatur voluptatum. Adipisci voluptatem consequatur cupiditate non nihil pariatur explicabo impedit expedita illum aperiam totam repudiandae provident. Explicabo perspiciatis iste quidem voluptatem tempora in dolore recusandae veniam eius dignissimos laudantium sequi nulla? Incidunt enim doloremque distinctio autem ipsa ipsam ratione in. Sit amet adipisci ipsa excepturi at numquam aperiam facere cum culpa.</div>
-	   	<form action="">
-	   		<div class="reviewListBtn">
-		   		<div class="reviewLike">
-		   			<button><i class="fa-regular fa-heart"></i></button>
-		   		</div>
-		   		<div class="reviewReport">
-		   			<button><i class="fa-regular fa-bell"></i></button>
-		   		</div>
-	   		</div>
-	   	</form>
-	   	</div>
-   	</div>
+   	<div id="reviewContainer">
+        <!-- 최초 5개의 리뷰 렌더링 -->
+        <c:forEach items="${reviewList}" var="review">
+            <div class="reviewListWrap">
+                <div class="reviewListContainer">
+                    <div class="reviewDate">${review.reviewRegdate}</div>
+                    <div class="reviewUser">
+                        <i class="fa-regular fa-user"></i>
+                        <div class="reviewNick">${review.userNick}</div>
+                    </div>
+                    <div class="reviewContents">${review.reviewContents}</div>
+                    <form action="">
+                        <div class="reviewListBtn">
+                            <div class="reviewLike">
+                                <button><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                            <div class="reviewReport">
+                                <button><i class="fa-regular fa-bell"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+
+    <button id="showMoreBtn">더보기</button>
    	
      </section>
     
@@ -269,6 +253,32 @@
 	    $(document).ready(function() {
 	        Page.init();
 	    });
+	    
+	    
+	    
+	      var startIndex = 0; 
+	       var increment = 5; 
+
+	        $('#showMoreBtn').click(function() {
+	            loadMoreReviews();
+	        });
+
+	        function loadMoreReviews() {
+	            var endIndex = startIndex + increment - 1;
+
+	            $.ajax({
+	                url: '/sangsangjakka/board/book/view.do', // Replace with your server-side URL
+	                method: 'GET',
+	                data: { startIndex: startIndex, endIndex: endIndex },
+	                success: function(response) {
+	                    var list = response.reviewList;
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error('Error occurred while loading more reviews:', error);
+	                }
+	            });
+	        }
+	
     </script>
 
 </body>

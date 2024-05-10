@@ -54,11 +54,24 @@ public class BookView extends HttpServlet{
 	    dto.setBookTitle(dto.getBookTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 	    dto.setBookInfo(dto.getBookInfo().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 	    
+	    
 	    PageDAO pageDAO = DAOManager.getPageDAO();
 	    HashMap<Integer, PageDTO> pageMap = pageDAO.findPages(bookSeq);
 	    
 	    ReviewDAO reviewDao = DAOManager.getReviewDAO();
-	    ArrayList<ReviewDTO> reviewList = reviewDao.findChildWhite(bookSeq);
+	    
+	    int startIndex = 0;
+	    int endIndex = 4;
+	    
+        if (req.getParameter("startIndex") != null && req.getParameter("endIndex") != null) {
+            startIndex = Integer.parseInt(req.getParameter("startIndex"));
+            endIndex = Integer.parseInt(req.getParameter("endIndex"));
+        }
+        
+        System.out.println(startIndex);
+        System.out.println(endIndex);
+        
+        ArrayList<ReviewDTO> reviewList = reviewDao.findChildWhite(bookSeq, startIndex, endIndex);
 	    
 	    req.setAttribute("dto", dto);
 		req.setAttribute("pageMap", pageMap);

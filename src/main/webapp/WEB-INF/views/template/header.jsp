@@ -8,7 +8,6 @@
         
         <c:if test="${empty userId}">
 	            <div class="empty">
-           	 		
             	</div>
          </c:if>
          
