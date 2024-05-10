@@ -33,7 +33,7 @@ $('document').ready(function() {
 	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 		var minDate = $('#min').val() ? new Date($('#min').val()) : null;
 		var maxDate = $('#max').val() ? new Date($('#max').val()) : null;
-		var rowDate = new Date(data[3].substring(0, 10)); // 작성일에서 날짜 부분만 추출
+		var rowDate = new Date(data[4].substring(0, 10)); // 작성일에서 날짜 부분만 추출
 
 		if ((minDate === null && maxDate === null) ||
 			(minDate === null && rowDate <= maxDate) ||
@@ -56,7 +56,7 @@ $('document').ready(function() {
 		var selectedCondition = $(this).val();
 		// AJAX를 통해 선택한 조회 조건에 해당하는 데이터를 서버로부터 가져옴
 		$.ajax({
-			url: '/sangsangjakka/admin/dashboard/notice/manage.do',
+			url: '/sangsangjakka/admin/dashboard/suggestion/manage.do',
 			type: 'POST',
 			data: { condition: selectedCondition }, // 선택한 조회 조건 전달
 			success: function(data) {
@@ -66,18 +66,19 @@ $('document').ready(function() {
 				data.forEach(function(item) {
 					var row = [
 
-						item.noticeSeq,
-						'<a href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=' + item.noticeSeq + '">' + item.noticeTitle + '</a>',
-						item.adId,
-						item.noticeRegdate,
-						item.noticeCnt,
+						item.sgstSeq,
+						(item.sgstSecretYN === 'y' ? '비밀' : '일반'),
+						'<a href="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=' + item.sgstSeq + '">' + item.sgstTitle + '</a>',
+						item.userNick,
+						item.sgstRegdate,
+						item.sgstCnt,
 						// Action 열 추가
 						'<div class="dropdown">' +
 						'<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">' +
 						'<i class="dw dw-more"></i>' +
 						'</a>' +
 						'<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">' +
-						'<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=' + item.noticeSeq + '"><i class="dw dw-eye"></i> View</a>' +
+						'<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=' + item.sgstSeq + '"><i class="dw dw-eye"></i> View</a>' +
 						'<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>' +
 						'<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>' +
 						'</div>' +
@@ -88,7 +89,7 @@ $('document').ready(function() {
 					newData.push(row);
 				});
 
-				// 성공적으로 데이터를 받았을 떄 다시 그리기
+				// 성공적으로 데이터를 받았을때 다시 그리기
 				dataTable.clear().rows.add(newData).draw();
 			},
 			error: function(xhr, status, error) {
