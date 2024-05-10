@@ -80,13 +80,13 @@
 				<i class="fa-solid fa-bookmark bookmarker"></i>
 				<p>${dto.bookScrapCnt}</p>
 			</div>
-			<div class="subItems">
+			<div class="subItems" >
 				 <i class="fa-solid fa-heart heart"></i>
-				 <p>${dto.likeCnt}</p>
+				 <p id="likeCnt">${dto.likeCnt}</p>
 			</div>
 			<div class="subItems">
 				 <i class="fa-solid fa-comment comment"></i>
-				 <p>${dto.bookReportCnt}</p>
+				 <p>${reviewTotal}</p>
 			</div>
 		</div>
     	</div>
@@ -101,7 +101,12 @@
     	</div>
     	</div>
     	<div class="btnWrap">
-    		<button class="like">동화책이 좋아요!</button>
+    		<c:if test="${result == true}">
+    		<button class="like" id="likeBtn">좋아요를 눌렀어요!</button>
+    		</c:if>
+    		<c:if test="${result == false}">
+    		<button class="like" id="likeBtn">동화책이 좋아요!</button>
+    		</c:if>
     		<button class="like reviewBtn">동화책이 이상해요!</button>	
     		<button class="like saveBtn">동화책을 저장할래요!</button>
     	</div>
@@ -310,6 +315,46 @@
 
             startIndex = endIndex + 1;
         }
+        
+        
+        $(document).ready(function() {
+            $("#likeBtn").click(function() {
+                var bookSeq = ${bookSeq}; // bookSeq 변수가 정의된 곳에서 값을 가져와야 함
+                var userSeq = ${userSeq}; // userSeq 변수가 정의된 곳에서 값을 가져와야 함
+				var pressLike = $("input[name='pressLike']").val();
+                
+                
+                
+         
+                console.log("bookSeq:", bookSeq);
+                console.log("userSeq:", userSeq);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/sangsangjakka/board/book/like.do",
+                    data: { bookSeq: bookSeq, userSeq: userSeq },
+                    success: function(response) {
+                        if (response === "success") {
+                            // 성공적으로 INSERT 되었을 때
+                            console.log("성공");
+                            var updatedLikeCnt = parseInt($("#likeCnt").text()) + 1; // 좋아요 개수 증가
+                            $("#likeCnt").text(updatedLikeCnt); // 좋아요 개수 업데이트
+                            $("#likeBtn").text("좋아요를 눌렀어요!"); // 버튼 텍스트 변경
+                            $("#likeBtn").addClass('clicked');
+                            
+                        } else {
+                            // 실패했을 때
+                            alert("좋아요 등록에 실패하였습니다.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+        
     </script>
 
 </body>

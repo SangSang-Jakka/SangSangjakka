@@ -32,12 +32,16 @@ public class BookView extends HttpServlet{
 		
 		// 로그인 여부 확인
 	    String userId = (String) session.getAttribute("userId");
+	    String userSeq = (String) session.getAttribute("userSeq");
 	    if (userId == null) {
 	        // 비로그인 상태일 경우 로그인 페이지로 리디렉션
 	        resp.sendRedirect("/sangsangjakka/user/login.do");
 	        return;
 	    }
 		
+	    
+	    req.setAttribute("userSeq", userSeq);
+	    
 	    String bookSeq = req.getParameter("no");
 	    req.setAttribute("bookSeq", bookSeq);
 	    
@@ -54,6 +58,12 @@ public class BookView extends HttpServlet{
 	    
 	    BookDTO dto = dao.findById(bookSeq);
 	    
+	    boolean result = dao.isLike(bookSeq, userSeq);
+		
+		System.out.println(result);
+		
+		req.setAttribute("result", result);
+	    
 	    //게시글 조작
 	    dto.setBookTitle(dto.getBookTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 	    dto.setBookInfo(dto.getBookInfo().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
@@ -67,10 +77,14 @@ public class BookView extends HttpServlet{
 	   
         
         ArrayList<ReviewDTO> reviewList = reviewDao.findChildWhite(bookSeq);
+        
+        int reviewTotal = reviewDao.reviewTotal(bookSeq);
+        
 	    
 	    req.setAttribute("dto", dto);
 		req.setAttribute("pageMap", pageMap);
 		req.setAttribute("reviewList", reviewList);
+		req.setAttribute("reviewTotal", reviewTotal);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookshare/bookshare_view.jsp");
 		dispatcher.forward(req, resp);
@@ -84,6 +98,9 @@ public class BookView extends HttpServlet{
 		
 		
 		String reviewContents = req.getParameter("writeContents");
+		
+		System.out.println(reviewContents);
+		
 		String bookSeq = req.getParameter("bookSeq");
 		
 		HttpSession session = req.getSession();
@@ -97,6 +114,8 @@ public class BookView extends HttpServlet{
 	    }
 	    
 	    String userSeq = (String) session.getAttribute("userSeq");
+	    
+	    System.out.println(userSeq);
 	    
 	    ReviewDAO dao = DAOManager.getReviewDAO();
 	    
@@ -124,6 +143,7 @@ public class BookView extends HttpServlet{
 		    writer.println("location.href='/sangsangjakka/board/book/view.do?no=" + bookSeq + "';");
 		    writer.println("</script>");
 		}
+		
 
 		writer.close();
 	    

@@ -85,7 +85,7 @@
 				        </div>
 				        <div class="subItems">
 				          <i class="fa-solid fa-comment comment"></i>
-				          <p>${dto.bookReportCnt}</p>
+				          <p>${dto.bookReviewCnt}</p>
 				        </div>
 				      </div>
 				    </div>
