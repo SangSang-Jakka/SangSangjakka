@@ -171,7 +171,7 @@ margin-right : -5px;
 						<table class="data-table table stripe hover nowrap" id="myTable">
 							<thead>
 								<tr>
-									<th class="table-plus datatable-nosort">번호</th>
+									<th class="table-plus">번호</th>
 									<th>제목</th>
 									<th>작성자</th>
 									<th>작성일</th>

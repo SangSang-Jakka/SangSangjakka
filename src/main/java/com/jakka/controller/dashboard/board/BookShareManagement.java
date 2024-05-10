@@ -22,6 +22,7 @@ public class BookShareManagement extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		
+		
 		//1. DB 작업 > select
 		//2. 결과 > 출력
 		

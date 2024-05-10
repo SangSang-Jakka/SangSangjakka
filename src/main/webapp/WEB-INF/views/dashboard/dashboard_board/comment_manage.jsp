@@ -154,7 +154,7 @@ margin-right : 14px;
 						<table class="data-table table stripe hover nowrap" id="myTable">
 							<thead>
 								<tr>
-									<th class="table-plus datatable-nosort">번호</th>
+									<th class="table-plus">번호</th>
 									<th>작성자</th>
 									<th>작성일</th>
 									<th>댓글내용</th>
@@ -217,7 +217,7 @@ margin-right : 14px;
 	<script src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 	
 	<!-- Datatable Setting js -->
-	<script src="/sangsangjakka/resources/vendors/scripts/ccc.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/cmnt.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
