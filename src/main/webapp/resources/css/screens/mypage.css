@@ -12,22 +12,20 @@ table {
 	border-spacing: 0;
 }
 
-section.notice {
-	margin: auto;
-	padding: 0 10px;
-	max-width: 1080px;
+body {
+	font-size: 18px;
+	align-items:center;
 }
 
-.pageTitle {
-	margin-bottom: 60px;
+
+
+
+
+ul,
+li {
+	list-style: none;
 }
 
-.pageTitle h3 {
-	font-size: 28px;
-	color: #333333;
-	font-weight: 600;
-	text-align: center;
-}
 
 #boardSearch .searchWindow {
 	padding: 15px 0;
@@ -77,12 +75,6 @@ section.notice {
 
 
 
-select.notice {
-	margin-bottom: 7px;
-	width: 70px;
-	height: 25px;
-	text-align: center;
-}
 
 
 .boardTable {
@@ -220,13 +212,6 @@ select.notice {
 	color: #333333;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'SOYOMapleBoldTTF';
-	font-style: normal;
-}
 
 input {
 	appearance: none;
@@ -281,115 +266,12 @@ option {
 	background: #f1f7ff;
 }
 
-.childrenAgeContainer {
-	margin-top: 20px;
-	display: flex;
-	justify-content: space-between;
-}
 
-.childrenAgeContainer div {
-	margin-bottom: 10px;
-}
 
-.childrenAgeContainer input[type="checkbox"] {
-	display: none;
-}
-
-.childrenAgeContainer input[type="checkbox"]+label {
-	display: inline-block;
-	cursor: pointer;
-	padding-left: 25px;
-	position: relative;
-
-}
-
-.childrenAgeContainer input[type="checkbox"]+label:before {
-	content: '';
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	border: 1px solid #ccc;
-	position: absolute;
-	left: 0;
-	top: 1px;
-}
-
-.childrenAgeContainer input[type="checkbox"]:checked+label:before {
-	background-color: orange;
-}
-
-.childrenAgeContainer input[type="checkbox"]+label:after {
-	content: '\2713';
-	color: #fff;
-	font-size: 12px;
-	position: absolute;
-	left: 3px;
-	top: -1px;
-	visibility: hidden;
-}
-
-.childrenAgeContainer input[type="checkbox"]:checked+label:after {
-	visibility: visible;
-}
-
-.inFlowContainer {
-	display: flex;
-	flex-Container: Container;
-	margin-top: 20px;
-	justify-content: space-between;
-}
-
-.inFlowContainer div {
-	width: 32%;
-	/* 한 줄에 4개의 체크박스가 보이도록 설정 */
-	margin-bottom: 20px;
-}
-
-.inFlowContainer input[type="checkbox"] {
-	display: none;
-
-}
-
-.inFlowContainer input[type="checkbox"]+label {
-	display: inline-block;
-	cursor: pointer;
-	padding-left: 25px;
-	position: relative;
-}
-
-.inFlowContainer input[type="checkbox"]+label:before {
-	content: '';
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	border: 1px solid #ccc;
-	position: absolute;
-	left: 0;
-	top: 1px;
-}
-
-.inFlowContainer input[type="checkbox"]:checked+label:before {
-	background-color: orange;
-}
-
-.inFlowContainer input[type="checkbox"]+label:after {
-	content: '\2713';
-	color: #fff;
-	font-size: 12px;
-	position: absolute;
-	left: 3px;
-	top: -1px;
-	visibility: hidden;
-}
-
-.inFlowContainer input[type="checkbox"]:checked+label:after {
-	visibility: visible;
-}
 
 .agree-check {
 	width: 454px;
 	height: 21.06px;
-	margin-top: 80px;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 21px;
@@ -405,17 +287,24 @@ option {
 	border-bottom: 1px solid #cfcfcf;
 }
 
+
+
 .userInfoContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 600px;
+	width: 1200px;
 	margin-top: 0px;
 	margin-bottom: 70px;
+	height:800px;
 }
 
 .userInfo {
-	margin-top: 39px;
+	margin-top: 100px;
+	width:900px;
+	margin-left:150px;
+	margin-bottom:100px;
+	height:1300px;
 }
 
 .userInfo input {
@@ -588,15 +477,21 @@ option {
 }
 
 .tabFormContainer {
-	display: flex;
-	flex-direction: column;
+
 	align-items: center;
-	width: 800px;
-	margin-top: 10px;
-	margin-bottom: 120px;
+	width: 1080px;
+	margin-top: 100px;
+	margin-bottom: 200px;
 	background: #ffffff;
 	border: 4px dashed #ffa500;
 	border-radius: 20px;
+	height: 1400px;
+
+}
+
+.tab{
+	margin-bottom:200px;
+
 }
 
 
@@ -617,7 +512,9 @@ li {
 .tab {
 	box-sizing: border-box;
 	float: left;
-	height: 1600px;
+	height: 1350px;
+	margin: 0 auto;
+
 }
 
 .tabnav {
@@ -710,6 +607,8 @@ li {
 	text-align: center;
 	/* 텍스트를 중앙 정렬합니다 */
 }
+
+
 
 .itemchangebtn input {
 	width: 100%;
@@ -903,18 +802,27 @@ span span:hover {
 .myMainWrap {
 	height: auto;
 	display: block;
-	max-width: 800px;
-	width: 80%;
+	max-width: 1080px;
+	width: 1080px;
 	margin: 60px auto;
+	align-items:center;
+	margin-bottom:1500px;
 }
+
 
 .userInfoForm {
 	display: flex;
 	justify-content: center;
-	width: 100%;
-	max-width: 680px;
-	margin: 10px auto;
+/* 	width: 100%; */
+	max-width: 1072px;
+/* 	margin: 10px auto; */
+	height: 1300px;
+
+
 }
+
+
+
 
 .changegroup {
 	display: flex;
@@ -924,7 +832,7 @@ span span:hover {
 
 .changebtncontainer {
 	width: 400px;
-	margin-top: 60px;
+	margin-top: 20px;
 }
 
 .changebtncontainer div {
@@ -935,6 +843,7 @@ span span:hover {
 	font-size: 18px;
 	border: none;
 }
+
 
 .changegroup input {
 	font-size: 18px;
