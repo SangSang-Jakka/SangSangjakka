@@ -69,39 +69,22 @@
 									<th class="table-plus datatable-nosort">번호</th>
 									<th>동화책명</th>
 									<th>작성자</th>
-
 									<th>수상일자</th>
 									<th>등수</th>
-
-
 								</tr>
 							</thead>
-
 							<tbody>
+							<c:forEach var="award" items="${awardList}">
 								<tr>
-									<td class="table-plus">1</td>
-
-
+									<td class="table-plus">${award.bookSeq}</td>
 									<td><a
-										href="/sangsangjakka/admin/dashboard/book/awardview.do">신데렐라</a></td>
-									<td>tldnjs12</td>
-									<td>2024년4월</td>
-									<td>5</td>
-
-
+										href="/sangsangjakka/admin/dashboard/book/awardview.do">${award.bookTitle}</a></td>
+									<td>${award.userNick}</td>
+									<td>${award.awardRegdate}</td>
+									<td>${award.awardRank}</td>
 								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td>피노키오</td>
-									<td>tjdwls1</td>
-									<td>2024년4월</td>
-									<td>6</td>
-
-
-
-								</tr>
+								</c:forEach>
 							</tbody>
-
 						</table>
 					</div>
 				</div>

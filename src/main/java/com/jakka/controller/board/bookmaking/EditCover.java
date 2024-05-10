@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 
 @WebServlet("/board/bookmaking/editcover.do")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 1 MB
 		maxFileSize = 1024 * 1024 * 50, // 50 MB
 		maxRequestSize = 1024 * 1024 * 50 * 5 // 250 MB
 )
@@ -57,6 +58,7 @@ public class EditCover extends HttpServlet {
 		String bookSeq = getValue(req.getPart("bookSeq"));
 		String pageSeq = getValue(req.getPart("pageSeq"));
 		String pageUrl = getValue(req.getPart("pageUrl"));
+		String imageData = getValue(req.getPart("imageData"));
 
 		String uploadPath = basePath + userId + "/" + bookSeq + "/";
 
@@ -76,19 +78,26 @@ public class EditCover extends HttpServlet {
 
 		try {
 			// 파일 정보 가져오기
-			Part filePart = req.getPart("image");
-			if (filePart != null) {
-				String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-				String newFileName = pageSeq + ".jpg"; // 원하는 형식으로 파일 이름 설정
-				File file = new File(uploadPath + newFileName);
-				String path = "";
-				// 파일 저장
-				try (InputStream input = filePart.getInputStream()) {
-					Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					// 같은 파일을 로컬 개발 경로에 복사
-					File localFile = new File(devUploadPath + newFileName);
-					Files.copy(file.toPath(), localFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				}
+			if (imageData != null) {
+				String newFileName = pageSeq + ".jpg"; //파일 이름 설정
+	            Path filePath = Paths.get(uploadPath + newFileName);
+	            Path devPath = Paths.get(devUploadPath + newFileName);
+				if (imageData.startsWith("C:")) {
+                	File file = new File(imageData);
+                	Files.copy(file.toPath(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                	Files.copy(file.toPath(), devPath, StandardCopyOption.REPLACE_EXISTING);
+                } else { // Handling file part directly
+                	Part filePart = req.getPart("imageData");
+                    if (filePart != null) {
+                    	InputStream input = filePart.getInputStream();
+                    	String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                    	File file = new File(uploadPath + newFileName);
+                    	Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    					// 같은 파일을 로컬 개발 경로에 복사
+    					File localFile = new File(devUploadPath + newFileName);
+    					Files.copy(file.toPath(), localFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    }
+                }
 				
 				BookDAO dao = DAOManager.getBookDAO();
 				BookDTO dto = dao.findById(bookSeq);

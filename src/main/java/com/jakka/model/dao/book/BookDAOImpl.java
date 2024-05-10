@@ -1337,7 +1337,7 @@ public class BookDAOImpl implements BookDAO{
 				dto.setBookCnt(rs.getString("bookCnt"));
 				
 				dto.setAwardRegdate(rs.getString("awardRegdate"));
-				dto.setAwardRank(rs.getString("awardRnak"));
+				dto.setAwardRank(rs.getString("awardRank"));
 				
 				list.add(dto);
 				

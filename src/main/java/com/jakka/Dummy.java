@@ -33,23 +33,23 @@ public class Dummy {
 		
 		//더미 제작
 		//1. 일반 관리자 5명 생성
-		//addAdmin5();
+		addAdmin5();
 		
 		//2. 공지사항 생성
 		// 10개의 공지사항 고정글3개
-		//addNotice();
+		addNotice();
 		
 		//3. 사용자 계정 생성
-		//addUser();
+		addUser();
 		
 		//4. 건의사항 생성
-		//addSuggestion();
+		addSuggestion();
 		
 		//5. 자유게시판 게시글 생성
-		//addFreeboard();
+		addFreeboard();
 		
 		//게시글댓글 생성
-		//addFreeboardCmnt();
+		addFreeboardCmnt();
 	}
 	
 	
