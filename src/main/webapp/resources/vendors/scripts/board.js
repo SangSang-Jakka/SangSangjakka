@@ -56,7 +56,7 @@ $('document').ready(function() {
 		var selectedCondition = $(this).val();
 		// AJAX를 통해 선택한 조회 조건에 해당하는 데이터를 서버로부터 가져옴
 		$.ajax({
-			url: '/sangsangjakka/admin/dashboard/notice/manage.do',
+			url: '/sangsangjakka/admin/dashboard/freeboard/manage.do',
 			type: 'POST',
 			data: { condition: selectedCondition }, // 선택한 조회 조건 전달
 			success: function(data) {
@@ -66,18 +66,19 @@ $('document').ready(function() {
 				data.forEach(function(item) {
 					var row = [
 
-						item.noticeSeq,
-						'<a href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=' + item.noticeSeq + '">' + item.noticeTitle + '</a>',
-						item.adId,
-						item.noticeRegdate,
-						item.noticeCnt,
+						item.boardSeq,
+						'<a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=' + item.boardSeq + '">' + item.boardTitle + '</a>',
+						item.userNick,
+						item.boardRegdate,
+						item.boardCnt,
+						item.boardReportCnt,
 						// Action 열 추가
 						'<div class="dropdown">' +
 						'<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">' +
 						'<i class="dw dw-more"></i>' +
 						'</a>' +
 						'<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">' +
-						'<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=' + item.noticeSeq + '"><i class="dw dw-eye"></i> View</a>' +
+						'<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=' + item.boardSeq + '"><i class="dw dw-eye"></i> View</a>' +
 						'<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>' +
 						'<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>' +
 						'</div>' +

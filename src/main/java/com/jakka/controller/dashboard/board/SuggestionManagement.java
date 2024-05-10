@@ -122,7 +122,7 @@ public class SuggestionManagement extends HttpServlet {
 
 		} else if ("option4".equals(selectedCondition)) {
 
-			// 조건 2 선택
+			// 조건 4 선택
 			dataList = sgstDAO.findAllNoAnswer();
 
 			// 필요한 데이터만 추출하여 새로운 ArrayList 추가
