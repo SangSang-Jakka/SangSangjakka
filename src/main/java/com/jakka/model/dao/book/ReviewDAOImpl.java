@@ -134,7 +134,11 @@ public class ReviewDAOImpl implements ReviewDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserNick(rs.getString("userNick"));
 				
+				list.add(dto);
+				
 			}
+			
+			return list;
 			
 			
 		} catch (Exception e) {
