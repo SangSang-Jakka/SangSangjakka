@@ -13,11 +13,12 @@ SELECT
     COALESCE(r.reviewCnt, 0) AS bookReviewCnt,
     COALESCE(s.scrapCnt, 0) AS bookScrapCnt,
     COALESCE(re.bookReportCnt, 0) AS bookReportCnt,
-    COALESCE(sb.bookCnt, 0) AS bookCnt,
+    b.shareCnt AS bookCnt,
     b.userSeq,
     b.parentBookSeq,
     b.rcmAgeSeq,
-    u.userNick
+    u.userNick,
+    b.shareRegdate
 FROM tblBook b
     INNER JOIN tblUser u 
     ON b.userSeq = u.userSeq
@@ -28,9 +29,7 @@ FROM tblBook b
                 LEFT JOIN (SELECT bookSeq, COUNT(*) AS scrapCnt FROM tblScrap GROUP BY bookSeq) s
                 ON b.bookSeq = s.bookSeq
                     LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookReportCnt FROM tblBookShareReport GROUP BY bookSeq) re
-                    ON b.bookSeq = re.bookSeq
-                        LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookCnt FROM tblBookShare GROUP BY bookSeq) sb
-                        ON b.bookSeq = sb.bookSeq;
+                    ON b.bookSeq = re.bookSeq;
     
 -- 동화책 화이트리스트
 CREATE OR REPLACE VIEW vwBookWhite
@@ -50,7 +49,8 @@ SELECT
     b.parentBookSeq,
     b.rcmAgeSeq,
     b.userNick,
-    b.bookCnt
+    b.bookCnt,
+    b.shareRegdate
 FROM VWBOOK B
 INNER JOIN tblBookWhiteList bw
     ON b.bookSeq = bw.bookSeq;
@@ -70,7 +70,8 @@ SELECT
     b.parentBookSeq,
     b.rcmAgeSeq,
     b.userNick,
-    b.bookCnt
+    b.bookCnt,
+    b.shareRegdate
 FROM vwBook b
 WHERE b.bookSeq NOT IN(SELECT bookSeq FROM tblBookWhiteList);
 

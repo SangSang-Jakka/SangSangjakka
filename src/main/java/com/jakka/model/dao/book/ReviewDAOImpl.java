@@ -657,4 +657,26 @@ public class ReviewDAOImpl implements ReviewDAO{
 		    return null;
 	}
 	
+
+	@Override
+	public int reviewTotal(String bookSeq) {
+		
+		String SQL = "SELECT COUNT(*) FROM tblReview WHERE bookSeq = ?";
+
+		try (Connection conn = DBUtil.open();
+		     PreparedStatement pstat = conn.prepareStatement(SQL)) {
+		    pstat.setString(1, bookSeq);
+
+		    try (ResultSet rs = pstat.executeQuery()) {
+		        if (rs.next()) {
+		            return rs.getInt(1); // 첫 번째 열의 값 반환
+		        }
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
 }//End of class

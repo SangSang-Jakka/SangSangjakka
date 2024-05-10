@@ -36,6 +36,8 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	
 	public ArrayList<BookDTO> findAllAward();
 	public int presentAward(ArrayList<BookDTO> list, String adId);
+
+
 	
 
 

@@ -258,19 +258,4 @@ BEGIN
 END;
 /
 
--- 스케줄러 생성 (매월 1일 자정에 실행)
-BEGIN
-  DBMS_SCHEDULER.CREATE_JOB (
-    job_name        => 'JOB_INSERT_MONTHLY_AWARD',
-    job_type        => 'PLSQL_BLOCK',
-    job_action      => 'BEGIN proc_insert_monthly_award; END;',
-    start_date      => TO_DATE('2024-01-01', 'YYYY-MM-DD'), -- 월 형식 수정
-    repeat_interval => 'FREQ=MONTHLY; BYMONTHDAY=1; BYHOUR=0; BYMINUTE=0; BYSECOND=0;',
-    end_date        => NULL,
-    enabled         => TRUE,
-    comments        => '매월 1일 자정에 인기 동화책 수상 및 로그 기록'
-  );
-END;
-/
-
 commit;

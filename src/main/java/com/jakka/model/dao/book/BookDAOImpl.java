@@ -245,7 +245,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public int addCnt(String bookSeq) {
 		
-		final String SQL = "update tblBookShare set shareCnt = shareCnt + 1 where bookSeq = ?";
+		final String SQL = "update tblBook set shareCnt = shareCnt + 1 where bookSeq = ?";
 		
 		try (
 				
@@ -271,7 +271,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public int addCnt(String bookSeq, String userSeq) {
 		
-		final String SQL = "update tblBookShare set shareCnt = shareCnt + 1 where bookSeq = ?";
+		final String SQL = "update tblBook set shareCnt = shareCnt + 1 where bookSeq = ?";
 		
 		final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
 				+ "values(?, default, ?, ?)";
@@ -1396,6 +1396,8 @@ public class BookDAOImpl implements BookDAO{
 		
 		return 0;
 	}
+	
+
 	
 	
 }//End of class

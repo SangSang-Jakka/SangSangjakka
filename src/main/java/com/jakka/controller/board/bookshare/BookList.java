@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.BookDAO;
+import com.jakka.model.dao.book.ReviewDAO;
 import com.jakka.model.dto.book.BookDTO;
 
 @WebServlet("/board/book/list.do")
@@ -142,7 +143,7 @@ public class BookList extends HttpServlet{
 			builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a> ", n, column != null ? column : "", word != null ? word : "", blockSize));
 		}
 		
-		
+
 		
 		req.setAttribute("list", list);
 		req.setAttribute("map", map);
