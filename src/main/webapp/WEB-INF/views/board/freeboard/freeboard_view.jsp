@@ -103,10 +103,10 @@
                         <div class="commentAddBox">
                           <div class="commentAdd">
                             <div class="commentAddNick">${userNick}</div>
-                            <textarea class="commentAddText"></textarea>
+                            <textarea class="commentAddText" name="commentText"></textarea>
                           </div>
                      
-                            <input type="button" value="등록" class="btnCommentAdd">
+                            <input type="button" name="commentContent" value="등록" class="btnCommentAdd">
                         
                      
                         </div>
@@ -187,7 +187,35 @@
 	        });
 	    }
 	});
-
+	
+	$('.btnCommentAdd').on("click", function() {
+		$.ajax({
+			type: "POST",
+			url: "/sangsangjakka/board/freeboard/view.do",
+			data: {
+				userSeq:  '${dto.userSeq}',
+				boardSeq: '${dto.boardSeq}',
+				cmntContents: $('.commentAddText').val().trim()
+			},
+			dataType: "JSON",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("AJAX", "true");
+			},
+			success: function(response) {
+				if(response.code === 0) {
+					alert(response.message);
+					location.href = "/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}";
+				} else {
+					alert(response.message);
+				}
+			},
+			error: function(xhr, status, error) {
+				alert("댓글 내용을 입력해주세요: " + error);
+			}
+		});
+	});
+	
+	
 
 	
 	</script>

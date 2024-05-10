@@ -281,6 +281,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 게시판 글 추가
 	// 제목, 내용, 작성자seq
 	@Override
+	
 	public int add(BoardDTO dto) {
 
 		final String SQL = "INSERT INTO tblBoard (boardSeq, boardTitle, boardContents, boardRegdate, boardCnt, userSeq) VALUES ((SELECT NVL(MAX(boardSeq), 0) + 1 FROM tblBoard), ?, ?, DEFAULT, DEFAULT, ?)";
