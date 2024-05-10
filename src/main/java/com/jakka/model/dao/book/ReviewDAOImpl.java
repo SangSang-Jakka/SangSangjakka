@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.book.ReviewDTO;
 import com.jakka.model.enums.AdminLog;
+import com.jakka.model.enums.BookAction;
 import com.jakka.model.enums.UserLog;
 
 public class ReviewDAOImpl implements ReviewDAO{
@@ -26,13 +27,20 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public int add(ReviewDTO dto) {
 		
-		final String SQL = "INSERT INTO tblReview (reviewSeq, reviewContents, userSeq, bookSeq, reviewRegdate) VALUES ((SELECT NVL(MAX(reviewSeq), 0) + 1 FROM tblReview), ?, ?, ?, default)";
-		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		final String SQL = "INSERT INTO tblReview (reviewSeq, reviewContents, userSeq, bookSeq, reviewRegdate) "
+				+ "VALUES ((SELECT NVL(MAX(reviewSeq), 0) + 1 FROM tblReview), ?, ?, ?, default)";
+		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
 
+		final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
+				+ "values(?, default, ?, ?)";
+		
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
 			PreparedStatement log = conn.prepareStatement(LOGSQL);	
+			PreparedStatement action = conn.prepareStatement(ACTIONSQL);
 		){
 			conn.setAutoCommit(false);
 			
@@ -47,6 +55,12 @@ public class ReviewDAOImpl implements ReviewDAO{
 				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBookSeq() +"' 글내용'" + dto.getReviewContents()  + "' 동화책 리뷰를 '작성'했습니다.");
 				log.setString(3, UserLog.BookReviewCreated.getValue());
 				log.executeUpdate();
+				
+				action.setString(1, dto.getUserSeq());
+				action.setString(2, dto.getBookSeq());
+				action.setString(3, BookAction.Review.getValue());
+				action.executeUpdate();
+				
 			}
 			
 			conn.commit();

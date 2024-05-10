@@ -1182,4 +1182,28 @@ public class BookDAOImpl implements BookDAO{
 		
 	}
 	
+	//동화책 완성시
+	@Override
+	public int complete(String bookSeq) {
+		
+final String SQL = "insert into tblBookWhiteList(bookSeq) values(?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, bookSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| activation");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
 }//End of class
