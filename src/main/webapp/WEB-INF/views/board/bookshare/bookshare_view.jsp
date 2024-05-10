@@ -26,7 +26,7 @@
           </div>
       </div>
 
-    <div class="makedPageViewer">
+     <div class="makedPageViewer">
         <div class="containerLeft">
             <nav class="flex">
                 <a id="bb-nav-prev" href="#" class="bb-custom-icon pointer">
@@ -61,9 +61,103 @@
     
     
     <div class="userBestSellerTitle">
-         <div class="mainTitle">📍 어제의 인기도서</div>
+         <div class="mainTitle">📖 책 정보</div>
+    </div>
+    <div class="createBookWrap"> 
+    	<div class="createBookContainer">
+    	<div class="createBookImg">
+    		<img class="bookImage" src="${dto.bookCover}" alt="책 표지 이미지" />
+    	</div>
+    	<div class="createBookInfo">
+    		<div class="createDate">${dto.bookRegdate}</div>
+    		<div class="userNick">
+    		<i class="fa-regular fa-user"></i>
+			${dto.userNick}</div>
+    		<div class="createTitle">${dto.bookTitle}</div>
+    		<div class="createContents">${dto.bookInfo}</div>
+    		<div class="iconItems">
+			<div class="subItems">
+				<i class="fa-solid fa-bookmark bookmarker"></i>
+				<p>${dto.bookScrapCnt}</p>
+			</div>
+			<div class="subItems">
+				 <i class="fa-solid fa-heart heart"></i>
+				 <p>${dto.likeCnt}</p>
+			</div>
+			<div class="subItems">
+				 <i class="fa-solid fa-comment comment"></i>
+				 <p>${dto.bookReportCnt}</p>
+			</div>
+		</div>
+    	</div>
+    	<div class="bookReviewWrap">
+  			<ul>
+  				<li>🎀 아이의 창의력이 매우 뛰어납니다!! 그림도 너무 이뻐요</li>
+  				<li>🎀 우리 아이 최애 동화책 입니다. 하루종일 이것만 봐요</li>
+  				<li>🎀 우리 가족과 비슷한 느낌이라 따뜻하고 좋았습니다.</li>
+  				<li>🎀 우리 아이도 이 동화책 같이 멋진 동화책을 만들 수 있겠죠?</li>
+  				<li>🎀 동화책이 상상력을 높여주는거 같아 좋았습니다.</li>
+  			</ul>
+    	</div>
+    	</div>
+    	<div class="btnWrap">
+    		<button class="like">동화책이 좋아요!</button>
+    		<button class="like reviewBtn">동화책이 이상해요!</button>	
+    		<button class="like saveBtn">동화책을 저장할래요!</button>
+    	</div>
+    	
     </div>
     
+    
+    
+    
+    <div class="userBestSellerTitle">
+         <div class="mainTitle">📜 소중한 리뷰</div>
+    </div>
+    
+    <form action="">
+    <div class="reviewWriteWrap">
+  <!--   	<div class="reviewWriteTitle">
+    		어떤 점이 좋았나요?
+    	</div> -->
+    	<div class="reviewWriteContents">
+    		<textarea name="writeContents" id="reviewContents" cols="30" rows="10" placeholder="내용을 입력해주세요. 상세하게 적을수록 작가에게 큰 도움이 됩니다."></textarea>
+    		<div class="charCount">최대 200자까지 입력 가능합니다.</div>
+    	</div>
+    </div>
+    
+    <div class="btnWriteWrap">
+	    <button type="submit" class="btnWrite" onclick="" >
+	         <div class="write">작성하기</div>
+	    </button>
+    </div>
+    </form>
+    
+   	<div class="reviewTotal">
+   		<div class="reviewCnt">전체 리뷰 27건</div>
+   	</div>
+   	
+   	<div class="reviewListWrap">
+   		<div class="reviewListContainer">
+	   		<div class="reviewDate">2024-05-10</div>
+	   		<div class="reviewUser">
+	   			<i class="fa-regular fa-user"></i>
+	   			<div class="reviewNick">상상주하</div>
+	   		</div>
+	   		<div class="reviewContents">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae expedita dolorum voluptatibus aliquam quam eius dolores cum earum temporibus illum doloribus aspernatur at laboriosam facere natus perferendis distinctio eveniet odit voluptatum libero aliquid saepe adipisci. Sed quas perspiciatis natus debitis quidem suscipit quibusdam aut esse necessitatibus illo voluptates consequatur voluptatum. Adipisci voluptatem consequatur cupiditate non nihil pariatur explicabo impedit expedita illum aperiam totam repudiandae provident. Explicabo perspiciatis iste quidem voluptatem tempora in dolore recusandae veniam eius dignissimos laudantium sequi nulla? Incidunt enim doloremque distinctio autem ipsa ipsam ratione in. Sit amet adipisci ipsa excepturi at numquam aperiam facere cum culpa.</div>
+	   	<form action="">
+	   		<div class="reviewListBtn">
+		   		<div class="reviewLike">
+		   			<button><i class="fa-regular fa-heart"></i></button>
+		   		</div>
+		   		<div class="reviewReport">
+		   			<button><i class="fa-regular fa-bell"></i></button>
+		   		</div>
+	   		</div>
+	   	</form>
+	   	</div>
+   	</div>
+   	
      </section>
     
     
@@ -71,8 +165,8 @@
     
     <!-- footer -->
 	<%@include file="/WEB-INF/views/template/footer.jsp"%>
-
-    <script>
+	
+ <script>
 	    var Page = (function() {
 	        var config = {
 	            $bookBlock: $('#bb-bookblock'),
@@ -153,5 +247,6 @@
 	        Page.init();
 	    });
     </script>
+
 </body>
 </html>

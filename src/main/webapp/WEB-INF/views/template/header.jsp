@@ -4,7 +4,9 @@
 <header id="header">
 <%@page session="true"%>
         <div class="headerWrap">
-            <div class="empty"></div>
+            <div class="empty">
+            <p>${userNick}님 안녕하세요<p>
+            </div>
             <div class="headerLogo">
                 <a href="/sangsangjakka/index.do"><img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78"></a>
             </div>
@@ -21,7 +23,7 @@
             <c:if test="${not empty userId}">
           		<div class="headerLogin">
           			<div class="loginWrap">
-          				<p>${userNick}님 안녕하세요<p>
+          				
           				<a href="/sangsangjakka/user/logout.do" class="logoutBtn">로그아웃</a>
           				<a href="/sangsangjakka/user/mypage.do" class="mypageBtn">마이페이지</a>
           			</div>

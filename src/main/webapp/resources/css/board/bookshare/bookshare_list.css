@@ -121,6 +121,7 @@ section.notice {
    display: flex;
    flex-direction: column;
    height : 200px;
+   width: 200px;
    justify-content: space-between;
 } 
 
@@ -142,6 +143,8 @@ section.notice {
   font-weight: bold;
 }
 
+
+
 .createAuthor {
   	margin-left : 10px;
 }
@@ -157,7 +160,7 @@ section.notice {
 
 .createTitle {
   font-size: 20px;
-  width: 130px;
+  width: fit-content;
   font-weight: bold;
   background: linear-gradient(to top, #bfffa1 40%, transparent 70%);
 }
