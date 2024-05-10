@@ -172,6 +172,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
 				dto.setCmntSeq(rs.getString("cmntSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 
 				list.add(dto);
 
@@ -208,6 +209,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				dto.setCmntContents(rs.getString("cmntContents"));
 				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
 				dto.setCmntRegdate(rs.getString("cmntRegdate"));
+				dto.setUserNick(rs.getString("userNick"));
 
 				list.add(dto);
 			}
@@ -482,6 +484,78 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 
 		return null;
 
+	}
+
+	// 신고가 있는 댓글 조회
+	@Override
+	public ArrayList<BoardCommentDTO> findAllReport() {
+
+		final String SQL = "select * from vwboardcomments where cmntreportcnt > 0";
+
+		try (Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL)) {
+
+			ArrayList<BoardCommentDTO> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				BoardCommentDTO dto = new BoardCommentDTO();
+
+				dto.setCmntSeq(rs.getString("cmntSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setCmntContents(rs.getString("cmntContents"));
+				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
+				dto.setCmntRegdate(rs.getString("cmntRegdate"));
+
+				list.add(dto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("BoardCommentsDAO.| list");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// 신고가 없는 댓글 조회
+	@Override
+	public ArrayList<BoardCommentDTO> findAllNoReport() {
+
+		final String SQL = "select * from vwboardcomments where cmntreportcnt = 0";
+
+		try (Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL)) {
+
+			ArrayList<BoardCommentDTO> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				BoardCommentDTO dto = new BoardCommentDTO();
+
+				dto.setCmntSeq(rs.getString("cmntSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setCmntContents(rs.getString("cmntContents"));
+				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
+				dto.setCmntRegdate(rs.getString("cmntRegdate"));
+
+				list.add(dto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("BoardCommentsDAO.| list");
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }// End of class

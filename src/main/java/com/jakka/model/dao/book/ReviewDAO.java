@@ -14,4 +14,8 @@ public interface ReviewDAO extends BasicDAO<ReviewDTO>, ReportCnt, ActiveStatus<
 	
 	
 	public ArrayList<ReviewDTO> findChildWhite(String parentSeq);
+	
+	public ArrayList<ReviewDTO> findAllReport();
+	public ArrayList<ReviewDTO> findAllNoReport();
+	
 }

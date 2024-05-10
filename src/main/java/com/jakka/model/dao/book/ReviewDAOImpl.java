@@ -171,6 +171,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 		            dto.setUserSeq(rs.getString("userSeq"));
 		            dto.setBookSeq(rs.getString("bookSeq"));
 		            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+		            dto.setUserNick(rs.getString("userNick"));
 		            
 		            list.add(dto);
 		        }
@@ -206,6 +207,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	            dto.setUserSeq(rs.getString("userSeq"));
 	            dto.setBookSeq(rs.getString("bookSeq"));
 	            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+	            dto.setUserNick(rs.getString("userNick"));
 	            
 	            list.add(dto);
 	        }
@@ -532,6 +534,90 @@ public class ReviewDAOImpl implements ReviewDAO{
 		
 		return false;
 	}
+	
+	
+	// 신고 있는 리뷰만 조회
+	@Override
+	public ArrayList<ReviewDTO> findAllReport() {
+		
+		final String SQL = "select * from vwReview where reviewReportCnt > 0";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			ArrayList<ReviewDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				ReviewDTO dto = new ReviewDTO();
+				
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setReviewRegdate(rs.getString("reviewRegdate"));
+				dto.setReviewContents(rs.getString("reviewContents"));
+				dto.setReviewLikeCnt(rs.getString("reviewLikeCnt"));
+				dto.setReviewReportCnt(rs.getString("reviewReportCnt"));
+				dto.setReviewSeq(rs.getString("reviewSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+			
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	// 신고 없는 리뷰만 조회
+		@Override
+		public ArrayList<ReviewDTO> findAllNoReport() {
+			
+			final String SQL = "select * from vwReview where reviewReportCnt = 0";
+			
+			try (
+				Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL);
+			){
+				ArrayList<ReviewDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					
+					ReviewDTO dto = new ReviewDTO();
+					
+					dto.setBookSeq(rs.getString("bookSeq"));
+					dto.setReviewRegdate(rs.getString("reviewRegdate"));
+					dto.setReviewContents(rs.getString("reviewContents"));
+					dto.setReviewLikeCnt(rs.getString("reviewLikeCnt"));
+					dto.setReviewReportCnt(rs.getString("reviewReportCnt"));
+					dto.setReviewSeq(rs.getString("reviewSeq"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
+					
+					list.add(dto);
+					
+				}
+				
+				return list;
+				
+				
+			} catch (Exception e) {
+				System.out.println("ReviewDAO.| listAll");
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 	
 	
 	
