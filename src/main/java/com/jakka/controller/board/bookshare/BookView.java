@@ -44,7 +44,7 @@ public class BookView extends HttpServlet{
 	    if (session.getAttribute("read") != null
 				&& session.getAttribute("read").toString().equals("n")) {
 			//조회수 증가
-			dao.addCnt(bookSeq);
+			dao.addCnt(bookSeq, (String) session.getAttribute("userSeq"));
 			session.setAttribute("read", "y");
 		}
 	    

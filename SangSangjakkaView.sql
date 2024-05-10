@@ -224,7 +224,8 @@ SELECT
     r.reviewReportCnt,
     r.userSeq,
     r.bookSeq,
-    r.reviewRegdate
+    r.reviewRegdate,
+    r.userNick
  FROM vwReview r
     INNER JOIN tblReviewWhiteList rw ON r.reviewSeq = rw.reviewSeq;
 
@@ -239,7 +240,8 @@ SELECT
     r.reviewReportCnt,
     r.userSeq,
     r.bookSeq,
-    r.reviewRegdate
+    r.reviewRegdate,
+    r.userNick
 FROM vwReview r
     LEFT JOIN tblReviewWhiteList rw 
     ON r.reviewSeq = rw.reviewSeq

@@ -171,6 +171,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 		            dto.setUserSeq(rs.getString("userSeq"));
 		            dto.setBookSeq(rs.getString("bookSeq"));
 		            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+		            dto.setUserNick(rs.getString("userNick"));
 		            
 		            list.add(dto);
 		        }
@@ -206,6 +207,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	            dto.setUserSeq(rs.getString("userSeq"));
 	            dto.setBookSeq(rs.getString("bookSeq"));
 	            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+	            dto.setUserNick(rs.getString("userNick"));
 	            
 	            list.add(dto);
 	        }
@@ -388,6 +390,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	            dto.setUserSeq(rs.getString("userSeq"));
 	            dto.setBookSeq(rs.getString("bookSeq"));
 	            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+	            dto.setUserNick(rs.getString("userNick"));
 	            
 	            list.add(dto);
 	        }
@@ -427,6 +430,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	            dto.setUserSeq(rs.getString("userSeq"));
 	            dto.setBookSeq(rs.getString("bookSeq"));
 	            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+	            dto.setUserNick(rs.getString("userNick"));
 	            
 	            list.add(dto);
 	        }
