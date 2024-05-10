@@ -12,6 +12,7 @@ import com.jakka.model.dao.LikeCnt;
 import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dao.ScrapCnt;
 import com.jakka.model.dao.Search;
+import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 
@@ -35,5 +36,8 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	
 	public ArrayList<BookDTO> findAllAward();
 	public int presentAward(ArrayList<BookDTO> list, String adId);
+	
+
+
 	
 }//End of interface
