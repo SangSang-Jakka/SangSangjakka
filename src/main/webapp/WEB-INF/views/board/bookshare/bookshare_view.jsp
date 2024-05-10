@@ -137,6 +137,29 @@
    		<div class="reviewCnt">전체 리뷰 27건</div>
    	</div>
    	
+   	<c:forEach items="${reviewList}" var="dto">
+	   	<div class="reviewListWrap">
+	   		<div class="reviewListContainer">
+		   		<div class="reviewDate">${dto.reviewRegdate}</div>
+		   		<div class="reviewUser">
+		   			<i class="fa-regular fa-user"></i>
+		   			<div class="reviewNick">${dto.userNick}</div>
+		   		</div>
+		   		<div class="reviewContents">${dto.reviewContents}</div>
+		   	<form action="">
+		   		<div class="reviewListBtn">
+			   		<div class="reviewLike">
+			   			<button><i class="fa-regular fa-heart"></i></button>
+			   		</div>
+			   		<div class="reviewReport">
+			   			<button><i class="fa-regular fa-bell"></i></button>
+			   		</div>
+		   		</div>
+		   	</form>
+		   	</div>
+	   	</div>
+   	</c:forEach>
+   	
    	<div class="reviewListWrap">
    		<div class="reviewListContainer">
 	   		<div class="reviewDate">2024-05-10</div>
