@@ -27,9 +27,11 @@ import org.apache.commons.io.IOUtils;
 
 import com.google.gson.Gson;
 import com.jakka.model.DAOManager;
+import com.jakka.model.dao.GenreDAO;
 import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dao.book.PageDAO;
 import com.jakka.model.dao.user.UserDAO;
+import com.jakka.model.dto.GenreDTO;
 import com.jakka.model.dto.book.PageDTO;
 import com.jakka.model.dto.user.UserDTO;
 import com.jakka.model.enums.APIKeys;
@@ -73,6 +75,13 @@ public class BookmakingView extends HttpServlet {
 					dto.add(pages.get(i));
 				}
 			}
+			GenreDAO genreDao = new GenreDAO();
+			ArrayList<GenreDTO> genre = genreDao.findAll();
+			for (GenreDTO item : genre) {
+				item.setGenreName(item.getGenreName().replace(" 동화", ""));
+			}
+			
+			req.setAttribute("genre", genre);
 			req.setAttribute("firstpage", dto.get(0));
 			req.setAttribute("lastpage", lastpage.getPageSeq());
 			req.setAttribute("dto", dto);

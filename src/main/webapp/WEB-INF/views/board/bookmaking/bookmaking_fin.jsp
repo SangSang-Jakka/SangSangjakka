@@ -18,7 +18,13 @@
 	<div id="makedbookGrid">
 		<div class="makedbookGridLeft"></div>
 		<div class="makedbookGridCenter">
-			<h2>축하합니다! n번째 책을 만들었습니다!</h2>
+			<div class="mainTitle">
+				<h2>축하합니다! n번째 책을 만들었습니다!</h2>			
+			</div>
+			<div class="bookCoverBox">
+				<div class="bookCoverItem">
+				</div>
+			</div>
 		</div>
 		<div class="makedbookGridRight"></div>
 	</div>

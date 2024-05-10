@@ -264,17 +264,17 @@
 					        <input type="text" placeholder="제목" required/>
 					    </div>
 					</div>
-					<div class="descriptionBox">
-					    <div class="descriptionItem">
+					<div class="bookInfoBox">
+					    <div class="bookInfoItem">
 					        <input type="text" placeholder="소개글" required/>
 					    </div>
 					</div>
 					<div class="categoryMakerBox">
 					    <div class="categoryMaker">
 					    	<div class="categoryBox">
-						        <div class="draggableCategory">Category 1</div>
-							    <div class="draggableCategory">Category 2</div>
-							    <div class="draggableCategory">Category 3</div>
+					    		<c:forEach items="${genre}" var="dto" varStatus="status">
+									<div class="draggableCategory" id="${dto.genreName}">${dto.genreName}</div>
+								</c:forEach>
 					    	</div>
 						    <div class="categoryDropArea"></div>
 					    </div>
@@ -874,6 +874,36 @@
 					} else {
 						alert('이미지 발견 실패');
 					}
+				});
+				
+				$('#titleNext').click(function() {
+					var bookSeq = ${bookSeq};
+					var title = $('.titleItem input[type="text"]').val();
+					var bookInfo = $('.bookInfoItem input[type="text"]').val();
+					
+					var categories = new Set();  // Use a Set to automatically handle unique values
+
+			        $('.selectedCategory').each(function() {
+			            categories.add($(this).text().trim());
+			        });
+
+			        // Convert Set back to Array if needed for compatibility with other systems
+			        categories = Array.from(categories);
+					$.ajax({
+						type: 'POST',
+						url: '/sangsangjakka/board/bookmaking/fin.do',
+						data: JSON.stringify({
+							categories: categories,
+							bookSeq: bookSeq,
+							title: title,
+							bookInfo: bookInfo
+							}),
+						success: function(result) {
+						},
+						error: function(xhr, status, error) {
+							alert('업로드 실패: ' + error);
+						}
+					});
 				});
 
 			});//$(document).ready
