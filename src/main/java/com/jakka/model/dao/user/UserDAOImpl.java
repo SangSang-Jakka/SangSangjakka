@@ -1224,4 +1224,48 @@ public class UserDAOImpl implements UserDAO{
 	    return nUserCount;
 	}
 
+	
+@Override
+	public Map<String, Integer[]> member(String year) {
+	 Map<String, Integer[]> result = new HashMap<>();
+
+	    String SQL = "SELECT\r\n"
+	            + "    LPAD(SUBSTR(USERREGDATE, 4, 2), 2, '0') AS 월,\r\n"
+	            + "    SUM(CASE WHEN USERSTATE = 'y' THEN 1 ELSE 0 END) AS 가입자수,\r\n"
+	            + "    SUM(CASE WHEN USERSTATE = 'n' THEN 1 ELSE 0 END) AS 탈퇴자수\r\n"
+	            + "FROM\r\n"
+	            + "    tblUser\r\n"
+	            + "WHERE\r\n"
+	            + "    USERREGDATE BETWEEN TO_DATE(?, 'YY/MM/DD') AND TO_DATE(?, 'YY/MM/DD')\r\n"
+	            + "GROUP BY\r\n"
+	            + "    SUBSTR(USERREGDATE, 4, 2)\r\n"
+	            + "ORDER BY\r\n"
+	            + "    SUBSTR(USERREGDATE, 4, 2)";
+
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
+
+	        String startDate = year + "/01/01";
+	        String endDate = year + "/12/31";
+
+	        pstat.setString(1, startDate);
+	        pstat.setString(2, endDate);
+
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            while (rs.next()) {
+	                String month = rs.getString("월");
+	                int joinCount = rs.getInt("가입자수");
+	                int withdrawCount = rs.getInt("탈퇴자수");
+
+	                result.put(month, new Integer[]{joinCount, withdrawCount});
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("UserDAOImpl.getUserStatsByMonth");
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
 }//End of class

@@ -77,17 +77,17 @@
 			</div>
 		</div>
 	</div>
-	<div class="card-box mr">
-		<div class="widget-small primary">
-			<div class="coloured-icon-d">
-				<i class="icon fa fa-quora fa-3x" style="color: white"></i>
-			</div>
-			<div class="info">
-				<div class="titleElement">신고리뷰</div>
-				<div class="countElement">해야함</div>
-			</div>
-		</div>
-	</div>
+<!-- 	<div class="card-box mr"> -->
+<!-- 		<div class="widget-small primary"> -->
+<!-- 			<div class="coloured-icon-d"> -->
+<!-- 				<i class="icon fa fa-quora fa-3x" style="color: white"></i> -->
+<!-- 			</div> -->
+<!-- 			<div class="info"> -->
+<!-- 				<div class="titleElement">신고리뷰</div> -->
+<!-- 				<div class="countElement">해야함</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 </div>
 
 

@@ -32,7 +32,7 @@
             <div class="min-height-200px">
 
 		<!-- 배너 -->
-        <%-- <%@include file="/WEB-INF/views/dashboard/dashboard_template/admin_dashboard_banner.jsp"%> --%>
+        <%@include file="/WEB-INF/views/dashboard/dashboard_template/admin_dashboard_banner.jsp"%>
 
                 <div class="bg-white pd-20 card-box mb-30">
                     <h4 class="h4 text-blue">line Chart</h4>
