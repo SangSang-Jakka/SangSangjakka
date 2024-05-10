@@ -78,7 +78,7 @@
     		<div class="iconItems">
 			<div class="subItems">
 				<i class="fa-solid fa-bookmark bookmarker"></i>
-				<p>${dto.bookScrapCnt}</p>
+				<p id="scrapCnt">${dto.bookScrapCnt}</p>
 			</div>
 			<div class="subItems" >
 				 <i class="fa-solid fa-heart heart"></i>
@@ -107,8 +107,16 @@
     		<c:if test="${result == false}">
     		<button class="like" id="likeBtn">동화책이 좋아요!</button>
     		</c:if>
-    		<button class="like reviewBtn">동화책이 이상해요!</button>	
-    		<button class="like saveBtn">동화책을 저장할래요!</button>
+    		
+    		<button class="like reviewBtn" >동화책이 이상해요!</button>	
+    		
+    		<c:if test="${resultScrap == true}">
+    		<button class="like saveBtn" id="scrapBtn">동화책을 저장했어요!</button>
+    		</c:if>
+    		<c:if test="${resultScrap == false}">
+    		<button class="like saveBtn" id="scrapBtn">동화책을 저장할래요!</button>
+    		</c:if>
+    	
     	</div>
     	
     </div>
@@ -321,11 +329,8 @@
             $("#likeBtn").click(function() {
                 var bookSeq = ${bookSeq}; // bookSeq 변수가 정의된 곳에서 값을 가져와야 함
                 var userSeq = ${userSeq}; // userSeq 변수가 정의된 곳에서 값을 가져와야 함
-				var pressLike = $("input[name='pressLike']").val();
+				//var pressLike = $("input[name='pressLike']").val();
                 
-                
-                
-         
                 console.log("bookSeq:", bookSeq);
                 console.log("userSeq:", userSeq);
 
@@ -346,6 +351,41 @@
                         } else {
                             // 실패했을 때
                             alert("좋아요 등록에 실패하였습니다.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+        
+        $(document).ready(function() {
+            $("#scrapBtn").click(function() {
+                var bookSeq = ${bookSeq}; // bookSeq 변수가 정의된 곳에서 값을 가져와야 함
+                var userSeq = ${userSeq}; // userSeq 변수가 정의된 곳에서 값을 가져와야 함
+
+                
+                console.log("bookSeq:", bookSeq);
+                console.log("userSeq:", userSeq);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/sangsangjakka/board/book/scrap.do",
+                    data: { bookSeq: bookSeq, userSeq: userSeq },
+                    success: function(response) {
+                        if (response === "success") {
+                            // 성공적으로 INSERT 되었을 때
+                            console.log("성공");
+                            var updatedScrapCnt = parseInt($("#scrapCnt").text()) + 1; // 좋아요 개수 증가
+                            $("#scrapCnt").text(updatedScrapCnt); // 좋아요 개수 업데이트
+                            $("#scrapBtn").text("동화책을 저장했어요!"); // 버튼 텍스트 변경
+                            $("#scrapBtn").addClass("newClass");
+
+                            
+                        } else {
+                            // 실패했을 때
+                            alert("동화책 저장에 실패하였습니다.");
                         }
                     },
                     error: function(xhr, status, error) {

@@ -59,10 +59,14 @@ public class BookView extends HttpServlet{
 	    BookDTO dto = dao.findById(bookSeq);
 	    
 	    boolean result = dao.isLike(bookSeq, userSeq);
+	    boolean resultScrap = dao.isScrap(bookSeq, userSeq);
 		
 		System.out.println(result);
+		System.out.println("scrap" + resultScrap);
 		
 		req.setAttribute("result", result);
+		req.setAttribute("resultScrap", resultScrap);
+		
 	    
 	    //게시글 조작
 	    dto.setBookTitle(dto.getBookTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
