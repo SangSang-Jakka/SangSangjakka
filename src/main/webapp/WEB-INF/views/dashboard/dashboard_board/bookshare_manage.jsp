@@ -166,7 +166,7 @@ margin-right : 14px;
 								<c:forEach var="book" items="${bookList}">
 								<tr>
 									<td class="table-plus">${book.bookSeq}</td>
-									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do?sep=${book.bookSeq}">${book.bookTitle}</a></td>
+									<td><a href="/sangsangjakka/admin/dashboard/bookshare/manageview.do?seq=${book.bookSeq}">${book.bookTitle}</a></td>
 									<td>${book.userNick}</td>
 									<td>${book.bookRegdate}</td>
 									<td>${book.bookCnt}</td>

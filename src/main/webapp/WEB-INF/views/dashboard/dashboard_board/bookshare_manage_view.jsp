@@ -183,17 +183,29 @@
 							</tr>
 							<tr>
 								<th>닉네임</th>
-								<td>${book.userNick}</td>
+								<td>${dto.userNick}</td>
 								<th>좋아요수</th>
-								<td>${book.likeCnt}</td>
+								<td>${dto.likeCnt}</td>
 							</tr>
 							<tr>
 								<th>동화책</th>
-								<td colspan="3"></td>
+								<td colspan="3">
+									<!--  동화책 그림/글  -->
+									<div class="bb-custom-wrapper">
+										<div id="bb-bookblock" class="bb-bookblock">
+											<c:forEach items="${pageMap}" var="entry">
+												<div class="bb-item">
+													<a href="${entry.value.pageUrl}" target="_blank">페이지 ${status.index + 1}</a>
+													<div class="pageContents">${entry.value.pageContents}</div>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th>한 줄 소개</th>
-								<td colspan="3">${book.bookInfo}</td>
+								<td colspan="3">${dto.bookInfo}</td>
 							</tr>
 						</table>
 
@@ -210,71 +222,71 @@
 											</div>
 										</div>
 										<div class="commentTime">${review.reviewRegdate}</div>
-										<div class="commentLike">추천수: ${review.reviewLikeCnt}</div>
 										<div class="commentReport">신고수:
-											${reivew.reviewReportCnt}</div>
+											${review.reviewReportCnt}</div>
+										<div class="commentLike">추천수: ${review.reviewLikeCnt}</div>
+										<div class="commentContent">${review.reviewContents}</div>
 									</div>
-									<div class="commentContent">${review.reviewContents}</div>
 								</div>
+							</c:forEach>
+
+
+							<span class="left"> <input type="button" value="이전"
+								class="btn btn-primary"> <input type="button" value="다음"
+								class="btn btn-primary">
+							</span> <span class="right"> <input type="button" value="목록"
+								class="btn btn-primary pull-right"
+								onclick="location='/sangsangjakka/admin/dashboard/bookshare/manage.do'">
+							</span>
+
 						</div>
-						</c:forEach>
-
-
-						<span class="left"> <input type="button" value="이전"
-							class="btn btn-primary"> <input type="button" value="다음"
-							class="btn btn-primary">
-						</span> <span class="right"> <input type="button" value="목록"
-							class="btn btn-primary pull-right" onclick="location='/sangsangjakka/admin/dashboard/bookshare/manage.do'">
-						</span>
-
 					</div>
+
 				</div>
+				<!-- 푸터 -->
+				<%@include
+					file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 
 			</div>
-			<!-- 푸터 -->
-			<%@include
-				file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
-
 		</div>
-	</div>
 
-	<!-- js -->
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<%@include
-		file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+		<!-- js -->
+		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+		<%@include
+			file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 
-	<!-- buttons for Export datatable -->
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.print.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/pdfmake.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
+		<!-- buttons for Export datatable -->
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.print.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.html5.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.flash.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/pdfmake.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 
-	<!-- Datatable Setting js -->
-	<script
-		src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
+		<!-- Datatable Setting js -->
+		<script
+			src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-	<script>
-		
-	</script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+		<script>
+			
+		</script>
 </body>
 </html>
