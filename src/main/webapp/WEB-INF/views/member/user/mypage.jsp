@@ -23,8 +23,8 @@
 
 	<div class="myMainWrap">
 
-		<div class="articleTitle">
-			<h1>마이페이지</h1>
+		<div class="pageTitle">
+			<h3>마이페이지</h3>
 		</div>
 		<div class="tab tabFormContainer">
 			<ul class="mainnav tabnav flex">
@@ -73,9 +73,6 @@
 										<div class="changableInput inputBorder">
 											<input type="password" id="passwordInput" required readonly/>
 										</div>
-										<div class="changebtnbox change">
-											<input type="button" value="변경" id="passwordCheck" class="pointer">
-										</div>
 									</div>
 								</div>
 
@@ -118,9 +115,6 @@
 											<span>-</span>
 											<input type="text" id="phoneInput2" name="phoneInput2" class="phoneInput" maxlength="4"
 												value="${telArray[2]}" required readonly>
-										</div>
-										<div class="changebtnbox change">
-											<input type="button" value="변경" id="telChangebtn" class="pointer">
 										</div>
 									</div>
 								</div>

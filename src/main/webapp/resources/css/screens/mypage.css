@@ -18,7 +18,14 @@ body {
 }
 
 
-
+.pageTitle h3 {
+    font-size: 40px;
+    color: #333333;
+    font-weight: 600;
+    text-align: center;
+    margin-top:80px;
+    margin-bottom:60px;
+}
 
 
 ul,
@@ -26,6 +33,10 @@ li {
 	list-style: none;
 }
 
+span{
+	font-weight: 700;
+	color:grey;
+}
 
 #boardSearch .searchWindow {
 	padding: 15px 0;
@@ -285,6 +296,7 @@ option {
 
 .inputBorder {
 	border-bottom: 1px solid #cfcfcf;
+	width:70%;
 }
 
 
@@ -302,7 +314,7 @@ option {
 .userInfo {
 	margin-top: 100px;
 	width:900px;
-	margin-left:150px;
+	margin-left:250px;
 	margin-bottom:100px;
 	height:1300px;
 }
@@ -310,9 +322,10 @@ option {
 .userInfo input {
 	font-weight: 400;
 	height: 40px;
-	font-size: 16px;
+	font-size: 20px;
 	line-height: 24px;
 	border: none;
+	margin-top:10px;
 }
 
 
@@ -360,11 +373,13 @@ option {
 }
 
 .changebtnbox input {
-	width: 100%;
+	width: 60%;
 	cursor: pointer;
 	border-radius: 4px;
 	background-color: orange;
 	color: white;
+	height: 40px;
+	margin-left: 0px;
 }
 
 .idContainer {
@@ -459,12 +474,12 @@ option {
 }
 
 .postNum {
-	width: 70%;
+	width: 20%;
 	margin-right: 20px;
 }
 
 #sample6_address {
-	width: 100%;
+	width: 60%;
 	/* 주소 입력란 너비 */
 }
 
@@ -473,7 +488,7 @@ option {
 }
 
 #sample6_detailAddress {
-	width: 100%;
+	width: 60%;
 }
 
 .tabFormContainer {
@@ -608,6 +623,12 @@ li {
 	/* 텍스트를 중앙 정렬합니다 */
 }
 
+#changebtn{
+	width:50%;
+	height:40px;
+	font-size:20px;
+}
+
 
 
 .itemchangebtn input {
@@ -648,7 +669,7 @@ li {
 }
 
 .phoneInput {
-	width: 30%;
+	width: 20%;
 }
 
 .bookshelfControl {
