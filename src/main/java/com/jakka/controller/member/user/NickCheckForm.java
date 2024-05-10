@@ -34,8 +34,8 @@ public class NickCheckForm extends HttpServlet{
         // 중복 여부 확인
         UserDAO dao = DAOManager.getUserDAO();
         UserDTO dto = new UserDTO();
-        dto.setUserId(userNick);
-        int count = dao.checkId(dto);
+        dto.setUserNick(userNick);
+        int count = dao.checkNick(dto);
 
         // 결과 전송
         resp.setContentType("text/plain");

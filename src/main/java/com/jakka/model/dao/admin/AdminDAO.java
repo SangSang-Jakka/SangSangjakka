@@ -14,7 +14,7 @@ public interface AdminDAO extends BasicDAO<AdminDTO>{
 	public ArrayList<AdminDTO> log(String id);
 	public int remove(String id);
 	public List<String> getYear();
-	public static List<AdminDTO>getInflowCountData(String month);
+	//public static List<AdminDTO>getInflowCountData(String month);
 	
 	
 	

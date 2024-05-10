@@ -734,6 +734,7 @@ public class UserDAOImpl implements UserDAO{
 		        
 		        ResultSet rs = pstat.executeQuery();
 		        if (rs.next()) {
+		        	System.out.println("Aaaaa");
 		            int count = rs.getInt(1);
 		            System.out.println(count); // 디버깅을 위해 출력
 		            return count;
@@ -743,7 +744,6 @@ public class UserDAOImpl implements UserDAO{
 		        e.printStackTrace();
 		    }
 		    
-		    System.out.println(0);
 		    return 0;
 	}
 	

@@ -377,7 +377,7 @@
                         if (response === "success") {
                             // 성공적으로 INSERT 되었을 때
                             console.log("성공");
-                            var updatedScrapCnt = parseInt($("#scrapCnt").text()) + 1; // 좋아요 개수 증가
+                            var updatedScrapCnt = parseInt($("#scrapCntㄴ").text()) + 1; // 좋아요 개수 증가
                             $("#scrapCnt").text(updatedScrapCnt); // 좋아요 개수 업데이트
                             $("#scrapBtn").text("동화책을 저장했어요!"); // 버튼 텍스트 변경
                             $("#scrapBtn").addClass("newClass");
