@@ -281,27 +281,9 @@ button.like.saveBtn:active::before {
   transform: translate3d(0, 0, -1em);
 }
 
-
-
-.btnWrap button.clicked {
-  transform: translateY(1px); /* 클릭되었을 때 약간 아래로 이동 */
-  box-shadow: none; /* 클릭된 상태에서 그림자 제거 */
+.clicked {
+	
 }
-
-.btnWrap button.clicked.like {
-  background: var(--pink); /* 클릭된 상태에서 배경색 변경 */
-}
-
-.btnWrap button.clicked.reviewBtn {
-  background: var(--green); /* 클릭된 상태에서 배경색 변경 */
-}
-
-.btnWrap button.clicked.saveBtn {
-  background: var(--blue); /* 클릭된 상태에서 배경색 변경 */
-}
-
-
-
 
 
 .createBookImg img {

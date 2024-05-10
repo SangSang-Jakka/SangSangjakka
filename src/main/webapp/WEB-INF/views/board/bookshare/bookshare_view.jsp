@@ -340,7 +340,8 @@
                             var updatedLikeCnt = parseInt($("#likeCnt").text()) + 1; // 좋아요 개수 증가
                             $("#likeCnt").text(updatedLikeCnt); // 좋아요 개수 업데이트
                             $("#likeBtn").text("좋아요를 눌렀어요!"); // 버튼 텍스트 변경
-                            $("#likeBtn").addClass('clicked');
+                            $("#likeBtn").addClass("newClass");
+
                             
                         } else {
                             // 실패했을 때
