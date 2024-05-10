@@ -101,7 +101,7 @@
         <div class="form-group">
           <select class="selectpicker form-control" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
             <c:forEach var="year" items="<%= yearList %>">
-              <option value="${year}" <c:if test="${year == currentYearShort}">disabled</c:if>>20${year}</option>
+              <option value="${year}" <c:if test="${currentYearShort}">disabled</c:if>>20${year}</option>
             </c:forEach>
           </select>
         </div>
