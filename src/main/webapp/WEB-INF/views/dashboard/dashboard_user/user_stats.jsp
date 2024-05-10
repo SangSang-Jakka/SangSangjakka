@@ -24,10 +24,6 @@
 	 System.out.println(yearList); //[23]
 	
 	
-	
-	
-	
-	
 	%>
 		<!-- 헤더 -->
 		<%@include file="/WEB-INF/views/dashboard/dashboard_template/header.jsp"%>
@@ -83,6 +79,16 @@
 					<canvas id="AgeChart"></canvas>
 			</div>
 			
+<!-- 			<div class="col-xl-4 mb-30"> -->
+<!-- 					<div class="card-box height-100-p pd-20"> -->
+<!-- 						<h2 class="h4 mb-20">가입자수, 탈퇴자수</h2> -->
+<!-- 							<p>날짜 입력</p> -->
+<!-- 					<input type="text" id="monthPicker" name="monthPicker"> -->
+<!--    					<input type="text" id="monthPicker3" name="monthPicker3"> -->
+<!--     				<button id="sendButton">Send</button> -->
+<%-- 						 <canvas id="userChart" width="800" height="400"></canvas> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 			
 				
 				
@@ -212,6 +218,7 @@
               hover: {
                 mode: null // 마우스 호버 효과 비활성화
               },
+              
               events: [] // 이벤트 핸들러 비활성화
             }
           });

@@ -362,5 +362,33 @@ public class AdminDAOImpl implements AdminDAO{
 
 	        return years;
 	    }
+		
+		
+		public static List<AdminDTO> getInflowCountData(String month) {
+	        List<AdminDTO> result = new ArrayList<>();
+	        String sql = "select * from vw_inflowcount";
+	        try (Connection conn = DBUtil.open();
+	        		PreparedStatement pstmt = conn.prepareStatement(sql);
+		             ResultSet rs = pstmt.executeQuery()) {
+	           
+	           
+
+	            while (rs.next()) {
+	                String registrationMonth = rs.getString("registration_month");
+	                String inflowname = rs.getString("inflowname");
+	                int inflowCount = rs.getInt("inflow_count");
+
+	                InflowCountData data = new InflowCountData(registrationMonth, inflowname, inflowCount);
+	                result.add(data);
+	            }
+
+	            rs.close();
+	            stmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return result;
+	    }
 	
 }//End of class
