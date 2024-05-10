@@ -26,20 +26,25 @@ public class BookShareManagementView extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setCharacterEncoding("UTF-8");
-		
 		HttpSession session = req.getSession();
+		// 로그인 여부 확인
+		String adId = (String) session.getAttribute("adId");
+		if (adId == null) {
+			resp.sendRedirect("/sangsangjakka/admin/login.do");
+			return;
+		}
 		
 		String seq = req.getParameter("seq");
 		
-		
-		BookDAO bookDAO = DAOManager.getBookDAO();
+		BookDAO dao = DAOManager.getBookDAO();
 		
 		// 게시물 가져오기
-		BookDTO dto = bookDAO.findById(seq);
+		BookDTO dto = dao.findById(seq);
 		
-		// dto.setBookTitle(dto.getBookTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
-	    // dto.setBookInfo(dto.getBookInfo().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
+				
+		// 게시글 조작
+		dto.setBookTitle(dto.getBookTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
+	    dto.setBookInfo(dto.getBookInfo().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 		
 	    PageDAO pageDAO = DAOManager.getPageDAO();
 	    HashMap<Integer, PageDTO> pageMap = pageDAO.findPages(seq);
