@@ -1,86 +1,86 @@
-
 .viewContainer {
-   
-    position: relative;
-    width: 100%;
-    background-color: white;
-    padding: 35px 25px 25px 35px;
-    margin: 0px 20px 20px 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-
+	position: relative;
+	width: 100%;
+	background-color: white;
+	padding: 35px 25px 25px 35px;
+	margin: 0px 20px 20px 20px;
+	border-radius: 15px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Heading */
 h2 {
-    color: #1B00FF;
-    text-align: center;
-    margin-bottom: 20px;
+	color: #1B00FF;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 /* Table */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
 }
 
 th, td {
-    padding: 10px;
-    border-bottom: 1px solid #DEE2E6;
+	padding: 10px;
+	border-bottom: 1px solid #DEE2E6;
 }
 
 th {
-    width: 100px;
-    text-align: center;
-    background-color: #EAEEF2;
+	width: 100px;
+	text-align: center;
+	background-color: #EAEEF2;
 }
 
 td {
-    width: 500px;
+	width: 500px;
 }
 
 /* Textarea */
 textarea {
-    
-    width: 100%;
-    height: 150px;
-    padding: 10px;
-    border: 1px solid #DEE2E6;
-    border-radius: 5px;
-    resize: vertical;
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	border: 1px solid #DEE2E6;
+	border-radius: 5px;
+	resize: vertical;
 }
 
 /* Responsive */
 @media screen and (max-width: 600px) {
-    .viewContainer {
-        width: 90%;
-    }
+	.viewContainer {
+		width: 90%;
+	}
 }
 
 .right {
-    float: right;
-  }
+	float: right;
+}
 
-  .left {
-    float: left;
-   
-  }
+.left {
+	float: left;
+}
 
+.topright {
+	float: right;
+	margin-bottom: 20px;
+}
 
+.topleft {
+	float: left;
+	margin-bottom: 20px;
+}
 
-  /* 댓글 */
+/* 댓글 */
 .commentContainer {
 	margin-top: 20px;
-
 }
 
 .commentItem {
 	border-bottom: 1px solid #DEE2E6;
 	padding: 10px;
 	position: relative;
-
 }
 
 .commentHeader {
@@ -98,7 +98,6 @@ textarea {
 	position: absolute;
 	top: 10px;
 	right: 10px;
-
 }
 
 .commentReport {
@@ -107,8 +106,6 @@ textarea {
 	position: absolute;
 	top: 30px;
 	right: 10px;
-
-
 }
 
 .commentContent {
@@ -149,4 +146,3 @@ textarea {
 .btnEdit:hover, .btnDel:hover {
 	background-color: #0056b3;
 }
-

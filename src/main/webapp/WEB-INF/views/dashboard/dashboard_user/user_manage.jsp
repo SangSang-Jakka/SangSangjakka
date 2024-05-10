@@ -46,8 +46,8 @@
 
 
 				<!-- 배너 -->
-				<%@include
-					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%>
+<%-- 				<%@include --%>
+<%-- 					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%> --%>
 
 
 
@@ -75,7 +75,7 @@
 								<c:forEach var="user" items="${userList}">
 									<tr>
 										<td class="table-plus">${user.userSeq}</td>
-										<td><a href ="/sangsangjakka/admin/dashboard/user/manageview.do?id=${user.userId}">${user.userId}</a></td>
+										<td><a href="/sangsangjakka/admin/dashboard/user/manageview.do?seq=${user.userSeq}&id=${user.userId}">${user.userId}</a></td>
 										<td>${user.userNick}</td>
 										<td>${user.userName}</td>
 										<td>${user.userLeftSsn}</td>

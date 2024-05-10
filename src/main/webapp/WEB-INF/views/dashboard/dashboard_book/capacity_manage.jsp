@@ -46,8 +46,8 @@
 				</div>
 
 				<!-- 배너 -->
-				<%@include
-					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%>
+<%-- 				<%@include --%>
+<%-- 					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%> --%>
 
 
 				<!-- Simple Datatable start -->

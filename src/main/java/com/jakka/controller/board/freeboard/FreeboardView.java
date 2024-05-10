@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.BoardCommentsDAO;
 import com.jakka.model.dao.board.BoardDAO;
@@ -22,6 +24,7 @@ public class FreeboardView extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		
 		HttpSession session = req.getSession();
 		
@@ -49,7 +52,9 @@ public class FreeboardView extends HttpServlet {
 		
 		//게시글 조작
 		dto.setBoardTitle(dto.getBoardTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
+		System.out.println("get의 setBoardTitle 확인중 : " + dto.getBoardTitle());
 		dto.setBoardContents(dto.getBoardContents().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
+		System.out.println("게시글 조작 dto : " + dto);
 		
 		BoardCommentsDAO cmntDao = DAOManager.getBoardCommentDAO();
 		
@@ -61,6 +66,47 @@ public class FreeboardView extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/freeboard/freeboard_view.jsp");
 		dispatcher.forward(req, resp);
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 댓글 추가
+		String boardSeq = req.getParameter("boardSeq");
+		String userSeq = req.getParameter("userSeq");
+		String cmntContents = req.getParameter("cmntContents");
+		
+		BoardCommentsDAO cmntDao = DAOManager.getBoardCommentDAO();
+		
+		BoardCommentDTO cmntDto = new BoardCommentDTO();
+		cmntDto.setBoardSeq(boardSeq);
+		cmntDto.setUserSeq(userSeq);
+		cmntDto.setCmntContents(cmntContents);
+		
+		int result = cmntDao.add(cmntDto);
+		
+		resp.setContentType("text/html; charset=UTF-8");
+		
+		if (result > 0) {
+		    // JSON 객체 생성
+		    JSONObject json = new JSONObject();
+		    json.put("code", 0); // 성공 코드
+		    json.put("message", "작성 완료");
+
+		    // JSON 데이터 반환
+		    resp.setContentType("application/json");
+		    resp.setCharacterEncoding("UTF-8");
+		    resp.getWriter().write(json.toString());
+		} else {
+		    // JSON 객체 생성
+		    JSONObject json = new JSONObject();
+		    json.put("code", 1); // 실패 코드
+		    json.put("message", "작성 실패, 댓글을 작성해주세요");
+
+		    // JSON 데이터 반환
+		    resp.setContentType("application/json");
+		    resp.setCharacterEncoding("UTF-8");
+		    resp.getWriter().write(json.toString());
+		}
 	}
 
 }

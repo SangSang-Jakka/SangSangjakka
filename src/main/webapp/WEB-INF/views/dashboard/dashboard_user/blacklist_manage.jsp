@@ -45,9 +45,12 @@
 				</div>
 
 				<!-- 배너 -->
-				<%@include
-					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%>
+<%-- 				<%@include --%>
+<%-- 					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%> --%>
 
+			<form method = "POST" action="/sangsangjakka/admin/dashboard/blacklist/manage.do">
+			
+			
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
@@ -63,19 +66,24 @@
 									<th>이름</th>
 									<th>생년월일</th>
 									<th>가입일</th>
+									<th>버튼</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<c:forEach var="user" items="${userList}">
+								
 									<tr>
 										<td class="table-plus">${user.userSeq}</td>
-										<td><a href ="/sangsangjakka/admin/dashboard/user/manageview.do?seq=${user.userId}">${user.userId}</a></td>
+										
+										<td><a href ="/sangsangjakka/admin/dashboard/user/manageview.do?id=${user.userId}">${user.userId}</a></td>
 										<td>${user.userNick}</td>
 										<td>${user.userName}</td>
 										<td>${user.userLeftSsn}</td>
 										<td>${user.userRegdate}</td>
+										<input type="hidden" name="userSeq" value="${user.userSeq}">
+										<td><button type="submit" class="btn btn-outline-primary" onclick="return blicklistRestore()">복구</button>
 										<td>
 											<div class="dropdown">
 												<a
@@ -93,15 +101,19 @@
 											</div>
 										</td>
 									</tr>
+									
 								</c:forEach>
 							</tbody>
 
 						</table>
+						
+						</form>
 					</div>
 				</div>
 				<!-- Simple Datatable End -->
 
 			</div>
+			
 			<!-- 푸터 -->
 			<%@include
 				file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
@@ -147,5 +159,11 @@
 	<script>
 		
 	</script>
+	
+	<script>
+		function blicklistRestore() {
+		    return confirm("복구하시겠습니까?");
+		}
+		</script>
 </body>
 </html>

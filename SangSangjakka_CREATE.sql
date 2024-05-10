@@ -59,7 +59,7 @@ create table tblAdmin(
     adId        varchar2(20) primary key,                       -- 아이디(PK)
     adPw        varchar2(20) default '0000' not null,           -- 비밀번호
     adName      varchar2(20) default '관리자' not null,         -- 이름
-    adNick      varchar2(50) unique not null,                   -- 닉네임(UQ)
+    adNick      varchar2(50) not null,                   -- 닉네임(UQ)
     adAddress   varchar2(500) not null,                         -- 주소
     adTel       varchar2(30) unique not null,                   -- 전화번호
     adLv        number default 2 not null                       -- 등급(2: 일반, 3: 루트)
@@ -183,7 +183,8 @@ create table tblBook(
     bookModDate     date default null,                                      -- 수정일
     userSeq         number references tblUser(userSeq) not null,            -- 회원번호(FK)
     parentBookSeq   number default null references tblBook(bookSeq),        -- 부모 동화책 번호(FK)
-    rcmAgeSeq       number references tblRecommendAge(rcmAgeSeq) not null   -- 추천 연령 번호(FK)
+    rcmAgeSeq       number references tblRecommendAge(rcmAgeSeq) not null,  -- 추천 연령 번호(FK)
+    shareCnt        number default 0 not null                               -- 조회수
 );
 
 -- 동화책 화이트 리스트 테이블
@@ -229,7 +230,7 @@ create table tblBookShare(
 
 -- 수상 게시판 테이블
 create table tblAward(
-    bookSeq         number primary key references tblBookShare(bookSeq),    -- 수상 동화책 번호(PK, FK)
+    bookSeq         number primary key references tblBook(bookSeq),    -- 수상 동화책 번호(PK, FK)
     awardRegdate    date default sysdate not null,                          -- 수상일
     awardRank       number                                                  -- 등수
 );
@@ -241,15 +242,6 @@ create table tblReview(
     userSeq         number references tblUser(userSeq) not null,    -- 리뷰 작성 사용자 번호(FK)
     bookSeq         number references tblBook(BookSeq) not null,    -- 부모 동화책 공유 게시글 번호(FK)
     reviewRegdate   date default sysdate not null
-);
-
--- 사용자 장르 선호도 테이블
-create table tblUserGenrePreference(
-    userSeq     number references tblUser(userSeq),     -- 사용자 번호(PK, FK)
-    genreSeq    number references tblGenre(genreSeq),   -- 장르 seq(PK, FK)
-    genreCnt    number default 0 not null,              -- 횟수
-    
-    constraints tblUserGenrePreference_pk primary key(userSeq, genreSeq)
 );
 
 -- 리뷰 화이트 리스트 테이블
@@ -283,7 +275,7 @@ create table tblBoardCommentsReport(
 
 -- 동화책 신고 기록
 create table tblBookShareReport(
-    bookSeq number references tblBookShare(bookSeq), -- 동화책 공유글 번호(PK, FK)
+    bookSeq number references tblBook(bookSeq),      -- 동화책 번호(PK, FK)
     userSeq number references tblUser(userSeq),      -- 사용자 번호(PK, FK)
     
     constraints tblBookShareReport_pk primary key(bookSeq, userSeq)
@@ -303,6 +295,36 @@ create table tblReviewLike(
     userSeq number references tblUser(userSeq),      -- 사용자 번호(PK, FK)
     
     constraints tblReviewLike_pk primary key(reviewSeq, userSeq)
+);
+
+-- 성향 테이블
+create table tblTendency(
+    tendencySeq number primary key,         -- 성향 번호(PK)
+    tendencyName varchar2(50) not null      -- 성향 이름
+);
+
+-- 성향정보 테이블
+create table tblTendencyGenre(
+    tendencySeq number references tblTendency(tendencySeq),
+    genreSeq number references tblGenre(genreSeq),
+    
+    constraints tblTendencyGenre_pk primary key(tendencySeq, genreSeq)
+);
+
+-- 행동 카테고리
+create table tblActionCat(
+    actionCatSeq number primary key,
+    actionName varchar2(50) not null
+);
+
+-- 사용자 동화책 행동 테이블
+create table tblUserBookAction(
+    userSeq number references tblUser(userSeq),
+    actionDate date default sysdate,
+    bookSeq number references tblBook(bookSeq) not null,
+    actionCatSeq references tblActionCat(actionCatSeq) not null,
+    
+    constraints tblUserBookAction_pk primary key(userSeq, actionDate)
 );
 
 ---------------------
@@ -325,29 +347,46 @@ insert into tblInflowCat(inflowCatSeq, inflowName) values(5, '소셜 미디어 �
 insert into tblInflowCat(inflowCatSeq, inflowName) values(6, '광고지');
 insert into tblInflowCat(inflowCatSeq, inflowName) values(7, '기타');
 
+-- tblTendency 성향 테이블
+insert into tblTendency(tendencySeq, tendencyName) values(1, '모험 성향');
+insert into tblTendency(tendencySeq, tendencyName) values(2, '감성 성향');
+insert into tblTendency(tendencySeq, tendencyName) values(3, '교육 성향');
+insert into tblTendency(tendencySeq, tendencyName) values(4, '유머 성향');
+insert into tblTendency(tendencySeq, tendencyName) values(5, '창의성 성향');
+
 -- tblGenre 동화책 장르정보
-insert into tblGenre(genreSeq, genreName) values(1, '예술');
-insert into tblGenre(genreSeq, genreName) values(2, '공상과학');
-insert into tblGenre(genreSeq, genreName) values(3, '판타지');
-insert into tblGenre(genreSeq, genreName) values(4, '공포');
-insert into tblGenre(genreSeq, genreName) values(5, '교육');
-insert into tblGenre(genreSeq, genreName) values(6, '역사');
-insert into tblGenre(genreSeq, genreName) values(7, '자연생태');
-insert into tblGenre(genreSeq, genreName) values(8, '미스테리');
-insert into tblGenre(genreSeq, genreName) values(9, '인공지능');
-insert into tblGenre(genreSeq, genreName) values(10, '동화');
-insert into tblGenre(genreSeq, genreName) values(11, '스포츠');
-insert into tblGenre(genreSeq, genreName) values(12, '수수께끼');
-insert into tblGenre(genreSeq, genreName) values(13, '로맨틱');
-insert into tblGenre(genreSeq, genreName) values(14, '따뜻한');
-insert into tblGenre(genreSeq, genreName) values(15, '우주');
-insert into tblGenre(genreSeq, genreName) values(16, '건강');
-insert into tblGenre(genreSeq, genreName) values(17, '창조적');
-insert into tblGenre(genreSeq, genreName) values(18, '신비');
-insert into tblGenre(genreSeq, genreName) values(19, '고전적');
-insert into tblGenre(genreSeq, genreName) values(20, '코믹');
-insert into tblGenre(genreSeq, genreName) values(21, '우정');
-insert into tblGenre(genreSeq, genreName) values(22, '창의력');
+-- 모험성향 --
+insert into tblGenre(genreSeq, genreName) values(1, '판타지 동화');
+insert into tblGenre(genreSeq, genreName) values(2, '탐험 동화');
+
+-- 감성 성향
+insert into tblGenre(genreSeq, genreName) values(3, '친구/가족 이야기 동화');
+insert into tblGenre(genreSeq, genreName) values(4, '감동적인 동화');
+
+-- 교육 성향
+insert into tblGenre(genreSeq, genreName) values(5, '과학/자연 동화');
+insert into tblGenre(genreSeq, genreName) values(6, '역사 동화');
+
+-- 유머 성향
+insert into tblGenre(genreSeq, genreName) values(7, '익살스런 동화');
+insert into tblGenre(genreSeq, genreName) values(8, '말장난 동화');
+
+-- 창의성 성향
+insert into tblGenre(genreSeq, genreName) values(9, '발명품 관련 동화');
+insert into tblGenre(genreSeq, genreName) values(10, '상상력 자극 동화');
+
+
+-- tblTendencyGenre 성향 정보
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(1, 1);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(1, 2);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(2, 3);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(2, 4);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(3, 5);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(3, 6);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(4, 7);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(4, 8);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(5, 9);
+insert into tblTendencyGenre(tendencySeq, genreSeq) values(5, 10);
 
 -- tblRecommendAge 추천연령 
 insert into tblRecommendAge(rcmAgeSeq, rcmAge) values(1, '1세이상');
@@ -378,7 +417,6 @@ insert into tblAdcat(adCatSeq, adCatContents) values(18, '공지사항 수정');
 insert into tblAdcat(adCatSeq, adCatContents) values(19, '건의사항 답변 수정');
 
 -- 사용자 행동로그 카테고리
-select * from tblUserCat;
 insert into tblUserCat(userCatSeq, userCatContents) values(1, '회원가입');
 insert into tblUserCat(userCatSeq, userCatContents) values(2, '탈퇴');
 insert into tblUserCat(userCatSeq, userCatContents) values(3, '로그인');
@@ -403,6 +441,14 @@ insert into tblUserCat(userCatSeq, userCatContents) values(22, '남의 동화책
 insert into tblUserCat(userCatSeq, userCatContents) values(23, '건의사항 작성');
 insert into tblUserCat(userCatSeq, userCatContents) values(24, '건의사항 수정');
 
+-- 사용자 동화책 행동 카테고리
+insert into tblActionCat(actionCatSeq, actionName) values(1, '조회');
+insert into tblActionCat(actionCatSeq, actionName) values(2, '좋아요');
+insert into tblActionCat(actionCatSeq, actionName) values(3, '스크랩');
+insert into tblActionCat(actionCatSeq, actionName) values(4, '나의이야기로만들기');
+insert into tblActionCat(actionCatSeq, actionName) values(5, '동화책제작');
+insert into tblActionCat(actionCatSeq, actionName) values(6, '리뷰');
+
 --------------------
 -- 최고관리자 계정--
 --------------------
@@ -411,8 +457,11 @@ values('super', '1111', '최고관리자', '최고관리자', ' ', ' ', 3);
 
 commit;
 
-SELECT * 
-FROM (
-SELECT ROWNUM NUM, f.*
-FROM(SELECT * FROM vwBoardWhite where boardTitle like '%꿈%' ORDER BY boardRegdate desc) f
-) where num between 1 and 10;
+select
+    t.tendencyName,
+    g.genreName
+from tblTendencyGenre tg
+    inner join tblTendency t
+    on t.tendencySeq = tg.tendencySeq
+        inner join tblGenre g
+        on g.genreSeq = tg.genreSeq;

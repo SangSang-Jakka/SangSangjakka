@@ -11,8 +11,13 @@ import com.jakka.model.dto.board.SuggestionDTO;
 public interface SuggestionDAO extends BasicDAO<SuggestionDTO>, Cnt, Search<SuggestionDTO>{
 
 	ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map);
+	ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String orderBy);
 	int whiteTotalCnt(HashMap<String, String> map);
-	
+	int del(String seq);
+	public ArrayList<SuggestionDTO> findAllSecret();
+	public ArrayList<SuggestionDTO> findAllOpen();
+	public ArrayList<SuggestionDTO> findAllAnswer();
+	public ArrayList<SuggestionDTO> findAllNoAnswer();
 	
 	
 }

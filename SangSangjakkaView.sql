@@ -13,7 +13,7 @@ SELECT
     COALESCE(r.reviewCnt, 0) AS bookReviewCnt,
     COALESCE(s.scrapCnt, 0) AS bookScrapCnt,
     COALESCE(re.bookReportCnt, 0) AS bookReportCnt,
-    COALESCE(sb.bookCnt, 0) AS bookCnt,
+    b.shareCnt AS bookCnt,
     b.userSeq,
     b.parentBookSeq,
     b.rcmAgeSeq,
@@ -28,9 +28,7 @@ FROM tblBook b
                 LEFT JOIN (SELECT bookSeq, COUNT(*) AS scrapCnt FROM tblScrap GROUP BY bookSeq) s
                 ON b.bookSeq = s.bookSeq
                     LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookReportCnt FROM tblBookShareReport GROUP BY bookSeq) re
-                    ON b.bookSeq = re.bookSeq
-                        LEFT JOIN (SELECT bookSeq, COUNT(*) AS bookCnt FROM tblBookShare GROUP BY bookSeq) sb
-                        ON b.bookSeq = sb.bookSeq;
+                    ON b.bookSeq = re.bookSeq;
     
 -- 동화책 화이트리스트
 CREATE OR REPLACE VIEW vwBookWhite
@@ -58,10 +56,7 @@ INNER JOIN tblBookWhiteList bw
 -- 동화책 블랙리스트
 CREATE OR REPLACE VIEW vwBookBlack 
 AS
-SELECT *
-FROM (
 SELECT
-    ROWNUM AS RNUM,
     b.bookSeq,
     b.bookTitle,
     b.bookInfo, 
@@ -75,16 +70,12 @@ SELECT
     b.userNick,
     b.bookCnt
 FROM vwBook b
-WHERE b.bookSeq NOT IN(SELECT bookSeq FROM tblBookWhiteList)
-);
+WHERE b.bookSeq NOT IN(SELECT bookSeq FROM tblBookWhiteList);
 
 
 create or replace view vwSuggestion
 as
-select * from
-(
 select
-    rownum as rnum,
     s.sgstSeq,
     s.sgstTitle,
     s.sgstContents,
@@ -95,8 +86,7 @@ select
     u.userNick
 from tblSuggestion s
     inner join tblUser u
-    on s.userSeq = u.userSeq
-);
+    on s.userSeq = u.userSeq;
 
 --  게시판 테이블 + 신고횟수
 CREATE OR REPLACE VIEW vwBoard
@@ -138,11 +128,6 @@ WHERE b.boardSeq NOT IN (SELECT boardSeq FROM tblBoardWhiteList);
 -- 블라인드제외 자유게시판 글
 CREATE OR REPLACE VIEW vwBoardWhite
 AS
-select 
-    o.* ,
-    rownum as rnum
-    from 
-(
     SELECT
         b.boardSeq,
         b.boardTitle,
@@ -157,16 +142,12 @@ select
         inner JOIN tblBoardWhiteList w
         on b.boardSeq = w.boardSeq
             left join (select boardSeq, COUNT(*) AS cmntCnt from vwBoardCommentsWhite GROUP BY boardSeq) cm
-            on b.boardSeq = cm.boardSeq
-) o;
+            on b.boardSeq = cm.boardSeq;
 
 -- 자유게시판 댓글 + 신고횟수
 create or replace view vwBoardComments
 as
-select *
-from(
     select
-        rownum as rnum,
         c.cmntSeq,
         c.userSeq,
         c.boardSeq,
@@ -178,16 +159,12 @@ from(
         inner join tblUser u
         on u.userSeq = c.userSeq
             LEFT JOIN (SELECT cmntSeq, COUNT(*) AS cmntReportCnt FROM tblBoardCommentsReport GROUP BY cmntSeq) re
-            ON c.cmntSeq = re.cmntSeq
-);
+            ON c.cmntSeq = re.cmntSeq;
 
 -- 자유게시판 댓글 화이트리스트
 create or replace view vwBoardCommentsWhite
 AS
-select *
-from (
     SELECT
-        rownum as rnum,
         c.cmntSeq,
         c.userSeq,
         c.boardSeq,
@@ -197,8 +174,7 @@ from (
         c.userNick
     FROM vwBoardComments c
         inner join tblBoardCommentsWhiteList wc
-        on wc.cmntSeq = c.cmntSeq
-);
+        on wc.cmntSeq = c.cmntSeq;
 
 -- 자유게시판 댓글 블랙리스트
 CREATE OR REPLACE VIEW vwBoardCommentsBlack 
@@ -239,20 +215,17 @@ FROM tblReview r
 -- 화이트 리뷰
 CREATE OR REPLACE VIEW vwReviewWhite 
 AS
-select *
-from (
-    SELECT
-     rownum as rnum,
-        r.reviewSeq,
-        r.reviewContents,
-        r.reviewLikeCnt,
-        r.reviewReportCnt,
-        r.userSeq,
-        r.bookSeq,
-        r.reviewRegdate
-    FROM vwReview r
-        INNER JOIN tblReviewWhiteList rw ON r.reviewSeq = rw.reviewSeq
-);
+SELECT
+    r.reviewSeq,
+    r.reviewContents,
+    r.reviewLikeCnt,
+    r.reviewReportCnt,
+    r.userSeq,
+    r.bookSeq,
+    r.reviewRegdate,
+    r.userNick
+ FROM vwReview r
+    INNER JOIN tblReviewWhiteList rw ON r.reviewSeq = rw.reviewSeq;
 
 
 -- 블랙 리뷰
@@ -265,7 +238,8 @@ SELECT
     r.reviewReportCnt,
     r.userSeq,
     r.bookSeq,
-    r.reviewRegdate
+    r.reviewRegdate,
+    r.userNick
 FROM vwReview r
     LEFT JOIN tblReviewWhiteList rw 
     ON r.reviewSeq = rw.reviewSeq
@@ -325,18 +299,30 @@ from tblScrap s
         inner join tblUser u
         on s.userSeq = u.userSeq;
 
-CREATE OR REPLACE VIEW vwNotice
-as
-select *
-from
-    (
-    select 
-        rownum as rnum,
-        n.*
-        from tblNotice n
-);
+--자녀 연령대 범위
+CREATE or replace VIEW vwAgeRangeCount
+AS
+SELECT
+  ac.agerange,
+  COALESCE(ct.count, 0) AS count
+FROM
+  tblAgeCat ac
+  LEFT JOIN (
+    SELECT
+      ta.agerange,
+      COUNT(*) AS count
+    FROM
+      tblChildAge tc
+      JOIN tblAgeCat ta ON tc.agecatseq = ta.agecatseq
+    GROUP BY
+      ta.agerange
+  ) ct ON ac.agerange = ct.agerange
+ORDER BY
+  ac.agecatseq;
+  
+  
+-- 사용자 연령대
 
--- 사용자 연령대 
 CREATE OR REPLACE VIEW vwUserAge AS
 SELECT
     age_range,
@@ -373,3 +359,19 @@ GROUP BY
 ORDER BY
     age_range;
 
+   
+
+-- 수상한 동화책
+CREATE or replace VIEW vwAward
+AS
+select
+    b.*,
+    a.awardRegdate,
+    a.awardRank
+from vwBookWhite b
+    inner join tblAward a
+    on b.bookSeq = a.bookSeq;
+   
+   
+   
+commit;

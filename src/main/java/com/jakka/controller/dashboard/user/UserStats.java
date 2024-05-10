@@ -26,15 +26,13 @@ public class UserStats extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		 LocalDate currentDate = LocalDate.now();
-		    // currentDate를 필요한 형식으로 포맷팅할 수 있습니다.
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
-		    // 포맷을 적용하여 문자열로 변환합니다.
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
 		 String formattedDate = currentDate.format(formatter);
 		
 		UserDAO dao = DAOManager.getUserDAO();
 		//int userCnt = dao.userCnt(formattedDate);
-		int userCnt = dao.userCnt("23/03/11");
-		
+		int userCnt = dao.userCnt("formattedDate");
+		System.out.println(userCnt);
 		Map<String,Integer> userCounts  = dao.userGender();
 		System.out.println(123);
 		System.out.println(userCounts);
@@ -134,61 +132,110 @@ public class UserStats extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String num1 = req.getParameter("month1");
-		String num2 = req.getParameter("month2");
-			
-			
-		String formattedNum1 = num1.substring(2).replace("-", "/");
-	    String formattedNum2 = num2.substring(2).replace("-", "/");
+//		String num1 = req.getParameter("month1");
+//		String num2 = req.getParameter("month2");
+//			
+//			
+//		String formattedNum1 = num1.substring(2).replace("-", "/");
+//	    String formattedNum2 = num2.substring(2).replace("-", "/");
+//	    
+//	    
+//	    // 변경된 값 확인
+//	    System.out.println(formattedNum1); // 출력: 21/06
+//	    System.out.println(formattedNum2); // 출력: 21/06
+//	    
+//	    System.out.println("post");
+	    String year = req.getParameter("selectedValue");
 	    
 	    
-	    // 변경된 값 확인
-	    System.out.println(formattedNum1); // 출력: 21/06
-	    System.out.println(formattedNum2); // 출력: 21/06
+	   
+	    if (year != null) {
+	    	 UserDAO dao = DAOManager.getUserDAO();
+	 	    Map<String, Integer[]> memberStats  = dao.member(year);
+
+            JsonArray jsonArray = new JsonArray();
+            for (Map.Entry<String, Integer[]> entry : memberStats.entrySet()) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("label", entry.getKey());
+                Integer[] values = entry.getValue();
+                jsonObject.addProperty("joinCount", values[0]);
+                jsonObject.addProperty("withdrawCount", values[1]);
+                jsonArray.add(jsonObject);
+            }
+
+            Gson gson = new Gson();
+            String jsonData = gson.toJson(jsonArray);
+            System.out.println(jsonData);
+
+            resp.setContentType("application/json");
+            resp.getWriter().write(jsonData);
+        } else {
+        	resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        	resp.getWriter().write("Invalid request parameters");
+        }
+    
 	    
-
 	    
 	    
-	    UserDAO dao = DAOManager.getUserDAO();
-	    Map<String, Map<String, Integer>> countsMap = dao.newCnt(formattedNum1, formattedNum2);
-
-	    JsonObject userData = new JsonObject();
-
-	    JsonArray labels = new JsonArray();
-	    labels.add("가입자수");
-	    labels.add("탈퇴자수");
-	    userData.add("labels", labels);
-
-	    JsonArray data = new JsonArray();
-	    JsonArray months = new JsonArray();
-
-	    for (Map.Entry<String, Map<String, Integer>> entry : countsMap.entrySet()) {
-	       String month = entry.getKey();
-	       Map<String, Integer> countMap = entry.getValue();
-	       int userCount = countMap.get("user_count");
-	       int userLeft = countMap.get("user_left");
-	       
-	       months.add(month);
-	       
-	       JsonArray monthData = new JsonArray();
-	       monthData.add(userCount);
-	       monthData.add(userLeft);
-	       data.add(monthData);
-	    }
-
-	    userData.add("data", data);
-	    userData.add("months", months);
-
-	    Gson gson = new Gson();
-	    String jsonData = gson.toJson(userData);
-
-	    System.out.println(jsonData);
-
-	    resp.setContentType("application/json");
-	    resp.setCharacterEncoding("UTF-8");
-	    resp.getWriter().write(jsonData);
 	    
+	    
+//
+        
+//	    
+//	    
+//	    
+//	    UserDAO dao = DAOManager.getUserDAO();
+//	    Map<String, Map<String, Integer>> countsMap = dao.newCnt(formattedNum1, formattedNum2);
+//
+//	    JsonObject userData = new JsonObject();
+//
+//	    JsonArray labels = new JsonArray();
+//	    labels.add("가입자수");
+//	    labels.add("탈퇴자수");
+//	    userData.add("labels", labels);
+//
+//	    JsonArray data = new JsonArray();
+//	    JsonArray months = new JsonArray();
+//
+//	    for (Map.Entry<String, Map<String, Integer>> entry : countsMap.entrySet()) {
+//	       String month = entry.getKey();
+//	       Map<String, Integer> countMap = entry.getValue();
+//	       int userCount = countMap.get("user_count");
+//	       int userLeft = countMap.get("user_left");
+//	       
+//	       months.add(month);
+//	       
+//	       JsonArray monthData = new JsonArray();
+//	       monthData.add(userCount);
+//	       monthData.add(userLeft);
+//	       data.add(monthData);
+//	    }
+//
+//	    userData.add("data", data);
+//	    userData.add("months", months);
+//
+//	    Gson gson = new Gson();
+//	    String jsonData = gson.toJson(userData);
+//
+//	    System.out.println(jsonData);
+//	    
+//	    
+//	    
+//	    
+//
+//	    resp.setContentType("application/json");
+//	    resp.setCharacterEncoding("UTF-8");
+//	    resp.getWriter().write(jsonData);
+		
+		
+	    
+	    
+	    
+	 
 	}
+	
+	
+	
 	
 
 	

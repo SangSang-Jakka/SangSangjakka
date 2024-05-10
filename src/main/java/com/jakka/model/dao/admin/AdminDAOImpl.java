@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dao.BasicDAO;
@@ -310,6 +311,56 @@ public class AdminDAOImpl implements AdminDAO{
 		
 	}
 	
-	
+		
+		@Override
+		public int remove(String id) {
+			
+			final String SQL = "delete from tblAdmin where adId= ?";
+			
+			try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+					
+			){
+				
+				
+				pstat.setString(1, id);
+				
+				return pstat.executeUpdate();
+				
+
+				
+				
+			} catch (Exception e) {
+				System.out.println("UserDAO.| disable");
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+		
+		
+		@Override
+		 public List<String> getYear() {
+	        List<String> years = new ArrayList<>();
+	        String sql = "SELECT DISTINCT SUBSTR(userRegdate, 1, 2) AS year FROM tblUser ORDER BY year";
+
+	        try (
+	        		Connection conn = DBUtil.open();
+	        		PreparedStatement pstmt = conn.prepareStatement(sql);
+	             ResultSet rs = pstmt.executeQuery()) {
+
+	            while (rs.next()) {
+	                String year = rs.getString("year");
+	                years.add(year);
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return years;
+	    }
 	
 }//End of class

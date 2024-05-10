@@ -49,14 +49,20 @@
 				</div>
 
 
+				<form method="POST" action ="/sangsangjakka/admin/dashboard/user/manageview.do">
 				<!-- Simple Datatable start -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">회원 정보</h4>
-						<a href="/sangsangjakka/dashboard/user/edit.do?id=${user.userId}" class="btn btn-primary pull-right">수정</a>
+						<c:if test="${blacklistSeq !=1}">
+						<button type="submit" class="btn btn-danger" id="blockBtn" onclick="return confirmBlock()">차단</button>
+						</c:if>
+						
+						<a href="/sangsangjakka/dashboard/user/edit.do?seq=${user.userSeq}&id=${user.userId}" class="btn btn-primary pull-right">수정</a>
+						
 					</div>
 					<div class="wizard-content">
-						<form class="tab-wizard wizard-circle wizard">
+						
 
 
 							<div class="row">
@@ -127,9 +133,13 @@
 										<label>개인용량 :</label> <input type="text" class="form-control"
 											value="${user.limitStorage}">
 									</div>
+						<input type="hidden" name="userSeq" value ="${user.userSeq}" /> 
+						<button type="button" class="btn btn-primary pull-right" onclick ="location.href='/sangsangjakka/admin/dashboard/user/manage.do';"> 돌아가기</button>
 								</div>
 							</div>
 						</form>
+						
+						 
 					</div>
 				</div>
 
@@ -180,5 +190,13 @@
 		<script>
 			
 		</script>
+		
+		<script>
+		function confirmBlock() {
+		    return confirm("차단하시겠습니까?");
+		}
+		</script>
+		
+		
 </body>
 </html>

@@ -115,6 +115,131 @@ public class BoardDAOImpl implements BoardDAO {
 		return null;
 
 	}// list()
+	
+	@Override
+    public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map) {
+
+        String where = "where rnum BETWEEN ? AND ?";
+        String col = "";
+
+        if (map.get("search").equals("y")) {
+            col = col + String.format(" where %s like '%%%s%%'", map.get("column"), map.get("word"));
+        }
+
+        String sql = String.format("SELECT boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq, userNick, cmntCnt " +
+                "FROM (SELECT ROWNUM RNUM, f.boardSeq, f.boardTitle, f.boardContents, f.boardRegdate, f.boardReportCnt, f.boardCnt, f.userSeq, f.userNick, f.cmntCnt " +
+                "FROM (SELECT * FROM vwBoardWhite %s ORDER BY boardRegdate desc) f) " +
+                "%s", col, where);
+
+        try (
+                Connection conn = DBUtil.open(); 
+                PreparedStatement pstat = conn.prepareStatement(sql);
+        ) {
+            pstat.setString(1, map.get("begin"));
+            pstat.setString(2, map.get("end"));
+
+            ResultSet rs = pstat.executeQuery();
+
+            ArrayList<BoardDTO> list = new ArrayList<>();
+
+            while (rs.next()) {
+
+                BoardDTO dto = new BoardDTO();
+
+                dto.setBoardCnt(rs.getString("boardCnt"));
+                dto.setBoardContents(rs.getString("boardContents"));
+                dto.setBoardRegdate(rs.getString("boardRegdate"));
+                dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+                dto.setBoardSeq(rs.getString("boardSeq"));
+                dto.setBoardTitle(rs.getString("boardTitle"));
+                dto.setUserSeq(rs.getString("userSeq"));
+                dto.setUserNick(rs.getString("userNick"));
+                dto.setCmntCnt(rs.getString("cmntCnt"));
+
+                list.add(dto);
+
+            }
+
+            return list;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+	
+	
+	
+	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map, String orderBy) {
+		
+		//System.out.println(orderBy);
+	    String SQL = "SELECT boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq, userNick, cmntCnt " +
+	                 "FROM (SELECT ROWNUM RNUM, f.boardSeq, f.boardTitle, f.boardContents, f.boardRegdate, f.boardReportCnt, f.boardCnt, f.userSeq, f.userNick, f.cmntCnt " +
+	                 "FROM (SELECT * FROM vwBoardWhite ";
+
+	    if (map.get("search").equals("y")) {
+	        SQL += String.format("WHERE %s like '%%%s%%' ", map.get("column"), map.get("word"));
+	    }
+
+	    SQL += "ORDER BY ";
+
+	    switch (orderBy) {
+	        case "newest":
+	            SQL += "boardRegdate DESC";
+	            break;
+	        case "view_count":
+	            SQL += "boardCnt DESC";
+	            break;
+	        case "comment_count":
+	            SQL += "CMNTCNT DESC";
+	            break;
+	        default:
+	            SQL += "boardRegdate DESC";
+	    }
+
+	    SQL += ") f) " +
+	           "WHERE RNUM BETWEEN ? AND ?";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    ) {
+	        pstmt.setString(1, map.get("begin"));
+	        pstmt.setString(2, map.get("end"));
+
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<BoardDTO> list = new ArrayList<>();
+	        
+	        System.out.println(SQL);
+
+	        while (rs.next()) {
+	            BoardDTO dto = new BoardDTO();
+	            dto.setBoardCnt(rs.getString("boardCnt"));
+	            dto.setBoardContents(rs.getString("boardContents"));
+	            dto.setBoardRegdate(rs.getString("boardRegdate"));
+	            dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+	            dto.setBoardSeq(rs.getString("boardSeq"));
+	            dto.setBoardTitle(rs.getString("boardTitle"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            dto.setCmntCnt(rs.getString("cmntCnt"));
+	            list.add(dto);
+	        }
+
+	        System.out.println(list);
+	        return list;
+
+	    } catch (Exception e) {
+	        System.out.println("BoardDAO.| list");
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
+
+
 
 	// 블라인드된 자유게시판 글
 	@Override
@@ -139,6 +264,7 @@ public class BoardDAOImpl implements BoardDAO {
 				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
 				dto.setBoardCnt(rs.getString("boardCnt"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 
 				list.add(dto);
 			}
@@ -155,6 +281,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 게시판 글 추가
 	// 제목, 내용, 작성자seq
 	@Override
+	
 	public int add(BoardDTO dto) {
 
 		final String SQL = "INSERT INTO tblBoard (boardSeq, boardTitle, boardContents, boardRegdate, boardCnt, userSeq) VALUES ((SELECT NVL(MAX(boardSeq), 0) + 1 FROM tblBoard), ?, ?, DEFAULT, DEFAULT, ?)";
@@ -215,6 +342,7 @@ public class BoardDAOImpl implements BoardDAO {
 			pstat.setString(1, dto.getBoardTitle());
 			pstat.setString(2, dto.getBoardContents());
 			pstat.setString(3, dto.getBoardSeq());
+			
 
 			int result = pstat.executeUpdate();
 
@@ -690,58 +818,6 @@ public class BoardDAOImpl implements BoardDAO {
 		return 0;
 	}
 
-	@Override
-	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map) {
-		
-		String where = "where rnum BETWEEN ? AND ?";
-		String col = "";
-		
-		if (map.get("search").equals("y")) {
-			col = col + String.format(" where %s like '%%%s%%'", map.get("column"), map.get("word"));
-		}
-		
-		String sql = String.format("SELECT boardSeq, boardTitle, boardContents, boardRegdate, boardReportCnt, boardCnt, userSeq, userNick, cmntCnt " +
-                "FROM (SELECT ROWNUM RNUM, f.boardSeq, f.boardTitle, f.boardContents, f.boardRegdate, f.boardReportCnt, f.boardCnt, f.userSeq, f.userNick, f.cmntCnt " +
-                "FROM (SELECT * FROM vwBoardWhite %s ORDER BY boardRegdate desc) f) " +
-                "%s", col, where);
-		
-		try (
-				Connection conn = DBUtil.open(); 
-				PreparedStatement pstat = conn.prepareStatement(sql);
-		) {
-			pstat.setString(1, map.get("begin"));
-			pstat.setString(2, map.get("end"));
-
-			ResultSet rs = pstat.executeQuery();
-
-			ArrayList<BoardDTO> list = new ArrayList<>();
-
-			while (rs.next()) {
-
-				BoardDTO dto = new BoardDTO();
-
-				dto.setBoardCnt(rs.getString("boardCnt"));
-				dto.setBoardContents(rs.getString("boardContents"));
-				dto.setBoardRegdate(rs.getString("boardRegdate"));
-				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
-				dto.setBoardSeq(rs.getString("boardSeq"));
-				dto.setBoardTitle(rs.getString("boardTitle"));
-				dto.setUserSeq(rs.getString("userSeq"));
-				dto.setUserNick(rs.getString("userNick"));
-				dto.setCmntCnt(rs.getString("cmntCnt"));
-
-				list.add(dto);
-
-			}
-
-			return list;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
 
 	//  임시  > 외래키로 삭제 불가 작동X
 	// 게시물 삭제 
@@ -787,6 +863,215 @@ public class BoardDAOImpl implements BoardDAO {
 			e.printStackTrace();
 			return 0;
 		}
+		
+		
+		
 	}
+	
+	
+	@Override
+	public int findSeq(String userSeq) {
+	    String SQL = "SELECT MAX(boardSeq) FROM tblBoard WHERE userSeq = ?";
 
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, userSeq);
+	        ResultSet rs = pstat.executeQuery();
+
+	        if (rs.next()) {
+	            return rs.getInt(1); // 1번째 열의 값을 정수형으로 가져옴
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return 0; // 값을 찾지 못한 경우 0 반환
+	}
+	
+	@Override
+	public BoardDTO findInfo(String freeSeq) {
+	    String SQL = "SELECT * FROM tblBoard WHERE boardSeq = ?";
+	    BoardDTO dto = null;
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, freeSeq); // 매개변수 값 설정
+	        ResultSet rs = pstat.executeQuery(); // executeQuery() 실행
+
+	        if (rs.next()) { // 결과가 있을 경우
+	            dto = new BoardDTO();
+	            dto.setBoardSeq(rs.getString("boardSeq"));
+	            dto.setBoardTitle(rs.getString("boardTitle"));
+	            dto.setBoardContents(rs.getString("boardContents"));
+	            dto.setBoardRegdate(rs.getString("boardRegdate"));
+	            dto.setBoardCnt(rs.getString("boardCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return dto;
+	}
+	
+	 
+	
+	@Override
+	public int saveEdit(BoardDTO dto) {
+		
+		final String SQL = "update tblBoard set boardTitle = ?, boardContents = ? where boardSeq = ?";
+		
+
+		try (
+
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+
+		) {
+
+			conn.setAutoCommit(false);
+
+			pstat.setString(1, dto.getBoardTitle());
+			pstat.setString(2, dto.getBoardContents());
+			pstat.setString(3, dto.getBoardSeq());
+			
+
+			int result = pstat.executeUpdate();
+
+			if (result > 0) {
+				
+				return result;
+			}
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| set");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	
+	@Override
+	public int freeDel(String boardSeq) {
+		
+
+		final String SQL = "delete from tblBoardWhiteList where boardSeq = ?";
+	
+
+		try (Connection conn = DBUtil.open();
+			 PreparedStatement pstat = conn.prepareStatement(SQL);)
+		{
+
+			pstat.setString(1, boardSeq);
+
+			int result = pstat.executeUpdate();
+
+
+			return result;
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| disable");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	
+	// 신고가 있는 게시물 조회
+	@Override
+	public ArrayList<BoardDTO> findAllReport() {
+
+		final String SQL = "select * from vwBoard where boardReportCnt > 0";
+
+		try (
+
+				Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL);
+
+		) {
+
+			ArrayList<BoardDTO> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				BoardDTO dto = new BoardDTO();
+
+				dto.setBoardCnt(rs.getString("boardCnt"));
+				dto.setBoardContents(rs.getString("boardContents"));
+				dto.setBoardRegdate(rs.getString("boardRegdate"));
+				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setBoardTitle(rs.getString("boardTitle"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+
+				list.add(dto);
+
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| list");
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}// list()
+	
+	// 신고가 없는 게시물 조회
+		@Override
+		public ArrayList<BoardDTO> findAllNoReport() {
+
+			final String SQL = "select * from vwBoard where boardReportCnt = 0";
+
+			try (
+
+					Connection conn = DBUtil.open();
+					Statement stat = conn.createStatement();
+					ResultSet rs = stat.executeQuery(SQL);
+
+			) {
+
+				ArrayList<BoardDTO> list = new ArrayList<>();
+
+				while (rs.next()) {
+
+					BoardDTO dto = new BoardDTO();
+
+					dto.setBoardCnt(rs.getString("boardCnt"));
+					dto.setBoardContents(rs.getString("boardContents"));
+					dto.setBoardRegdate(rs.getString("boardRegdate"));
+					dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+					dto.setBoardSeq(rs.getString("boardSeq"));
+					dto.setBoardTitle(rs.getString("boardTitle"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
+
+					list.add(dto);
+
+				}
+
+				return list;
+
+			} catch (Exception e) {
+				System.out.println("BoardDAO.| list");
+				e.printStackTrace();
+			}
+
+			return null;
+
+		}// list()
+	
+	
 }// End of class

@@ -1,10 +1,14 @@
+<%@page import="com.jakka.model.DAOManager"%>
+<%@page import="java.util.List"%>
+<%@page import="com.jakka.model.dao.admin.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css"> -->
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/dashboard.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<style>
 	
@@ -12,7 +16,19 @@
 	</style>
 	</head>
 	<body>
+	<%
 	
+	
+	 AdminDAO year = DAOManager.getAdminDAO();
+	 List<String> yearList = year.getYear();
+	 System.out.println(yearList); //[23]
+	
+	
+	
+	
+	
+	
+	%>
 		<!-- 헤더 -->
 		<%@include file="/WEB-INF/views/dashboard/dashboard_template/header.jsp"%>
 	
@@ -39,76 +55,65 @@
 	                    </div>
 	                </div>
 	
-	                <div class="row">
+		<div class="pd-ltr-20 xs-pd-20-10">
+		 <div class="min-height-200px">
 	
-	                    <div class="postBox">
-	                        <div class="today">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>신규 가입자수</h4>
-	                            <p>+${userCnt}</p>
-	                        </div>
-	                        <div class="yesterday">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>차단된 사용자수</h4>
-	                            <p>3</p>
-	                        </div>
-	                        <div class="accumulate">
-	                            <i class="icon-copy dw dw-pencil "></i>
-	                            <h4>탈퇴회원수</h4>
-	                            <p>300</p>
-	                        </div>
-	                    </div>
-	                </div>
-	
-	                <div class="boardTotal">
-	                    <div class="boardSection">
-	                        <h4>동화공유게시판</h4>
-	                        <p>10</p>
-	                    </div>
-	                    <div class="boardSection">
-	                        <h4>자유게시판</h4>
-	                        <p>85</p>
-	                    </div>
-	                    <div class="boardSection">
-	                        <h4>건의사항</h4>
-	                        <p>5</p>
-	                    </div>
-	                </div>
-	
+		<!-- 배너 -->
+         <%@include file="/WEB-INF/views/member/user/user_template/user_banner.jsp"%> 
 
- 	               <p>성별</p>
-           			<div style="width: 300px; height: 300px; background-color: white;
-           			border-radius: 10px;">
-				 	<canvas id="genderChart"></canvas>
-   					</div>
+
     			
-
-
-					<p>날짜 입력</p>
-					<input type="text" id="monthPicker" name="monthPicker">
-   					<input type="text" id="monthPicker3" name="monthPicker3">
-    				<button id="sendButton">Send</button>
-			       
-			        <p>가입자수, 탈퇴자수</p>
-					<div style="width: 800px; height: 400px; background-color: white;
-			        border-radius: 10px;">
-			             <canvas id="userChart" width="800" height="400"></canvas>
-			        </div>
-					
-					<p>자녀 연령대</p>	        
-			        <div style="width: 800px; height: 400px; background-color: white;">
-					<!--차트가 그려질 부분-->
+    		<div class="row">
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">성별</h2>
+						<canvas id="genderChart"></canvas>
+					</div>
+				</div>
+			 <div class="col-xl-8 mb-30"> 
+					<div class="card-box height-100-p pd-20"> 
+						<h2 class="h4 mb-20">사용자연령대</h2> 
+						<canvas id="myChart"></canvas>
+					</div> 
+				</div>
+			</div>
+			
+			<div class="bg-white pd-20 card-box mb-30">
+					<h4 class="h4 text-blue">자녀연령대</h4>
 					<canvas id="AgeChart"></canvas>
-					</div>
-					
-				     <p>사용자 연령대</p>
-					<div style="width: 800px; height: 400px; background-color: white;">
-					<!--차트가 그려질 부분-->
-					<canvas id="myChart"></canvas>
-					</div>
+			</div>
+			
+			
+				
+				
+
+
+<div class="row"> 
+ <div class="col-xl-12 mb-30">
+    <div class="card-box height-100-p pd-20">
+      <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+          <select class="selectpicker form-control" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
+            <c:forEach var="year" items="<%= yearList %>">
+              <option value="${year}" <c:if test="${year == currentYearShort}">disabled</c:if>>20${year}</option>
+            </c:forEach>
+          </select>
+        </div>
+      </div>
+      <canvas id="memberChart"></canvas>
+    </div>
+  </div>
+  
+
+  </div>
+			     
+			   
+
 			        
 	            <!-- 푸터 -->
 				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
+				</div>
+				</div>
 				
 	        	</div>
 	    	</div>
@@ -127,7 +132,8 @@
 <script src="/sangsangjakka/resources/vendors/scripts/jquery.mtz.monthpicker.js"></script>
 <script src="/sangsangjakka/resources/js/dashboard/chart.js"></script>
 
-	
+	<script src="/sangsangjakka/resources/plugins/apexcharts/apexcharts.min.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/dashboard-chart.js"></script>
 <script>
     // 성별
 	var genderChartData = <%= request.getAttribute("jsonData") %>;
@@ -141,112 +147,104 @@
 
 </script>
 
+
+
 <script>
-$(document).ready(function(){
-
+    // 현재 연도 가져오기
     var currentYear = new Date().getFullYear();
-    
-    var options = {
-        pattern: 'yyyy-mm',      // input 태그에 표시될 형식
-        selectedYear: 2019,      // 선택할 연도
-        startYear: 2020,         // 시작 연도
-        finalYear: currentYear,  // 현재 년도를 마지막 연도로 설정
-        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 화면에 보여줄 월 이름
-        openOnFocus: true,       // focus시에 달력이 보일지 유무
-        disableMonths: []        // 비활성화할 월
-    };
+    var currentYearShort = currentYear.toString().slice(-2);
+    console.log(currentYearShort);
 
+    // 현재 연도 차트 초기 렌더링
+    renderChart(currentYear.toString());
 
-   
-    $("#monthPicker").monthpicker(options);
-    $("#monthPicker3").monthpicker(options);
-  
-    
+    function renderChart(year) {
+      $.ajax({
+        type: "POST",
+        url: "/sangsangjakka/admin/dashboard/user/stats.do",
+        data: { selectedValue: year },
+        success: function(response) {
+          console.log('Server response:', response);
 
-  
-    
-    
-    $('#sendButton').click(function() {
-        var selectedMonth1 = $("#monthPicker").val();
-        var selectedMonth2 = $("#monthPicker3").val();
+          var labels = [];
+          var joinData = [];
+          var withdrawData = [];
 
-        // 선택된 월 값을 서블릿 파일로 전송
-        $.ajax({
-            type: "POST",
-            url: "/sangsangjakka/admin/dashboard/user/stats.do", // 여기에 서블릿 URL을 입력하세요
+          // JSON 데이터 파싱
+          for (var i = 0; i < response.length; i++) {
+            var monthData = response[i];
+            labels.push(monthData.label);
+            joinData.push(monthData.joinCount);
+            withdrawData.push(monthData.withdrawCount);
+          }
+
+          var context = document.getElementById('memberChart').getContext('2d');
+          if (window.myChart) {
+            window.myChart.destroy(); // 기존 차트 제거
+          }
+
+          window.myChart = new Chart(context, {
+            type: 'bar',
             data: {
-                month1: selectedMonth1,
-                month2: selectedMonth2
+              labels: labels,
+              datasets: [{
+                label: '가입자 수',
+                data: joinData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+              }, {
+                label: '탈퇴자 수',
+                data: withdrawData,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+              }]
             },
-            success: function(response) {
-                // 서블릿에서 받은 응답 처리
-            	  console.log("Data received successfully");
-                  console.log(response);
-                 
-
-                  // 받은 데이터를 차트에 반영하는 로직
-                  var context = document.getElementById('userChart').getContext('2d');
-                  var myChart = new Chart(context, {
-                	  type: 'bar',
-                	    data: {
-                	        labels: response.months,
-                	        datasets: [
-                	            {
-                	                label: response.labels[0], // "가입자수"
-                	                data: response.data.map(item => item[0]), // [date1, date2]
-                	                backgroundColor: '#00C7E2',
-                	                maxBarThickness: 30
-                	            },
-                	            {
-                	                   label: response.labels[1], // "탈퇴자수"
-                	                   data: response.data.map(item => item[1]), // 두 번째 요소만 추출 (탈퇴자 수)
-                	                   backgroundColor: '#FF6384',
-                	                   maxBarThickness: 30
-                	               }
-                	        ]
-                
-                      },
-                      options: {
-                          responsive: false,
-                          maintainAspectRatio: false,
-                          plugins: {
-                              tooltip: {
-                                  enabled: true,
-                                  backgroundColor: '#000',
-                                  padding: 10
-                              },
-                              legend: {
-                                  display: true,
-                                  position: 'bottom'
-                              }
-                          },
-                          scales: {
-                              x: {
-                                  grid: {
-                                      display: false,
-                                  }
-                              },
-                              y: {
-                                  min: 0,
-                                  max: 50,
-                                  border: {
-                                      dash: [5, 5]
-                                  },
-                              }
-                          }
-                      }
-                  });
-            },
-            error: function(xhr, status, error) {
-                console.error("Error occurred while sending data: " + error);
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              },
+              hover: {
+                mode: null // 마우스 호버 효과 비활성화
+              },
+              events: [] // 이벤트 핸들러 비활성화
             }
-        });
-    });
+          });
+        },
+        error: function(xhr, status, error) {
+          console.error('AJAX request error:', error);
+        }
+      });
+    }
 
-});
+    function sendSelectedOptionValue(selectElement) {
+      var selectedOption = selectElement.options[selectElement.selectedIndex];
+      if (selectedOption) {
+        var selectedValue = selectedOption.value;
+        console.log(selectedValue);
+        renderChart(selectedValue);
+      } else {
+        console.log('No option selected');
+      }
+    }
+  </script>
+   
 
 
-</script>
+ <script>
+    // getBarChartOptions 함수 사용
+    var options = getBarChartOptions();
+
+    // 차트 생성
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+  </script>
+  
 
 
   

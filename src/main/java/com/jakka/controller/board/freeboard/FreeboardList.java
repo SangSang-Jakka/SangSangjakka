@@ -76,9 +76,18 @@ public class FreeboardList extends HttpServlet {
 		
 		BoardDAO dao = DAOManager.getBoardDAO();
 		
-		ArrayList<BoardDTO> list  = dao.findAllWhite(map);
 		
-		System.out.println(list);
+		String orderBy = req.getParameter("orderBy");
+		
+		 if (orderBy == null) {
+		        orderBy = "newest"; // 기본값으로 설정
+		    }
+		    
+		  System.out.println("orderBy: " + orderBy);
+
+		 ArrayList<BoardDTO> list = dao.findAllWhite(map, orderBy);
+		
+		//System.out.println(list);
 		
 		if(list != null) {
 		//데이터 조작

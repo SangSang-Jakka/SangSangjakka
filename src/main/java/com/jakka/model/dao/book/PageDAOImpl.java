@@ -120,16 +120,16 @@ public class PageDAOImpl implements PageDAO{
 		final String SQL = "UPDATE tblPage SET pageUrl = ?, pageContents = ?, cmntYN = ?, imgYN = ? WHERE pageSeq = ? AND bookSeq = ?";
 
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
 	    	
-	        pstmt.setString(1, dto.getPageUrl());
-	        pstmt.setString(2, dto.getPageContents());
-	        pstmt.setString(3, dto.getCmntYN());
-	        pstmt.setString(4, dto.getImgYN());
-	        pstmt.setString(5, dto.getPageSeq());
-	        pstmt.setString(6, dto.getBookSeq());
+	    	pstat.setString(1, dto.getPageUrl());
+	    	pstat.setString(2, dto.getPageContents());
+	    	pstat.setString(3, dto.getCmntYN());
+	    	pstat.setString(4, dto.getImgYN());
+	    	pstat.setString(5, dto.getPageSeq());
+	    	pstat.setString(6, dto.getBookSeq());
 
-	        return pstmt.executeUpdate();
+	        return pstat.executeUpdate();
 	        
 	    } catch (Exception e) {
 	        System.out.println("PageDAO.| save");
@@ -145,11 +145,11 @@ public class PageDAOImpl implements PageDAO{
 		final String SQL = "SELECT * FROM tblPage WHERE bookSeq = ?";
 
 	    try (Connection conn = DBUtil.open();
-	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
 	    	
-	        pstmt.setString(1, bookSeq);
+	    	pstat.setString(1, bookSeq);
 	        
-	        ResultSet rs = pstmt.executeQuery();
+	        ResultSet rs = pstat.executeQuery();
 
 	        HashMap<Integer, PageDTO> pageMap = new HashMap<>();
 	        
@@ -202,6 +202,20 @@ public class PageDAOImpl implements PageDAO{
 	    return null;
 	}
 	
-	
+	public int del(String pageSeq, String bookSeq) {
+		
+		final String SQL = "delete FROM tblPage WHERE pageSeq = ? and bookSeq = ?";
+
+	    try (Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL)) {
+	        pstat.setInt(1, Integer.parseInt(pageSeq));
+	        pstat.setInt(2, Integer.parseInt(bookSeq));
+	        return pstat.executeUpdate();
+	    } catch (Exception e) {
+	        System.out.println("PageDAO.| del");
+	        e.printStackTrace();
+	    }
+	    return 0;
+	}
 	
 }//End of class

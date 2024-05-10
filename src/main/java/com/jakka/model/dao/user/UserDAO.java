@@ -1,5 +1,6 @@
 package com.jakka.model.dao.user;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.jakka.model.dao.ActiveStatus;
@@ -16,17 +17,28 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
 	public UserDTO findId(UserDTO dto);
 	public UserDTO findPw(UserDTO dto);
 	public boolean unRegister(UserDTO dto);
-	public String signUp(UserDTO dto);
+	public int signUp(UserDTO dto);
 	public int checkId(UserDTO dto);
 	public int userCnt(String userRegdate);
 	public Map<String, Integer> userGender();
 	//public int newCnt(String formattedNum1,String formattedNum2);
 	public int checkNick(UserDTO dto);
+	public int checkEmail(UserDTO dto);
+
 	public int findPK(UserDTO dto);
     public Map<String, Map<String, Integer>> newCnt(String formattedNum1, String formattedNum2);
     public Map<String, Integer> childAge();
     public Map<String, Integer> userAge();
-	  
+    public ArrayList<UserDTO> findAllBlackList();
     public void loginLog(String userSeq);
+    public int blaklistReStore(String userSeq);
+    public int findBlacklistSeq(String userSeq);
+    public int getNewPostCount(String userRegdate);
+    public int getNewSuggestionCount(String userRegdate);
+    public int boardReportCount(String userRegdate);
+    public int CommReportCount(String userRegdate);
+    public int nUserCount();
+    public Map<String, Integer[]> member(String year);
+    
 
 }

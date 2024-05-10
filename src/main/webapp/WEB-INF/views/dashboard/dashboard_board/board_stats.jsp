@@ -4,15 +4,12 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
-	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
-	<style>
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/dashboard.css">
+</head>
+<body>
 	
-	
-	</style>
-	</head>
-	<body>
-		
-		<!-- 헤더 -->
+	<!-- 헤더 -->
+	<!-- 헤더 -->
 		<%@include file="/WEB-INF/views/dashboard/dashboard_template/header.jsp"%>
 	
 	    <!-- 왼쪽 사이드바 -->
@@ -38,104 +35,82 @@
 	                        </div>
 	                    </div>
 	
-	
-	                    <div class="row">
-	
-	                        <div class="postBox">
-	                            <div class="today">
-	                                <i class="icon-copy dw dw-pencil "></i>
-	                                <h4>오늘 작성글</h4>
-	                                <p>100</p>
-	                            </div>
-	                            <div class="yesterday">
-	                                <i class="icon-copy dw dw-pencil "></i>
-	                                <h4>어제 작성글</h4>
-	                                <p>200</p>
-	                            </div>
-	                            <div class="accumulate">
-	                                <i class="icon-copy dw dw-pencil "></i>
-	                                <h4>누적 작성글</h4>
-	                                <p>300</p>
-	                            </div>
-	                        </div>
-	                    </div>
-	
-	                    <div class="boardTotal">
-	                        <div class="boardSection">
-	                            <h4>동화공유게시판</h4>
-	                            <p>10</p>
-	                        </div>
-	                        <div class="boardSection">
-	                            <h4>자유게시판</h4>
-	                            <p>85</p>
-	                        </div>
-	                        <div class="boardSection">
-	                            <h4>건의사항</h4>
-	                            <p>5</p>
-	                        </div>
-	                    </div>
-	
-	                    <div class="chartContainer">
-	                        <div id="boardChart"></div>
-	                    </div>
-	
-	
-	                <!-- 푸터 -->
-					<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
+	<div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+
+
+		<!-- 배너 -->
+        <%@include file="/WEB-INF/views/dashboard/dashboard_template/board_banner.jsp"%>
+
+           <div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4 center">자유 게시판</h4>
+						<div class="filter-container">
+						<!--  조건별 조회 -->
+						<select id="conditionSelect">
+							<option value="all">전체</option>
+							<option value="option">고정글</option>
+						</select>
+						<!--  기간 조회 -->
+						<div class="date-range-container">
+							<input type="date" id="min" name="min" class="date-input">
+							<span class="date-separator">~</span>
+							<input type="date" id="max" name="max" class="date-input">
+						</div>
+					</div>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap" id="myTable">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>조회수</th>
+									<th>신고수</th>
+									<th class="datatable-nosort">Action</th>
+								</tr>
+							</thead>
+						
+							<tbody>
+							<c:forEach var="board" items="${boardList}">
+								<tr>
+									<td class="table-plus">${board.boardSeq}</td>
+									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${board.boardSeq}">${board.boardTitle}</a></td>
+									<td>${board.userNick}</td>
+									<td>${board.boardRegdate}</td>
+									<td>${board.boardCnt}</td>
+									<td>${board.boardReportCnt}</td>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${board.boardSeq}"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								</c:forEach>
+							</tbody>
 					
-	            </div>
-	        </div>
-	    </div>
-		
-	<!-- js -->
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script>
-		
-	Highcharts.chart('boardChart', {
-
-	    title: {
-	    text: '인기 게시판 통계'
-	},
-
-	subtitle: {
-	    text: '최근 7일 기준'
-	},
-
-	yAxis: {
-	    title: {
-	        text: '작성수'
-	    }
-	},
-
-	xAxis: {
-	    title: {
-	        text: '날짜'
-	    },
-
-	    categories: ['4월 30일', '5월 1일', '5월 2일', '5월 3일', '5월 4일', '5월 5일', '5월 7일', '5월 8일']
-	},
-	    
-	/* 범례를 우측 세로로 정렬 */
-	legend: {
-	    layout: 'vertical',
-	    align: 'right',
-	    verticalAlign: 'middle'
-	},
-
-	series: [{
-	    name: '자유게시판',
-	    data: [10, 15, 30, 15, 10, 16, 11, 8]
-	}, {
-	    name: '동화 공유 게시판',
-	    data: [5, 8, 7, 10, 15, 11, 3, 6]
-	}, {
-	    name: '건의사항',
-	    data: [1, 0, 3, 2, 5, 1, 2, 1]
-	}],
-	});
+						</table>
+					</div>
+				</div>
+			<!-- Simple Datatable End -->
 	
-	</script>
-	</body>
+			</div>
+			<!-- 푸터 -->
+			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
+			
+		</div>
+	</div>
+-->
+	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
+	
+</body>
 </html>

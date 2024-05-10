@@ -79,15 +79,13 @@ public class SignUp extends HttpServlet{
 		dto.setUserRightSsn(userRightSsn);
 		dto.setUserName(userName);
 		
-		
-		
 		UserDAO dao = DAOManager.getUserDAO();
 		
-		String newUserId = dao.signUp(dto); 
+		int newUserId = dao.signUp(dto); 
 		
+		System.out.println(newUserId);
 
-
-		if (newUserId != null ) { // 회원가입 성공한 경우
+		if (newUserId > 0  ) { // 회원가입 성공한 경우
 			req.setAttribute("newUserId", userId);
 		
 	        // JSP 페이지로 포워딩
@@ -111,13 +109,17 @@ public class SignUp extends HttpServlet{
 		
 		// 값이 있는 경우에만 데이터베이스에 저장
 		if (childSsn != null && !childSsn.isEmpty()) {
-			String userPk = dao.findSeq(newUserId);
+			
+			System.out.println(dto.getUserId());
+			
+			String userPk = dao.findSeq(dto.getUserId());
+			
 			System.out.println(userPk);
 		    saveChildAgeData(childSsn, userPk); // userId는 회원의 고유 식별자
 		}
 		
 		if (selectedInflowValues != null && selectedInflowValues.length > 0) {
-			String userPk = dao.findSeq(newUserId);
+			String userPk = dao.findSeq(dto.getUserId());
 		    saveInflowData(userPk, selectedInflowValues); // userId는 회원의 고유 식별자
 		}
 			

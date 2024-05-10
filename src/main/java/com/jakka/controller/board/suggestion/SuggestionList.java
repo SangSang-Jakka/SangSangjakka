@@ -23,7 +23,15 @@ public class SuggestionList extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 페이징
+		HttpSession session = req.getSession();
+		String userSeq = (String)session.getAttribute("Seq");
+		req.setAttribute("userSeq", userSeq);
+		
+		String userId = (String)session.getAttribute("userId");
+		req.setAttribute("userId", userId);
+		
 		String page = req.getParameter("page");
+		System.out.println("page는 : " + page);
 		
 		int nowPage = 0;	// 현재 페이지 번호
 		int totalCount = 0;	// 총 게시물 수, 페이지 수를 계산할 수 있다.
@@ -42,41 +50,51 @@ public class SuggestionList extends HttpServlet {
 			nowPage = Integer.parseInt(page);	// 현재 페이지 설정
 		}
 		
-		begin = ((nowPage - 1) * pageSize) + 1;
+		begin = ((nowPage - 1) * pageSize) + 1; 
 		end = begin + pageSize - 1;
 		
 		// 검색하기
-		String column = req.getParameter("column");
-		String word = req.getParameter("word");
-		String search =	"n";
+		String column = req.getParameter("column") != null ? req.getParameter("column") : "";
+		String word = req.getParameter("word") != null ? req.getParameter("word") : "";
+		String search = "n";	//목록보기(n), 검색하기(y)
 		
 		// 검색 활성화, search가 n이라면 조회만 하는 기능
-		if((column != null && word != null)) {
-			search = "y";
+		if((column != null && !column.equals("")) || (word != null && !word.equals(""))) {
+		    search = "y";
 		} else {
-			search = "n";
-			column = "";
-			word =	"";
+		    search = "n";
+		    column = "";
+		    word = "";
 		}
 		// hashMap 객체 생성
 		HashMap<String, String> map = new HashMap<>();
 		
-		map.put("search", search);
+		map.put("search", search);	//n, y
 		map.put("column", column);
 		map.put("word", word);
 		
 		map.put("begin", begin + "");
 		map.put("end", end + "");
 		
-		System.out.println(map);
+		System.out.println("map" + map);
 		// 조회수 관련
-		HttpSession session = req.getSession();
+
 		session.setAttribute("read", "n");
 		
 		// 리스트 뽑아오기
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
-		ArrayList<SuggestionDTO> list = dao.findAllWhite(map);	// 쿼리 실행 결과를 반환한다.
+		
+		String orderBy = req.getParameter("orderBy");
+		
+		if (orderBy == null) {
+	        orderBy = "newest"; // 기본값으로 설정
+	    }
+		
+		System.out.println("orderBy: " + orderBy);
+		
+		ArrayList<SuggestionDTO> list = dao.findAllWhite(map, orderBy);	// 쿼리 실행 결과를 반환한다.
 		 
+		System.out.println(list);
 		if(list != null) {
 			for(SuggestionDTO dto : list) {						// 쿼리 실행 결과인 arraylist에 담은 list를 dto에 반복해서 담음
 				dto.setSgstRegdate(dto.getSgstRegdate().substring(0, 10));
@@ -90,12 +108,13 @@ public class SuggestionList extends HttpServlet {
 				
 				dto.setSgstTitle(title);
 			}
-			// 총 게시물 수 
+			// 총 게시물 수 및 검색 결과 게시물 수
 			totalCount = dao.whiteTotalCnt(map);
+			System.out.println("totalCount: " + totalCount);
 		}
-		// 총 게시물? 총 페이지 수?
+		// 총 게시물? 총 페이지 개수?
 		totalPage = (int)Math.ceil((double)totalCount / pageSize);
-		
+		System.out.println("totalPage: " + totalPage);
 		// 페이지바 작업
 		StringBuilder builder = new StringBuilder();
 		
@@ -124,7 +143,7 @@ public class SuggestionList extends HttpServlet {
 		if(n >= totalPage) {
 			builder.append(String.format("<a href='#!'>[다음 %d페이지]</a> ", blockSize));
 		} else {
-			builder.append(String.format("<a href='/sangsangjakka/board/suggestion.list.do?page=%s&column=%s&word=%s'>[다음 %d페이지]</a>", n, column, word, blockSize));
+			builder.append(String.format("<a href='/sangsangjakka/board/suggestion/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a>", n, column != null ? column : "", word != null ? word : "", blockSize));
 			
 		}
 		
@@ -134,6 +153,10 @@ public class SuggestionList extends HttpServlet {
 		req.setAttribute("totalCount", totalCount);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pageBar", builder.toString());
+		
+//		System.out.println("list안에 들어있는건? 여기는 list.do(GET): " + list);
+//		list안에 들어있는건? 여기는 list.do(GET): [SuggestionDTO(sgstSeq=53, sgstTitle=고객 지원 강화 요청, sgstContents=보안변경제안합니다, sgstRegdate=2024-05-08, sgstSecretYN=n, userSeq=29, sgstCnt=0, userNick=user0028NICK, attach=null), SuggestionDTO(sgstSeq=106, sgstTitle=사용자 경험 향상 방법, sgstContents=성능추가좋겠다, sgs
+		System.out.println("userId안에 들어있는건? 여기는 list.do(GET) : " + userId);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		dispatcher.forward(req, resp);
@@ -147,7 +170,7 @@ public class SuggestionList extends HttpServlet {
 		writer.println("<script type='text/javascript'");
 		writer.println("location.href='/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		writer.println("</script>");
-		
+			
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.jakka.model.dao.book;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,13 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.ServletContext;
+
 import com.jakka.model.DBUtil;
-import com.jakka.model.dao.ActiveStatus;
-import com.jakka.model.dao.BasicDAO;
-import com.jakka.model.dao.Cnt;
-import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dto.book.BookDTO;
-import com.jakka.model.dto.book.PageDTO;
+import com.jakka.model.enums.AdminLog;
+import com.jakka.model.enums.BookAction;
+import com.jakka.model.enums.UserLog;
 
 public class BookDAOImpl implements BookDAO{
 
@@ -39,8 +40,8 @@ public class BookDAOImpl implements BookDAO{
 
 	    try (Connection conn = DBUtil.open();
 	         Statement stmt = conn.createStatement();
-	         PreparedStatement pstat = conn.prepareStatement(INSERT_SQL)) {
-	        
+	         PreparedStatement pstat = conn.prepareStatement(INSERT_SQL);
+	    ) {
 	        // First, get the next bookSeq
 	        ResultSet rs = stmt.executeQuery(GET_NEXT_SEQ_SQL);
 	        if (rs.next()) {
@@ -52,17 +53,19 @@ public class BookDAOImpl implements BookDAO{
 	        pstat.setString(2, dto.getBookTitle());
 	        pstat.setString(3, dto.getBookInfo());
 	        pstat.setString(4, dto.getBookCover());
-	        System.out.println(dto.getUserSeq());
 	        pstat.setInt(5, Integer.parseInt(dto.getUserSeq()));  // Ensure userSeq is converted properly to integer
 	        pstat.setObject(6, dto.getParentBookSeq() != null ? Integer.parseInt(dto.getParentBookSeq()) : null);  // Convert to integer or handle null
 	        pstat.setInt(7, Integer.parseInt(dto.getRcmAgeSeq()));  // Ensure rcmAgeSeq is converted properly to integer
-
+	        
 	        pstat.executeUpdate();
-
+	        
 	    } catch (SQLException e) {
 	        System.out.println("Error adding book: " + e.getMessage());
 	        throw new RuntimeException(e);  // Rethrow or handle as necessary
 	    }
+	    
+	    
+	    
 	    return bookSeq;
 	}
 	
@@ -76,7 +79,7 @@ public class BookDAOImpl implements BookDAO{
 			PreparedStatement pstat = conn.prepareStatement(SQL);
 				
 		){
-			pstat.setString(1, bookSeq);
+			pstat.setInt(1, Integer.parseInt(bookSeq));
 			
 			ResultSet rs = pstat.executeQuery();
 			
@@ -97,6 +100,7 @@ public class BookDAOImpl implements BookDAO{
 	            dto.setUserSeq(rs.getString("userSeq"));
 	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
 	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
 	            
 	            return dto;
 				
@@ -176,8 +180,7 @@ public class BookDAOImpl implements BookDAO{
 			pstat.setString(2, dto.getBookInfo());
 			pstat.setString(3, dto.getBookCover());
 			pstat.setString(4, dto.getRcmAgeSeq());
-			pstat.setString(5, dto.getUserSeq());
-			
+			pstat.setString(5, dto.getBookSeq());
 			int result = pstat.executeUpdate();
 			
 			return result;
@@ -238,11 +241,11 @@ public class BookDAOImpl implements BookDAO{
 		return 0;
 	}
 	
-	//조회수 메서드 다시 만들어야됨
+	//오버로딩
 	@Override
 	public int addCnt(String bookSeq) {
 		
-		final String SQL = "update tblBookShare set shareCnt = shareCnt + 1 where bookSeq = ?";
+		final String SQL = "update tblBook set shareCnt = shareCnt + 1 where bookSeq = ?";
 		
 		try (
 				
@@ -254,6 +257,43 @@ public class BookDAOImpl implements BookDAO{
 				pstat.setString(1, bookSeq);
 				
 				int result = pstat.executeUpdate();
+				
+				return result;
+				
+			} catch (Exception e) {
+			System.out.println("BoardDAOImpl.| addCnt");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int addCnt(String bookSeq, String userSeq) {
+		
+		final String SQL = "update tblBook set shareCnt = shareCnt + 1 where bookSeq = ?";
+		
+		final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
+				+ "values(?, default, ?, ?)";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				PreparedStatement action = conn.prepareStatement(ACTIONSQL);
+				){
+				
+				pstat.setString(1, bookSeq);
+				
+				int result = pstat.executeUpdate();
+				
+				if(result > 0) {
+					
+					action.setString(1, userSeq);
+					action.setString(2, bookSeq);
+					action.setString(3, BookAction.Inquiry.getValue());
+					action.executeUpdate();
+					
+				}
 				
 				return result;
 				
@@ -393,15 +433,30 @@ public class BookDAOImpl implements BookDAO{
 		
 		final String SQL = "insert into tblLike(userSeq, bookSeq) values(?, ?)";
 		
+		final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
+				+ "values(?, default, ?, ?)";
+		
 		try (
 			Connection conn = DBUtil.open();
 			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement action = conn.prepareStatement(ACTIONSQL);
 		){
+			conn.setAutoCommit(false);
 			
 			pstat.setString(1, userSeq);
 			pstat.setString(2, bookSeq);
 			
 			int result = pstat.executeUpdate();
+			
+			if(result > 0) {
+				
+				action.setString(1, userSeq);
+				action.setString(2, bookSeq);
+				action.setString(3, BookAction.Like.getValue());
+				action.executeUpdate();
+			}
+			
+			conn.commit();
 			
 			return result;
 			
@@ -418,15 +473,32 @@ public class BookDAOImpl implements BookDAO{
 		
 		final String SQL = "insert into tblScrap(userSeq, bookSeq) values(?, ?)";
 		
+		final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
+				+ "values(?, default, ?, ?)";
+		
 		try (
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
+				PreparedStatement action = conn.prepareStatement(ACTIONSQL);
 			){
+				conn.setAutoCommit(false);
+			
 				
 				pstat.setString(1, userSeq);
 				pstat.setString(2, bookSeq);
 				
 				int result = pstat.executeUpdate();
+				
+				if(result > 0) {
+					
+					action.setString(1, userSeq);
+					action.setString(2, bookSeq);
+					action.setString(3, BookAction.Scrap.getValue());
+					action.executeUpdate();
+					
+				}
+				
+				conn.commit();
 				
 				return result;
 				
@@ -957,14 +1029,18 @@ public class BookDAOImpl implements BookDAO{
 	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map) {
 		
 		String where = "where rnum BETWEEN ? AND ?";
+		String col = "";
 		
-		if(map.get("search").equals("y")) {
-		    where = where + String.format(" and %s like '%%%s%%'"
-		    		, map.get("column")
-		    		, map.get("word"));
+		if (map.get("search").equals("y")) {
+			col = col + String.format(" where %s like '%%%s%%'"
+							, map.get("column")
+							, map.get("word"));
 		}
 		
-		String sql = String.format("select * from vwBookWhite %s order by bookRegdate desc", where);
+		String sql = String.format("SELECT bookSeq, bookTitle, bookInfo, bookRegdate, bookReportCnt, bookCnt, userSeq, userNick, bookReviewCnt, bookScrapCnt, likeCnt, bookCover, bookModDate, parentBookSeq, rcmAgeSeq " +
+                "FROM (SELECT ROWNUM RNUM, f.bookSeq, f.bookTitle, f.bookInfo, f.bookRegdate, f.bookReportCnt, f.bookCnt, f.userSeq, f.userNick, f.bookReviewCnt, f.bookScrapCnt, f.likeCnt, f.bookCover, f.bookModDate, f.parentBookSeq, f.rcmAgeSeq " +
+                "FROM (SELECT * FROM vwBookWhite %s ORDER BY bookRegdate desc) f) " +
+                "%s", col, where);
 		
 		try (
 				Connection conn = DBUtil.open();
@@ -1153,5 +1229,175 @@ public class BookDAOImpl implements BookDAO{
 	    }
 	    return null;
 	}
+	
+	public void createBookFolder(String userId, String bookSeq, ServletContext context) {
+		
+		final String BASE_DIRECTORY = "/generated/";
+		// Get the real path to the WEB-INF directory
+	    String realPath = context.getRealPath(BASE_DIRECTORY);
+	    String folderPath = realPath + userId + "/" + bookSeq;
+	    File userFolder = new File(folderPath);
+
+        if (!userFolder.exists()) {
+            boolean created = userFolder.mkdirs();
+            if (created) {
+                System.out.println("User folder created: " + folderPath);
+            } else {
+                System.err.println("Failed to create user folder: " + folderPath);
+            }
+        } else {
+            System.out.println("User folder already exists: " + folderPath);
+        }
+		
+	}
+	
+	//동화책 완성시
+	@Override
+	public int complete(BookDTO dto) {
+		
+		final String SQL = "insert into tblBookWhiteList(bookSeq) values(?)";
+		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		
+	    final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
+				+ "values(?, default, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
+			PreparedStatement action = conn.prepareStatement(ACTIONSQL);
+		){
+			conn.setAutoCommit(false);
+			
+			pstat.setString(1, dto.getBookSeq());
+			
+			int result = pstat.executeUpdate();
+			
+			if(result > 0) {
+	        	
+	        	log.setString(1, dto.getUserSeq());
+	        	log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 제목'" + dto.getBookTitle() +"' 글내용'" + dto.getBookInfo()  + "' 동화책을 '작성'했습니다.");
+	        	log.setString(3, UserLog.BookCreated.getValue());
+	        	log.executeUpdate();
+	        	
+	        	action.setString(1, dto.getUserSeq());
+	        	action.setString(2, dto.getBookSeq());
+	        	action.setString(3, BookAction.CreateBook.getValue());
+	        	action.executeUpdate();
+	        	
+	        	
+	        }
+			
+			conn.commit();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| activation");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public ArrayList<BookDTO> findAllAward() {
+		
+		final String SQL = "select * from vwAward order by awardRegdate desc, awardRank desc";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				dto.setBookCover(rs.getString("bookCover"));
+				dto.setBookInfo(rs.getString("bookInfo"));
+				dto.setBookModDate(rs.getString("bookModDate"));
+				dto.setBookRegdate(rs.getString("bookRegdate"));
+				dto.setBookReportCnt(rs.getString("bookReportCnt"));
+				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setBookTitle(rs.getString("bookTitle"));
+				dto.setLikeCnt(rs.getString("likeCnt"));
+				dto.setParentBookSeq(rs.getString("parentBookSeq"));
+				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
+				dto.setAwardRegdate(rs.getString("awardRegdate"));
+				dto.setAwardRank(rs.getString("awardRank"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	//리스트에는 수여받을 동화책번호5개, 등수, 수여한 관리자 아이디가 들어있어야함
+	@Override
+	public int presentAward(ArrayList<BookDTO> list, String adId) {
+		
+		final String SQL = "insert into tblAward(bookSeq, awardRegdate, awardRank) values(?, default, ?)";
+		
+		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) "
+				+ "values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
+		){
+			conn.setAutoCommit(false);
+			
+			for(int i = 0; i < 5; i++) {
+				
+				String bookSeq = list.get(i).getBookSeq();
+				
+				pstat.setString(1, bookSeq);
+				pstat.setString(2, i + 1 + "");
+				pstat.executeUpdate();
+				
+				log.setString(1, adId);
+				log.setString(2, "'" + adId + "'이 동화책번호'" + bookSeq  + "'에게 " + (i + 1) + "등을 수여했습니다.");
+				log.setString(3, AdminLog.BookAwarded.getValue());
+				log.executeUpdate();
+				
+			}
+			
+			
+			conn.commit();
+			
+			return 0;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAOImpl.| presentAward");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+
+	
 	
 }//End of class

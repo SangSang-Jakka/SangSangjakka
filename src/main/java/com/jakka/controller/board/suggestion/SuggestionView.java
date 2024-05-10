@@ -23,14 +23,15 @@ public class SuggestionView extends HttpServlet{
 		HttpSession session = req.getSession();
 		// 로그인 여부 확인
 		String userId = (String)session.getAttribute("userId");
-		
+		String userSeq = (String)session.getAttribute("seq");
+		req.setAttribute("userSeq", userSeq);
 		if(userId == null) {
 			// 비로그인 상태인 경우 로그인 페이지로 리다이렉션
 			resp.sendRedirect("/sangsangjakka/user/login.do");
 			return;
 		}
 		String page = req.getParameter("page");
-		
+		System.out.println("페이지" + page);
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
 
 		
@@ -41,7 +42,7 @@ public class SuggestionView extends HttpServlet{
 		}
 		
 		SuggestionDTO dto = dao.findById(page);
-		
+		System.out.println(dto);
 		//게시글 조작
 		dto.setSgstTitle(dto.getSgstTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 		dto.setSgstContents(dto.getSgstContents().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));

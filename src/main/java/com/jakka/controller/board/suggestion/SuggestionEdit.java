@@ -24,7 +24,7 @@ public class SuggestionEdit extends HttpServlet {
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
 			// 쿼리스트링의 게시글 번호 받아오기
-			String sgstSeq = req.getParameter("sgstSeq"); // 번호
+			String sgstSeq = req.getParameter("sgstseq"); // 번호
 			
 			// 게시글의 번호를 통하여 해당 게시글의 정보 조회
 			SuggestionDAO dao = DAOManager.getSuggestionDAO(); 
@@ -54,8 +54,13 @@ public class SuggestionEdit extends HttpServlet {
 		String sgstContents = req.getParameter("content");
 		String attach = req.getParameter("attach");
 		String sgstSecretYN = req.getParameter("secret");
-		String sgstSeq = req.getParameter("seq");
-
+		String sgstSeq = req.getParameter("sgstSeq");
+		
+		System.out.println("edit.do의 post sgstTitle:" + sgstTitle);
+		System.out.println("edit.do의 post sgstContents:" + sgstContents);
+		System.out.println("edit.do의 post attach:" + attach);
+		System.out.println("edit.do의 post sgst SecretYN:" + sgstSecretYN);
+		System.out.println("edit.do의 post sgstSeq:" + sgstSeq);
 		
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
 		SuggestionDTO dto = new SuggestionDTO();
@@ -67,7 +72,8 @@ public class SuggestionEdit extends HttpServlet {
 
 		dto.setSgstSecretYN(sgstSecretYN);
 		dto.setSgstSeq(sgstSeq);
-
+		
+		System.out.println("edit.do의 수정하기 save메서드 전 dto:" + dto);
 		int result = dao.save(dto);
 
 		resp.setContentType("text/html; charset=UTF-8");

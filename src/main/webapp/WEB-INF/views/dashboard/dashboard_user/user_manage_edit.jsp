@@ -54,7 +54,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<h4 class="text-blue h4">회원 정보</h4>
-						<button type="submit" class="btn btn-primary pull-right">확인</button>
+						<button type="submit" class="btn btn-primary pull-right" onclick="return confirmEdit()" >확인</button>
 					</div>
 					<div class="wizard-content">
 						<form class="tab-wizard wizard-circle wizard">
@@ -131,9 +131,13 @@
 								</div>
 							</div>
 						</form>
-					</div>
-				</div>
-
+					
+				
+				
+	            <button type="button" class="btn btn-primary pull-right" onclick ="location.href='/sangsangjakka/admin/dashboard/user/manageview.do?id=${user.userId}';"> 돌아가기</button>
+		
+		</div>
+		</div>
 		</form>
 
 				<!-- 푸터 -->
@@ -181,5 +185,11 @@
 		<script>
 			
 		</script>
+		
+		<script>
+function confirmEdit() {
+    return confirm("수정하시겠습니까?");
+}
+</script>
 </body>
 </html>

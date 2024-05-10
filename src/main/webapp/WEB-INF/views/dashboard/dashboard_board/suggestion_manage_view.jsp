@@ -179,12 +179,12 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${answer.adId}</div>
 											<div class="commentActions">
-												<button class="btnEdit" onclick="edit(${answer.answSeq}, ' ${answer.sgstAnsw}')">수정</button>
+												<button class="btnEdit" onclick="edit(${answer.answSeq}, '${answer.sgstAnsw}')">수정</button>
 												<button class="btnDel" onclick="del(${answer.answSeq}, '${answer.adId}');">삭제</button>
 											</div>
 											<div class="commentTime">${answer.sgstRegdate}</div>
 										</div>
-										<div class="commentContent">${answer.sgstAnsw}</div>
+										<div class="commentContent" id="change">${answer.sgstAnsw}</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -218,77 +218,9 @@
 		</div>
 	</div>
 	
-	<!-- 모달 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">답변 수정</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- 수정할 내용을 입력하는 입력 필드 -->
-                <input type="hidden" id="editAnswSeq">
-                <div class="form-group">
-                    <label for="editSgstAnsw">답변 내용:</label>
-                    <textarea class="form-control" id="editSgstAnsw" rows="4"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <!-- 저장 버튼 -->
-                <button type="button" class="btn btn-primary" id="saveEditBtn">수정</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
-</div>
-	
 	<script>
 
-	
-	function edit(answSeq, sgstAnsw) {
-	    // 모달 열기
-	    $('#editModal').modal('show');
 
-	    // 모달 내용 채우기
-	    $('#editAnswSeq').val(answSeq);
-	    $('#editSgstAnsw').val(sgstAnsw);
-	}
-	
-
-
-	$('#saveEditBtn').click(function() {
-		
-	    // 수정할 내용 가져오기
-	    var answSeq = $('#editAnswSeq').val();
-	    var editedSgstAnsw = $('#editSgstAnsw').val();
-
-	    // 수정 내용 전송
-	    $.ajax({
-	        type: 'POST',
-	        url: '/sangsangjakka/admin/dashboard/suggestionanswer/manageedit.do',
-	        data: {
-	            answSeq: answSeq,
-	            sgstAnsw: editedSgstAnsw
-	        },
-	       // dataType: 'json',
-	        success: function(result) {
-	            if (result.result === '1' ) {
-	                // 성공적으로 수정되면 모달 닫기 등의 작업 수행
-	                $('#editModal').modal('hide');
-	                // 화면 갱신 등의 작업 수행
-	            } else {
-	                alert('답변 수정을 실패했습니다.');
-	            }
-	        },
-	        // error : function(a, b, c) { consol}
-	        error: function(xhr, status, error) {
-	            console.log(xhr, status, error);
-	        }
-	    });
-	});
 	
 	// 답변 삭제
 	
@@ -302,7 +234,7 @@ function del(answSeq, adId) {
 	                if (response === "success") {
 	                    alert("답변이 삭제되었습니다.");
 	                    // 삭제 성공 시 필요한 처리
-	                    window.location.href = "/sangsangjakka/admin/dashboard/suggestion/manage.do";
+	                    window.location.href = "/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${dto.sgstSeq}";
 	                } else {
 	                    alert("답변 삭제에 실패했습니다.");
 	                }
@@ -314,50 +246,55 @@ function del(answSeq, adId) {
 	    }
 	}
 
-	
-
-	
-	
-	</script>
 
 
-<!--
-	<script>
 	function edit(answSeq, sgstAnsw) {
 	    $('.commentEditRow').remove();
 
 	    let commentItem = $(event.target).parents('.commentItem');
 	    let content = $(event.target).parents('.commentItem').find('.commentContent').text(); 
+	    
+	    // 1 alert(content);
 
 	    $(event.target).parents('.commentItem').after(`
 	        <div class="commentEditRow">
 	            <div>
-	                <input type="text" name="content" class="full" required value="${content}" id="txtComment-${answSeq}">
+	                <input type="text" name="content" class="full" required value="\${content}" id="txtComment">
 	            </div>
 	            <div class="commentEdit">
-	                <button class="btnEdit" onclick="editComment(${answSeq}, '${sgstAnsw}');">수정</button>
+	                <button class="btnEdit" onclick="editComment(\${answSeq}, '${sgstAnsw}');">수정</button>
 	                <button class="btnDel" onclick="$(event.target).parents('.commentEditRow').remove();">취소</button>
 	            </div>
 	        </div>
 	    `);
 	}
 
-	function editComment(answSeq, content) {
-	    let editedContent = $('#txtComment-' + answSeq).val();
+	function editComment(answSeq, sgstAnsw) {
+		
+		// 2 alert(answSeq);
+		// 3 alert($('#txtComment').val());
+		
+	    let editedContent = $('#txtComment').val();
 	    let commentItem = $(event.target).parents('.commentItem');
 
 	    $.ajax({
 	        type: 'POST',
 	        url: '/sangsangjakka/admin/dashboard/suggestionanswer/manageedit.do',
 	        data: {
-	            seq: answSeq,
-	            sgstAnsw: editedContent
+	        	answSeq : answSeq,
+	            sgstAnsw: $('#txtComment').val()
 	        },
 	        dataType: 'json',
 	        success: function(result) {
 	            if (result.result == '1') {
-	                commentItem.find('.commentContent').text(editedContent);
-	                commentItem.find('.commentEditRow').remove();
+	            	
+	            	// alert('성공');
+	    
+	            	// $('.commentEditRow').remove();
+	            	 
+	            	location.reload();
+	
+	                
 	            } else {
 	                alert('답변 수정을 실패했습니다.');
 	            }
@@ -371,7 +308,6 @@ function del(answSeq, adId) {
 
 
 </script>
-  -->
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -408,6 +344,6 @@ function del(answSeq, adId) {
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+		
 </body>
 </html>

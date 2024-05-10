@@ -1,6 +1,7 @@
 package com.jakka.controller.member.user;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -66,21 +67,22 @@ public class MyPage extends HttpServlet{
 		    dto.setUserAddress(address);
 		    dto.setUserEmail(email);
 		    
-		    // DAO를 통해 정보 업데이트
 		    UserDAO dao = DAOManager.getUserDAO();
 		    int count = dao.save(dto);
-		    
+		  
+		
+	        if (count > 0) {
+	        	// 업데이트 성공
+	        	// 마이페이지로 이동
+	        	resp.sendRedirect(req.getContextPath() + "/user/mypage.do");
+	        } else {
+	        	// 업데이트 실패
+	        	resp.sendRedirect(req.getContextPath() + "/error.jsp");
+	        }
+	        }
 		    
 
-		    if (count > 0) {
-		        // 업데이트 성공
-		        // 마이페이지로 이동
-		        resp.sendRedirect(req.getContextPath() + "/user/mypage.do");
-		    } else {
-		        // 업데이트 실패
-		        resp.sendRedirect(req.getContextPath() + "/error.jsp");
-		    }
-		}
+
 
 
 

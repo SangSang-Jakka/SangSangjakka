@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +25,7 @@
       
     <!-- board list area -->
       <div>
-
+	
               <table class="boardTitle">
                 <tbody>
                     <tr>
@@ -65,9 +64,12 @@
                       </div>
                   
                   
+                  
                   <div class="btnWrap">
-                        <input type="button" class="btnEdit" value="수정">
+                  <c:if test="${dto.userSeq == userSeq}">
+                        <input type="button" class="btnEdit" value="수정" onclick="location.href='/sangsangjakka/board/freeboard/edit.do?no=' + ${dto.boardSeq}">
                         <input type="button" class="btnDel" value="삭제">
+                  </c:if>
                   </div>
 
 
@@ -101,20 +103,16 @@
                         <div class="commentAddBox">
                           <div class="commentAdd">
                             <div class="commentAddNick">${userNick}</div>
-                            <textarea class="commentAddText"></textarea>
+                            <textarea class="commentAddText" name="commentText"></textarea>
                           </div>
                      
-                            <input type="button" value="등록" class="btnCommentAdd">
+                            <input type="button" name="commentContent" value="등록" class="btnCommentAdd">
                         
                      
                         </div>
                       </div>
                   </div>
 
-
-                      <div class="btnListTable">
-                        <input type="button" class="btnList" value="목록">
-                      </div>
 
                       <div class="listWrap">
                         <table class="listTable">
@@ -140,8 +138,13 @@
                         </table>
                       </div>
                    
+                   
+                    <div class="btnListTable">
+                        <input type="button" class="btnList" value="목록" onclick="location.href='/sangsangjakka/board/freeboard/list.do'">
+                      </div>
 
 
+					<input type="hidden" name=delUserSeq value="${dto.userSeq}">
      
 
   </section>
@@ -156,6 +159,65 @@
 	
 	<script>
 		
+	$(".btnDel").on("click", function() {
+	    if(confirm("정말 삭제 하시겠습니까?") == true) {
+	        // 정말 삭제하겠다고 했을 때, ajax 통신
+	        $.ajax({
+	            type: "POST",
+	            url: "/sangsangjakka/board/freeboard/del.do",
+	            data: {
+	                boardSeq: '${dto.boardSeq}',
+	                userSeq: '${dto.userSeq}'
+	            },
+	            dataType: "JSON",
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("AJAX", "true");
+	            },
+	            success: function(response) {
+	                if (response.code === 0) {
+	                    alert(response.message);
+	                    location.href = "/sangsangjakka/board/freeboard/list.do";
+	                } else {
+	                    alert(response.message);
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                alert("AJAX 요청 중 오류가 발생했습니다: " + error);
+	            }
+	        });
+	    }
+	});
+	
+	$('.btnCommentAdd').on("click", function() {
+		$.ajax({
+			type: "POST",
+			url: "/sangsangjakka/board/freeboard/view.do",
+			data: {
+				userSeq:  '${dto.userSeq}',
+				boardSeq: '${dto.boardSeq}',
+				cmntContents: $('.commentAddText').val().trim()
+			},
+			dataType: "JSON",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("AJAX", "true");
+			},
+			success: function(response) {
+				if(response.code === 0) {
+					alert(response.message);
+					location.href = "/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}";
+				} else {
+					alert(response.message);
+				}
+			},
+			error: function(xhr, status, error) {
+				alert("댓글 내용을 입력해주세요: " + error);
+			}
+		});
+	});
+	
+	
+
+	
 	</script>
 </body>
 </html>

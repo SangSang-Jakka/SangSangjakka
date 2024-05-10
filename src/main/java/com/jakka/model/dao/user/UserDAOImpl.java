@@ -133,7 +133,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 		return null;
 	}
- 	
+	
 	//로그인 로그 작성
 	@Override
 	public void loginLog(String userSeq) {
@@ -314,6 +314,7 @@ public class UserDAOImpl implements UserDAO{
 				dto.setUserSeq(rs.getString("userSeq"));
 				dto.setUserState(rs.getString("userState"));
 				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
 				
 				list.add(dto);
 			}
@@ -517,6 +518,7 @@ public class UserDAOImpl implements UserDAO{
 	public int disable(String userSeq, String adId) {
 		
 		final String SQL = "insert into tblBlackList(userSeq) values(?)";
+		
 		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 1)";
 		
 		try (
@@ -640,7 +642,9 @@ public class UserDAOImpl implements UserDAO{
 
 
 	@Override
-	public String signUp(UserDTO dto) {
+	public int signUp(UserDTO dto) {
+		
+		
 		
 		final String SQL = "INSERT INTO tblUser (userSeq, userId, userPw, userNick, userTel, userAddress, userEmail, userLeftSsn, userRightSsn, userState, userLv, userRegdate, limitStorage,userName) VALUES ((SELECT NVL(MAX(userSeq), 0) + 1 FROM tblUser),?, ?, ?, ?, ?, ?, ?, ?, 'y', 1, SYSDATE, 10737418240,?)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
@@ -648,10 +652,11 @@ public class UserDAOImpl implements UserDAO{
 		try (
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
-				PreparedStatement log = conn.prepareStatement(LOGSQL);
+				//PreparedStatement log = conn.prepareStatement(LOGSQL);
+				
 					
 			){
-				conn.setAutoCommit(false);
+				//conn.setAutoCommit(false);
 
 				pstat.setString(1, dto.getUserId());
 				pstat.setString(2, dto.getUserPw());
@@ -667,27 +672,28 @@ public class UserDAOImpl implements UserDAO{
 				
 				System.out.println(newUserId);
 				
-		        if (newUserId > 0) {
-		            // 새로 생성된 사용자의 아이디 반환
+//		        if (newUserId > 0) {
+//		            // 새로 생성된 사용자의 아이디 반환
+//		        	System.out.println("Aaaaaaaa");
+//		        	
+//		        	log.setString(1, dto.getUserSeq());
+//					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
+//					log.setString(3, UserLog.SignUp.getValue());
+//					log.executeUpdate();
+//		        	
+//		        	
+//		        	conn.commit();
 		        	
-		        	log.setString(1, dto.getUserSeq());
-					log.setString(2, "닉네임'" + dto.getUserNick() + "' 이름'" + dto.getUserName() + "'님이 '회원가입'했습니다.");
-					log.setString(3, UserLog.SignUp.getValue());
-					log.executeUpdate();
-		        	
-		        	
-		        	conn.commit();
-		        	
-		            return dto.getUserId();
-		        }
-				
+
+		            return newUserId;
+		       // }
 				
 			} catch (Exception e) {
 				System.out.println("UserDAO.| singUp");
 				e.printStackTrace();
 			}
 			
-			return null;
+			return 0;
 		}
 	
 	@Override
@@ -740,6 +746,32 @@ public class UserDAOImpl implements UserDAO{
 		    System.out.println(0);
 		    return 0;
 	}
+	
+	@Override
+	public int checkEmail(UserDTO dto) {
+		final String SQL = "SELECT COUNT(*) FROM tblUser where userEmail = ?";
+		
+		try (
+		        Connection conn = DBUtil.open();
+		        PreparedStatement pstat = conn.prepareStatement(SQL);
+		    ){
+		        pstat.setString(1, dto.getUserEmail());
+		        
+		        ResultSet rs = pstat.executeQuery();
+		        if (rs.next()) {
+		            int count = rs.getInt(1);
+		            System.out.println(count); // 디버깅을 위해 출력
+		            return count;
+		        }
+		    } catch (Exception e) {
+		        System.out.println("UserDAO.| disable");
+		        e.printStackTrace();
+		    }
+		    
+		    System.out.println(0);
+		    return 0;
+	}
+
 
 	
 		public int userCnt(String userRegdate) {
@@ -803,65 +835,6 @@ public class UserDAOImpl implements UserDAO{
 
 	
 
-//	@Override
-//	public int newCnt(String formattedNum1,String formattedNum2) {
-//	
-//		int count = 0;
-//		String sql = "SELECT COUNT(*) AS user_count FROM tblUser WHERE TO_CHAR(userregdate, 'YY/MM') BETWEEN '?' AND '?'";
-//		
-//		try {
-//			
-//			Connection conn = DBUtil.open();
-//			PreparedStatement pstat = conn.prepareStatement(sql);
-//			ResultSet rs = pstat.executeQuery();
-//			
-//			pstat.setString(1, formattedNum1);
-//			pstat.setString(2, formattedNum2);
-//			
-//			if (rs.next()) {
-//	            
-//				count = rs.getInt("user_count");
-//	        }
-//			
-//		} catch (Exception e) {
-//			System.out.println("UserDAOImpl.newCnt");
-//			e.printStackTrace();
-//		}
-//		
-//		return count;
-//	}
-	
-//	@Override
-//	 public Map<String, Integer> newCnt(String formattedNum1, String formattedNum2) {
-//         Map<String, Integer> countsMap = new HashMap<>();
-//
-//         String sql = "SELECT (SELECT COUNT(*)  FROM tblUser  WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_06,   (SELECT COUNT(*)    FROM tblUser      WHERE TO_CHAR(userregdate, 'YY/MM') = ?) AS user_count_23_07 FROM dual";
-//
-//         try {
-//             Connection conn = DBUtil.open();
-//             PreparedStatement pstat = conn.prepareStatement(sql);
-//             
-//             // 매개변수 설정
-//             pstat.setString(1, formattedNum1);
-//             pstat.setString(2, formattedNum2);
-//
-//             ResultSet rs = pstat.executeQuery();
-//
-//             if (rs.next()) {
-//                 // 결과에서 각 값을 맵에 추가
-//                 int userCount_23_06 = rs.getInt("user_count_23_06");
-//                 int userCount_23_07 = rs.getInt("user_count_23_07");
-//
-//                 countsMap.put("user_count_23_06", userCount_23_06);
-//                 countsMap.put("user_count_23_07", userCount_23_07);
-//             }
-//         } catch (Exception e) {
-//             System.out.println("UserDAOImpl.newCnt");
-//             e.printStackTrace();
-//         }
-//
-//         return countsMap;
-//     }
 
 	
 	@Override
@@ -997,12 +970,302 @@ public class UserDAOImpl implements UserDAO{
 		        }
 				
 		} catch (Exception e) {
-			System.out.println("UserDAOImpl.childAge");
+			System.out.println("UserDAOImpl.userAge");
 			e.printStackTrace();
 		}
 		 return userAgeRange;
 	}
 	
+	
+	@Override
+	public ArrayList<UserDTO> findAllBlackList() {
+		
+		final String SQL = "select * from tblBlackList b join tblUser u  on b.userSeq = u.userSeq";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<UserDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	@Override
+	public int blaklistReStore(String userSeq) {
+		
+		final String SQL = "delete from tblBlacklist where userseq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+				
+		){
+			
+			
+			pstat.setString(1, userSeq);
+			
+			return pstat.executeUpdate();
+			
 
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAO.| disable");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	
+	}
+	
+	@Override
+	public int findBlacklistSeq(String userSeq) {
+		
 
+		final String SQL = "SELECT * FROM tblBlackList b JOIN tblUser u ON b.userSeq = u.userSeq WHERE u.userId = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				
+				//return rs.getInt("userSeq");
+				return 1;
+						
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.| findSeq");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int getNewPostCount(String userRegdate) {
+	
+		int postCount = 0;  
+		
+		
+		String SQL = "SELECT COUNT(*) AS post_count FROM tblBoard WHERE TO_CHAR(boardregdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 	postCount = rs.getInt("post_count");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.getNewPostCount");
+			e.printStackTrace();
+		}
+		 return postCount;
+	}
+	
+	@Override
+	public int getNewSuggestionCount(String userRegdate) {
+		int sgstCount = 0;  
+		
+		
+		String SQL = "SELECT COUNT(*) AS sgst_count FROM tblSuggestion WHERE TO_CHAR(sgstregdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 sgstCount = rs.getInt("sgst_count");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.getNewPostCount");
+			e.printStackTrace();
+		}
+		 return sgstCount;
+	}
+
+	// 신규 신고 게시글 갯수
+	@Override
+	public int boardReportCount(String userRegdate) {
+		int boardReportCount = 0;  
+		
+		
+		String SQL = "select count(*) as boardReportCount from tblUserLog where usercatseq = 6 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 boardReportCount = rs.getInt("boardReportCount");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.getNewPostCount");
+			e.printStackTrace();
+		}
+		 return boardReportCount;
+	}
+	
+	@Override
+	public int CommReportCount(String userRegdate) {
+		int CommReportCount = 0;  
+		
+		
+		String SQL = "select count(*) as CommReportCount from tblUserLog where usercatseq = 10 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
+
+		try {
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			pstat.setString(1, userRegdate);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			 if (rs.next()) {
+		            
+				 CommReportCount = rs.getInt("CommReportCount");
+		        }
+			
+			
+		} catch (Exception e) {
+			System.out.println("UserDAOImpl.CommReportCount");
+			e.printStackTrace();
+		}
+		 return CommReportCount;
+	}
+	
+	
+	@Override
+	public int nUserCount() {
+	    int nUserCount = 0;
+	    String SQL = "SELECT COUNT(*) AS nuser FROM tblUser WHERE userstate = 'n'";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        ResultSet rs = pstat.executeQuery();
+
+	        if (rs.next()) {
+	            nUserCount = rs.getInt("nuser");
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("UserDAOImpl.nUserCount");
+	        e.printStackTrace();
+	    }
+
+	    return nUserCount;
+	}
+
+	
+@Override
+	public Map<String, Integer[]> member(String year) {
+	 Map<String, Integer[]> result = new HashMap<>();
+
+	    String SQL = "SELECT\r\n"
+	            + "    LPAD(SUBSTR(USERREGDATE, 4, 2), 2, '0') AS 월,\r\n"
+	            + "    SUM(CASE WHEN USERSTATE = 'y' THEN 1 ELSE 0 END) AS 가입자수,\r\n"
+	            + "    SUM(CASE WHEN USERSTATE = 'n' THEN 1 ELSE 0 END) AS 탈퇴자수\r\n"
+	            + "FROM\r\n"
+	            + "    tblUser\r\n"
+	            + "WHERE\r\n"
+	            + "    USERREGDATE BETWEEN TO_DATE(?, 'YY/MM/DD') AND TO_DATE(?, 'YY/MM/DD')\r\n"
+	            + "GROUP BY\r\n"
+	            + "    SUBSTR(USERREGDATE, 4, 2)\r\n"
+	            + "ORDER BY\r\n"
+	            + "    SUBSTR(USERREGDATE, 4, 2)";
+
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL)) {
+
+	        String startDate = year + "/01/01";
+	        String endDate = year + "/12/31";
+
+	        pstat.setString(1, startDate);
+	        pstat.setString(2, endDate);
+
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            while (rs.next()) {
+	                String month = rs.getString("월");
+	                int joinCount = rs.getInt("가입자수");
+	                int withdrawCount = rs.getInt("탈퇴자수");
+
+	                result.put(month, new Integer[]{joinCount, withdrawCount});
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("UserDAOImpl.getUserStatsByMonth");
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
 }//End of class
