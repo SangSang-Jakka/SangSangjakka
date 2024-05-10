@@ -10,7 +10,7 @@
 <!--   <link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/suggestions.css"> -->
 	<style>
 	
-	.center {
+.center {
 text-align: center;
 margin-top : 20px;
 font-size: 1.7em; 
@@ -19,23 +19,10 @@ font-size: 1.7em;
 
 
 
-.buttonItem {
-  float: right;
-  margin-right: 10px;
-  margin-top: 10px;
-
-
-}
-
-.footer {
-
-margin-top : 50px;
-
-}
-
 .filter-container {
 	display: flex;
 	justify-content: flex-end;
+	margin-bottom: -30px;
 
 }
 
@@ -63,7 +50,6 @@ margin-top : 50px;
 .date-separator {
   font-size: 16px;
   margin-right: 10px;
-  
 }
 
 /* 조건 조회 스타일 */
@@ -101,7 +87,7 @@ margin-top : 50px;
 
 #myTable_filter input {
 
-margin-right : -2px;
+margin-right : 14px;
 
 }
 

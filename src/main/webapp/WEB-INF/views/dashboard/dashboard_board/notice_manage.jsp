@@ -40,6 +40,7 @@ margin-top : 50px;
 .filter-container {
 	display: flex;
 	justify-content: flex-end;
+	margin-bottom : -10px;
 
 }
 
@@ -105,7 +106,7 @@ margin-top : 50px;
 
 #myTable_filter input {
 
-margin-right : -2px;
+margin-right : -5px;
 
 }
 
