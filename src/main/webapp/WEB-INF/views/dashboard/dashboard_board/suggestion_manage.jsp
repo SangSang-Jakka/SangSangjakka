@@ -137,7 +137,10 @@ margin-right : 14px;
 						<!--  조건별 조회 -->
 						<select id="conditionSelect">
 							<option value="all">전체</option>
-							<option value="option">고정글</option>
+							<option value="option2">일반글</option>
+							<option value="option">비밀글</option>
+							<option value="option3">답변O</option>
+							<option value="option4">답변X</option>
 						</select>
 						<!--  기간 조회 -->
 						<div class="date-range-container">
@@ -218,7 +221,7 @@ margin-right : 14px;
 	<script src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 	
 	<!-- Datatable Setting js -->
-	<script src="/sangsangjakka/resources/vendors/scripts/suggestion.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/sgstjs.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
