@@ -1,7 +1,9 @@
 
 body {
     font-family: 'NEXON Lv1 Gothic OTF',sans-serif;
-
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    min-height: 100vh; /* 화면 전체 높이 */
 
 }
 

@@ -1,4 +1,5 @@
 
+<%@page import="com.jakka.model.dao.board.BoardDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.jakka.model.DAOManager"%>
@@ -11,6 +12,7 @@
 <%
     // DAO 객체 생성
     UserDAO dao = DAOManager.getUserDAO();
+	BoardDAO boardDAO = DAOManager.getBoardDAO();
 
     // DB에서 값 가져오기
    // int newBookCount = dao.getNewBookCount();
@@ -29,13 +31,14 @@
     String currentDate = formatter.format(now);
     System.out.println("현재 날짜: " + currentDate);
     
-    int newPostCount = dao.getNewPostCount(currentDate);
+  
     int newUserCount = dao.userCnt(currentDate);
-    System.out.println("새 유저: " + newUserCount);
+  
     
-    int newSuggestionCount = dao.getNewSuggestionCount(currentDate);
-    System.out.println("새 건의사항: " + newSuggestionCount);
+   
     
+    int newPostCount = boardDAO.getNewPostCount(currentDate);
+    int newSuggestionCount = boardDAO.getNewSuggestionCount(currentDate);
 %>
 
 <div class="updateContainer">

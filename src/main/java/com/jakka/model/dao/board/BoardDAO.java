@@ -24,6 +24,10 @@ public interface BoardDAO extends BasicDAO<BoardDTO>, Cnt, ReportCnt
 	public ArrayList<BoardDTO> findAllWhite(HashMap<String, String> map, String orderBy);
 	public ArrayList<BoardDTO> findAllReport();
 	public ArrayList<BoardDTO> findAllNoReport();
-	
+	public ArrayList<BoardDTO> findToday(String today);
+	public int getNewPostCount(String userRegdate);
+	public int getNewSuggestionCount(String userRegdate);
+	public int boardReportCount(String userRegdate);
+	public int CommReportCount(String userRegdate);
 	
 }

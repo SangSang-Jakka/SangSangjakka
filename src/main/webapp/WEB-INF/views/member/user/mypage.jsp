@@ -20,6 +20,7 @@
 	<!-- header -->
 	<%@include file="/WEB-INF/views/template/header.jsp"%>
 
+
 	<div class="myMainWrap">
 
 		<div class="articleTitle">
@@ -52,6 +53,7 @@
 										<div class="changebtnbox change">
 											<input type="button" value="중복검사" id="nickNameChangeBtn" class="pointer" onclick="openNickCheck()">
 										</div>
+										  <input type="hidden" id="nickHidden" name="nicknameDuplication" value="nicknameUncheck" />
 									</div>
 								</div>
 
@@ -152,11 +154,6 @@
 									</div>
 								</div>
 
-							</div>
-							<div class="agree-check">
-								<input type="checkbox" /> <a href="#!">이용약관</a>과 <a href="#!">개인정보 정책</a>에
-								</br>따른 수집 및 이용, 마케팅 활용
-								선택에 모두 동의합니다.
 							</div>
 							<div class="changebtncontainer">
 								<div class="changecomplete changebtnbox full">
@@ -267,8 +264,9 @@
 		</div><!--tab-->
 	</div>
 	
+
 	<!-- footer -->
-	<%@include file="/WEB-INF/views/template/footer.jsp"%>
+		<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

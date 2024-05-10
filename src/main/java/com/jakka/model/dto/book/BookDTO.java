@@ -27,7 +27,6 @@ public class BookDTO {
 	private String awardRegdate;
 	private String awardRank;
 	
-	
 	public String getAwardRegdate() {
 		return awardRegdate;
 	}

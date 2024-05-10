@@ -858,6 +858,48 @@ public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String
 			
 		}
 		
+		
+		@Override
+		public ArrayList<SuggestionDTO> findToday(String today) {
+			
+			final String SQL = "SELECT * \r\n"
+					+ "FROM vwSuggestion \r\n"
+					+ "WHERE TRUNC(SGSTREGDATE) = TO_DATE(?, 'YY/MM/DD') \r\n"
+					+ "ORDER BY SGSTREGDATE DESC";
+
+			try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstmt = conn.prepareStatement(SQL);
+			    ) {
+			        pstmt.setString(1, today);
+			        ResultSet rs = pstmt.executeQuery();
+			        
+			        ArrayList<SuggestionDTO> list = new ArrayList<>();
+					
+					while(rs.next()) {
+						
+						SuggestionDTO dto = new SuggestionDTO();
+						
+						dto.setSgstCnt(rs.getString("sgstCnt"));
+						dto.setSgstContents(rs.getString("sgstContents"));
+						dto.setSgstRegdate(rs.getString("sgstRegdate"));
+						dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+						dto.setSgstSeq(rs.getString("sgstSeq"));
+						dto.setSgstTitle(rs.getString("sgstTitle"));
+						dto.setUserSeq(rs.getString("userSeq"));
+						dto.setUserNick(rs.getString("userNick"));
+						
+						list.add(dto);
+					}
+					
+					return list;
+			    } catch (Exception e) {
+			        System.out.println("BoardDAO.| list");
+			        e.printStackTrace();
+			    }
+
+			    return null;
+		}
 
 	
 }//End of class

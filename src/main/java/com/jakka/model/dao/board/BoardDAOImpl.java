@@ -1073,5 +1073,162 @@ public class BoardDAOImpl implements BoardDAO {
 
 		}// list()
 	
+		
+		@Override
+		public ArrayList<BoardDTO> findToday(String today) {
+			final String SQL = "SELECT * \r\n"
+					+ "FROM vwBoard \r\n"
+					+ "WHERE TRUNC(boardregdate) = TO_DATE(?, 'YY/MM/DD') \r\n"
+					+ "ORDER BY boardRegdate DESC";
+
+			try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstmt = conn.prepareStatement(SQL);
+			    ) {
+			        pstmt.setString(1, today);
+			        ResultSet rs = pstmt.executeQuery();
+			        ArrayList<BoardDTO> list = new ArrayList<>();
+
+			        while (rs.next()) {
+			            BoardDTO dto = new BoardDTO();
+			            dto.setBoardCnt(rs.getString("boardCnt"));
+			            dto.setBoardContents(rs.getString("boardContents"));
+			            dto.setBoardRegdate(rs.getString("boardRegdate"));
+			            dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+			            dto.setBoardSeq(rs.getString("boardSeq"));
+			            dto.setBoardTitle(rs.getString("boardTitle"));
+			            dto.setUserSeq(rs.getString("userSeq"));
+			            dto.setUserNick(rs.getString("userNick"));
+			            list.add(dto);
+			        }
+
+			        return list;
+			    } catch (Exception e) {
+			        System.out.println("BoardDAO.| list");
+			        e.printStackTrace();
+			    }
+
+			    return null;
+		}
+		
+		
+		@Override
+		public int getNewPostCount(String userRegdate) {
+		
+			int postCount = 0;  
+			
+			
+			String SQL = "SELECT COUNT(*) AS post_count FROM tblBoard WHERE TO_CHAR(boardregdate, 'YY/MM/DD') = ?";
+
+			try {
+				
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+				pstat.setString(1, userRegdate);
+				
+				ResultSet rs = pstat.executeQuery();
+				
+				 if (rs.next()) {
+			            
+					 	postCount = rs.getInt("post_count");
+			        }
+				
+				
+			} catch (Exception e) {
+				System.out.println("UserDAOImpl.getNewPostCount");
+				e.printStackTrace();
+			}
+			 return postCount;
+		}
+		
+		@Override
+		public int getNewSuggestionCount(String userRegdate) {
+			int sgstCount = 0;  
+			
+			
+			String SQL = "SELECT COUNT(*) AS sgst_count FROM tblSuggestion WHERE TO_CHAR(sgstregdate, 'YY/MM/DD') = ?";
+
+			try {
+				
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+				pstat.setString(1, userRegdate);
+				
+				ResultSet rs = pstat.executeQuery();
+				
+				 if (rs.next()) {
+			            
+					 sgstCount = rs.getInt("sgst_count");
+			        }
+				
+				
+			} catch (Exception e) {
+				System.out.println("UserDAOImpl.getNewPostCount");
+				e.printStackTrace();
+			}
+			 return sgstCount;
+		}
+
+		// 신규 신고 게시글 갯수
+		@Override
+		public int boardReportCount(String userRegdate) {
+			int boardReportCount = 0;  
+			
+			
+			String SQL = "select count(*) as boardReportCount from tblUserLog where usercatseq = 6 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
+
+			try {
+				
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+				pstat.setString(1, userRegdate);
+				
+				ResultSet rs = pstat.executeQuery();
+				
+				 if (rs.next()) {
+			            
+					 boardReportCount = rs.getInt("boardReportCount");
+			        }
+				
+				
+			} catch (Exception e) {
+				System.out.println("UserDAOImpl.getNewPostCount");
+				e.printStackTrace();
+			}
+			 return boardReportCount;
+		}
+		
+		@Override
+		public int CommReportCount(String userRegdate) {
+			int CommReportCount = 0;  
+			
+			
+			String SQL = "select count(*) as CommReportCount from tblUserLog where usercatseq = 10 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
+
+			try {
+				
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+				pstat.setString(1, userRegdate);
+				
+				ResultSet rs = pstat.executeQuery();
+				
+				 if (rs.next()) {
+			            
+					 CommReportCount = rs.getInt("CommReportCount");
+			        }
+				
+				
+			} catch (Exception e) {
+				System.out.println("UserDAOImpl.CommReportCount");
+				e.printStackTrace();
+			}
+			 return CommReportCount;
+		}
+		
 	
 }// End of class

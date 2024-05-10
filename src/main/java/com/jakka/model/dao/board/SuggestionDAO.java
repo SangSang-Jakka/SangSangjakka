@@ -18,6 +18,7 @@ public interface SuggestionDAO extends BasicDAO<SuggestionDTO>, Cnt, Search<Sugg
 	public ArrayList<SuggestionDTO> findAllOpen();
 	public ArrayList<SuggestionDTO> findAllAnswer();
 	public ArrayList<SuggestionDTO> findAllNoAnswer();
+	public ArrayList<SuggestionDTO> findToday(String today);
 	
 	
 }

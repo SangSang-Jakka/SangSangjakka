@@ -13,13 +13,10 @@ public interface BoardCommentsDAO extends BasicDAO<BoardCommentDTO>, ActiveStatu
 										, ReportCnt, Comments<BoardCommentDTO>{
 
 
+	   public ArrayList<BoardCommentDTO> findAllChild(String parentBoardSeq);
+	    public ArrayList<BoardCommentDTO> findAllReport();
+	    public ArrayList<BoardCommentDTO> findAllNoReport();
 
-	public ArrayList<BoardCommentDTO> findAllChild(String parentBoardSeq);
-	public ArrayList<BoardCommentDTO> findAllReport();
-	public ArrayList<BoardCommentDTO> findAllNoReport();
-	
 
-	public int add(BoardCommentDTO dto);
-
-	
+	    public int add(BoardCommentDTO dto);
 }

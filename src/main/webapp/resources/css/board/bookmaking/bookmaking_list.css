@@ -41,8 +41,12 @@
     justify-content: center;
 }
 
+.sliderItemBox a {
+	flex: 0 0 25%;
+}
+
 .sliderItem {
-    flex: 0 0 25%; /* 한 페이지에 최대 네 개의 아이템이 보이도록 설정 */
+    width: 100%;
     text-align: center;
     box-sizing: border-box; /* 패딩과 보더가 너비에 포함 */
     height: 400px;
@@ -61,15 +65,15 @@
 }
 
 .sliderBtn:hover {
-	opacity: 0.1;
+	opacity: 0.5;
 }
 
 .left {
-    left: 10px;
+    left: 0;
 }
 
 .right {
-    right: 10px;
+    right: 0;
 }
 
 .pointer:hover {
