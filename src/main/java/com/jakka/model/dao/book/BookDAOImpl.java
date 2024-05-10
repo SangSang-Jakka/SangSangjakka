@@ -19,6 +19,8 @@ import com.jakka.model.dao.Cnt;
 import com.jakka.model.dao.ReportCnt;
 import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
+import com.jakka.model.enums.BookAction;
+import com.jakka.model.enums.UserLog;
 
 public class BookDAOImpl implements BookDAO{
 
@@ -43,8 +45,8 @@ public class BookDAOImpl implements BookDAO{
 
 	    try (Connection conn = DBUtil.open();
 	         Statement stmt = conn.createStatement();
-	         PreparedStatement pstat = conn.prepareStatement(INSERT_SQL)) {
-	        
+	         PreparedStatement pstat = conn.prepareStatement(INSERT_SQL);
+	    ) {
 	        // First, get the next bookSeq
 	        ResultSet rs = stmt.executeQuery(GET_NEXT_SEQ_SQL);
 	        if (rs.next()) {
@@ -56,17 +58,19 @@ public class BookDAOImpl implements BookDAO{
 	        pstat.setString(2, dto.getBookTitle());
 	        pstat.setString(3, dto.getBookInfo());
 	        pstat.setString(4, dto.getBookCover());
-	        System.out.println(dto.getUserSeq());
 	        pstat.setInt(5, Integer.parseInt(dto.getUserSeq()));  // Ensure userSeq is converted properly to integer
 	        pstat.setObject(6, dto.getParentBookSeq() != null ? Integer.parseInt(dto.getParentBookSeq()) : null);  // Convert to integer or handle null
 	        pstat.setInt(7, Integer.parseInt(dto.getRcmAgeSeq()));  // Ensure rcmAgeSeq is converted properly to integer
-
+	        
 	        pstat.executeUpdate();
-
+	        
 	    } catch (SQLException e) {
 	        System.out.println("Error adding book: " + e.getMessage());
 	        throw new RuntimeException(e);  // Rethrow or handle as necessary
 	    }
+	    
+	    
+	    
 	    return bookSeq;
 	}
 	
@@ -1180,6 +1184,57 @@ public class BookDAOImpl implements BookDAO{
             System.out.println("User folder already exists: " + folderPath);
         }
 		
+	}
+	
+	//동화책 완성시
+	@Override
+	public int complete(BookDTO dto) {
+		
+		final String SQL = "insert into tblBookWhiteList(bookSeq) values(?)";
+		
+		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) "
+				+ "values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		
+	    final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
+				+ "values(?, default, ?, ?)";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			PreparedStatement log = conn.prepareStatement(LOGSQL);
+			PreparedStatement action = conn.prepareStatement(ACTIONSQL);
+		){
+			conn.setAutoCommit(false);
+			
+			pstat.setString(1, dto.getBookSeq());
+			
+			int result = pstat.executeUpdate();
+			
+			if(result > 0) {
+	        	
+	        	log.setString(1, dto.getUserSeq());
+	        	log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 제목'" + dto.getBookTitle() +"' 글내용'" + dto.getBookInfo()  + "' 동화책을 '작성'했습니다.");
+	        	log.setString(3, UserLog.BookCreated.getValue());
+	        	log.executeUpdate();
+	        	
+	        	action.setString(1, dto.getUserSeq());
+	        	action.setString(2, dto.getBookSeq());
+	        	action.setString(3, BookAction.CreateBook.getValue());
+	        	action.executeUpdate();
+	        	
+	        	
+	        }
+			
+			conn.commit();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| activation");
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 	
 }//End of class

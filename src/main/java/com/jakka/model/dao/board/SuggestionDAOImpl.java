@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 import com.jakka.model.enums.UserLog;
 
@@ -28,10 +29,9 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 		
 		String where = "";
 		
-		if(map.get("search").equals("y")) {
-			where = String.format("where %s like '%%%s%%'"
-					, map.get("column")
-					, map.get("word"));
+		if (map.get("search").equals("y")) {
+
+			where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 		}
 		
 		String sql = String.format("select count(*) as cnt from vwSuggestion %s", where);
@@ -489,22 +489,92 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 	    }
 	    return null;
 	}
+public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String orderBy) {
+		
+		//System.out.println(orderBy);
+	    String SQL = "SELECT sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt, userNick " +
+	                 "FROM (SELECT ROWNUM RNUM, f.sgstSeq, f.sgstTitle, f.sgstContents, f.sgstRegdate, f.sgstSecretYN, f.userSeq, f.sgstCnt, f.userNick " +
+	                 "FROM (SELECT * FROM vwSuggestion ";
+
+	    if (map.get("search").equals("y")) {
+	        SQL += String.format("WHERE %s like '%%%s%%' ", map.get("column"), map.get("word"));
+	    }
+
+	    SQL += "ORDER BY ";
+
+	    switch (orderBy) {
+	        case "newest":
+	            SQL += "sgstRegdate DESC";
+	            break;
+	        case "view_count":
+	            SQL += "sgstCnt DESC";
+	            break;
+	        case "comment_count":
+	            SQL += "sgstCnt DESC";
+	            break;
+	        default:
+	            SQL += "sgstRegdate DESC";
+	    }
+
+	    SQL += ") f) " +
+	           "WHERE RNUM BETWEEN ? AND ?";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    ) {
+	        pstmt.setString(1, map.get("begin"));
+	        pstmt.setString(2, map.get("end"));
+
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<SuggestionDTO> list = new ArrayList<>();
+	        
+	        System.out.println(SQL);
+
+	        while (rs.next()) {
+	        	SuggestionDTO dto = new SuggestionDTO();
+	        	dto.setSgstSeq(rs.getString("sgstSeq"));
+				dto.setSgstTitle(rs.getString("sgstTitle"));
+				dto.setSgstContents(rs.getString("sgstContents"));
+				dto.setSgstRegdate(rs.getString("sgstRegdate"));
+				dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setSgstCnt(rs.getString("sgstCnt"));
+				dto.setUserNick(rs.getString("userNick"));
+				list.add(dto);
+	        }
+
+	        System.out.println(list);
+	        return list;
+
+	    } catch (Exception e) {
+	        System.out.println("SuggestionDAO.| list");
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
 	
 	public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map) {
 		
 		String where = "where rnum BETWEEN ? AND ?";
 		String col = "";
-		
+		System.out.println(map.get("column"));
 		if(map.get("search").equals("y")) {
-			col = col + String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
+			col = col + String.format(" where %s like '%%%s%%'", map.get("column"), map.get("word"));
 		}
 		
-		String sql = String.format("SELECT sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt, userNick " + " FROM (SELECT ROWNUM RNUM, f.sgstSeq, f.sgstTitle, f.sgstContents, f.sgstRegdate, f.sgstSecretYN, f.userSeq, f.sgstCnt, f.userNick " + "FROM (SELECT * FROM vwSuggestion %s ORDER BY sgstRegdate desc) F) " + "%s", col, where);
+		String sql = String.format("SELECT sgstSeq, sgstTitle, sgstContents, sgstRegdate, sgstSecretYN, userSeq, sgstCnt, userNick " +
+				" FROM (SELECT ROWNUM RNUM, f.sgstSeq, f.sgstTitle, f.sgstContents, f.sgstRegdate, f.sgstSecretYN, f.userSeq, f.sgstCnt, f.userNick " +
+				" FROM (SELECT * FROM vwSuggestion %s ORDER BY sgstRegdate desc) F) " +
+				"%s", col, where);
 
 		try (
 
 				Connection conn = DBUtil.open();
-				PreparedStatement pstat = conn.prepareStatement(sql);) {
+				PreparedStatement pstat = conn.prepareStatement(sql);
+			) {
 			
 				pstat.setString(1, map.get("begin"));
 				pstat.setString(2, map.get("end"));
@@ -601,10 +671,196 @@ public class SuggestionDAOImpl implements SuggestionDAO{
 //	    }
 //	    return 0;
 //	}
+
+
+
+
+//건의사항 비밀글 조회  리스트
+
+	@Override
+	public ArrayList<SuggestionDTO> findAllSecret() {
+		
+		final String SQL = "SELECT * FROM vwSuggestion WHERE sgstSecretYN = 'y' ORDER BY sgstRegdate DESC";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<SuggestionDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				SuggestionDTO dto = new SuggestionDTO();
+				
+				dto.setSgstCnt(rs.getString("sgstCnt"));
+				dto.setSgstContents(rs.getString("sgstContents"));
+				dto.setSgstRegdate(rs.getString("sgstRegdate"));
+				dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+				dto.setSgstSeq(rs.getString("sgstSeq"));
+				dto.setSgstTitle(rs.getString("sgstTitle"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("SuggestionDAO.| list");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	
+	
+	
+	
+
+	//건의사항 일반글 조회  리스트
+
+		@Override
+		public ArrayList<SuggestionDTO> findAllOpen() {
+			
+			final String SQL = "SELECT * FROM vwSuggestion WHERE sgstSecretYN = 'n' ORDER BY sgstRegdate DESC";
+			
+			try (
+				
+				Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL);
+					
+				){
+				
+				ArrayList<SuggestionDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					
+					SuggestionDTO dto = new SuggestionDTO();
+					
+					dto.setSgstCnt(rs.getString("sgstCnt"));
+					dto.setSgstContents(rs.getString("sgstContents"));
+					dto.setSgstRegdate(rs.getString("sgstRegdate"));
+					dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+					dto.setSgstSeq(rs.getString("sgstSeq"));
+					dto.setSgstTitle(rs.getString("sgstTitle"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
+					
+					list.add(dto);
+				}
+				
+				return list;
+				
+			} catch (Exception e) {
+				System.out.println("SuggestionDAO.| list");
+				e.printStackTrace();
+			}
+			
+			return null;
+			
+		}
+
+		
+
+		// 답변이 있는 건의사항 조회
+		
+		@Override
+		public ArrayList<SuggestionDTO> findAllAnswer() {
+			
+			final String SQL = "select s.sgstSeq, s.sgstTitle, s.sgstContents, s.sgstRegdate, s.sgstSecretYN, s.userSeq, s.usernick, s.sgstCnt, sa.answSeq, sa.adId, sa.sgstAnsw, sa.sgstRegdate as answRegdate from vwSuggestion s inner join tblSuggestionAnswer sa on s.sgstSeq = sa.sgstSeq";
+			
+			try (
+				
+				Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL);
+					
+				){
+				
+				ArrayList<SuggestionDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					
+					SuggestionDTO dto = new SuggestionDTO();
+					
+					dto.setSgstCnt(rs.getString("sgstCnt"));
+					dto.setSgstContents(rs.getString("sgstContents"));
+					dto.setSgstRegdate(rs.getString("sgstRegdate"));
+					dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+					dto.setSgstSeq(rs.getString("sgstSeq"));
+					dto.setSgstTitle(rs.getString("sgstTitle"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
+					
+					list.add(dto);
+				}
+				
+				return list;
+				
+			} catch (Exception e) {
+				System.out.println("SuggestionDAO.| list");
+				e.printStackTrace();
+			}
+			
+			return null;
+			
+		}
+		
+		// 답변이 없는 건의사항 조회
+		
+		@Override
+		public ArrayList<SuggestionDTO> findAllNoAnswer() {
+			
+			final String SQL = "select s.sgstSeq, s.sgstTitle, s.sgstContents, s.sgstRegdate, s.sgstSecretYN, s.userSeq, s.usernick, s.sgstCnt from vwSuggestion s left join tblSuggestionAnswer sa on s.sgstSeq = sa.sgstSeq where sa.answSeq is null";
+			
+			try (
+				
+				Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL);
+					
+				){
+				
+				ArrayList<SuggestionDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					
+					SuggestionDTO dto = new SuggestionDTO();
+					
+					dto.setSgstCnt(rs.getString("sgstCnt"));
+					dto.setSgstContents(rs.getString("sgstContents"));
+					dto.setSgstRegdate(rs.getString("sgstRegdate"));
+					dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+					dto.setSgstSeq(rs.getString("sgstSeq"));
+					dto.setSgstTitle(rs.getString("sgstTitle"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
+					
+					list.add(dto);
+				}
+				
+				return list;
+				
+			} catch (Exception e) {
+				System.out.println("SuggestionDAO.| list");
+				e.printStackTrace();
+			}
+			
+			return null;
+			
+		}
+		
+
+	
 }//End of class
-
-
-
 
 
 

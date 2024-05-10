@@ -14,6 +14,7 @@
    
       <%@include file="/WEB-INF/views/template/header.jsp"%>
       
+
       <div class="topScroll">
         <button class="top"><i class="fa-solid fa-sort-up"></i></button>
         <button class="bottom"><i class="fa-solid fa-caret-down"></i></button>
@@ -45,7 +46,7 @@
                                         <p><a href="https://naver.com/">To the Sea</a></p>
                                     </div>
                                 <!-- <div class="bookInfo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, hic.</div> -->
-                                <img src="/SangsangJakka/img/medal1st.png" alt="" class="medal1st"/>
+                                <img src="/sangsangjakka/resources/img/medal1st.png" alt="" class="medal1st"/>
                             </li>
                             <li class="bookWrap">
                                 <a href="https://naver.com/">
@@ -56,7 +57,7 @@
                                     <p><a href="동화나라 세부정보 링크">당근 유치원</a></p>
                                 </div>
                                 <!-- <div class="bookInfo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, hic.</div> -->
-                                <img src="/SangsangJakka/img/medal2nd.png" alt="" class="medal2nd"/>
+                                <img src="/sangsangjakka/resources/img/medal2nd.png" alt="" class="medal2nd"/>
                             </li>
                             <li class="bookWrap">
                                 <a href="https://naver.com/">
@@ -67,7 +68,7 @@
                                     <p><a href="동화나라 세부정보 링크">화가 나서 그랬어!</a></p>
                                 </div>
                                 <!-- <div class="bookInfo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, hic.</div> -->
-                                <img src="/SangsangJakka/img/medal3rd.png" alt="" class="medal3rd"/>
+                                <img src="/sangsangjakka/resources/img/medal3rd.png" alt="" class="medal3rd"/>
                             </li>
                             <li class="bookWrap">
                                 <a href="https://naver.com/">
@@ -214,7 +215,7 @@
         </div>
        
     </article>
-        
+  
     <!-- footer -->
 		<%@include file="/WEB-INF/views/template/footer.jsp"%>
 		

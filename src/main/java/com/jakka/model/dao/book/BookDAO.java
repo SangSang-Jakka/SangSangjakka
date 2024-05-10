@@ -29,5 +29,6 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	public ArrayList<BookDTO> findAllWhite(HashMap<String, String> map);
 	public int whiteTotalCnt(HashMap<String, String> map);
 	public void createBookFolder(String userId, String bookSeq, ServletContext context);
+	public int complete(BookDTO dto);
 	
 }//End of interface

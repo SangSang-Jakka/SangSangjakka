@@ -33,18 +33,21 @@
       			</div>
       		</div>
       </div>
+	
+	  <div>
+       
+           <div class="bookOrderWrap">
+			  <div class="bookOrder">
+			    <button type="button" class="bookNew" onclick="redirectTo('newest')">최신순</button>
+				<button type="button" class="bookClick" onclick="redirectTo('view_count')">조회순</button>
+				<button type="button" class="bookComments" onclick="redirectTo('comment_count')">댓글순</button>
 
-    	<!-- board list area -->
-	   <div>
-        <form>
-           <select class="suggestion">
-               <option value="recent">최신순</option>
-               <option value="view">조회순</option>
-           </select>
-       </form>
+
+			  </div>
+			</div>
+    
        </div>
-  
-  
+    	<!-- board list area -->  
       <div>
           <div>
               <table class="boardTable">
@@ -83,7 +86,7 @@
               </table>
           </div>
       </div>
-      
+     </div> 
      <!-- 작성 -->
 
     <form action="location.href='/sangsangjakka/board/suggestion/add.do'" method="get">
@@ -125,22 +128,9 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	 <script src="https://kit.fontawesome.com/8a0ce49d35.js" crossorigin="anonymous"></script>
 	<script>
-		// 현재 로그인 한 사용자
-		var userId = '<%=session.getAttribute("userId")%>';
-		
-		// 글을 눌렀을 때 클릭하면 동적으로 제한 > 수정중
-// 		var article = document.querySelectorAll("a");
-// 		article.addEventListener('click', function() {
-
-// 			if() {
-				
-// 				alert('비밀글로 설정된 글입니다.');
-// 				location.href='/sangsangjakka/board/suggestion/list.do';
-// 			} else {
-// 				location.href='sangsangjakka/board/suggestion/View.do';
-// 			}
-// 		});
-		
+			function redirectTo(orderBy) {
+		    window.location.href = "http://localhost:8090/sangsangjakka/board/suggestion/list.do?orderBy=" + orderBy;
+			}
 	</script>
 	</body>
 </html>

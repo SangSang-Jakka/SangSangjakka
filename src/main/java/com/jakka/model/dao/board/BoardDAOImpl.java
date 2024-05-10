@@ -264,6 +264,7 @@ public class BoardDAOImpl implements BoardDAO {
 				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
 				dto.setBoardCnt(rs.getString("boardCnt"));
 				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
 
 				list.add(dto);
 			}
@@ -981,4 +982,95 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return 0;
 	}
+	
+	
+	// 신고가 있는 게시물 조회
+	@Override
+	public ArrayList<BoardDTO> findAllReport() {
+
+		final String SQL = "select * from vwBoard where boardReportCnt > 0";
+
+		try (
+
+				Connection conn = DBUtil.open();
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(SQL);
+
+		) {
+
+			ArrayList<BoardDTO> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				BoardDTO dto = new BoardDTO();
+
+				dto.setBoardCnt(rs.getString("boardCnt"));
+				dto.setBoardContents(rs.getString("boardContents"));
+				dto.setBoardRegdate(rs.getString("boardRegdate"));
+				dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setBoardTitle(rs.getString("boardTitle"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+
+				list.add(dto);
+
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.| list");
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}// list()
+	
+	// 신고가 없는 게시물 조회
+		@Override
+		public ArrayList<BoardDTO> findAllNoReport() {
+
+			final String SQL = "select * from vwBoard where boardReportCnt = 0";
+
+			try (
+
+					Connection conn = DBUtil.open();
+					Statement stat = conn.createStatement();
+					ResultSet rs = stat.executeQuery(SQL);
+
+			) {
+
+				ArrayList<BoardDTO> list = new ArrayList<>();
+
+				while (rs.next()) {
+
+					BoardDTO dto = new BoardDTO();
+
+					dto.setBoardCnt(rs.getString("boardCnt"));
+					dto.setBoardContents(rs.getString("boardContents"));
+					dto.setBoardRegdate(rs.getString("boardRegdate"));
+					dto.setBoardReportCnt(rs.getString("boardReportCnt"));
+					dto.setBoardSeq(rs.getString("boardSeq"));
+					dto.setBoardTitle(rs.getString("boardTitle"));
+					dto.setUserSeq(rs.getString("userSeq"));
+					dto.setUserNick(rs.getString("userNick"));
+
+					list.add(dto);
+
+				}
+
+				return list;
+
+			} catch (Exception e) {
+				System.out.println("BoardDAO.| list");
+				e.printStackTrace();
+			}
+
+			return null;
+
+		}// list()
+	
+	
 }// End of class

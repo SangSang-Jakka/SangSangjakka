@@ -1,7 +1,10 @@
 
 body {
     font-family: 'NEXON Lv1 Gothic OTF',sans-serif;
+
 }
+
+
 
 ul {
     margin: 0;
@@ -64,13 +67,13 @@ button {
 
 
 .imgThis{
-    width: 220px;
-    height: 275px;
+    width: 200px;
+    height: 250px;
 }
 
 .imgLast{
-    width: 200px;
-    height: 250px;
+    width: 180px;
+    height: 225px;
 }
 
 .bookWrap {
@@ -103,44 +106,44 @@ button {
 
 
 .textFirst{
-    margin-left: 70px;
+    margin-left: 175px;
 }
 
 .textLast{
-    margin-right: 75px;
+    margin-right: 175px;
 }
 
 #imgThisFirst{
-    margin-left: 70px;
-    width: 220px;
-    height: 275px;
+    margin-left: 175px;
+    width: 200px;
+    height: 250px;
 }
 
 #imgThisLast{
-    margin-right: 70px;
-    width: 220px;
-    height: 275px;
+    margin-right: 175px;
+    width: 200px;
+    height: 250px;
 }
 
 
 #imgBeforeFirst{
-    margin-left: 120px;
+    margin-left: 250px;
 
 }
 
 #imgBeforeBeforeFirst{
-    margin-left: 120px;
+    margin-left: 250px;
 
 }
 
 #imgBeforeLast{
-    margin-right: 120px;
+    margin-right: 250px;
     
 }
 
 
 #imgBeforeBeforeLast{
-    margin-right: 120px;
+    margin-right: 250px;
     
 }
 
@@ -188,7 +191,7 @@ body,
 html {
     margin: 0;
     padding: 0;
-    border:1px solid black;
+  
 }
 
 #header {
@@ -292,7 +295,7 @@ body,
 html {
     margin: 0;
     padding: 0;
-    border:1px solid black;
+    
 }
 
 #header {
@@ -479,7 +482,7 @@ ul {
     display:flex;
     flex-wrap: wrap;
     margin:0 auto;
-    border:1px solid black;
+
     width:1700px;
     height:1150px;
 }
@@ -487,7 +490,6 @@ ul {
 .awardContainer .awardBox {
     display:flex;
     justify-content:space-around;
- 
     margin:10px 0 25px 50px;
     width:1600px;
     height:550px;

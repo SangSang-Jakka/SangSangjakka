@@ -243,15 +243,6 @@ create table tblReview(
     reviewRegdate   date default sysdate not null
 );
 
--- 사용자 장르 선호도 테이블
-create table tblUserGenrePreference(
-    userSeq     number references tblUser(userSeq),     -- 사용자 번호(PK, FK)
-    genreSeq    number references tblGenre(genreSeq),   -- 장르 seq(PK, FK)
-    genreCnt    number default 0 not null,              -- 횟수
-    
-    constraints tblUserGenrePreference_pk primary key(userSeq, genreSeq)
-);
-
 -- 리뷰 화이트 리스트 테이블
 create table tblReviewWhiteList(
     reviewSeq number primary key references tblReview(reviewSeq)    -- 블라인드 처리되지 않은 감상글(PK, FK)
@@ -317,6 +308,22 @@ create table tblTendencyGenre(
     genreSeq number references tblGenre(genreSeq),
     
     constraints tblTendencyGenre_pk primary key(tendencySeq, genreSeq)
+);
+
+-- 행동 카테고리
+create table tblActionCat(
+    actionCatSeq number primary key,
+    actionName varchar2(50) not null
+);
+
+-- 사용자 동화책 행동 테이블
+create table tblUserBookAction(
+    userSeq number references tblUser(userSeq),
+    actionDate date default sysdate,
+    bookSeq number references tblBook(bookSeq) not null,
+    actionCatSeq references tblActionCat(actionCatSeq) not null,
+    
+    constraints tblUserBookAction_pk primary key(userSeq, actionDate)
 );
 
 ---------------------
@@ -432,6 +439,14 @@ insert into tblUserCat(userCatSeq, userCatContents) values(21, '동화책 감상
 insert into tblUserCat(userCatSeq, userCatContents) values(22, '남의 동화책 이야기 바꾸기');
 insert into tblUserCat(userCatSeq, userCatContents) values(23, '건의사항 작성');
 insert into tblUserCat(userCatSeq, userCatContents) values(24, '건의사항 수정');
+
+-- 사용자 동화책 행동 카테고리
+insert into tblActionCat(actionCatSeq, actionName) values(1, '조회');
+insert into tblActionCat(actionCatSeq, actionName) values(2, '좋아요');
+insert into tblActionCat(actionCatSeq, actionName) values(3, '스크랩');
+insert into tblActionCat(actionCatSeq, actionName) values(4, '나의이야기로만들기');
+insert into tblActionCat(actionCatSeq, actionName) values(5, '동화책제작');
+insert into tblActionCat(actionCatSeq, actionName) values(6, '리뷰');
 
 --------------------
 -- 최고관리자 계정--
