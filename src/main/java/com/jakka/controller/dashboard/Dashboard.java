@@ -25,5 +25,14 @@ public class Dashboard extends HttpServlet {
 		dispatcher.forward(req, resp);
 
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		 String selectedMonth = req.getParameter("selectedMonth");
+		 System.out.println(selectedMonth);
+		
+		 
+		
+	}
 
 }// End of class

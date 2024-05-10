@@ -19,6 +19,11 @@ public class AdminDTO {
 	private String adCatContents;
 	private String adLogContents;
 	
+	// 유입경로...
+	private String registrationMonth;
+    private String inflowname;
+    private int inflowCount;
+	
 	
 	
 	public String getAdLogSeq() {

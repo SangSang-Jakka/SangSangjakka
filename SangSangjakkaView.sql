@@ -372,6 +372,15 @@ from vwBookWhite b
     inner join tblAward a
     on b.bookSeq = a.bookSeq;
    
-   
+ CREATE OR REPLACE VIEW vwInflowcount AS
+SELECT TO_CHAR(u.userregdate, 'YYYY/MM') AS registration_month,
+       c.inflowname,
+       COUNT(i.inflowcatseq) AS inflow_count
+FROM tbluserinflow i
+INNER JOIN tblUser u ON i.userseq = u.userseq
+INNER JOIN tblinflowcat c ON i.inflowcatseq = c.inflowcatseq
+WHERE TO_CHAR(u.userregdate, 'YYYY/MM') = '2023/07'
+GROUP BY TO_CHAR(u.userregdate, 'YYYY/MM'), c.inflowname
+ORDER BY inflow_count DESC;  
    
 commit;

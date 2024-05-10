@@ -33,10 +33,7 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public void loginLog(String userSeq);
     public int blaklistReStore(String userSeq);
     public int findBlacklistSeq(String userSeq);
-    public int getNewPostCount(String userRegdate);
-    public int getNewSuggestionCount(String userRegdate);
-    public int boardReportCount(String userRegdate);
-    public int CommReportCount(String userRegdate);
+   
     public int nUserCount();
     public Map<String, Integer[]> member(String year);
     
