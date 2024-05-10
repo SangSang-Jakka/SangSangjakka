@@ -229,7 +229,7 @@ create table tblBookShare(
 
 -- 수상 게시판 테이블
 create table tblAward(
-    bookSeq         number primary key references tblBookShare(bookSeq),    -- 수상 동화책 번호(PK, FK)
+    bookSeq         number primary key references tblBook(bookSeq),    -- 수상 동화책 번호(PK, FK)
     awardRegdate    date default sysdate not null,                          -- 수상일
     awardRank       number                                                  -- 등수
 );
