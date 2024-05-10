@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <header id="header">
 <%@page session="true"%>
         <div class="headerWrap">
-            <div class="empty">
-            <p>${userNick}님 안녕하세요<p>
-            </div>
+        
+        <c:if test="${empty userId}">
+	            <div class="empty">
+           	 		
+            	</div>
+         </c:if>
+         
+         <c:if test="${not empty userId}">
+          		<div class="empty">
+           	 		<div>${userNick}님 안녕하세요</div>
+            	</div>
+            </c:if>
+         
             <div class="headerLogo">
                 <a href="/sangsangjakka/index.do"><img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78"></a>
             </div>
@@ -23,7 +34,7 @@
             <c:if test="${not empty userId}">
           		<div class="headerLogin">
           			<div class="loginWrap">
-          				
+          			
           				<a href="/sangsangjakka/user/logout.do" class="logoutBtn">로그아웃</a>
           				<a href="/sangsangjakka/user/mypage.do" class="mypageBtn">마이페이지</a>
           			</div>
@@ -43,3 +54,20 @@
                 <a href="/sangsangjakka/board/suggestion/list.do"><li>건의사항</li></a>
             </ul>
         </nav>
+        
+        <script>
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            var userId = "${not empty userId}";
+
+            if (!userId) {
+                var greetingElement = document.querySelector('.empty > div');
+                if (greetingElement) {
+                    greetingElement.remove();
+                }
+            }
+        });
+    </script>
+
+        
+   
