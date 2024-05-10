@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,14 +109,15 @@ public class BookmakingView extends HttpServlet {
         try {
             // 사용자가 전송한 프롬프트 데이터 받기
             String prompt = req.getParameter("prompt");
-
             String enPrompt = Trans.translate(prompt);
             
             //여기서 사용자가 선호하는 
             
             String[] category = {
             		"HeartwarmingTales",
-            		"HumorousTales"
+            		"HumorousTales",
+            		"FriendFamilyStories",
+            		"Adventuretales"
             };
             String[] promptList = new String[2];
             
@@ -135,6 +137,7 @@ public class BookmakingView extends HttpServlet {
 
             //생성된 이미지 저장
             List<String> imageDateBase64List = new ArrayList<>();
+            List<Map<String, String>> imageDataList = new ArrayList<>();
             
             for(String text : promptList) {
             	
@@ -157,6 +160,11 @@ public class BookmakingView extends HttpServlet {
                 String fileName = text + ".png";
                 String filePath = getServletContext().getRealPath("/generated") + "/" + userId + "/" +  fileName;
                 java.nio.file.Files.write(java.nio.file.Paths.get(filePath), responseBytes);
+                
+                Map<String, String> imageData = new HashMap<>();
+                imageData.put("fileName", fileName);
+                imageData.put("imageBase64", imageDataBase64);
+                imageDataList.add(imageData);
             	
                 
                 
@@ -164,7 +172,7 @@ public class BookmakingView extends HttpServlet {
             
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(new Gson().toJson(imageDateBase64List));
+            resp.getWriter().write(new Gson().toJson(imageDataList));
             
             
         } catch (Exception e) {
