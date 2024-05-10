@@ -360,6 +360,45 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
+	public ArrayList<ReviewDTO> findChildWhite(String parentSeq) {
+		
+		final String SQL = "SELECT * FROM vwReviewWhite WHERE bookSeq = ? order by reviewRegdate desc";
+
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	    	
+	        pstmt.setString(1, parentSeq);
+	        
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<ReviewDTO> list = new ArrayList<>();
+	        
+	        while (rs.next()) {
+	        	
+	            ReviewDTO dto = new ReviewDTO();
+	            
+	            dto.setReviewSeq(rs.getString("reviewSeq"));
+	            dto.setReviewContents(rs.getString("reviewContents"));
+	            dto.setReviewLikeCnt(rs.getString("reviewLikeCnt"));
+	            dto.setReviewReportCnt(rs.getString("reviewReportCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setReviewRegdate(rs.getString("reviewRegdate"));
+	            
+	            list.add(dto);
+	        }
+	        
+	        return list;
+	        
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.| findChildWhite");
+	        e.printStackTrace();
+	    }
+	    
+	    return null;
+	}
+	
+	@Override
 	public ArrayList<ReviewDTO> findChild(String parentSeq) {
 		
 		final String SQL = "SELECT * FROM vwReview WHERE bookSeq = ? order by reviewRegdate desc";

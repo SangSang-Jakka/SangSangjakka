@@ -1,5 +1,7 @@
 package com.jakka.model.dao.book;
 
+import java.util.ArrayList;
+
 import com.jakka.model.dao.ActiveStatus;
 import com.jakka.model.dao.BasicDAO;
 import com.jakka.model.dao.Comments;
@@ -11,5 +13,5 @@ public interface ReviewDAO extends BasicDAO<ReviewDTO>, ReportCnt, ActiveStatus<
 								, Comments<ReviewDTO>, LikeCnt{
 	
 	
-	
+	public ArrayList<ReviewDTO> findChildWhite(String parentSeq);
 }
