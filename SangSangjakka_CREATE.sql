@@ -184,7 +184,6 @@ create table tblBook(
     userSeq         number references tblUser(userSeq) not null,            -- 회원번호(FK)
     parentBookSeq   number default null references tblBook(bookSeq),        -- 부모 동화책 번호(FK)
     rcmAgeSeq       number references tblRecommendAge(rcmAgeSeq) not null,  -- 추천 연령 번호(FK)
-    shareRegdate    date default null,                                      -- 공유된 날짜
     shareCnt        number default 0 not null                               -- 조회수
 );
 

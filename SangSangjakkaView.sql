@@ -17,8 +17,7 @@ SELECT
     b.userSeq,
     b.parentBookSeq,
     b.rcmAgeSeq,
-    u.userNick,
-    b.shareRegdate
+    u.userNick
 FROM tblBook b
     INNER JOIN tblUser u 
     ON b.userSeq = u.userSeq
@@ -49,8 +48,7 @@ SELECT
     b.parentBookSeq,
     b.rcmAgeSeq,
     b.userNick,
-    b.bookCnt,
-    b.shareRegdate
+    b.bookCnt
 FROM VWBOOK B
 INNER JOIN tblBookWhiteList bw
     ON b.bookSeq = bw.bookSeq;
@@ -70,8 +68,7 @@ SELECT
     b.parentBookSeq,
     b.rcmAgeSeq,
     b.userNick,
-    b.bookCnt,
-    b.shareRegdate
+    b.bookCnt
 FROM vwBook b
 WHERE b.bookSeq NOT IN(SELECT bookSeq FROM tblBookWhiteList);
 
