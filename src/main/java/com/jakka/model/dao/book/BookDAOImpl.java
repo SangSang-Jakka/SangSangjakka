@@ -245,7 +245,7 @@ public class BookDAOImpl implements BookDAO{
 		return 0;
 	}
 	
-	//조회수 메서드 다시 만들어야됨
+	//오버로딩
 	@Override
 	public int addCnt(String bookSeq) {
 		
@@ -261,6 +261,43 @@ public class BookDAOImpl implements BookDAO{
 				pstat.setString(1, bookSeq);
 				
 				int result = pstat.executeUpdate();
+				
+				return result;
+				
+			} catch (Exception e) {
+			System.out.println("BoardDAOImpl.| addCnt");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int addCnt(String bookSeq, String userSeq) {
+		
+		final String SQL = "update tblBookShare set shareCnt = shareCnt + 1 where bookSeq = ?";
+		
+		final String ACTIONSQL = "insert into tblUserBookAction(userSeq, actionDate, bookSeq, actionCatSeq) "
+				+ "values(?, default, ?, ?)";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				PreparedStatement action = conn.prepareStatement(ACTIONSQL);
+				){
+				
+				pstat.setString(1, bookSeq);
+				
+				int result = pstat.executeUpdate();
+				
+				if(result > 0) {
+					
+					action.setString(1, userSeq);
+					action.setString(2, bookSeq);
+					action.setString(3, BookAction.Inquiry.getValue());
+					action.executeUpdate();
+					
+				}
 				
 				return result;
 				

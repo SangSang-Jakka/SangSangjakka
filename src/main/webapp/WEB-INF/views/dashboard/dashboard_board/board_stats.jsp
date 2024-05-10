@@ -42,56 +42,74 @@
 		<!-- 배너 -->
         <%@include file="/WEB-INF/views/dashboard/dashboard_template/board_banner.jsp"%>
 
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">line Chart</h4>
-                    <div id="chart1"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Area Chart</h4>
-                    <div id="chart2"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Column Chart</h4>
-                    <div id="chart3"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Bar Chart</h4>
-                    <div id="chart4"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Mixed Chart</h4>
-                    <div id="chart5"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Timeline Chart</h4>
-                    <div id="chart6"></div>
-                </div>
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Candlestick Chart</h4>
-                    <div id="chart7"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-30">
-                        <div class="pd-20 card-box height-100-p">
-                            <h4 class="h4 text-blue">Pie Chart</h4>
-                            <div id="chart8"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="pd-20 card-box height-100-p">
-                            <h4 class="h4 text-blue">Radial Bar Chart</h4>
-                            <div id="chart9"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 푸터 -->
+           <div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4 center">자유 게시판</h4>
+						<div class="filter-container">
+						<!--  조건별 조회 -->
+						<select id="conditionSelect">
+							<option value="all">전체</option>
+							<option value="option">고정글</option>
+						</select>
+						<!--  기간 조회 -->
+						<div class="date-range-container">
+							<input type="date" id="min" name="min" class="date-input">
+							<span class="date-separator">~</span>
+							<input type="date" id="max" name="max" class="date-input">
+						</div>
+					</div>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap" id="myTable">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">번호</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>조회수</th>
+									<th>신고수</th>
+									<th class="datatable-nosort">Action</th>
+								</tr>
+							</thead>
+						
+							<tbody>
+							<c:forEach var="board" items="${boardList}">
+								<tr>
+									<td class="table-plus">${board.boardSeq}</td>
+									<td><a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${board.boardSeq}">${board.boardTitle}</a></td>
+									<td>${board.userNick}</td>
+									<td>${board.boardRegdate}</td>
+									<td>${board.boardCnt}</td>
+									<td>${board.boardReportCnt}</td>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${board.boardSeq}"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								</c:forEach>
+							</tbody>
+					
+						</table>
+					</div>
+				</div>
+			<!-- Simple Datatable End -->
+	
+			</div>
+			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
-        </div>
-    </div>
-    
-    <!-- js -->
+			
+		</div>
+	</div>
+-->
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
 	
 </body>

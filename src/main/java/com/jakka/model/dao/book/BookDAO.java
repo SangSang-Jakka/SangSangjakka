@@ -31,4 +31,6 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	public void createBookFolder(String userId, String bookSeq, ServletContext context);
 	public int complete(BookDTO dto);
 	
+	public int addCnt(String bookSeq, String userSeq);
+	
 }//End of interface

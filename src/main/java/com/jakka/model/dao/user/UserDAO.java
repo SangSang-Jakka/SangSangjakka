@@ -38,6 +38,7 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public int boardReportCount(String userRegdate);
     public int CommReportCount(String userRegdate);
     public int nUserCount();
+    public Map<String, Integer[]> member(String year);
     
 
 }
