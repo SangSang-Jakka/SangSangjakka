@@ -115,7 +115,7 @@
          <div class="mainTitle">📜 소중한 리뷰</div>
     </div>
     
-    <form action="">
+    <form method="POST" action="/sangsangjakka/board/book/view.do">
     <div class="reviewWriteWrap">
   <!--   	<div class="reviewWriteTitle">
     		어떤 점이 좋았나요?
@@ -126,8 +126,10 @@
     	</div>
     </div>
     
+    <input type="hidden" name="bookSeq" value="${bookSeq}"/>
+    
     <div class="btnWriteWrap">
-	    <button type="submit" class="btnWrite" onclick="" >
+	    <button type="submit" class="btnWrite" >
 	         <div class="write">작성하기</div>
 	    </button>
     </div>
@@ -142,10 +144,13 @@
         <c:forEach items="${reviewList}" var="review" begin="0" end="4">
             <div class="reviewListWrap">
                 <div class="reviewListContainer">
-                    <div class="reviewDate">${review.reviewRegdate}</div>
-                    <div class="reviewUser">
-                        <i class="fa-regular fa-user"></i>
-                        <div class="reviewNick">${review.userNick}</div>
+                    
+                    <div class="reviewUserWrap">
+                    	<div class="reviewUser">
+	                        <i class="fa-regular fa-user"></i>
+	                        <div class="reviewNick">${review.userNick}</div>
+                        </div>
+                        <div class="reviewDate">${review.reviewRegdate}</div>
                     </div>
                     <div class="reviewContents">${review.reviewContents}</div>
                     <form action="">
@@ -165,11 +170,13 @@
          <!-- 나머지 리뷰는 display:none으로 숨김 -->
             <c:forEach items="${reviewList}" var="review" begin="5">
                  <div class="reviewListWrap hidden">
-                <div class="reviewListContainer">
-                    <div class="reviewDate">${review.reviewRegdate}</div>
-                    <div class="reviewUser">
-                        <i class="fa-regular fa-user"></i>
-                        <div class="reviewNick">${review.userNick}</div>
+                <div class="reviewListContainer">       
+                    <div class="reviewUserWrap">
+                    	<div class="reviewUser">
+	                        <i class="fa-regular fa-user"></i>
+	                        <div class="reviewNick">${review.userNick}</div>
+                        </div>
+                        <div class="reviewDate">${review.reviewRegdate}</div>
                     </div>
                     <div class="reviewContents">${review.reviewContents}</div>
                     <form action="">

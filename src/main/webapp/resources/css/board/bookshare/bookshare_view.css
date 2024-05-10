@@ -320,6 +320,7 @@ button.like.saveBtn:active::before {
 	height: 250px;
 	justify-content:space-between;
 	border-right: 1px dashed gray;
+	width:200px;
 }
 
 .createDate {
@@ -456,11 +457,20 @@ button.like.saveBtn:active::before {
 
 .reviewDate {
 	margin-bottom:15px;
+	color:gray;
+}
+
+
+.reviewUserWrap {
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 15px;
+    
 }
 
 .reviewUser {
 	display:flex;
-	margin-bottom:15px;
+	font-weight: bold;
 }
 
 .reviewNick {
@@ -468,7 +478,9 @@ button.like.saveBtn:active::before {
 }
 
 .reviewContents {
+	margin-top: 15px;
 	margin-bottom:10px;
+    font-size:18px;
 }
 
 .reviewListBtn {

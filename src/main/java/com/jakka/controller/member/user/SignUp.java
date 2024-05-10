@@ -79,13 +79,11 @@ public class SignUp extends HttpServlet{
 		dto.setUserRightSsn(userRightSsn);
 		dto.setUserName(userName);
 		
-		
-		
 		UserDAO dao = DAOManager.getUserDAO();
 		
 		int newUserId = dao.signUp(dto); 
 		
-
+		System.out.println(newUserId);
 
 		if (newUserId > 0  ) { // 회원가입 성공한 경우
 			req.setAttribute("newUserId", userId);
