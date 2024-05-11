@@ -59,16 +59,6 @@
 
 
 
-		<div class="bg-white pd-20 card-box mb-30">
-					
-					<select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
-            <c:forEach var="year" items="<%= yearList %>">
-              <option value="${year}">20${year}</option>
-            </c:forEach>
-          </select>
-       
-      			<canvas id="memberChart"></canvas> 
-				</div>
     			
     		<div class="row">
 				<div class="col-xl-4 mb-30">
@@ -85,12 +75,22 @@
 				</div>
 			</div>
 			
-			<div class="bg-white pd-20 card-box mb-30">
-					<h4 class="h4 text-blue">자녀연령대</h4>
-					<canvas id="AgeChart"></canvas>
-			</div>
+<!-- 			<div class="bg-white pd-20 card-box mb-30"> -->
+<!-- 					<h4 class="h4 text-blue">자녀연령대</h4> -->
+<%-- 					<canvas id="AgeChart"></canvas> --%>
+<!-- 			</div> -->
 			
 			
+		<div class="bg-white pd-20 card-box mb-30">
+					
+					<select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
+            <c:forEach var="year" items="<%= yearList %>">
+              <option value="${year}">20${year}</option>
+            </c:forEach>
+          </select>
+       
+      			<canvas id="memberChart"></canvas> 
+				</div>
 			
 			
 			
@@ -294,6 +294,8 @@
               hover: {
                 mode: null // 마우스 호버 효과 비활성화
               },
+              responsive: true,
+              maintainAspectRatio: false,
               
               events: [] // 이벤트 핸들러 비활성화
             }

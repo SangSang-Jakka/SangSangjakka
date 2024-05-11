@@ -30,6 +30,7 @@
 	  List<AdminDTO>inflowCount = year.getInflowCountData(currentYear);
 	  System.out.println("안돼?: " + inflowCount);
 	
+	  
 	
 	%>
 <body>
@@ -60,96 +61,100 @@
 		<!-- 배너 -->
         <%@include file="/WEB-INF/views/dashboard/dashboard_template/admin_dashboard_banner.jsp"%>
 
-                <div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">line Chart</h4>
-                    <div class="col-md-4 col-sm-12">
-			<div class="form-group">
-				
-<!-- 				<input type="text" id="monthPicker" name="monthPicker" class="form-control"> -->
-			</div>
-		</div>
+
+		
+		<div class="bg-white pd-20 card-box mb-30">
+					
+					<select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
+            <c:forEach var="year" items="<%= yearList %>">
+              <option value="${year}">20${year}</option>
+            </c:forEach>
+          </select>
+       
+      			<canvas id="memberChart"></canvas> 
+				</div>
+             
+<!--                 <div class="bg-white pd-20 card-box mb-30">  -->
+<!--                 <div class="col-md-4 col-sm-12"> -->
+<!-- <!--                  <div class="col-lg-4 col-md-6 col-sm-12 mb-30">  --> 
+<!-- <!-- 					<div class="card-box pd-30 pt-10 height-100-p">  --> 
                     
                    
-                </div>
-                <div class="bg-white pd-20 card-box mb-30"> 
-                <div class="col-md-4 col-sm-12">
-<!--                  <div class="col-lg-4 col-md-6 col-sm-12 mb-30">  -->
-<!-- 					<div class="card-box pd-30 pt-10 height-100-p">  -->
-                    
-                    <div class="form-group has-success">
-				<label class="form-control-label"> DATE</label>
-				<input type="text" id="monthPicker" name="monthPicker" class="form-control form-control-success" value="<%= currentYear%> ">
-			    </div>
-			    <div class="browser-visits">
-			    <table class="table table-striped">
+<!-- 			    <div class="browser-visits"> -->
+<!-- 			    <table class="table table-striped"> -->
 						
 
 
-					  <tbody>
-					    <tr>
-					      	<th scope="col">#</th>	
-							<th scope="col">유입경로</th>
-							<th scope="col">선택 수</th>
+<!-- 					  <tbody> -->
+<!-- 					    <tr> -->
+<!-- 					      	<th scope="col">#</th>	 -->
+<!-- 							<th scope="col">유입경로</th> -->
+<!-- 							<th scope="col">선택 수</th> -->
 					      
-					    </tr>
-					  </tbody>
+<!-- 					    </tr> -->
+<!-- 					  </tbody> -->
 					  
-					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop">
-					      <tr>
-					        <td>${loop.index + 1}</td>
-					        <td>${admin.inflowname}</td>
-					        <td>${admin.inflowCount}</td>
+<%-- 					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop"> --%>
+<!-- 					      <tr> -->
+<%-- 					        <td>${loop.index + 1}</td> --%>
+<%-- 					        <td>${admin.inflowname}</td> --%>
+<%-- 					        <td>${admin.inflowCount}</td> --%>
 					       
-					      </tr>
-					    </c:forEach>
+<!-- 					      </tr> -->
+<%-- 					    </c:forEach> --%>
 					  
-					</table>
-				</div>
+<!-- 					</table> -->
+<!-- 				</div> -->
 				
-<%-- 				<canvas id="memberChart"></canvas> --%>
+<%-- <%-- 				<canvas id="memberChart"></canvas> --%> 
 			
-                </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
-					<div class="card-box pd-30 pt-10 height-100-p">
+<!--                 </div> -->
+<!--                 </div> -->
+<!--                 <div class="col-lg-4 col-md-6 col-sm-12 mb-30"> -->
+<!-- 					<div class="card-box pd-30 pt-10 height-100-p"> -->
 						
-						<div class="browser-visits2">
+<!-- 						<div class="browser-visits2"> -->
 							 
-                    <div class="form-group has-success">
-				<label class="form-control-label"> DATE</label>
-				<input type="text" id="monthPicker2" name="monthPicker2" class="form-control form-control-success" value="<%= currentYear%> ">
-			    <h2 class="mb-30 h4">Browser Visit</h2>
-			    <div class="browser-visits siwon">
-			    <table class="table table-striped">
+<!--                     <div class="form-group has-success"> -->
+<!-- 				<label class="form-control-label"> DATE</label> -->
+<%-- 				<input type="text" id="monthPicker2" name="monthPicker2" class="form-control form-control-success" value="<%= currentYear%> "> --%>
+<!-- 			    <h2 class="mb-30 h4">Browser Visit</h2> -->
+<!-- 			    <div class="browser-visits siwon"> -->
+<!-- 			    <table class="table table-striped"> -->
 						
 
 
-					  <tbody>
-					    <tr>
-					      	<th scope="col">#</th>	
-							<th scope="col">유입경로</th>
-							<th scope="col">선택 수</th>
+<!-- 					  <tbody> -->
+<!-- 					    <tr> -->
+<!-- 					      	<th scope="col">#</th>	 -->
+<!-- 							<th scope="col">유입경로</th> -->
+<!-- 							<th scope="col">선택 수</th> -->
 					      
-					    </tr>
-					  </tbody>
+<!-- 					    </tr> -->
+<!-- 					  </tbody> -->
 					  
-					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop">
-					      <tr>
-					        <td>${loop.index + 1}</td>
-					        <td>${admin.inflowname}</td>
-					        <td>${admin.inflowCount}</td>
+<%-- 					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop"> --%>
+<!-- 					      <tr> -->
+<%-- 					        <td>${loop.index + 1}</td> --%>
+<%-- 					        <td>${admin.inflowname}</td> --%>
+<%-- 					        <td>${admin.inflowCount}</td> --%>
 					       
-					      </tr>
-					    </c:forEach>
+<!-- 					      </tr> -->
+<%-- 					    </c:forEach> --%>
 					  
-					</table>
-				</div>
+<!-- 					</table> -->
+<!-- 				</div> -->
 			    
 
-			    </div>
-						</div>
-					</div>
-				</div>
+<!-- 			    </div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
+<!-- 				 <div class="form-group has-success"> -->
+<!-- 				<label class="form-control-label"> DATE</label> -->
+<%-- 				<input type="text" id="monthPicker" name="monthPicker" class="form-control form-control-success" value="<%= currentYear%> "> --%>
+<!-- 			    </div> -->
 				
 				<div class="row">
 				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
@@ -220,6 +225,7 @@
     <!-- js -->
 	
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> 
 	
 	<!-- jquery UI -->
 <!-- 	<script src="//code.jquery.com/jquery.min.js"></script> -->
@@ -380,8 +386,106 @@
 		    });
 		  </script>
 <script>
- 
+
+// 현재 연도 가져오기
+var currentYear = new Date().getFullYear();
+var currentYearShort = currentYear.toString().slice(-2);
+console.log(currentYearShort);
+
+$("#yearSelect").val(currentYearShort);
+// 현재 연도 차트 초기 렌더링
+renderChart(currentYear.toString());
+
+function renderChart(year) {
+  $.ajax({
+    type: "POST",
+    url: "/sangsangjakka/admin/dashboard/user/stats.do",
+    data: { selectedValue: year },
+    success: function(response) {
+      console.log('Server response:', response);
+
+      var labels = [];
+      var joinData = [];
+      var withdrawData = [];
+
+      // JSON 데이터 파싱
+      for (var i = 0; i < response.length; i++) {
+        var monthData = response[i];
+        labels.push(monthData.label);
+        joinData.push(monthData.joinCount);
+        withdrawData.push(monthData.withdrawCount);
+      }
+
+      var context = document.getElementById('memberChart').getContext('2d');
+      if (window.myChart) {
+        window.myChart.destroy(); // 기존 차트 제거
+      }
+
+      window.myChart = new Chart(context, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '가입자 수',
+            data: joinData,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }, {
+            label: '탈퇴자 수',
+            data: withdrawData,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          },
+          hover: {
+            mode: null // 마우스 호버 효과 비활성화
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          
+          events: [] // 이벤트 핸들러 비활성화
+        }
+      });
+    },
+    error: function(xhr, status, error) {
+      console.error('AJAX request error:', error);
+    }
+  });
+}
+
+function sendSelectedOptionValue(selectElement) {
+  var selectedOption = selectElement.options[selectElement.selectedIndex];
+  if (selectedOption) {
+    var selectedValue = selectedOption.value;
+    console.log(selectedValue);
+    renderChart(selectedValue);
+  } else {
+    console.log('No option selected');
+  }
+}
 </script>
+
+
+
+<script>
+// getBarChartOptions 함수 사용
+var options = getBarChartOptions();
+
+// 차트 생성
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+</script>
+
 
 </body>
 </html>
