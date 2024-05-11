@@ -157,11 +157,11 @@ margin-right : 14px;
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="report" items="${reportList}">
+								<c:forEach var="report" items="${reportList}" varStatus="status">
 									<tr>
-										<td class="table-plus">${report.bookSeq}</td>
+										<td class="table-plus">${status.count}</td>
 										<td><a
-											href="/sangsangjakka/admin/dashboard/book/report.do">${report.bookTitle}</a></td>
+											href="/sangsangjakka/admin/dashboard/book/reportview.do?seq=${report.bookSeq}">${report.bookTitle}</a></td>
 										<td>${report.userNick}</td>
 										<td>${report.bookRegdate}</td>
 										<td>${report.bookReportCnt}</td>
@@ -171,9 +171,7 @@ margin-right : 14px;
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/book/awardview.do"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/book/reportview.do?seq=${report.bookSeq}"><i class="dw dw-eye"></i> View</a>
 											</div>
 										</div>
 									</td>
