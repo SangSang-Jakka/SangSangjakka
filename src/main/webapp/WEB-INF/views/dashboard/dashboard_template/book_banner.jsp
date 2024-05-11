@@ -28,16 +28,16 @@
     // 형식에 맞게 날짜 문자열 생성
     String currentDate = formatter.format(now);
     
-    int newPostCount = dao.getNewPostCount(currentDate);
-    int newSuggestionCount = dao.getNewSuggestionCount(currentDate);
+    //int newPostCount = dao.getNewPostCount(currentDate);
+    //int newSuggestionCount = dao.getNewSuggestionCount(currentDate);
     
     
     
-    int boardReportCount = dao.boardReportCount(currentDate);
-    System.out.println("신고된 게시글: " + boardReportCount);
+   //int boardReportCount = dao.boardReportCount(currentDate);
+    //System.out.println("신고된 게시글: " + boardReportCount);
     
-    int CommReportCount = dao.CommReportCount(currentDate);
-    System.out.println("신고된 댓글: " + CommReportCount);
+    //int CommReportCount = dao.CommReportCount(currentDate);
+    //System.out.println("신고된 댓글: " + CommReportCount);
     
 
     
@@ -51,7 +51,7 @@
 			</div>
 			<div class="info">
 				<div class="titleElement">신규 동화책</div>
-				<div class="countElement"><%= newPostCount + newSuggestionCount%></div>
+				<div class="countElement"></div>
 			</div>
 		</div>
 	</div>
@@ -62,7 +62,7 @@
 			</div>
 			<div class="info">
 				<div class="titleElement">신고된 동화책</div>
-				<div class="countElement"><%=boardReportCount%></div>
+				<div class="countElement"></div>
 			</div>
 		</div>
 	</div>
@@ -73,7 +73,7 @@
 			</div>
 			<div class="info">
 				<div class="titleElement">총 동화책 수</div>
-				<div class="countElement"><%=CommReportCount%></div>
+				<div class="countElement"></div>
 			</div>
 		</div>
 	</div>
