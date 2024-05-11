@@ -1,3 +1,4 @@
+<%@page import="com.jakka.model.dto.admin.AdminDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.jakka.model.dao.admin.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -25,6 +26,9 @@
 	  String currentYear = formatters.format(nows);
 	  System.out.println("년도: " + currentYear);
 	    
+	  //AdminDAO current = DAOManager.getAdminDAO();
+	  List<AdminDTO>inflowCount = year.getInflowCountData(currentYear);
+	  System.out.println("안돼?: " + inflowCount);
 	
 	
 	%>
@@ -67,10 +71,10 @@
                     
                    
                 </div>
-<!--                 <div class="bg-white pd-20 card-box mb-30">  -->
-<!--                 <div class="col-md-4 col-sm-12"> -->
-                 <div class="col-lg-4 col-md-6 col-sm-12 mb-30"> 
-					<div class="card-box pd-30 pt-10 height-100-p"> 
+                <div class="bg-white pd-20 card-box mb-30"> 
+                <div class="col-md-4 col-sm-12">
+<!--                  <div class="col-lg-4 col-md-6 col-sm-12 mb-30">  -->
+<!-- 					<div class="card-box pd-30 pt-10 height-100-p">  -->
                     
                     <div class="form-group has-success">
 				<label class="form-control-label"> DATE</label>
@@ -79,43 +83,26 @@
 			    <div class="browser-visits">
 			    <table class="table table-striped">
 						
-						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
-								<td><span class="badge badge-primary">Primary</span></td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-								<td><span class="badge badge-secondary">Secondary</span></td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>@twitter</td>
-								<td><span class="badge badge-success">Success</span></td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-								<td><span class="badge badge-secondary">Secondary</span></td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>@twitter</td>
-								<td><span class="badge badge-success">Success</span></td>
-							</tr>
-						</tbody>
+
+
+					  <tbody>
+					    <tr>
+					      	<th scope="col">#</th>	
+							<th scope="col">유입경로</th>
+							<th scope="col">선택 수</th>
+					      
+					    </tr>
+					  </tbody>
+					  
+					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop">
+					      <tr>
+					        <td>${loop.index + 1}</td>
+					        <td>${admin.inflowname}</td>
+					        <td>${admin.inflowCount}</td>
+					       
+					      </tr>
+					    </c:forEach>
+					  
 					</table>
 				</div>
 				
@@ -127,34 +114,102 @@
 					<div class="card-box pd-30 pt-10 height-100-p">
 						
 						<div class="browser-visits2">
+							 
+                    <div class="form-group has-success">
+				<label class="form-control-label"> DATE</label>
+				<input type="text" id="monthPicker2" name="monthPicker2" class="form-control form-control-success" value="<%= currentYear%> ">
+			    <h2 class="mb-30 h4">Browser Visit</h2>
+			    <div class="browser-visits siwon">
+			    <table class="table table-striped">
+						
+
+
+					  <tbody>
+					    <tr>
+					      	<th scope="col">#</th>	
+							<th scope="col">유입경로</th>
+							<th scope="col">선택 수</th>
+					      
+					    </tr>
+					  </tbody>
+					  
+					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop">
+					      <tr>
+					        <td>${loop.index + 1}</td>
+					        <td>${admin.inflowname}</td>
+					        <td>${admin.inflowCount}</td>
+					       
+					      </tr>
+					    </c:forEach>
+					  
+					</table>
+				</div>
+			    
+
+			    </div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+					<div class="card-box pd-30 pt-10 height-100-p">
+						<h2 class="mb-30 h4">Browser Visit</h2>
+						<div class="browser-visits">
 							<ul>
 								<li class="d-flex flex-wrap align-items-center">
 									<div class="icon"><img src="vendors/images/chrome.png" alt=""></div>
-									
-									
+									<div class="browser-name">Google Chrome</div>
+									<div class="visit"><span class="badge badge-pill badge-primary">50%</span></div>
 								</li>
-								
+								<li class="d-flex flex-wrap align-items-center">
+									<div class="icon"><img src="vendors/images/firefox.png" alt=""></div>
+									<div class="browser-name">Mozilla Firefox</div>
+									<div class="visit"><span class="badge badge-pill badge-secondary">40%</span></div>
+								</li>
+								<li class="d-flex flex-wrap align-items-center">
+									<div class="icon"><img src="vendors/images/safari.png" alt=""></div>
+									<div class="browser-name">Safari</div>
+									<div class="visit"><span class="badge badge-pill badge-success">40%</span></div>
+								</li>
+								<li class="d-flex flex-wrap align-items-center">
+									<div class="icon"><img src="vendors/images/edge.png" alt=""></div>
+									<div class="browser-name">Microsoft Edge</div>
+									<div class="visit"><span class="badge badge-pill badge-warning">20%</span></div>
+								</li>
+								<li class="d-flex flex-wrap align-items-center">
+									<div class="icon"><img src="vendors/images/opera.png" alt=""></div>
+									<div class="browser-name">Opera Mini</div>
+									<div class="visit"><span class="badge badge-pill badge-info">20%</span></div>
+								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
+				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
+					<div class="card-box pd-30 pt-10 height-100-p">
+						<h2 class="mb-30 h4">World Map</h2>
+						<div id="browservisit" style="width:100%!important; height:380px"></div>
+					</div>
+				</div>
+			</div>
                 
                
                 
-                <div class="row">
-                    <div class="col-md-6 mb-30">
-                        <div class="pd-20 card-box height-100-p">
-                            <h4 class="h4 text-blue">Pie Chart</h4>
-                            <div id="chart8"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-30">
-                        <div class="pd-20 card-box height-100-p">
-                            <h4 class="h4 text-blue">Radial Bar Chart</h4>
-                            <div id="chart9"></div>
-                        </div>
-                    </div>
-                </div>
+<!--                 <div class="row"> -->
+<!--                     <div class="col-md-6 mb-30"> -->
+<!--                         <div class="pd-20 card-box height-100-p"> -->
+<!--                             <h4 class="h4 text-blue">Pie Chart</h4> -->
+<!--                             <div id="chart8"></div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="col-md-6 mb-30"> -->
+<!--                         <div class="pd-20 card-box height-100-p"> -->
+<!--                             <h4 class="h4 text-blue">Radial Bar Chart</h4> -->
+<!--                             <div id="chart9"></div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
             </div>
             
             <!-- 푸터 -->
@@ -163,87 +218,15 @@
     </div>
     
     <!-- js -->
-	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
+	
+	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%> 
+	
 	<!-- jquery UI -->
-	<script src="//code.jquery.com/jquery.min.js"></script>
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- 	<script src="//code.jquery.com/jquery.min.js"></script> -->
+<!-- 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
 	<script src="/sangsangjakka/resources/vendors/scripts/jquery.mtz.monthpicker.js"></script>
 
-<!-- 	<script> -->
-// 	$(document).ready(function() {
-// 		  var options = {
-// 		    pattern: 'yyyy/mm', // input태그에 표시될 형식
-<%-- 		    selectedYear: <%= currentYear %>, // 선택할 연도 --%>
-<%-- 		    startYear: 20<%= yearList.get(0) %>, // 시작연도 --%>
-<%-- 		    finalYear: 20<%= yearList.get(yearList.size() - 1) %>, // 마지막연도 --%>
-// 		    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 화면에 보여줄 월이름
-// 		    openOnFocus: true, // focus시에 달력이 보일지 유무
-// 		    disableMonths: [] // 월 비활성화
-// 		  };
 
-// 		  // 방법1) options 따로 지정
-// 		  $("#monthPicker").monthpicker(options);
-
-// 		  // 입력 필드 값 변경 이벤트 핸들러 등록
-// 		  $("#monthPicker").on("change", function() {
-// 		    var newValue = $(this).val();
-// 		    console.log("새로운 값:", newValue);
-		    
-// 		 // Ajax POST 요청 전송
-// 		    $.ajax({
-// 		          type: "POST",
-// 		          url: "/sangsangjakka/admin/dashboard.do", // 서버 측 스크립트 경로
-// 		          data: { selectedMonth: newValue },
-// 		          success: function(response) {
-// 		            var inflowCountData = JSON.parse(response);
-// 		            console.log("서버 응답:", inflowCountData);
-
-// 		            // 차트 데이터 추출
-// 		            var labels = [];
-// 		            var inflowCounts = [];
-
-// 		            for (var i = 0; i < inflowCountData.length; i++) {
-// 		              var data = inflowCountData[i];
-// 		              labels.push(data.registrationMonth);
-// 		              inflowCounts.push(data.inflowCount);
-// 		            }
-
-// 		            // 차트 렌더링
-// 		            var ctx = document.getElementById('myChart').getContext('2d');
-// 		            window.myChart = new Chart(ctx, {
-// 		              type: 'bar',
-// 		              data: {
-// 		                labels: labels,
-// 		                datasets: [{
-// 		                  label: '유입 수',
-// 		                  data: inflowCounts,
-// 		                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
-// 		                  borderColor: 'rgba(54, 162, 235, 1)',
-// 		                  borderWidth: 1
-// 		                }]
-// 		              },
-// 		              options: {
-// 		                scales: {
-// 		                  yAxes: [{
-// 		                    ticks: {
-// 		                      beginAtZero: true
-// 		                    }
-// 		                  }]
-// 		                },
-// 		                hover: {
-// 		                  mode: null // 마우스 호버 효과 비활성화
-// 		                },
-// 		                events: [] // 이벤트 핸들러 비활성화
-// 		              }
-// 		            });
-// 		          },
-// 		          error: function(xhr, status, error) {
-// 		            console.error("Ajax 요청 실패:", error);
-// 		          }
-// 		        });
-// 		      });
-// 		    });
-<!-- 		  </script> -->
 <script>
 	$(document).ready(function() {
 		  var options = {
@@ -258,7 +241,7 @@
 
 		  // 방법1) options 따로 지정
 		  $("#monthPicker").monthpicker(options);
-	
+		  $("#monthPicker2").monthpicker(options);
 		 
 	
 	
@@ -288,34 +271,28 @@
 
 		              // Browser Visit div 요소를 생성하여 HTML 변수에 추가
 		              
-						html += '<thead>'	
+						html += '<tbody>'	
 						html += '<tr>'	
 						html += '<th scope="col">#</th>'	
-						html += '<th scope="col">First</th>'	
-						html += '<th scope="col">Last</th>'	
-						html += '<th scope="col">Handle</th>'	
-						html += '<th scope="col">Tag</th>'	
+						html += '<th scope="col">유입경로</th>'	
+						html += '<th scope="col">선택 수</th>'	
+							
 						html += '</tr>'	
-						html += '</thead>'
+						html += '</body>'
 		              
 		              var rank =1;
 		              
 		              // JSON 데이터를 반복하여 HTML 생성
 		              response.forEach(function(item) {
-// 		                  html += '<li class="d-flex flex-wrap align-items-center">'
-// 		               	  html += '<div class="rank">' + rank + '</div>';
-// 		                  html += '<div class="browser-name">' + item.inflowname + '</div>';
-// 		                  html += '<div class="visit"><span class="badge badge-pill badge-primary">' + item.inflowCount + '</span></div>';
-// 		                  html += '</li>';
+ 		         
 
 							
-						html += '<tbody>'	
+							
 						html += '<tr>'	
-						html += '<th scope="row">' + rank + '</th>'	
+						html += '<td>' + rank + '</td>'	
 						html += '<td>' + item.inflowname + '</td>'	
 						html += '<td>' + item.inflowCount + '</td>'	
-						html += '<td>@mdo</td>'	
-						html += '<td><span class="badge badge-primary">Primary</span></td>'	
+							
 						html += '</tr>'
 					
 		                  
@@ -323,10 +300,10 @@
 		              });
 		              
 		              // 생성된 HTML을 적용할 요소에 추가
-//		              $('.browser-visits').html(html);
+//		            
 		              $('.bg-white.pd-20.card-box.mb-30 table tbody').html(html);
 
-		              //$('.table table-striped').html(html);
+		              
 		           
 		          },
 		          error: function(xhr, status, error) {
@@ -334,6 +311,72 @@
 		          }
 		        });
 		      });
+		  
+		  
+		  
+		  
+		  $("#monthPicker2").on("change", function() {
+			    var newValue = $(this).val();
+			    console.log("새로운 값:", newValue);
+			    
+			 // Ajax POST 요청 전송
+			    $.ajax({
+			          type: "POST",
+			          url: "/sangsangjakka/admin/dashboard.do", // 서버 측 스크립트 경로
+			          data: { selectedMonth: newValue },
+			          success: function(response) {
+			        	  var inflowCountData = response; 
+			              
+			              // 받아온 데이터를 콘솔에 출력하여 확인
+			              console.log("서버 응답:", inflowCountData);
+			              // Browser Visit 제목을 담을 변수
+			              //var browserVisitTitle = '<h2 class="mb-30 h4">'+ response[0].registrationMonth + '</h2>'; // 첫 번째 항목의 registrationMonth 값을 가져와 제목에 추가
+
+			              // HTML을 저장할 변수
+			              var html = ''; // 제목을 먼저 추가
+
+			              // Browser Visit div 요소를 생성하여 HTML 변수에 추가
+			              
+							html += '<tbody>'	
+							html += '<tr>'	
+							html += '<th scope="col">#</th>'	
+							html += '<th scope="col">유입경로</th>'	
+							html += '<th scope="col">선택 수</th>'	
+								
+							html += '</tr>'	
+							html += '</body>'
+			              
+			              var rank =1;
+			              
+			              // JSON 데이터를 반복하여 HTML 생성
+			              response.forEach(function(item) {
+	 		         
+
+								
+								
+							html += '<tr>'	
+							html += '<td>' + rank + '</td>'	
+							html += '<td>' + item.inflowname + '</td>'	
+							html += '<td>' + item.inflowCount + '</td>'	
+								
+							html += '</tr>'
+						
+			                  
+			                  rank++;
+			              });
+			              
+			              // 생성된 HTML을 적용할 요소에 추가
+//			            
+			             // $('.col-lg-4 col-md-6 col-sm-12 mb-30 table tbody').html(html);
+			              $('.browser-visits.siwon table tbody').html(html);
+			              
+			           
+			          },
+			          error: function(xhr, status, error) {
+			            console.error("Ajax 요청 실패:", error);
+			          }
+			        });
+			      });
 		    });
 		  </script>
 <script>
