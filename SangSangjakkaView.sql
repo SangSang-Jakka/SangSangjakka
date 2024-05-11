@@ -382,5 +382,20 @@ INNER JOIN tblinflowcat c ON i.inflowcatseq = c.inflowcatseq
 WHERE TO_CHAR(u.userregdate, 'YYYY/MM') = '2023/07'
 GROUP BY TO_CHAR(u.userregdate, 'YYYY/MM'), c.inflowname
 ORDER BY inflow_count DESC;  
+
+-- 해당 동화책 신고자 조회
+CREATE OR REPLACE VIEW vwReportUser AS
+SELECT
+    vw.bookSeq AS bookSeq,
+    bsr.userSeq AS reportUserSeq,
+    ul.userLogDate AS reportDate,
+    ul.userCatSeq,
+    u.userId,
+    u.userNick AS userNick
+FROM
+    vwBook vw
+    INNER JOIN tblBookShareReport bsr ON vw.bookSeq = bsr.bookSeq
+    INNER JOIN tblUserLog ul ON bsr.userSeq = ul.userSeq
+    INNER JOIN tbluser u ON ul.userSeq = u.userSeq;
    
 commit;

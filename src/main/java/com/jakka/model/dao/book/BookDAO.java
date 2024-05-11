@@ -43,6 +43,8 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	
 	public List<BookDTO>getShareCount(String month);
 	
+	public ArrayList<BookDTO> findByReport(String bookSeq);
+	
 
 
 	

@@ -195,12 +195,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <c:forEach var="report" items="${reportList}" varStatus="status">
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>신데렐라</td>
-                                                <td>150MB</td>
+                                                <th scope="row">${status.count}</th>
+                                                <td>${report.userNick}</td>
+                                                <td>${report.reportDate }</td>
                                             </tr>
                                         </tbody>
+                                        </c:forEach>
                                     </table>
 
 

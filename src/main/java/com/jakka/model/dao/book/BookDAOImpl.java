@@ -1552,4 +1552,46 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	
+	// 신고내역
+	@Override
+	public ArrayList<BookDTO> findByReport(String bookSeq) {
+		
+		final String SQL = "select * from vwReportUser where bookSeq = ? and userCatSeq = 16";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement stat = conn.prepareStatement(SQL);
+			
+		){
+			
+			stat.setInt(1, Integer.parseInt(bookSeq));
+			ResultSet rs = stat.executeQuery();
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            dto.setReportDate(rs.getString("reportDate"));
+	         
+	            list.add(dto);
+
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| get");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
 }//End of class

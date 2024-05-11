@@ -24,6 +24,17 @@ public class BookDTO {
 	private String shareCnt;
 	
 	
+	private String reportDate;
+	
+	
+	public String getReportDate() {
+		return reportDate;
+	}
+
+	public void setReportDate(String reportDate) {
+		this.reportDate = reportDate;
+	}
+
 	public String getShareCnt() {
 		return shareCnt;
 	}

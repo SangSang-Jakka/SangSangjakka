@@ -1,6 +1,7 @@
 package com.jakka.controller.dashboard.book;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,6 +31,11 @@ public class ReportBookView extends HttpServlet{
 		BookDTO dto = dao.findById(seq);
 		
 		req.setAttribute("dto", dto);
+		
+		ArrayList<BookDTO> list = dao.findByReport(seq);
+		
+		req.setAttribute("reportList", list);
+
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_book/report_book_view.jsp");
 		dispatcher.forward(req, resp);
