@@ -26,17 +26,7 @@
         <p>명예의 전당</p>
     </div>
     
-    <div class="pageBanner">
-      		<div class="pageWrap">
-      			<div class="noticeInfo">
-      				<div class="noticeHeader">명예의 전당 안내</div>
-      				<div class="noticeContents">인기 작품을 소개합니다</div>
-      			</div>
-      			<div class="noticeImg">
-      				<img src="/sangsangjakka/resources/img/ImgAwardTitle.png" alt="" />
-      			</div>
-      		</div>
-      </div>
+    
        </section>
 
 
@@ -50,7 +40,56 @@
                         <div class="mainTitle">🏆 현재 가장 인기있는 작품이에요 🏆
                         </div>
                     </div>
-                    <div class="userBestSellerList">
+                    
+                    <div class="bookAwardWrap">
+                    <div class="bookAwardWrapTitle">
+                        <div class="mainTitle">🏆 명예의 전당</div>
+                    </div>
+                    <div class="bookAwardContainer">
+                        <div class="bookAwardPrev">
+                            <button type="button"><i class="fa-solid fa-chevron-left"></i></button>
+                        </div>
+                        <div class="bookAwardImg">
+                            <img src="/sangsangjakka/resources/img/book1.jpg" alt="">
+                        </div>
+                        <div class="bookAwardInfo">
+                            <div class="bookAwardInfoContainer">
+                                <div class="bookAwardInfoTitile">제목 : To The Sea</div>
+                                <div class="bookAwardInfoIntro"> 한줄 소개: 고래를 타고 바다로 나아가는 태리의 여정입니다.</div>
+                            </div>
+                            <div class="bookAwardInfoReview">
+                                <div class="Review">소중한 소감평</div>
+                                <ul>
+                                    <li>고래를 만나 교감하는게 감동 깊었어요!</li>
+                                    <li>태리를 계속 응원했어요!</li>
+                                    <li>마지막에 눈물나요 ㅠㅠ </li>
+                                    <li>와 프론트 눈물나요 ㅠㅠ </li>
+                                    <li>너무 어려워요 ㅠㅠ </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bookAwardNext">
+                            <button type="button"><i class="fa-solid fa-chevron-right"></i></button>
+                            
+                        </div>
+                    </div>
+                </div>
+                </div>
+    
+    
+ 				   	<div class="userBestSellerTitle">
+                        <div class="mainTitle">🏆 지난 인기 작품도 살펴봐요 🏆
+                        </div>	
+                    </div>
+    
+        			<div class="userBestSellerList">
+        
+					        <div class="month-selector">
+							  <label for="monthSelect">월 선택:</label>
+							  <select id="monthSelect"></select>
+							</div>
+					
+					
                         <ul>
                             <li class="bookWrap">
                                 <a href="https://naver.com/">
@@ -111,125 +150,8 @@
                     </div>
                 </div>
             </div>
-    
-    
-        <div id="userBestSeller">
-            <div class="userBestSellerWrap"> 
-                <div class="userBestSellerTitle">
-                    <div class="mainTitle">🏆 4월 인기 작품이에요 🏆</div>
-                </div>
-                <div class="userBestSellerList">
-                    <ul>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-                                <img src="/sangsangjakka/resources/img/book1.jpg"  id="imgBeforeFirst" class="imgLast">
-                                <div class="bookInfo infoFirst">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-                                <img src="/sangsangjakka/resources/img/book2.jpg" alt="" class="imgLast">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-                                <img src="/sangsangjakka/resources/img/book3.jpg" alt="" class="imgLast">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-                                <img src="/sangsangjakka/resources/img/book4.jpg" alt="" class="imgLast">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-                                <img src="/sangsangjakka/resources/img/book5.jpg" id="imgBeforeLast" class="imgLast">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
-        <div id="userBestSeller">
-            <div class="userBestSellerWrap"> 
-                <div class="userBestSellerTitle">
-                    <div class="mainTitle">🏆 3월 인기 작품이에요 🏆</div>
-                </div>
-                <div class="userBestSellerList">
-                    <ul>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-                                <img src="/sangsangjakka/resources/img/book1.jpg"  id="imgBeforeBeforeFirst" class="imgLast" alt="">
-                                <div id="InfoBeforeBeforeFirst" class="bookInfo infoFirst">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-
-                                <img src="/sangsangjakka/resources/img/book2.jpg"  class="imgLast" alt="">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-
-                                <img src="/sangsangjakka/resources/img/book3.jpg"  class="imgLast" alt="">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-
-                                <img src="/sangsangjakka/resources/img/book4.jpg"  class="imgLast" alt="">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="bookWrap">
-                            <a href="https://naver.com/">
-                                <img src="/sangsangjakka/resources/img/book5.jpg"  id="imgBeforeBeforeLast" class="imgLast" alt="">
-                                <div class="bookInfo">
-                                    <p>제목</p>
-                                    <p>한 줄 소개?</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        </div>
+        
        
     </article>
   
@@ -239,6 +161,124 @@
 		
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
+	
+	
+	$(document).ready(function() {
+	    $('#dashboard').on('click', function(event) {
+	      if (event.ctrlKey) {
+	        // 관리자 로그인 페이지로 이동
+	        window.location.href = '/sangsangjakka/admin/login.do'; // 적절한 URL로 변경해야 합니다.
+	      }
+	    });
+	  });
+
+	
+	
+    document.addEventListener("DOMContentLoaded", function() {
+const bookInfo = [
+    {
+        title: "제목: To The Sea",
+        intro: "한줄 소개: 고래를 타고 바다로 나아가는 태리의 여정입니다.",
+        reviews: [
+            "고래를 만나 교감하는게 감동 깊었어요!",
+            "태리를 계속 응원했어요!",
+            "마지막에 눈물나요 ㅠㅠ",
+            "와 프론트 눈물나요 ㅠㅠ",
+            "너무 어려워요 ㅠㅠ"
+        ],
+        image: "/sangsangjakka/resources/img/book1.jpg"
+    },
+    {
+        title: "제목: 당근 유치원",
+        intro: "한줄 소개: 토끼 선생님과 함께하는 당근 유치원이야기 입니다!",
+        reviews: [
+            "고래를 만나 교감하는게 감동 깊었어요!",
+            "태리를 계속 응원했어요!",
+            "마지막에 눈물나요 ㅠㅠ",
+            "와 프론트 눈물나요 ㅠㅠ",
+            "너무 어려워요 ㅠㅠ"
+        ],
+        image: "/sangsangjakka/resources/img/book2.jpg"
+    },
+    {
+        title: "제목: 화가 나서 그랬어!",
+        intro: "한줄 소개: 화가 나는데 어떡해요..감정을 표현하는 방법을 알려드립니다.",
+        reviews: [
+            "고래를 만나 교감하는게 감동 깊었어요!",
+            "태리를 계속 응원했어요!",
+            "마지막에 눈물나요 ㅠㅠ",
+            "와 프론트 눈물나요 ㅠㅠ",
+            "너무 어려워요 ㅠㅠ"
+        ],
+        image: "/sangsangjakka/resources/img/book3.jpg"
+    },
+    {
+        title: "제목: 할아버지와 순돌이는 닮았어요.",
+        intro: "한줄 소개: 세상에서 가장 따뜻한 강아지와 할아버지의 함께 살아가는 이야기입니다.",
+        reviews: [
+            "고래를 만나 교감하는게 감동 깊었어요!",
+            "태리를 계속 응원했어요!",
+            "마지막에 눈물나요 ㅠㅠ",
+            "와 프론트 눈물나요 ㅠㅠ",
+            "너무 어려워요 ㅠㅠ"
+        ],
+        image: "/sangsangjakka/resources/img/book4.jpg"
+    },
+    {
+        title: "제목: 세상에서 두 번째로 신기한 일",
+        intro: "한줄 소개: 첫 번째로 신기한 일은 과연 무엇이었을까요? 맞춰보세요!",
+        reviews: [
+            "고래를 만나 교감하는게 감동 깊었어요!",
+            "태리를 계속 응원했어요!",
+            "마지막에 눈물나요 ㅠㅠ",
+            "와 프론트 눈물나요 ㅠㅠ",
+            "너무 어려워요 ㅠㅠ"
+        ],
+        image: "/sangsangjakka/resources/img/book5.jpg"
+    },
+
+];
+
+
+
+	
+	const monthSelect = document.getElementById('monthSelect');
+	const currentMonth = new Date().getMonth() + 1; // 0부터 시작하므로 1을 더해줌
+	const prevMonth = currentMonth === 1 ? 12 : currentMonth - 1; // 이전 달 계산
+	const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+
+	// 이전 달부터 현재 월 전까지의 옵션을 내림차순으로 추가
+	for (let i = 1; i <= 6; i++) {
+	  const month = (currentMonth - i + 12) % 12 || 12;
+	  const option = document.createElement('option');
+	  option.value = month;
+	  option.text = months[month - 1];
+	  monthSelect.add(option);
+	}
+
+	// 디폴트로 이전 달 선택
+	monthSelect.value = prevMonth;
+	
+	
+	monthSelect.addEventListener('change', () => {
+		  const selectedMonth = monthSelect.value;
+		  
+		  // AJAX 요청으로 선택된 월의 리스트를 가져옴
+		  fetch(`/getListByMonth?month=${selectedMonth}`)
+		    .then(response => response.text())
+		    .then(data => {
+		      // 기존 리스트를 비우고 새로운 리스트로 교체
+		      userBestSellerList.innerHTML = data;
+		    })
+		    .catch(error => console.error(error));
+		});
+	
+	
+	
+	
+	
+	
+	
 	</script>
 	</body>
 </html>

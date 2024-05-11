@@ -7,6 +7,8 @@ body {
 
 }
 
+
+
 .pageWrap{
 	background-color: #f8f5c5;
 	width:1300px;
@@ -41,13 +43,19 @@ section.notice {
   padding-top: 80px;
   max-width: 1300px;
   margin-bottom:0;
-  height:400px;
 }
+
+
 
 .mainTitle{
 	text-align:center;
 }
 
+
+#monthSelect {
+    width: 80px; /* 선택 박스의 너비 조절 */
+    font-size: 20px; /* 글꼴 크기 조절 */
+}
 
 
 ul {
@@ -65,7 +73,6 @@ button {
     grid-template-columns: 10% 80% 10%; 
     margin-bottom: 100px;
     height: auto;
-
 }
 
 
@@ -195,6 +202,11 @@ button {
 #imgBeforeBeforeLast{
     margin-right: 250px;
     
+}
+
+.month-selector{
+	margin-left:200px;
+	font-size:20px;
 }
 
 
