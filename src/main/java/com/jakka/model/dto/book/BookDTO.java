@@ -21,6 +21,7 @@ public class BookDTO {
 	private String parentBookSeq;
 	private String rcmAgeSeq;
 	private String userNick;
+	private String shareCnt;
 	
 	private String bookCnt;
 	

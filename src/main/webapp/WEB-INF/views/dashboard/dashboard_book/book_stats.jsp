@@ -1,3 +1,6 @@
+<%@page import="com.jakka.model.dto.admin.AdminDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.jakka.model.dao.admin.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,6 +14,27 @@
 	
 	
 	</style>
+	
+	<%
+	
+	
+	 AdminDAO year = DAOManager.getAdminDAO();
+	 List<String> yearList = year.getYear();
+	 System.out.println("나오는거 : " + yearList); //[23]
+			 
+	 Date nows = new Date();
+
+	    // 날짜 형식 지정
+	 SimpleDateFormat formatters = new SimpleDateFormat("yyyy/MM");
+	  String currentYear = formatters.format(nows);
+	  System.out.println("년도: " + currentYear);
+	    
+	  //AdminDAO current = DAOManager.getAdminDAO();
+	  List<AdminDTO>inflowCount = year.getInflowCountData(currentYear);
+	  System.out.println("안돼?: " + inflowCount);
+	
+	
+	%>
 	</head>
 	<body>
 	
@@ -53,39 +77,16 @@
 	                <div class="row">
 				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
 					<div class="card-box pd-30 pt-10 height-100-p">
-						<h2 class="mb-30 h4">Browser Visit</h2>
+						<h2 class="mb-30 h4">최대 공유 동화책</h2>
 						<div class="form-group has-success">
 				<label class="form-control-label"> DATE</label>
 				<input type="text" id="monthPicker2" name="monthPicker2" class="form-control form-control-success">
 			    </div>
 						<div class="browser-visits">
-							<ul>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/chrome.png" alt=""></div>
-									<div class="browser-name">Google Chrome</div>
-									<div class="visit"><span class="badge badge-pill badge-primary">50%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/firefox.png" alt=""></div>
-									<div class="browser-name">Mozilla Firefox</div>
-									<div class="visit"><span class="badge badge-pill badge-secondary">40%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/safari.png" alt=""></div>
-									<div class="browser-name">Safari</div>
-									<div class="visit"><span class="badge badge-pill badge-success">40%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/edge.png" alt=""></div>
-									<div class="browser-name">Microsoft Edge</div>
-									<div class="visit"><span class="badge badge-pill badge-warning">20%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/opera.png" alt=""></div>
-									<div class="browser-name">Opera Mini</div>
-									<div class="visit"><span class="badge badge-pill badge-info">20%</span></div>
-								</li>
-							</ul>
+							<table class="table table-striped">
+							<tbody>
+							</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -132,9 +133,9 @@
 	$(document).ready(function() {
 		  var options = {
 		    pattern: 'yyyy/mm', // input태그에 표시될 형식
-		    selectedYear: 2019, // 선택할 연도
-		    startYear: 2020, // 시작연도
-		    finalYear: 2023, // 마지막연도
+		    selectedYear: <%= currentYear %>, // 선택할 연도
+		    startYear: 20<%= yearList.get(0) %>, // 시작연도
+		    finalYear: 20<%= yearList.get(yearList.size() - 1) %>, // 마지막연도
 		    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 화면에 보여줄 월이름
 		    openOnFocus: true, // focus시에 달력이 보일지 유무
 		    disableMonths: [] // 월 비활성화
@@ -143,6 +144,71 @@
 		  // 방법1) options 따로 지정
 		  
 		  $("#monthPicker2").monthpicker(options);
+	
+		  $("#monthPicker2").on("change", function() {
+			    var newValue = $(this).val();
+			    console.log("새로운 값:", newValue);
+			    
+			 // Ajax POST 요청 전송
+			    $.ajax({
+			          type: "POST",
+			          url: "/sangsangjakka/admin/dashboard/book/stats.do", // 서버 측 스크립트 경로
+			          data: { selectedMonth: newValue },
+			          success: function(response) {
+			        	  var shareCount = response; 
+			              
+			              // 받아온 데이터를 콘솔에 출력하여 확인
+			              console.log("서버 응답:", shareCount);
+			              // Browser Visit 제목을 담을 변수
+			              //var browserVisitTitle = '<h2 class="mb-30 h4">'+ response[0].registrationMonth + '</h2>'; // 첫 번째 항목의 registrationMonth 값을 가져와 제목에 추가
+
+			              // HTML을 저장할 변수
+			              var html = ''; // 제목을 먼저 추가
+
+			              // Browser Visit div 요소를 생성하여 HTML 변수에 추가
+			              
+							html += '<tbody>'	
+							html += '<tr>'	
+							html += '<th scope="col">#</th>'	
+							html += '<th scope="col">제목</th>'	
+							html += '<th scope="col">공유 수</th>'	
+								
+							html += '</tr>'	
+							html += '</body>'
+			              
+			              var rank =1;
+			              
+			              // JSON 데이터를 반복하여 HTML 생성
+			              response.forEach(function(item) {
+	 		         
+
+								
+								
+							html += '<tr>'	
+							html += '<td>' + rank + '</td>'	
+							html += '<td>' + item.bookTitle + '</td>'	
+							html += '<td>' + item.shareCnt + '</td>'	
+								
+							html += '</tr>'
+						
+			                  
+			                  rank++;
+			              });
+			              
+			              // 생성된 HTML을 적용할 요소에 추가
+//			            
+			             // $('.bg-white.pd-20.card-box.mb-30 table tbody').html(html);
+			              $('.browser-visits table tbody').html(html);
+			              
+			           
+			          },
+			          error: function(xhr, status, error) {
+			            console.error("Ajax 요청 실패:", error);
+			          }
+			        });
+			      });
+	
+	
 	 });
   </script>
 	

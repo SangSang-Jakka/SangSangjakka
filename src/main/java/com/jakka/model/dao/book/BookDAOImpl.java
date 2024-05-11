@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -1495,6 +1496,56 @@ public class BookDAOImpl implements BookDAO{
 		return null;
 	}
 
+	
+	@Override
+	public List<BookDTO> getShareCount(String month) {
+		List<BookDTO> sharelist = new ArrayList<>();
+        String sql = "SELECT *\r\n"
+        		+ "FROM (\r\n"
+        		+ "    SELECT *\r\n"
+        		+ "    FROM tblBook \r\n"
+        		+ "    WHERE TO_CHAR(bookregdate, 'YYYY/MM') = ?\r\n"
+        		+ "      AND SHARECNT > 0\r\n"
+        		+ "    ORDER BY SHARECNT DESC\r\n"
+        		+ ") \r\n"
+        		+ "WHERE ROWNUM <= 10";
+       
+        try(Connection conn = DBUtil.open();
+    			PreparedStatement pstat = conn.prepareStatement(sql)) {
+    		
+    			pstat.setString(1, month);
+    			
+    			
+    			ResultSet rs = pstat.executeQuery();
+    			
+    			
+    			
+    			 for (ResultSet row = rs; row.next(); ) {
+    				
+    				
+    				BookDTO dto = new BookDTO();
+    				
+    			
+    				
+    				
+    				
+    				dto.setBookTitle(rs.getString("bookTitle"));
+    				dto.setShareCnt(rs.getString("shareCnt"));
+    				
+    				
+    				
+    				sharelist.add(dto);
+    			}
+    			
+    			return sharelist;
+    			}
+        catch (Exception e) {
+			System.out.println("AdminDAOImpl.getInflowCountData");
+			e.printStackTrace();
+		}
+        
+        return null;
+	}
 	
 	
 }//End of class
