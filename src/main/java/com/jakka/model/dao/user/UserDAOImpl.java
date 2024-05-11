@@ -1151,4 +1151,56 @@ public class UserDAOImpl implements UserDAO{
 
 	    return result;
 	}
+	
+	// 사용자가 만든 동화책 수 조회
+	
+	@Override
+	public ArrayList<UserDTO> findAllBook() {
+		
+		final String SQL = "select u.*, count(b.bookSeq) AS numBooks from tblUser u left join tblBook b ON u.userSeq = b.userSeq group by u.userSeq, u.userId, u.userPw, u.userName, u.userNick, u.userTel, u.userAddress, u.userEmail, u.userLeftSsn, u.userRightSsn, u.userState, u.userLv, u.userRegdate, u.limitStorage";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<UserDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setNumBooks(rs.getString("numBooks"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	
+	
 }//End of class

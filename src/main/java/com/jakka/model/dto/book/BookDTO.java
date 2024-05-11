@@ -23,6 +23,15 @@ public class BookDTO {
 	private String userNick;
 	private String shareCnt;
 	
+	
+	public String getShareCnt() {
+		return shareCnt;
+	}
+
+	public void setShareCnt(String shareCnt) {
+		this.shareCnt = shareCnt;
+	}
+
 	private String bookCnt;
 	
 	private String awardRegdate;

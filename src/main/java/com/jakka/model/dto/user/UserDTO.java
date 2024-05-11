@@ -20,6 +20,14 @@ public class UserDTO {
 	private String userRegdate;
 	private String LimitStorage;
 	
+	private String numBooks;
+	
+	public String getNumBooks() {
+		return numBooks;
+	}
+	public void setNumBooks(String numBooks) {
+		this.numBooks = numBooks;
+	}
 	public String getUserSeq() {
 		return userSeq;
 	}

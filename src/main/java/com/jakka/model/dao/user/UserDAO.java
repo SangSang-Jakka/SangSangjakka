@@ -37,5 +37,6 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public int nUserCount();
     public Map<String, Integer[]> member(String year);
     
+    public ArrayList<UserDTO> findAllBook();
 
 }

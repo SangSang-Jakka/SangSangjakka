@@ -159,19 +159,18 @@ margin-right : 14px;
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
 									<th>사용자</th>
-									<th>등록된 동화책 수</th>
-									<th>용량</th>
+									<th>동화책 수</th>
+									<th>전체 용량</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach var="capacity" items="${capacityList}">
 								<tr>
-									<td class="table-plus">1</td>
-									<td><a
-										href="/sangsangjakka/admin/dashboard/book/capacityview.do">tlodnjs12</td>
-									<td>5</td>
-									<td>2GB/10GB</td>
-
+									<td class="table-plus">${capacity.userSeq}</td>
+									<td><a href="/sangsangjakka/admin/dashboard/book/capacityview.do?seq=${capacity.userSeq}">${capacity.userId}</a></td>
+									<td>${capacity.numBooks}</td>
+									<td>${capacity.limitStorage}</td>
 									<td>
 										<div class="dropdown">
 											<a
@@ -181,7 +180,7 @@ margin-right : 14px;
 											</a>
 											<div
 												class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/book/capacityview.do?seq=${capacity.userSeq}"><i class="dw dw-eye"></i>
 													View</a> <a class="dropdown-item" href="#"><i
 													class="dw dw-edit2"></i> Edit</a> <a class="dropdown-item"
 													href="#"><i class="dw dw-delete-3"></i> Delete</a>
@@ -189,28 +188,7 @@ margin-right : 14px;
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td class="table-plus">2</td>
-									<td>tjdwls1</td>
-									<td>10</td>
-									<td>4GB/10GB</td>
-									<td>
-										<div class="dropdown">
-											<a
-												class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-												href="#" role="button" data-toggle="dropdown"> <i
-												class="dw dw-more"></i>
-											</a>
-											<div
-												class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
-													View</a> <a class="dropdown-item" href="#"><i
-													class="dw dw-edit2"></i> Edit</a> <a class="dropdown-item"
-													href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
