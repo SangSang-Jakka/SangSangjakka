@@ -86,7 +86,7 @@
 			</div>
 			<div class="subItems">
 				 <i class="fa-solid fa-comment comment"></i>
-				 <p>${reviewTotal}</p>
+				 <p id="reportCnt">${reviewTotal}</p>
 			</div>
 		</div>
     	</div>
@@ -106,9 +106,16 @@
     		</c:if>
     		<c:if test="${result == false}">
     		<button class="like" id="likeBtn">동화책이 좋아요!</button>
+    		</c:if>   		
+    		
+    		
+    		<c:if test="${resultReport == true}">
+    		<button class="like reportBtn" id="alertBtn">동화책을 신고했어요!</button>	
+    		</c:if>
+    		<c:if test="${resultReport == false}">
+    		<button class="like reportBtn" id="alertBtn">동화책이 이상해요!</button>	
     		</c:if>
     		
-    		<button class="like reviewBtn" >동화책이 이상해요!</button>	
     		
     		<c:if test="${resultScrap == true}">
     		<button class="like saveBtn" id="scrapBtn">동화책을 저장했어요!</button>
@@ -377,15 +384,48 @@
                         if (response === "success") {
                             // 성공적으로 INSERT 되었을 때
                             console.log("성공");
-                            var updatedScrapCnt = parseInt($("#scrapCntㄴ").text()) + 1; // 좋아요 개수 증가
-                            $("#scrapCnt").text(updatedScrapCnt); // 좋아요 개수 업데이트
-                            $("#scrapBtn").text("동화책을 저장했어요!"); // 버튼 텍스트 변경
+                            var updatedScrapCnt = parseInt($("#scrapCnt").text()) + 1; 
+                            $("#scrapCnt").text(updatedScrapCnt); 
+                            $("#scrapBtn").text("동화책을 저장했어요!"); 
                             $("#scrapBtn").addClass("newClass");
 
                             
                         } else {
                             // 실패했을 때
                             alert("동화책 저장에 실패하였습니다.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+        
+        $(document).ready(function() {
+            $("#alertBtn").click(function() {
+                var bookSeq = ${bookSeq}; // bookSeq 변수가 정의된 곳에서 값을 가져와야 함
+                var userSeq = ${userSeq}; // userSeq 변수가 정의된 곳에서 값을 가져와야 함
+
+                
+                console.log("bookSeq:", bookSeq);
+                console.log("userSeq:", userSeq);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/sangsangjakka/board/book/report.do",
+                    data: { bookSeq: bookSeq, userSeq: userSeq },
+                    success: function(response) {
+                        if (response === "success") {
+                            // 성공적으로 INSERT 되었을 때
+                            console.log("성공");
+                            $("#alertBtn").text("동화책을 신고했어요!"); 
+                            $("#alertBtn").addClass("newClass");
+
+                            
+                        } else {
+                            // 실패했을 때
+                            alert("동화책 신고에 실패하였습니다.");
                         }
                     },
                     error: function(xhr, status, error) {

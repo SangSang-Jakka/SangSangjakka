@@ -60,12 +60,15 @@ public class BookView extends HttpServlet{
 	    
 	    boolean result = dao.isLike(bookSeq, userSeq);
 	    boolean resultScrap = dao.isScrap(bookSeq, userSeq);
+	    boolean resultReport = dao.isReport(bookSeq, userSeq);
 		
 		System.out.println(result);
 		System.out.println("scrap" + resultScrap);
+		System.out.println("report" + resultReport);
 		
 		req.setAttribute("result", result);
 		req.setAttribute("resultScrap", resultScrap);
+		req.setAttribute("resultReport", resultReport);
 		
 	    
 	    //게시글 조작

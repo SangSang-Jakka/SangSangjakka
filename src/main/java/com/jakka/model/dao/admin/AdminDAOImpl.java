@@ -414,9 +414,9 @@ public class AdminDAOImpl implements AdminDAO{
 	    				
 	    			
 	    				
-	    				dto.setRegistrationMonth(rs.getString("registrationMonth"));
-	    				dto.setInflowCount(rs.getString("inflowCount"));
-	    				dto.setInflowname(rs.getString("inflowName"));
+	    				//dto.setRegistrationMonth(rs.getString("registrationMonth"));
+	    				//dto.setInflowCount(rs.getString("inflowCount"));
+	    				//dto.setInflowname(rs.getString("inflowName"));
 	    				
 	    				
 	    				result.add(dto);

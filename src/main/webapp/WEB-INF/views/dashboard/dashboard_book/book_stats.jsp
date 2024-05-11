@@ -45,7 +45,7 @@
 
 
 		<!-- 배너 -->
-         <%@include file="/WEB-INF/views/dashboard/dashboard_template/book_banner.jsp"%> 
+        <%--  <%@include file="/WEB-INF/views/dashboard/dashboard_template/book_banner.jsp"%>  --%>
 	
 	               
 	                
@@ -58,7 +58,7 @@
 	
 	
 	            <!-- 푸터 -->
-				<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
+				<%-- <%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%> --%>
 				
 	        	</div>
 	    	</div>
@@ -66,7 +66,7 @@
 	
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
+	<%-- <%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%> --%>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 <!-- 	<script src="/sangsangjakka/resources/vendors/scripts/dashboard.js"></script> -->
 	<script src="/sangsangjakka/resources/plugins/apexcharts/apexcharts.min.js"></script>

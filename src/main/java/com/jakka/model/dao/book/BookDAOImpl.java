@@ -947,10 +947,14 @@ public class BookDAOImpl implements BookDAO{
 			pstat.setString(1, bookSeq);
 			pstat.setString(2, userSeq);
 			
+			System.out.println(bookSeq);
+			System.out.println(userSeq);
+			
 			ResultSet rs = pstat.executeQuery();
 			
 			if(rs.next()) {
 				int count = rs.getInt(1);
+				System.out.println(count);
 				return count > 0;
 			}
 			

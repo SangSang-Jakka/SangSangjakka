@@ -31,8 +31,8 @@ public class GenreDAO {
 
 				GenreDTO dto = new GenreDTO();
 
-				dto.setGenreSeq(rs.getString("GenreSeq"));
-				dto.setGenreName(rs.getString("GenreName"));
+				//dto.setGenreSeq(rs.getString("GenreSeq"));
+				//dto.setGenreName(rs.getString("GenreName"));
 
 				list.add(dto);
 
@@ -66,8 +66,8 @@ public class GenreDAO {
 				
 				GenreDTO dto = new GenreDTO();
 				
-				dto.setGenreSeq(rs.getString("genreSeq"));
-				dto.setGenreName(rs.getString("genreName"));
+				//dto.setGenreSeq(rs.getString("genreSeq"));
+				//dto.setGenreName(rs.getString("genreName"));
 				
 	            return dto;
 				
@@ -94,7 +94,7 @@ public class GenreDAO {
 				pstat.setInt(1, Integer.parseInt(bookSeq));
 				
 				for(GenreDTO item : dto) {
-					pstat.setInt(2, Integer.parseInt(item.getGenreSeq()));
+					//pstat.setInt(2, Integer.parseInt(item.getGenreSeq()));
 					result = pstat.executeUpdate();
 					if (result == 0) {
 						return result;

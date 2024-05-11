@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="/WEB-INF/views/template/asset.jsp"%>
-	<style>
+	<style> 
 	
 	
 	</style>
