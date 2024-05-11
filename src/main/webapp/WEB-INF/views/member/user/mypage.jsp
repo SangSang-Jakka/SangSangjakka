@@ -44,7 +44,7 @@
 										<input type="text" class="userEmail w70pc" value="${dto.userEmail}" id="userEmailInput" name="email" required readonly/>
 									</div>
 								</div>
-								<div class="userInfoNcikName title">
+								<div class="userInfoNickName title">
 									<span>닉네임</span>
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
@@ -55,6 +55,7 @@
 										</div>
 										  <input type="hidden" id="nickHidden" name="nicknameDuplication" value="nicknameUncheck" />
 									</div>
+									
 								</div>
 
 								<div class="userInfoId title">
@@ -72,6 +73,9 @@
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
 											<input type="password" id="passwordInput" required readonly/>
+										</div>
+										<div class="changebtnbox change">
+											<input type="button" value="비밀번호 변경" id="passwordChangeBtn" class="pointer">
 										</div>
 									</div>
 								</div>
@@ -124,7 +128,7 @@
 									<div class="addressContainer">
 										<div class="addressInput">
 											<div class="addressFind">
-												<div class="inputBorder postNum">
+												<div class="inputBorder postNum" id="postcodebox">
 													<input type="text" id="sample6_postcode" placeholder="우편번호"
 														readonly required>
 												</div>
@@ -133,14 +137,14 @@
 														class="pointer" onclick="sample6_execDaumPostcode()">
 												</div>
 											</div>
-											<div class="inputBorder">
+											<div class="inputBorder" id="addressBox">
 												<input type="text" id="sample6_address" name="address" placeholder="주소" required value="${dto.userAddress}" readonly>
 											</div>
-											<div class="inputBorder">
+											<div class="inputBorder" id="addressDetailBox">
 												<input type="text" id="sample6_detailAddress" placeholder="상세주소" readonly
 													>
 											</div>
-											<div class="inputBorder">
+											<div class="inputBorder" id="addressExtraBox">
 												<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly
 													>
 											</div>
@@ -344,6 +348,70 @@
 			    document.getElementById('sample6_extraAddress').removeAttribute('readonly');
 			    
 			});
+			
+			
+			
+			// 초기에는 주소 입력란과 수정하기 버튼만 보이도록 설정.
+			document.getElementById("postcodebox").style.display = "none";
+			document.getElementById("addressDetailBox").style.display = "none";
+			document.getElementById("addressExtraBox").style.display = "none";
+
+			// 수정하기 버튼을 누를 때
+			document.getElementById("changebtn").addEventListener("click", function() {
+			    // 우편번호 입력란과 상세주소, 참고항목 입력란을 보이도록 변경
+			    document.getElementById("postcodebox").style.display = "block";
+			    document.getElementById("addressDetailBox").style.display = "block";
+			    document.getElementById("addressExtraBox").style.display = "block";
+			});
+
+			// 수정완료 버튼을 누를 때
+			document.getElementById("changecompletebtn").addEventListener("click", function() {
+			    // 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김
+			    document.getElementById("postcodebox").style.display = "none";
+			    document.getElementById("addressDetailBox").style.display = "none";
+			    document.getElementById("addressExtraBox").style.display = "none";
+			});
+
+			
+			// 취소 버튼을 누를 때
+			document.getElementById("cancelbtn").addEventListener("click", function() {
+			    // 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김.
+			    document.getElementById("postcodebox").style.display = "none";
+			    document.getElementById("addressDetailBox").style.display = "none";
+			    document.getElementById("addressExtraBox").style.display = "none";
+			});
+			
+			
+			//span태그 색상 변경
+			
+			// 수정하기 버튼을 클릭할 때 실행될 함수
+			document.getElementById("changebtn").addEventListener("click", function() {
+			    document.querySelector(".userInfo-address.title span").style.color = "#c95000";
+			    document.querySelector(".userInfoTel.title span").style.color = "#c95000";
+			    document.querySelector(".userInfoEmail span").style.color = "#c95000";
+			    document.querySelector(".userInfoNickName span").style.color = "#c95000";
+			    document.querySelector(".userInfoPw span").style.color = "#c95000";			    
+			});
+
+			// 수정완료 또는 취소 버튼을 클릭할 때 실행될 함수
+			function resetTextColor() {
+			    // 주소 텍스트 요소의 색상을 원래 색상으로 재설정합니다.
+			    document.querySelector(".userInfo-address.title span").style.color = "";
+			    document.querySelector(".userInfoTel.title span").style.color = "";
+			    document.querySelector(".userInfoEmail span").style.color = "";
+			    document.querySelector(".userInfoNickName span").style.color = "";
+			    document.querySelector(".userInfoPw span").style.color = "";
+			}
+
+			// 수정완료 버튼을 클릭할 때 색상을 원래대로 변경합니다.
+			document.getElementById("changecompletebtn").addEventListener("click", resetTextColor);
+
+			// 취소 버튼을 클릭할 때 색상을 원래대로 변경합니다.
+			document.getElementById("cancelbtn").addEventListener("click", resetTextColor);
+			
+			
+			
+			
 			
 			
 
@@ -650,6 +718,12 @@
         }).open();
     }
 		
+		
+		
+		
+		
+		//전화번호
+		
 		function validateInput(input) {
 	        // 입력된 값이 숫자가 아니면 삭제
 	        input.value = input.value.replace(/\D/g, '');
@@ -672,9 +746,9 @@
 		
 		// 닉네임 유효성 및 중복 검사
 		document.addEventListener("DOMContentLoaded", function() {
-		    let inputNickName = document.getElementById("nickName");
+		    let inputNickName = document.getElementById("inputNick");
 
-		    inputNickName.addEventListener("input", function() {
+		    inputNickName.addEventListener("keydown", function() {
 		        let value = inputNickName.value;
 		        let isValidLength = nickNameLength(value);
 		        let isValidNickName = checkNickName(value);
@@ -683,10 +757,21 @@
 		        removeErrorMessages();
 
 		        // 글자수와 닉네임 형식이 모두 유효하지 않은 경우 메시지 표시
-		        if (!isValidLength || !isValidNickName) {
-		            showErrorMessage("닉네임은 4~10 글자로 한글, 영어소문자, 숫자만 입력 가능합니다.");
+		        if (!isValidLength && !isValidNickName) {
+		            showErrorMessage("  4~10 글자로 한글, 영어소문자, 숫자만 입력 가능합니다.");
+		        } else {
+		            // 글자수가 유효하지 않은 경우 메시지 표시
+		            if (!isValidLength) {
+		                showErrorMessage("  4~10 글자로 입력해주세요.");
+		            }
+
+		            // 닉네임 형식이 유효하지 않은 경우 메시지 표시
+		            if (!isValidNickName) {
+		                showErrorMessage("  한글, 영어소문자, 숫자만 입력 가능합니다.");
+		            }
 		        }
-		    });
+		    });  
+		    
 
 		    function nickNameLength(value) {
 		        return value.length >= 4 && value.length <= 10;
@@ -703,7 +788,7 @@
 		        errorMessage.style.fontSize = "0.8em";
 		        errorMessage.id = "nickNameErrorMessage";
 
-		        let errorContainer = document.querySelector(".userInfoNcikName.title");
+		        let errorContainer = document.querySelector(".userInfoNickName.title");
 		        errorContainer.appendChild(errorMessage);
 		    }
 
@@ -713,27 +798,7 @@
 		    }
 		});
 
-		//이메일
-		document.addEventListener("DOMContentLoaded", function() {
-		    let inputEmail = document.getElementById("userEmailInput");
-
-		    function showErrorMessage(message) {
-		        let errorMessage = document.createElement("span");
-		        errorMessage.textContent = message;
-		        errorMessage.style.color = "red";
-		        errorMessage.style.fontSize = "0.8em";
-		        errorMessage.id = "emailErrorMessage";
-
-		        let errorContainer = document.querySelector(".userInfoEmail");
-		        errorContainer.appendChild(errorMessage);
-		    }
-
-		    function removeErrorMessages() {
-		        let errorMessages = document.querySelectorAll("#emailErrorMessage");
-		        errorMessages.forEach(errorMessage => errorMessage.remove());
-		    }
-		});
-		
+	
 		
 		//중복검사
 		function signUp() {
@@ -755,6 +820,12 @@
 			window.open("/sangsangjakka/user/nickcheck.do",
 					"checkFrom","width=500, height=300, resizable=no, scrollbars=no");
 		}	
+		
+		
+		//비밀번호 변경
+		document.getElementById("passwordChangeBtn").addEventListener("click", function() {
+    window.location.href = "/sangsangjakka/user/change_pw.do";
+});
 		
 		
 

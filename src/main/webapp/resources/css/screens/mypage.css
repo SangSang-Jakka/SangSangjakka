@@ -301,6 +301,7 @@ option {
 
 
 
+
 .userInfoContainer {
 	display: flex;
 	flex-direction: column;
@@ -312,11 +313,11 @@ option {
 }
 
 .userInfo {
-	margin-top: 100px;
+	margin-top: 130px;
 	width:900px;
 	margin-left:250px;
 	margin-bottom:100px;
-	height:1300px;
+	height:1400px;
 }
 
 .userInfo input {
@@ -527,7 +528,7 @@ li {
 .tab {
 	box-sizing: border-box;
 	float: left;
-	height: 1350px;
+	height: 1400px;
 	margin: 0 auto;
 
 }
@@ -621,12 +622,15 @@ li {
 #changecompletebtn {
 	text-align: center;
 	/* 텍스트를 중앙 정렬합니다 */
+	margin-left:50px;
 }
 
 #changebtn{
 	width:50%;
 	height:40px;
 	font-size:20px;
+	margin-left: 100px;
+	margin-top:50px;
 }
 
 
@@ -820,6 +824,10 @@ span span:hover {
 	color: #ffa500;
 }
 
+#passwordChangeBtn{
+	margin-top:10px;
+}
+
 .myMainWrap {
 	height: auto;
 	display: block;
@@ -827,7 +835,7 @@ span span:hover {
 	width: 1080px;
 	margin: 60px auto;
 	align-items:center;
-	margin-bottom:1500px;
+	margin-bottom:1600px;
 }
 
 
@@ -837,7 +845,7 @@ span span:hover {
 /* 	width: 100%; */
 	max-width: 1072px;
 /* 	margin: 10px auto; */
-	height: 1300px;
+	height: 1400px;
 
 
 }
@@ -857,17 +865,18 @@ span span:hover {
 }
 
 .changebtncontainer div {
-	height: 40px;
+	height: 50px;
+	
 }
 
 .changebtncontainer input {
-	font-size: 18px;
 	border: none;
+
 }
 
 
 .changegroup input {
-	font-size: 18px;
+	font-size: 20px;
 	border: none;
 }
 
@@ -876,11 +885,14 @@ span span:hover {
 }
 
 .changegroup .changebtnbox {
-	width: 40%;
+	width: 60%;
+
 }
+
 
 #cancelbtn {
 	background-color: #ccc;
+	margin-left:20px;
 }
 
 .pagination {
