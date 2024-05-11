@@ -9,9 +9,93 @@
 	href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css"
-	href="/sangsangjakka/resources/vendors/styles/suggestions.css">
+<!--   <link rel="stylesheet" type="text/css"
+	href="/sangsangjakka/resources/vendors/styles/suggestions.css"> -->
 <style>
+
+
+.center {
+text-align: center;
+margin-top : 20px;
+font-size: 1.7em; 
+
+}
+
+
+
+.filter-container {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: -30px;
+
+}
+
+/* 기간 조회 스타일 */
+.date-range-container {
+
+  display: inline-flex;
+  align-items: center;
+  margin-bottom : 20px;
+}
+
+.date-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  width: 150px;
+  height: 38px;
+  margin-right: 10px;
+  transition: border-color 0.3s;
+  
+}
+
+.date-separator {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* 조건 조회 스타일 */
+#conditionSelect {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  width: auto;
+  height: 38px;
+  margin-right: 10px;
+  transition: border-color 0.3s;
+  margin-bottom : 10px;
+}
+
+#conditionSelect:focus {
+  outline: none;
+  border-color: #6c757d;
+}
+
+#conditionSelect option {
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+}
+
+#conditionSelect option:checked {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* 검색창 */
+
+
+#myTable_filter input {
+
+margin-right : 14px;
+
+}
+	
+
 </style>
 </head>
 <body>
@@ -53,7 +137,21 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">개인별 용량 관리</h4>
+						<h4 class="text-blue h4 center">개인별 용량 관리</h4>
+						<div class="filter-container">
+							<!--  조건별 조회 -->
+							<select id="conditionSelect">
+								<option value="all">전체</option>
+								<option value="option">임시1</option>
+								<option value="option2">임시2</option>
+							</select>
+							<!--  기간 조회 -->
+							<div class="date-range-container">
+								<input type="date" id="min" name="min" class="date-input">
+								<span class="date-separator">~</span> <input type="date"
+									id="max" name="max" class="date-input">
+							</div>
+						</div>
 					</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap" id="myTable">
@@ -63,11 +161,9 @@
 									<th>사용자</th>
 									<th>등록된 동화책 수</th>
 									<th>용량</th>
-
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
-
 							<tbody>
 								<tr>
 									<td class="table-plus">1</td>
@@ -98,7 +194,6 @@
 									<td>tjdwls1</td>
 									<td>10</td>
 									<td>4GB/10GB</td>
-
 									<td>
 										<div class="dropdown">
 											<a
@@ -117,7 +212,6 @@
 									</td>
 								</tr>
 							</tbody>
-
 						</table>
 					</div>
 				</div>
@@ -162,7 +256,7 @@
 
 	<!-- Datatable Setting js -->
 	<script
-		src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
+		src="/sangsangjakka/resources/vendors/scripts/test.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
