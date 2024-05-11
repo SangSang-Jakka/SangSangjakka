@@ -1594,4 +1594,32 @@ public class BookDAOImpl implements BookDAO{
 		return null;
 	}
 	
+	
+	
+	// 수상 삭제
+	@Override
+	public int delAward(String bookSeq) {
+		
+		final String SQL = "delete from tblAward where bookSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, bookSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| remove");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	
 }//End of class

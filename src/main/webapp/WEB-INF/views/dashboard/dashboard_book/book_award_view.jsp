@@ -26,6 +26,11 @@
 	margin-top: -20px;
 }
 
+.left {
+	margin-right: 10px;
+	margin-top: -20px;
+}
+
 .footer {
 	margin-top: 50px;
 }
@@ -201,6 +206,7 @@
 				<!-- Simple Datatable End -->
 			</div>
 
+			<button type="button" class="btn btn-primary left" onclick="location='/sangsangjakka/admin/dashboard/book/award.do'">목록</button>
 			<span class="buttonItem"> 
 					<button type="button" class="btn btn-primary" onclick="registerSelectedBooks()">
 						수상작 등록</button>

@@ -94,6 +94,25 @@
 #myTable_filter input {
 	margin-right: 14px;
 }
+
+.choice {
+
+border : none;
+border-radius : 5px;
+background-color : #ff6b6b;
+color: white;
+padding: 10px 15px;
+font-size: 12px;
+font-weight: bold;
+cursor: pointer;
+ transition: background-color 0.3s; 
+
+}
+
+.choice:hover {
+    background-color: #ff4d4d; /* 마우스 호버 시 밝은 빨간색 */
+}
+
 </style>
 </head>
 <body>
@@ -176,22 +195,7 @@
 										<td>${award.awardRegdate}</td>
 										<td>${award.awardRank}</td>
 										<td>
-											<div class="dropdown">
-												<a
-													class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-													href="#" role="button" data-toggle="dropdown"> <i
-													class="dw dw-more"></i>
-												</a>
-												<div
-													class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-													<a class="dropdown-item"
-														href="/sangsangjakka/admin/dashboard/book/awardview.do"><i
-														class="dw dw-eye"></i> View</a> <a class="dropdown-item"
-														href="#"><i class="dw dw-edit2"></i> Edit</a> <a
-														class="dropdown-item" href="#"><i
-														class="dw dw-delete-3"></i> Delete</a>
-												</div>
-											</div>
+											<button type="button" class="choice" onclick="deleteAward(${award.bookSeq});">삭제</button>									
 										</td>
 									</tr>
 								</c:forEach>
@@ -213,6 +217,31 @@
 		</div>
 	</div>
 	</div>
+	
+	<script>
+	
+	 	function deleteAward(bookSeq) {
+	        if (confirm("정말로 삭제하시겠습니까?")) {
+	            var xhr = new XMLHttpRequest();
+	            xhr.onreadystatechange = function() {
+	                if (xhr.readyState === XMLHttpRequest.DONE) {
+	                    if (xhr.status === 200) {
+	                        // 성공
+	                        location.reload();
+	                    } else {
+	                        // 오류
+	                        console.error('삭제 요청 실패: ' + xhr.status);
+	                   
+	                    }
+	                }
+	            };
+	            xhr.open("POST", "/sangsangjakka/admin/dashboard/book/award.do", true);
+	            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	            xhr.send("bookSeq=" + bookSeq);
+	        }
+	    }
+	 
+	</script>
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
