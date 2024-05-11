@@ -38,7 +38,7 @@ public class BookmakingList extends HttpServlet {
             Iterator<BookDTO> iterator = bookDtoList.iterator();
             while (iterator.hasNext()) {
                 BookDTO dto = iterator.next();
-                if ("작성중".equals(dto.getBookTitle()) || "작성중".equals(dto.getBookInfo())) {
+                if ("작성중".equals(dto.getBookTitle()) && "작성중".equals(dto.getBookInfo())) {
                     pageDtoList.add(pageDao.findById("1", dto.getBookSeq()));  // Corrected here: Using pageDao instance
                 } else {
                     iterator.remove();

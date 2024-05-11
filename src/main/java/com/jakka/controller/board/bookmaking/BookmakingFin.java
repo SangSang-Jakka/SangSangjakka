@@ -39,7 +39,13 @@ public class BookmakingFin extends HttpServlet {
 	    UserDTO userDto = userDao.findById(userId);
 	    
 	    if (userDto != null) {
-
+	    
+	    BookDAO dao = DAOManager.getBookDAO();
+	    BookDTO dto = dao.findById(bookSeq);
+	    req.setAttribute("bookSeq", bookSeq);
+	    req.setAttribute("bookTitle", dto.getBookTitle());
+	    req.setAttribute("bookCover", dto.getBookCover());
+	    req.setAttribute("bookInfo", dto.getBookInfo());
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_fin.jsp");
 		dispatcher.forward(req, resp);
 		
