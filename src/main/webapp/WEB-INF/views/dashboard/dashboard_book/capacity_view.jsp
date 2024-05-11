@@ -52,8 +52,7 @@
                         <h2>개인 용량 관리</h2>
 
                         <span class="right">
-                        <input type="button" value="수정" class="btn btn-primary">
-                        <input type="button" value="확인" class="btn btn-primary">
+                        <input type="button" value="용량 추가" class="btn btn-primary">
                         </span>
                 
                         <table>
@@ -97,15 +96,13 @@
                                                 <th scope="row">3</th>
                                                 <td>콩쥐팥쥐</td>
                                                 <td>350MB</td>
-                                                <td></td>
-                                                
+                                                <td></td>  
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
                                                 <td>알라딘</td>
                                                 <td>150MB</td>
                                                 <td></td>
-                                                
                                             </tr>
                                             <tr>
                                                 <th scope="row">3</th>
@@ -118,11 +115,8 @@
                                     </table>
 
                        
-                       
-
-
                         <span class="right">
-                            <input type="button" value="목록" class="btn btn-primary pull-right">
+                            <input type="button" value="목록" class="btn btn-primary pull-right" onclick="location='/sangsangjakka/admin/dashboard/book/capacity.do'">
                         </span>
                     
                 </div>
