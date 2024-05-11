@@ -270,45 +270,6 @@
 		}
 		
 		
-		// 리뷰 활성화
-		function activationReview(reviewSeq) {
-			
-			
-			var xhr = new XMLHttpRequest();
-		    xhr.open('POST', '/sangsangjakka/admin/dashboard/bookshare/manageview.do', true);
-		    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		    xhr.onreadystatechange = function() {
-		        if (xhr.readyState === 4 && xhr.status === 200) {
-		            // 서블릿으로부터 받은 응답 처리
-		            alert(xhr.responseText);
-		            // 페이지 리로드 또는 다른 작업 수행
-		        }
-		    };
-		    // 서블릿으로 전달할 파라미터 설정
-		    var params = 'reviewSeq=' + encodeURIComponent(reviewSeq) + '&action=activationReview';
-		    xhr.send(params);
-		
-			
-		}
-		
-		// 리뷰 비활성화
-		
-		 function disableReview(reviewSeq) {
-		        var xhr = new XMLHttpRequest();
-		        xhr.open('POST', '/sangsangjakka/admin/dashboard/bookshare/manageview.do', true);
-		        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		        xhr.onreadystatechange = function() {
-		            if (xhr.readyState === 4 && xhr.status === 200) {
-		                // 서블릿으로부터 받은 응답 처리
-		                alert(xhr.responseText);
-		                // 페이지 리로드 또는 다른 작업 수행
-		            }
-		        };
-		        
-		        var params = 'reviewSeq=' + encodeURIComponent(reviewSeq) + '&action=disableReview';
-			    xhr.send(params);
-		
-		    }
 		
 		
 		</script>

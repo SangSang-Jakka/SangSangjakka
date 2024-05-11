@@ -144,11 +144,11 @@ margin-right : 14px;
 					<div class="pd-20">
 						<h4 class="text-blue h4 center">명예의 전당</h4>
 						<div class="filter-container">
-							<!--  조건별 조회 -->
+							<!--  조건별 조회
 							<select id="conditionSelect">
 								<option value="all">전체</option>
 								<option value="option">조건</option>
-							</select>
+							</select>  -->
 							<!--  기간 조회 -->
 							<div class="date-range-container">
 								<input type="date" id="min" name="min" class="date-input">

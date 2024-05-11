@@ -139,12 +139,13 @@ margin-right : 14px;
 					<div class="pd-20">
 						<h4 class="text-blue h4 center">개인별 용량 관리</h4>
 						<div class="filter-container">
-							<!--  조건별 조회 -->
+							<!--  조건별 조회 
 							<select id="conditionSelect">
 								<option value="all">전체</option>
 								<option value="option">임시1</option>
 								<option value="option2">임시2</option>
 							</select>
+							-->
 							<!--  기간 조회 -->
 							<div class="date-range-container">
 								<input type="date" id="min" name="min" class="date-input">
@@ -159,6 +160,7 @@ margin-right : 14px;
 								<tr>
 									<th class="table-plus datatable-nosort">번호</th>
 									<th>사용자</th>
+									<th>가입일</th>
 									<th>동화책 수</th>
 									<th>전체 용량</th>
 									<th class="datatable-nosort">Action</th>
@@ -169,6 +171,7 @@ margin-right : 14px;
 								<tr>
 									<td class="table-plus">${capacity.userSeq}</td>
 									<td><a href="/sangsangjakka/admin/dashboard/book/capacityview.do?seq=${capacity.userSeq}">${capacity.userId}</a></td>
+									<td>${capacity.userRegdate}</td>
 									<td>${capacity.numBooks}</td>
 									<td>${capacity.limitStorage}</td>
 									<td>
@@ -234,7 +237,7 @@ margin-right : 14px;
 
 	<!-- Datatable Setting js -->
 	<script
-		src="/sangsangjakka/resources/vendors/scripts/test.js"></script>
+		src="/sangsangjakka/resources/vendors/scripts/capa.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

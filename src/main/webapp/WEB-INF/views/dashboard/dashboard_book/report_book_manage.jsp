@@ -130,12 +130,13 @@ margin-right : 14px;
 					<div class="pd-20">
 						<h4 class="text-blue h4 center">동화책 신고 관리</h4>
 							<div class="filter-container">
-							<!--  조건별 조회 -->
+							<!--  조건별 조회 
 							<select id="conditionSelect">
 								<option value="all">전체</option>
 								<option value="option">임시1</option>
 								<option value="option2">임시2</option>
 							</select>
+							-->
 							<!--  기간 조회 -->
 							<div class="date-range-container">
 								<input type="date" id="min" name="min" class="date-input">
