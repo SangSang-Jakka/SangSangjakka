@@ -899,6 +899,7 @@
 							bookInfo: bookInfo
 							}),
 						success: function(result) {
+						window.location.href = '/sangsangjakka/board/bookmaking/fin.do?no=' + bookSeq;
 						},
 						error: function(xhr, status, error) {
 							alert('업로드 실패: ' + error);

@@ -33,7 +33,7 @@ $('document').ready(function() {
 	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 		var minDate = $('#min').val() ? new Date($('#min').val()) : null;
 		var maxDate = $('#max').val() ? new Date($('#max').val()) : null;
-		var rowDate = new Date(data[2].substring(0, 10)); // 작성일에서 날짜 부분만 추출
+		var rowDate = new Date(data[3].substring(0, 10)); // 작성일에서 날짜 부분만 추출
 
 		if ((minDate === null && maxDate === null) ||
 			(minDate === null && rowDate <= maxDate) ||
@@ -55,8 +55,8 @@ $('document').ready(function() {
 	$('#conditionSelect').change(function() {
 		var selectedCondition = $(this).val();
 		// AJAX를 통해 선택한 조회 조건에 해당하는 데이터를 서버로부터 가져옴
-		$.ajax({
-			url: '/sangsangjakka/admin/dashboard/notice/manage.do',
+		$.ajax({ 
+			url: '/sangsangjakka/admin/dashboard/book/award.do',
 			type: 'POST',
 			data: { condition: selectedCondition }, // 선택한 조회 조건 전달
 			success: function(data) {
@@ -66,11 +66,11 @@ $('document').ready(function() {
 				data.forEach(function(item) {
 					var row = [
 
-						item.cmntSeq,
+						item.bookSeq,
+						'<a href="/sangsangjakka/admin/dashboard/book/award.do?seq=' + item.bookSeq + '">' + item.bookTitle + '</a>',
 						item.userNick,
-						item.cmntRegdate,
-						item.cmntContents,
-						item.cmntReportCnt,
+						item.awardRegdate,
+						item.awardRank,
 						// Action 열 추가
 						'<div class="dropdown">' +
 						'<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">' +

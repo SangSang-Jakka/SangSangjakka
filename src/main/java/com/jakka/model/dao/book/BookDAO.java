@@ -2,6 +2,7 @@ package com.jakka.model.dao.book;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -37,7 +38,10 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	public ArrayList<BookDTO> findAllAward();
 	public int presentAward(ArrayList<BookDTO> list, String adId);
 
-
+	public ArrayList<BookDTO> findAllReport();
+	public ArrayList<BookDTO> findAllNoReport();
+	
+	public List<BookDTO>getShareCount(String month);
 	
 
 

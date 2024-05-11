@@ -107,8 +107,7 @@ public class BookmakingAdd extends HttpServlet {
 			Iterator<BookDTO> iterator = bookDtoList.iterator();
 			while (iterator.hasNext()) {
 				BookDTO dto = iterator.next();
-				if ("작성중".equals(dto.getBookTitle()) || "작성중".equals(dto.getBookInfo())
-						|| "/sangsangjakka/resources/img/empty.jpg".equals(dto.getBookCover())) {
+				if ("작성중".equals(dto.getBookTitle()) && "작성중".equals(dto.getBookInfo())) {
 					pageDtoList.add(pageDao.findById("1", dto.getBookSeq()));
 				} else {
 					iterator.remove();

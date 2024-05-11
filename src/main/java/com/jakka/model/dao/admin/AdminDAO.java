@@ -16,6 +16,7 @@ public interface AdminDAO extends BasicDAO<AdminDTO>{
 	public List<String> getYear();
 	//public static List<AdminDTO>getInflowCountData(String month);
 	public List<AdminDTO>getInflowCountData(String month);
+	
 
 	
 	
