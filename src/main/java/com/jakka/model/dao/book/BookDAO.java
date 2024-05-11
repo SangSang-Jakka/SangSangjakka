@@ -47,6 +47,11 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	
 	public int delAward(String bookSeq);
 	
+	public int getBookCount();
+	public int getTodayBookCount(String today);
+	public int getPageCount();
+
+	
 
 	
 }//End of interface

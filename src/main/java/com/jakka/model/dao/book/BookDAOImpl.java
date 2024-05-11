@@ -1621,5 +1621,88 @@ public class BookDAOImpl implements BookDAO{
 		return 0;
 	}
 	
+	@Override
+	public int getBookCount() {
+		int bookCount =0;
+		final String SQL = "select count(*) as totalbook from tblBook";
+		
+
+		 try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstat = conn.prepareStatement(SQL);
+			    ) {
+			        ResultSet rs = pstat.executeQuery();
+
+			        if (rs.next()) {
+			        	bookCount = rs.getInt("totalbook");
+			        }
+
+			    } catch (Exception e) {
+			        System.out.println("UserDAOImpl.nUserCount");
+			        e.printStackTrace();
+			    }
+
+			    return bookCount;
+	}
+	
+	
+	@Override
+	public int getTodayBookCount(String today) {
+		
+		int todayBookCount =0;
+		final String SQL = "select count(*) as todaybook from tblBook where TO_CHAR(bookregdate, 'YY/MM/dd') = ?";
+		
+
+		 try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstat = conn.prepareStatement(SQL);
+			    ) {
+			 
+					pstat.setString(1, today);
+			        ResultSet rs = pstat.executeQuery();
+
+			        if (rs.next()) {
+			        	todayBookCount = rs.getInt("todaybook");
+			        }
+
+			    } catch (Exception e) {
+			        System.out.println("UserDAOImpl.nUserCount");
+			        e.printStackTrace();
+			    }
+
+			    return todayBookCount;
+	}
+	
+	
+	@Override
+	public int getPageCount() {
+		int pageCount =0;
+		final String SQL = "SELECT TRUNC(AVG(pagecount)) AS page\r\n"
+				+ "FROM (\r\n"
+				+ "    SELECT COUNT(pageseq) AS pagecount\r\n"
+				+ "    FROM tblPage\r\n"
+				+ "    GROUP BY bookseq\r\n"
+				+ ") subquery";
+		
+
+		 try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstat = conn.prepareStatement(SQL);
+			    ) {
+			        ResultSet rs = pstat.executeQuery();
+
+			        if (rs.next()) {
+			        	pageCount = rs.getInt("page");
+			        }
+
+			    } catch (Exception e) {
+			        System.out.println("UserDAOImpl.nUserCount");
+			        e.printStackTrace();
+			    }
+
+			    return pageCount;
+	}
+
+	
 	
 }//End of class

@@ -58,6 +58,17 @@
          <%@include file="/WEB-INF/views/member/user/user_template/user_banner.jsp"%> 
 
 
+
+		<div class="bg-white pd-20 card-box mb-30">
+					
+					<select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
+            <c:forEach var="year" items="<%= yearList %>">
+              <option value="${year}">20${year}</option>
+            </c:forEach>
+          </select>
+       
+      			<canvas id="memberChart"></canvas> 
+				</div>
     			
     		<div class="row">
 				<div class="col-xl-4 mb-30">
@@ -79,6 +90,70 @@
 					<canvas id="AgeChart"></canvas>
 			</div>
 			
+			
+			
+			
+			
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-lg-4 col-md-6 col-sm-12 mb-30"> -->
+<!-- 					<div class="card-box pd-30 pt-10 height-100-p"> -->
+<!-- 						<h2 class="h4 mb-20">성별</h2> -->
+<%-- 						<canvas id="genderChart"></canvas> --%>
+						
+<!-- 						</div> -->
+<!-- 					</div> -->
+				
+<!-- 				<div class="col-lg-8 col-md-6 col-sm-12 mb-30"> -->
+<!-- 					<div class="card-box pd-30 pt-10 height-100-p"> -->
+<!-- 						<h2 class="h4 mb-20">사용자연령대</h2>  -->
+<%-- 						<canvas id="myChart"></canvas> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+		
+			
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-lg-7 col-md-12 col-sm-12 mb-30"> -->
+<!-- 					<div class="card-box pd-30 height-100-p"> -->
+<!-- 					<select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)"> -->
+<%--             <c:forEach var="year" items="<%= yearList %>"> --%>
+<%--               <option value="${year}">20${year}</option> --%>
+<%--             </c:forEach> --%>
+<!--           </select> -->
+       
+<%--       			<canvas id="memberChart"></canvas> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-lg-5 col-md-12 col-sm-12 mb-30"> -->
+<!-- 					<div class="card-box pd-30 height-100-p"> -->
+<!-- 						<h4 class="h4 text-blue">자녀연령대</h4> -->
+<%-- 					<canvas id="AgeChart"></canvas> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
+			
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-xl-4 mb-30"> -->
+<!-- 					<div class="card-box height-100-p pd-20"> -->
+<!-- 						<h4 class="h4 text-blue">자녀연령대</h4> -->
+<%-- 					<canvas id="AgeChart"></canvas> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			 <div class="col-xl-8 mb-30">  -->
+<!-- 					<div class="card-box height-100-p pd-20">  -->
+						
+<!-- 					<select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)"> -->
+<%--             <c:forEach var="year" items="<%= yearList %>"> --%>
+<%--               <option value="${year}">20${year}</option> --%>
+<%--             </c:forEach> --%>
+<!--           </select> -->
+       
+<%--       			<canvas id="memberChart"></canvas> --%>
+<!-- 					</div>  -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
 <!-- 			<div class="col-xl-4 mb-30"> -->
 <!-- 					<div class="card-box height-100-p pd-20"> -->
 <!-- 						<h2 class="h4 mb-20">가입자수, 탈퇴자수</h2> -->
@@ -94,24 +169,24 @@
 				
 
 
-<div class="row"> 
- <div class="col-xl-12 mb-30">
-    <div class="card-box height-100-p pd-20">
-      <div class="col-md-4 col-sm-12">
-        <div class="form-group">
-          <select class="selectpicker form-control" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
-            <c:forEach var="year" items="<%= yearList %>">
-              <option value="${year}" <c:if test="${currentYearShort}">disabled</c:if>>20${year}</option>
-            </c:forEach>
-          </select>
-        </div>
-      </div>
-      <canvas id="memberChart"></canvas>
-    </div>
-  </div>
+<!-- <div class="row">  -->
+<!--  <div class="col-xl-12 mb-30"> -->
+<!--     <div class="card-box height-100-p pd-20"> -->
+<!--       <div class="col-md-4 col-sm-12"> -->
+<!--         <div class="form-group"> -->
+<!--           <select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)"> -->
+<%--             <c:forEach var="year" items="<%= yearList %>"> --%>
+<%--               <option value="${year}">20${year}</option> --%>
+<%--             </c:forEach> --%>
+<!--           </select> -->
+<!--         </div> -->
+<!--       </div> -->
+<%--       <canvas id="memberChart"></canvas> --%>
+<!--     </div> -->
+<!--   </div> -->
   
 
-  </div>
+<!--   </div> -->
 			     
 			   
 
@@ -161,6 +236,7 @@
     var currentYearShort = currentYear.toString().slice(-2);
     console.log(currentYearShort);
 
+    $("#yearSelect").val(currentYearShort);
     // 현재 연도 차트 초기 렌더링
     renderChart(currentYear.toString());
 

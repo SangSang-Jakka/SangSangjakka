@@ -1,3 +1,4 @@
+<%@page import="com.jakka.model.dao.book.BookDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.jakka.model.DAOManager"%>
@@ -9,7 +10,7 @@
 
 <%
     // DAO 객체 생성
-    UserDAO dao = DAOManager.getUserDAO();
+    BookDAO dao = DAOManager.getBookDAO();
 
     // DB에서 값 가져오기
    // int newBookCount = dao.getNewBookCount();
@@ -26,14 +27,13 @@
 
     // 형식에 맞게 날짜 문자열 생성
     String currentDate = formatter.format(now);
-    //신규 가입자수
-    int newUserCount = dao.userCnt(currentDate);
+   
     
-    //신고 회원수
+    int newBookCount = dao.getBookCount();
+    int todayBookCount = dao.getTodayBookCount(currentDate);
+    int pageCount = dao.getPageCount();
     
-    // 탈퇴자수
-     int nUserCount = dao.nUserCount();
-    System.out.println("탈퇴자수: " + nUserCount);
+    
     
    
 %>
@@ -45,30 +45,30 @@
 				<i class="icon fa fa-book fa-3x" style="color: white"></i>
 			</div>
 			<div class="info">
-				<div class="titleElement">신규 가입자수 </div>
-				<div class="countElement"><%=newUserCount%></div>
+				<div class="titleElement">새로운 동화책 </div>
+				<div class="countElement"><%=todayBookCount %></div>
 			</div>
 		</div>
 	</div>
-<!-- 	<div class="card-box mr"> -->
-<!-- 		<div class="widget-small danger"> -->
-<!-- 			<div class="coloured-icon-b"> -->
-<!-- 				<i class="icon fa fa-star fa-3x" style="color: white"></i> -->
-<!-- 			</div> -->
-<!-- 			<div class="info"> -->
-<!-- 				<div class="titleElement">신고 회원수</div> -->
-<!-- 				<div class="countElement">해야함</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
+	<div class="card-box mr">
+		<div class="widget-small danger">
+			<div class="coloured-icon-b">
+				<i class="icon fa fa-star fa-3x" style="color: white"></i>
+			</div>
+			<div class="info">
+				<div class="titleElement">평균 페이지수</div>
+				<div class="countElement"><%=pageCount%></div>
+			</div>
+		</div>
+	</div>
 	<div class="card-box mr">
 		<div class="widget-small primary">
 			<div class="coloured-icon-c">
 				<i class="icon fa fa-users fa-3x" style="color: white"></i>
 			</div>
 			<div class="info">
-				<div class="titleElement">탈퇴자수</div>
-				<div class="countElement"><%=nUserCount%></div>
+				<div class="titleElement">총 동화책 수</div>
+				<div class="countElement"><%=newBookCount %></div>
 			</div>
 		</div>
 	</div>

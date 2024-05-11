@@ -1,4 +1,5 @@
 
+<%@page import="com.jakka.model.dao.book.BookDAO"%>
 <%@page import="com.jakka.model.dao.board.BoardDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -18,6 +19,12 @@
    // int newBookCount = dao.getNewBookCount();
    
     
+    BookDAO bookDAO = DAOManager.getBookDAO();
+
+    // DB에서 값 가져오기
+   // int newBookCount = dao.getNewBookCount();
+   
+    
     
     
     
@@ -29,7 +36,13 @@
 
     // 형식에 맞게 날짜 문자열 생성
     String currentDate = formatter.format(now);
-    System.out.println("현재 날짜: " + currentDate);
+   
+    
+    ;
+    int todayBookCount = bookDAO.getTodayBookCount(currentDate);
+    
+    
+ 
     
   
     int newUserCount = dao.userCnt(currentDate);
@@ -49,7 +62,7 @@
 			</div>
 			<div class="info">
 				<div class="titleElement">새로운 동화책</div>
-				<div class="countElement">10</div>
+				<div class="countElement"><%=todayBookCount%></div>
 			</div>
 		</div>
 	</div>
