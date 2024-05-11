@@ -313,39 +313,7 @@
 		    xhr.send(params);
 	
 	    }
-	
-	
-	
-	
-	
-	/*
-	function hidePost() {
-	    var boardSeq = '${dto.boardSeq}'; 
-	    var data = {
-	        boardSeq: boardSeq
-	    };
 
-	    $.ajax({
-	        type: 'POST',
-	        url: '/sangsangjakka/admin/dashboard/freeboard/managedel.do',
-	        data: data,
-	        success: function(response) {
-	            // 서버로부터의 응답을 받아 처리합니다.
-	            if (response === 'success') {
-	                // 제목과 내용을 변경합니다.
-	                document.getElementById('postTitle').innerText = "비공개 처리되었습니다";
-	                document.getElementById('postContent').innerText = "비공개 처리되었습니다";
-	            } else {
-	                alert("게시물 비공개 처리에 실패했습니다.");
-	            }
-	        },
-	        error: function() {
-	            alert("서버와의 통신 중 문제가 발생했습니다.");
-	        }
-	    });
-	}
-	*/
-	
 	
 	
 	</script>

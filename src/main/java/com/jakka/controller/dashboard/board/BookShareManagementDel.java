@@ -21,8 +21,8 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 import com.jakka.model.dto.book.ReviewDTO;
 
-@WebServlet("/admin/dashboard/bookshare/manageview.do")
-public class BookShareManagementView extends HttpServlet {
+@WebServlet("/admin/dashboard/bookshare/managedel.do")
+public class BookShareManagementDel extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -79,38 +79,39 @@ public class BookShareManagementView extends HttpServlet {
 
 		String action = req.getParameter("action");
 
-		// 리뷰 비활성화
-		if ("disableReview".equals(action)) {
-			String reviewSeq = req.getParameter("reviewSeq");
-			ReviewDAO dao = DAOManager.getReviewDAO();
-			int result = dao.disable(reviewSeq, adId);
+		// 동화책 비활성화
+		if ("disableBook".equals(action)) {
+			String bookSeq = req.getParameter("bookSeq");
+
+			BookDAO dao = DAOManager.getBookDAO();
+			int result = dao.disable(bookSeq, adId);
 
 			resp.setCharacterEncoding("UTF-8");
 			resp.setContentType("text/plain");
 			PrintWriter writer = resp.getWriter();
 
 			if (result > 0) {
-				writer.print("해당 리뷰를 비공개 처리하였습니다.");
+				writer.print("동화책이 비공개 처리하었습니다.");
 			} else {
-				writer.print("리뷰 비공개 처리에 실패했습니다.");
+				writer.print("동화책 비공개 처리 실패했습니다.");
 
 			}
 		}
 
-		// 댓글 활성화
-		else if ("activationReview".equals(action)) {
-			String reviewSeq = req.getParameter("reviewSeq");
-			ReviewDAO dao = DAOManager.getReviewDAO();
-			int result = dao.activation(reviewSeq, adId);
+		// 동화책 활성화
+		else if ("activationBook".equals(action)) {
+			String bookSeq = req.getParameter("bookSeq");
+			BookDAO dao = DAOManager.getBookDAO();
+			int result = dao.activation(bookSeq, adId);
 
 			resp.setCharacterEncoding("UTF-8");
 			resp.setContentType("text/plain");
 			PrintWriter writer = resp.getWriter();
 
 			if (result > 0) {
-				writer.print("해당 리뷰를 공개 처리하였습니다.");
+				writer.print("동화책 공개 처리하였습니다.");
 			} else {
-				writer.print("리뷰 공개 처리에 실패했습니다.");
+				writer.print("동화책 공개 처리에 실패했습니다.");
 
 			}
 
@@ -118,5 +119,4 @@ public class BookShareManagementView extends HttpServlet {
 
 	}
 
-}
-// End of class
+}// End

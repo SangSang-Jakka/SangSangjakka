@@ -58,7 +58,7 @@
 	font-size: 12px;
 	position: absolute;
 	top: 30px;
-	right: 90px;
+	right: 80px;
 }
 
 .commentContent {
@@ -163,9 +163,9 @@
 					<div class="viewContainer">
 						<h2>동화책 상세</h2>
 
-						<span class="right"> <input type="button" value="공개"
-							class="btn btn-primary"> <input type="button" value="비공개"
-							class="btn btn-primary">
+						<span class="right"> 
+						<input type="button" value="공개" class="btn btn-primary" onclick="activationBook('${dto.bookSeq}')">
+						<input type="button" value="비공개" class="btn btn-primary" onclick="disableBook('${dto.bookSeq}')">
 						</span>
 
 						<table>
@@ -193,10 +193,10 @@
 									<!--  동화책 그림/글  -->
 									<div class="bb-custom-wrapper">
 										<div id="bb-bookblock" class="bb-bookblock">
-											<c:forEach items="${pageMap}" var="entry">
+											<c:forEach items="${pageMap}" var="entry" varStatus="status">
 												<div class="bb-item">
-													<a href="${entry.value.pageUrl}" target="_blank">페이지 ${status.index + 1}</a>
-													<div class="pageContents">${entry.value.pageContents}</div>
+													<a href="${entry.value.pageUrl}" target="_blank">${status.count} 페이지 그림</a>
+													<div class="pageContents">${status.count} 페이지 내용 : ${entry.value.pageContents}</div>
 												</div>
 											</c:forEach>
 										</div>
@@ -217,8 +217,8 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${review.userNick}</div>
 											<div class="commentActions">
-												<button class="btnEdit">공개</button>
-												<button class="btnDel">비공개</button>
+												<button class="btnEdit" onclick="activationReview('${review.reviewSeq}')">공개</button>
+												<button class="btnDel" onclick="disableReview('${review.reviewSeq}')">비공개</button>
 											</div>
 										</div>
 										<div class="commentTime">${review.reviewRegdate}</div>
@@ -249,6 +249,94 @@
 
 			</div>
 		</div>
+		
+		<script>
+		
+		// 동화책  활성화
+		
+		function activationBook(bookSeq) {
+			
+			
+			var xhr = new XMLHttpRequest();
+		    xhr.open('POST', '/sangsangjakka/admin/dashboard/bookshare/managedel.do', true);
+		    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState === 4 && xhr.status === 200) {
+		            // 서블릿으로부터 받은 응답 처리
+		            alert(xhr.responseText);
+		            // 페이지 리로드 또는 다른 작업 수행
+		        }
+		    };
+		    // 서블릿으로 전달할 파라미터 설정
+		    var params = 'bookSeq=' + encodeURIComponent(bookSeq) + '&action=activationBook';
+		    xhr.send(params);
+		
+		}
+		
+		
+		// 동화책 비활성화
+		
+		function disableBook(bookSeq) {
+			
+			var xhr = new XMLHttpRequest(); 
+	        xhr.open('POST', '/sangsangjakka/admin/dashboard/bookshare/managedel.do', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === 4 && xhr.status === 200) {
+	                // 서블릿으로부터 받은 응답 처리
+	                alert(xhr.responseText);
+	                // 페이지 리로드 또는 다른 작업 수행
+	            }
+	        };
+	        
+	        var params = 'bookSeq=' + encodeURIComponent(bookSeq) + '&action=disableBook';
+		    xhr.send(params);
+			
+		}
+		
+		
+		// 리뷰 활성화
+		function activationReview(reviewSeq) {
+			
+			
+			var xhr = new XMLHttpRequest();
+		    xhr.open('POST', '/sangsangjakka/admin/dashboard/bookshare/manageview.do', true);
+		    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState === 4 && xhr.status === 200) {
+		            // 서블릿으로부터 받은 응답 처리
+		            alert(xhr.responseText);
+		            // 페이지 리로드 또는 다른 작업 수행
+		        }
+		    };
+		    // 서블릿으로 전달할 파라미터 설정
+		    var params = 'reviewSeq=' + encodeURIComponent(reviewSeq) + '&action=activationReview';
+		    xhr.send(params);
+		
+			
+		}
+		
+		// 리뷰 비활성화
+		
+		 function disableReview(reviewSeq) {
+		        var xhr = new XMLHttpRequest();
+		        xhr.open('POST', '/sangsangjakka/admin/dashboard/bookshare/manageview.do', true);
+		        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		        xhr.onreadystatechange = function() {
+		            if (xhr.readyState === 4 && xhr.status === 200) {
+		                // 서블릿으로부터 받은 응답 처리
+		                alert(xhr.responseText);
+		                // 페이지 리로드 또는 다른 작업 수행
+		            }
+		        };
+		        
+		        var params = 'reviewSeq=' + encodeURIComponent(reviewSeq) + '&action=disableReview';
+			    xhr.send(params);
+		
+		    }
+		
+		
+		</script>
 
 		<!-- js -->
 		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -279,14 +367,6 @@
 		<script
 			src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 
-		<!-- Datatable Setting js -->
-		<script
-			src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
 
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-		<script>
-			
-		</script>
 </body>
 </html>
