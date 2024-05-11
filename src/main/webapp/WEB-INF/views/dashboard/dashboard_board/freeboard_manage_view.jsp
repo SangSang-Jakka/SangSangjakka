@@ -205,9 +205,9 @@
 
 
 						
-				<span class="left"> <input type="button" value="이전"
-							class="btn btn-primary"> <input type="button" value="다음"
-							class="btn btn-primary">
+				<span class="left"> 
+				<a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${dto.boardSeq - 1}" class="btn btn-primary">이전</a>
+				<a href="/sangsangjakka/admin/dashboard/freeboard/manageview.do?seq=${dto.boardSeq + 1}" class="btn btn-primary">다음</a>
 						</span>
 						<span class="right"> <input type="button" value="목록"
 							class="btn btn-primary pull-right"
@@ -227,6 +227,64 @@
 	</div>
 	
 	<script>
+	
+	// 이전 게시물로 이동하는 함수
+	function goToPrevious() {
+	    // 현재 게시물의 boardSeq 값 가져오기
+	    var currentBoardSeq = "${dto.boardSeq}";
+	    
+	    // 이전 게시물의 boardSeq 값은 현재 게시물의 boardSeq보다 작은 값 중에서 가장 큰 값
+	    var previousBoardSeq = findPreviousBoardSeq(currentBoardSeq);
+	    
+	    // 이동할 URL 생성
+	    var url = "/sangsangjakka/admin/dashboard/freeboard/manageview.do?boardSeq=" + previousBoardSeq;
+	    
+	    // 이동
+	    window.location.href = url;
+	}
+
+	// 다음 게시물로 이동하는 함수
+	function goToNext() {
+	    // 현재 게시물의 boardSeq 값 가져오기
+	    var currentBoardSeq = "${dto.boardSeq}";
+	    
+	    // 다음 게시물의 boardSeq 값은 현재 게시물의 boardSeq보다 큰 값 중에서 가장 작은 값
+	    var nextBoardSeq = findNextBoardSeq(currentBoardSeq);
+	    
+	    // 이동할 URL 생성
+	    var url = "/sangsangjakka/admin/dashboard/freeboard/manageview.do?boardSeq=" + nextBoardSeq;
+	    
+	    // 이동
+	    window.location.href = url;
+	}
+
+	// 이전 게시물의 boardSeq 값을 찾는 함수
+	function findPreviousBoardSeq(currentBoardSeq) {
+	    var previousBoardSeq = -1; // 이전 게시물이 없을 경우를 대비해 초기값 -1 설정
+	    <c:forEach var="previousPost" items="${previousPosts}">
+	        if (${previousPost.boardSeq} < currentBoardSeq) {
+	            previousBoardSeq = ${previousPost.boardSeq};
+	            break; // 현재 게시물보다 작은 값 중에서 가장 큰 값을 찾았으므로 반복 종료
+	        }
+	    </c:forEach>
+	    return previousBoardSeq;
+	}
+
+	// 다음 게시물의 boardSeq 값을 찾는 함수
+	function findNextBoardSeq(currentBoardSeq) {
+	    var nextBoardSeq = -1; // 다음 게시물이 없을 경우를 대비해 초기값 -1 설정
+	    <c:forEach var="nextPost" items="${nextPosts}">
+	        if (${nextPost.boardSeq} > currentBoardSeq) {
+	            nextBoardSeq = ${nextPost.boardSeq};
+	            break; // 현재 게시물보다 큰 값 중에서 가장 작은 값을 찾았으므로 반복 종료
+	        }
+	    </c:forEach>
+	    return nextBoardSeq;
+	}
+	
+	
+	
+	
 	
 	// 게시물 활성화
 	

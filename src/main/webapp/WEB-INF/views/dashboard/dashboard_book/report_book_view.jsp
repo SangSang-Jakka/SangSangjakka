@@ -206,9 +206,9 @@
                                     </table>
 
 
-							<span class="left"> <input type="button" value="이전"
+							<span class="left"> <!--   <input type="button" value="이전"
 								class="btn btn-primary"> <input type="button" value="다음"
-								class="btn btn-primary">
+								class="btn btn-primary"> -->
 							</span> <span class="right"> <input type="button" value="목록"
 								class="btn btn-primary pull-right"
 								onclick="location='/sangsangjakka/admin/dashboard/book/report.do'">

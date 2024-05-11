@@ -179,8 +179,10 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${answer.adId}</div>
 											<div class="commentActions">
-												<button class="btnEdit" onclick="edit(${answer.answSeq}, '${answer.sgstAnsw}')">수정</button>
-												<button class="btnDel" onclick="del(${answer.answSeq}, '${answer.adId}');">삭제</button>
+												<button class="btnEdit"
+													onclick="edit(${answer.answSeq}, '${answer.sgstAnsw}')">수정</button>
+												<button class="btnDel"
+													onclick="del(${answer.answSeq}, '${answer.adId}');">삭제</button>
 											</div>
 											<div class="commentTime">${answer.sgstRegdate}</div>
 										</div>
@@ -200,9 +202,11 @@
 							</div>
 						</div>
 
-						<span class="left"> <input type="button" value="이전"
-							class="btn btn-primary"> <input type="button" value="다음"
-							class="btn btn-primary">
+						<span class="left"> <a
+							href="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${dto.sgstSeq - 1}"
+							class="btn btn-primary">이전</a> <a
+							href="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${dto.sgstSeq + 1}"
+							class="btn btn-primary">다음</a>
 						</span> <span class="right"> <input type="button" value="목록"
 							class="btn btn-primary pull-right"
 							onclick="location='/sangsangjakka/admin/dashboard/suggestion/manage.do'"></span>
@@ -217,7 +221,7 @@
 
 		</div>
 	</div>
-	
+
 	<script>
 
 
@@ -344,6 +348,6 @@ function del(answSeq, adId) {
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-		
+
 </body>
 </html>

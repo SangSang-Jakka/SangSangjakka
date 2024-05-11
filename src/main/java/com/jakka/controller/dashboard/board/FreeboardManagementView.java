@@ -76,6 +76,7 @@ public class FreeboardManagementView extends HttpServlet {
 		
 		req.setAttribute("cmntList", cmntList);
 		
+	
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/freeboard_manage_view.jsp");
 		dispatcher.forward(req, resp);
