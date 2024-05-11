@@ -619,6 +619,46 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return null;
 	}
+	
+	@Override
+	public ArrayList<BoardDTO> findByNickBoard(String Nick) {
+
+		final String SQL = "SELECT boardSeq, boardTitle, boardRegdate, boardCnt FROM vwBoard WHERE userNick = ? order by boardRegdate desc";
+
+		try (
+				
+			Connection conn = DBUtil.open(); 
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+			
+			) {
+			
+			pstat.setString(1, Nick);
+
+			ResultSet rs = pstat.executeQuery();
+
+			ArrayList<BoardDTO> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				BoardDTO dto = new BoardDTO();
+
+				dto.setBoardCnt(rs.getString("boardCnt"));
+				dto.setBoardRegdate(rs.getString("boardRegdate"));
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setBoardTitle(rs.getString("boardTitle"));
+
+				list.add(dto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("BoardDAOImpl.| findByNickBoard");
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 	@Override
 	public ArrayList<BoardDTO> findByRegdateAfter(String date) {

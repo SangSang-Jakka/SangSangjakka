@@ -904,3 +904,26 @@ span span:hover {
 	display: inline-block;
 	width: 45px;
 }
+
+.thList{
+	font-size:18px;	
+}
+
+.myBoardList{
+	font-size:17px;	
+}
+
+.thNum{
+	width:15%;
+}
+
+.thTitle{
+	width:45%;
+}
+
+.thDate{
+	width:20%;
+}
+.thViews{
+	width:20%;
+}

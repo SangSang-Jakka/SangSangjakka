@@ -222,40 +222,69 @@
 						<li><a href="#tab05">내 게시글</a></li>
 						<li><a href="#tab06">내 댓글</a></li>
 					</ul>
+					
 					<div class="tabcontent subtabcontent">
 						<div id="tab05">
-							<table class="boardTable">
+				<table class="boardTable">
                   <thead>
                     <tr>
-                        <th scope="col" class="thNum">번호</th>
-                        <th scope="col" class="thTitle">제목</th>
-                        <th scope="col" class="thDate">등록일</th>
-                        <th scope="col" class="thViews">조회수</th>
+                        <th scope="col" class="thNum thList">번호</th>
+                        <th scope="col" class="thTitle thList">제목</th>
+                        <th scope="col" class="thDate thList">등록일</th>
+                        <th scope="col" class="thViews thList">조회수</th>
                     </tr>
                   </thead>
                   <tbody>
                   
-                  <c:if test="${list.size() == 0}">
-					<tr>
-						<td colspan="5">게시물이 없습니다.</td>
-					</tr>
-				  </c:if>
-				  
-				  <c:forEach items="${list}" var="dto">
-				  		<tr>
-	                      <td>${dto.boardSeq}</td>
-	                      <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle }</a><p>${dto.cmntCnt}</p></th>
-	                      <td>${dto.boardRegdate}</td>
-	                      <td>${dto.boardCnt}</td>
-	                   </tr>
-				  </c:forEach>
+                 <c:if test="${requestScope.list.size() == 0}">
+				    <tr>
+				        <td colspan="5">게시물이 없습니다.</td>
+				    </tr>
+				</c:if>
+				
+				<c:forEach items="${requestScope.list}" var="dto">
+				    <tr class=myBoardList>
+				        <td>${dto.boardSeq}</td>
+				        <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
+				        <td>${dto.boardRegdate}</td>
+				        <td>${dto.boardCnt}</td>
+				    </tr>
+				</c:forEach>
          
                   </tbody>
               </table>
-						</div>
-						<div id="tab06">
-							tab6 content
-						</div>
+					</div>
+					
+						<div id="tab05">
+				<table class="boardTable">
+                  <thead>
+                    <tr>
+                        <th scope="col" class="thNum thList">번호</th>
+                        <th scope="col" class="thTitle thList">제목</th>
+                        <th scope="col" class="thDate thList">등록일</th>
+                        <th scope="col" class="thViews thList">조회수</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                 <c:if test="${requestScope.list.size() == 0}">
+				    <tr>
+				        <td colspan="5">게시물이 없습니다.</td>
+				    </tr>
+				</c:if>
+				
+				<c:forEach items="${requestScope.list}" var="dto">
+				    <tr class=myBoardList>
+				        <td>${dto.boardSeq}</td>
+				        <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
+				        <td>${dto.boardRegdate}</td>
+				        <td>${dto.boardCnt}</td>
+				    </tr>
+				</c:forEach>
+         
+                  </tbody>
+              </table>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -314,6 +343,19 @@
 				$(this).addClass('active');
 			});
 		});
+		
+		
+		
+		// tab에 있는 인라인 style 변경
+		// 페이지가 처음 로드될 때 실행될 함수
+		if (!sessionStorage.getItem("hasBeenLoaded")) {
+		    window.onload = function() {
+		        var tabFormContainer = document.querySelector(".tabFormContainer");
+		        tabFormContainer.style.height = "1400px";
+		        sessionStorage.setItem("hasBeenLoaded", true);
+		    };
+		}
+		
 
 		$(function () {
 			//수정 완료 버튼

@@ -2,6 +2,7 @@ package com.jakka.controller.member.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.jakka.model.DAOManager;
+import com.jakka.model.dao.board.BoardDAO;
 import com.jakka.model.dao.user.UserDAO;
+import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.user.UserDTO;
 
 @WebServlet("/user/mypage.do")
@@ -23,6 +26,7 @@ public class MyPage extends HttpServlet{
 		
 	    HttpSession session = req.getSession();
 	    String userId = (String) session.getAttribute("userId");
+	    String userNick = (String) session.getAttribute("userNick");
 	    
 	    if (userId == null) {
 			
@@ -30,18 +34,32 @@ public class MyPage extends HttpServlet{
 			return;
 			
 		}
-
+	    
+	    
+	    try {
+	    	
 	    UserDAO dao = DAOManager.getUserDAO();
 	    UserDTO dto = dao.findById(userId);
-	    
-
 	    req.setAttribute("dto", dto);
+	    
+	    BoardDAO boardDAO = DAOManager.getBoardDAO();
+	    ArrayList<BoardDTO> list = boardDAO.findByNickBoard(userNick);
+	    req.setAttribute("list", list);
+        
 
 	
 	    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/mypage.jsp");
 	    dispatcher.forward(req, resp);
-	
+	    }catch (Exception e) {
+	        // 예외 처리
+	        e.printStackTrace();
+	        resp.sendRedirect("/sangsangjakka/error.jsp");
+	    }
 	}
+	
+	
+	
+	
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
