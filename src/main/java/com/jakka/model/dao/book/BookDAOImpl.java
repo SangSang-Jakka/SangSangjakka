@@ -354,11 +354,11 @@ public class BookDAOImpl implements BookDAO{
 				dto.setBookModDate(rs.getString("bookModDate"));
 				dto.setBookRegdate(rs.getString("bookRegdate"));
 				dto.setBookReportCnt(rs.getString("bookReportCnt"));
-				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
-				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+//				dto.setBookReviewCnt(rs.getString("BookReviewCnt"));
+//				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
 				dto.setBookSeq(rs.getString("bookSeq"));
 				dto.setBookTitle(rs.getString("bookTitle"));
-				dto.setLikeCnt(rs.getString("likeCnt"));
+//				dto.setLikeCnt(rs.getString("likeCnt"));
 				dto.setParentBookSeq(rs.getString("parentBookSeq"));
 				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
@@ -402,7 +402,7 @@ public class BookDAOImpl implements BookDAO{
 					dto.setBookModDate(rs.getString("bookModDate"));
 					dto.setBookRegdate(rs.getString("bookRegdate"));
 					dto.setBookReportCnt(rs.getString("bookReportCnt"));
-					dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+					dto.setBookReviewCnt(rs.getString("bookReviewCnt")); 
 					dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
 					dto.setBookSeq(rs.getString("bookSeq"));
 					dto.setBookTitle(rs.getString("bookTitle"));
@@ -1397,6 +1397,103 @@ public class BookDAOImpl implements BookDAO{
 		return 0;
 	}
 	
+	// 신고가 있는 동화책 조회
+	@Override
+	public ArrayList<BookDTO> findAllReport() {
+		
+		final String SQL = "select * from vwBook where bookReportCnt > 0";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				dto.setBookCover(rs.getString("bookCover"));
+				dto.setBookInfo(rs.getString("bookInfo"));
+				dto.setBookModDate(rs.getString("bookModDate"));
+				dto.setBookRegdate(rs.getString("bookRegdate"));
+				dto.setBookReportCnt(rs.getString("bookReportCnt"));
+				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setBookTitle(rs.getString("bookTitle"));
+				dto.setLikeCnt(rs.getString("likeCnt"));
+				dto.setParentBookSeq(rs.getString("parentBookSeq"));
+				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	// 신고가 없는 동화책 조회
+	@Override
+	public ArrayList<BookDTO> findAllNoReport() {
+		
+		final String SQL = "select * from vwBook where bookReportCnt = 0";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				dto.setBookCover(rs.getString("bookCover"));
+				dto.setBookInfo(rs.getString("bookInfo"));
+				dto.setBookModDate(rs.getString("bookModDate"));
+				dto.setBookRegdate(rs.getString("bookRegdate"));
+				dto.setBookReportCnt(rs.getString("bookReportCnt"));
+				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setBookTitle(rs.getString("bookTitle"));
+				dto.setLikeCnt(rs.getString("likeCnt"));
+				dto.setParentBookSeq(rs.getString("parentBookSeq"));
+				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 	
 	

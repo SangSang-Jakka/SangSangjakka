@@ -136,7 +136,10 @@ margin-right : 14px;
 						<!--  조건별 조회 -->
 						<select id="conditionSelect">
 							<option value="all">전체</option>
-							<option value="option">고정글</option>
+							<option value="option">공개</option>
+							<option value="option2">비공개</option>
+							<option value="option3">신고O</option>
+							<option value="option4">신고X</option>
 						</select>
 						<!--  기간 조회 -->
 						<div class="date-range-container">
@@ -158,6 +161,7 @@ margin-right : 14px;
 									<th>저장수</th>
 									<th>좋아요수</th>
 									<th>소감수</th>
+									<th>신고수</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
@@ -173,6 +177,7 @@ margin-right : 14px;
 									<td>${book.bookScrapCnt}</td>
 									<td>${book.likeCnt}</td>
 									<td>${book.bookReviewCnt}</td>
+									<td>${book.bookReportCnt}</td>
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -219,7 +224,7 @@ margin-right : 14px;
 	<script src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 	
 	<!-- Datatable Setting js -->
-	<script src="/sangsangjakka/resources/vendors/scripts/bookshare.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/bs.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
