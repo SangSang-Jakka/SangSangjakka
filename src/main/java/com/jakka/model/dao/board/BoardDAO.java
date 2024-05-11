@@ -25,6 +25,7 @@ public interface BoardDAO extends BasicDAO<BoardDTO>, Cnt, ReportCnt
 	public ArrayList<BoardDTO> findAllReport();
 	public ArrayList<BoardDTO> findAllNoReport();
 	public ArrayList<BoardDTO> findToday(String today);
+	public ArrayList<BoardDTO> findByNickBoard(String Nick);
 	public int getNewPostCount(String userRegdate);
 	public int getNewSuggestionCount(String userRegdate);
 	public int boardReportCount(String userRegdate);
