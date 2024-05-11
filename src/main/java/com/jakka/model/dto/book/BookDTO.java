@@ -24,6 +24,7 @@ public class BookDTO {
 	private String shareCnt;
 	
 	
+	
 	private String reportDate;
 	
 	

@@ -14,89 +14,86 @@
 
 
 <style>
-
 .center {
-text-align: center;
-margin-top : 20px;
-font-size: 1.7em; 
-
+	text-align: center;
+	margin-top: 20px;
+	font-size: 1.7em;
 }
 
+.buttonItem {
+	float: right;
+	margin-right: 10px;
+	margin-top: -20px;
+}
 
+.footer {
+	margin-top: 50px;
+}
 
 .filter-container {
 	display: flex;
 	justify-content: flex-end;
 	margin-bottom: -30px;
-
 }
 
 /* 기간 조회 스타일 */
 .date-range-container {
-
-  display: inline-flex;
-  align-items: center;
-  margin-bottom : 20px;
+	display: inline-flex;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .date-input {
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background-color: #fff;
-  width: 150px;
-  height: 38px;
-  margin-right: 10px;
-  transition: border-color 0.3s;
-  
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	width: 150px;
+	height: 38px;
+	margin-right: 10px;
+	transition: border-color 0.3s;
 }
 
 .date-separator {
-  font-size: 16px;
-  margin-right: 10px;
+	font-size: 16px;
+	margin-right: 10px;
 }
 
 /* 조건 조회 스타일 */
 #conditionSelect {
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background-color: #fff;
-  width: auto;
-  height: 38px;
-  margin-right: 10px;
-  transition: border-color 0.3s;
-  margin-bottom : 10px;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	width: auto;
+	height: 38px;
+	margin-right: 10px;
+	transition: border-color 0.3s;
+	margin-bottom: 10px;
 }
 
 #conditionSelect:focus {
-  outline: none;
-  border-color: #6c757d;
+	outline: none;
+	border-color: #6c757d;
 }
 
 #conditionSelect option {
-  background-color: #fff;
-  color: #333;
-  font-size: 14px;
+	background-color: #fff;
+	color: #333;
+	font-size: 14px;
 }
 
 #conditionSelect option:checked {
-  background-color: #007bff;
-  color: #fff;
+	background-color: #007bff;
+	color: #fff;
 }
 
 /* 검색창 */
-
-
 #myTable_filter input {
-
-margin-right : 14px;
-
+	margin-right: 14px;
 }
-
-
 </style>
 </head>
 <body>
@@ -179,17 +176,23 @@ margin-right : 14px;
 										<td>${award.awardRegdate}</td>
 										<td>${award.awardRank}</td>
 										<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/book/awardview.do"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											<div class="dropdown">
+												<a
+													class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+													href="#" role="button" data-toggle="dropdown"> <i
+													class="dw dw-more"></i>
+												</a>
+												<div
+													class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+													<a class="dropdown-item"
+														href="/sangsangjakka/admin/dashboard/book/awardview.do"><i
+														class="dw dw-eye"></i> View</a> <a class="dropdown-item"
+														href="#"><i class="dw dw-edit2"></i> Edit</a> <a
+														class="dropdown-item" href="#"><i
+														class="dw dw-delete-3"></i> Delete</a>
+												</div>
 											</div>
-										</div>
-									</td>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -197,13 +200,18 @@ margin-right : 14px;
 					</div>
 				</div>
 				<!-- Simple Datatable End -->
-
 			</div>
+
+			<span class="buttonItem"> <c:if test="${not empty adId}">
+					<button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/book/awardview.do'">
+						수상작 등록</button>
+				</c:if>
+			</span>
 			<!-- 푸터 -->
 			<%@include
 				file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
-
 		</div>
+	</div>
 	</div>
 
 	<!-- js -->
