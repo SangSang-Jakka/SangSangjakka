@@ -101,17 +101,15 @@
 					
 				</div>
 				<!-- Striped table End -->
-				
-				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
-					<div class="card-box pd-30 pt-10 height-100-p">
-						
-						<select class="selectpicker form-control" id ="yearSelect2" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
+				<div class="bg-white pd-20 card-box mb-30">
+					
+					<select class="selectpicker form-control" id ="yearSelect" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
             <c:forEach var="year" items="<%= yearList %>">
               <option value="${year}">20${year}</option>
             </c:forEach>
           </select>
-						<canvas id="lineChart" width="300" height="250"></canvas>
-					</div>
+       
+      			<canvas id="lineChart"></canvas> 
 				</div>
 
 <!--  조건별 조회 -->
@@ -135,6 +133,15 @@
 <!-- 	<script src="//code.jquery.com/jquery.min.js"></script> -->
 <!-- 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
 	<script src="/sangsangjakka/resources/vendors/scripts/jquery.mtz.monthpicker.js"></script>
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> 
+	
+	<!-- jquery UI -->
+<!-- 	<script src="//code.jquery.com/jquery.min.js"></script> -->
+<!-- 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+
+	
 	
 
 	
@@ -209,76 +216,88 @@ function renderData(selectedMonth) {
   </script>	
   
   
-  <script>
 
-// 현재 연도 가져오기
-var currentYear = new Date().getFullYear();
-var currentYearShort = currentYear.toString().slice(-2);
-console.log(currentYearShort);
+<script>
 
-$("#yearSelect2").val(currentYearShort);
-// 현재 연도 차트 초기 렌더링
-renderChart(currentYear.toString());
 
-function renderChart(year) {
-  $.ajax({
-    type: "POST",
-    url: "/sangsangjakka/admin/dashboard.do",
-    data: { selectedValue: year },
-    success: function(response) {
-        console.log('으잉:', response);
 
-        var labels = []; // 월별 라벨
-        var bookData = []; // 월별 도서 수
+// //현재 연도 가져오기
+// var currentYear = new Date().getFullYear();
+// var currentYearShort = currentYear.toString().slice(-2);
+// console.log(currentYearShort);
 
-        // JSON 데이터 파싱
-        for (var i = 0; i < response.monthYears.length; i++) {
-            var monthYear = response.monthYears[i];
-            labels.push(monthYear);
-            var bookCount = response.bookCounts[i];
-            bookData.push(bookCount);
-        }
+// // $("#yearSelect").val(currentYearShort);
+// // //현재 연도 차트 초기 렌더링
+// // renderChart(currentYearShort);
+// // console.log( '이거 뭐야? ', currentYear.toString()); //2024
+// function renderChart(year) {
+// $.ajax({
+//  type: "POST",
+//  url: "/sangsangjakka/admin/dashboard.do",
+//  data: { year: year },
+//  success: function(response) {
+//      console.log('Server response:', response);
 
-        var context = document.getElementById('lineChart').getContext('2d');
-        if (window.myChart) {
-            window.myChart.destroy(); // 기존 차트 제거
-        }
+    
+//    },
+//    error: function(xhr, status, error) {
+//      console.error('AJAX request error:', error);
+//    }
+//  });
+// }
 
-        window.myChart = new Chart(context, { 
-            type: 'line',
-            data: {
-                labels: labels, // labels에 월별 라벨 추가
-                datasets: [{ 
-                    data: bookData, // bookData에 월별 도서 수 추가
-                    label: "Book Counts",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }]
+// function sendSelectedOptionValue(selectElement) {
+// var selectedOption = selectElement.options[selectElement.selectedIndex];
+// if (selectedOption) {
+//  var selectedValue = selectedOption.value;
+//  console.log(selectedValue);
+//  renderChart(selectedValue);
+// } else {
+//  console.log('No option selected');
+// }
+// }
+<!-- </script> -->
+
+
+<script>
+function sendSelectedOptionValue(selectElement) {
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    if (selectedOption) {
+        var selectedValue = selectedOption.value;
+        console.log("선택된 연도:", selectedValue);
+
+        // AJAX 요청 보내기
+        $.ajax({
+            type: "POST", // 또는 GET, 원하는 HTTP 메서드를 사용할 수 있습니다.
+            url: "/sangsangjakka/admin/dashboard.do", // 서버의 엔드포인트 URL을 지정하세요.
+            data: { year: selectedValue }, // 선택된 연도를 데이터로 보냅니다.
+            success: function(response) {
+                console.log("서버 응답:", response);
+
+                // 응답 데이터를 처리하는 추가 로직을 여기에 작성하세요.
             },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Monthly Book Counts'
-                }
+            error: function(xhr, status, error) {
+                console.error("AJAX 요청 오류:", error);
             }
         });
-    },
-    error: function(xhr, status, error) {
-      console.error('AJAX request error:', error);
+    } else {
+        console.log("선택된 옵션이 없습니다.");
     }
-  });
 }
 
-function sendSelectedOptionValue(selectElement) {
-  var selectedOption = selectElement.options[selectElement.selectedIndex];
-  if (selectedOption) {
-    var selectedValue = selectedOption.value;
-    console.log(selectedValue);
-    renderChart(selectedValue);
-  } else {
-    console.log('No option selected');
-  }
-}
 </script>
+
+
+
+<script>
+// getBarChartOptions 함수 사용
+var options = getBarChartOptions();
+
+// 차트 생성
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+</script>
+
+
 	</body>
 </html>

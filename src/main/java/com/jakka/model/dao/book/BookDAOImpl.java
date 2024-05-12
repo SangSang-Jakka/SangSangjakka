@@ -1779,7 +1779,8 @@ public class BookDAOImpl implements BookDAO{
 		    try {
 		    	 Connection conn = DBUtil.open();
 		         PreparedStatement pstat = conn.prepareStatement(SQL);
-		         pstat.setString(1, year); // 연도 값을 설정
+		         String yearFull = "20" + year;
+		         pstat.setString(1, yearFull); // 연도 값을 설정
 
 		         ResultSet rs = pstat.executeQuery();
 

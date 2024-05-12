@@ -16,11 +16,47 @@
 
 
 <style>
-
 .center {
-text-align: center;
+	text-align: center;
 }
 
+/* 모달 */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* 모달 내부 */
+.modal-content {
+	background-color: #fefefe;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 35%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+
+/* 모달 닫기 버튼 */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -41,12 +77,13 @@ text-align: center;
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="title">
-								<h4>공지사항</h4>
+								<h4>개인 용량 관리</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">공지사항</li>
+									<li class="breadcrumb-item active" aria-current="page">개인
+										용량 관리</li>
 								</ol>
 							</nav>
 						</div>
@@ -60,9 +97,28 @@ text-align: center;
 					<div class="viewContainer">
 						<h2>개인 용량 관리</h2>
 
-						<span class="right"> <input type="button" value="용량 추가"
-							class="btn btn-primary">
+						<!-- 버튼과 모달 템플릿 -->
+						<span class="right">
+							<button type="button" class="btn btn-primary"
+								onclick="openModal('${dto.userSeq}')">용량 변경</button>
 						</span>
+
+						<!-- 모달 -->
+						<div id="myModal" class="modal">
+							<div class="modal-content">
+								<span class="close" onclick="closeModal()">&times;</span>
+								<form id="capacityForm" method="POST"
+									action="/sangsangjakka/admin/dashboard/book/capacityview.do">
+									<input type="hidden" name="userSeq" id="userSeqInput" value="">
+									<label for="newCapacity">새로운 용량 입력:</label> <input
+										type="number" id="newCapacity" name="newCapacity" required>
+									<button type="submit" class="btn btn-primary">확인</button>
+								</form>
+								<!--  결과  -->
+								<div id="resultMessage"></div>
+							</div>
+						</div>
+
 
 						<table>
 							<tr>
@@ -91,7 +147,8 @@ text-align: center;
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="capacity" items="${capacityList}" varStatus="status">
+								<c:forEach var="capacity" items="${capacityList}"
+									varStatus="status">
 									<tr class="center">
 										<th>${status.count}</th>
 										<td>${capacity.bookTitle}</td>
@@ -110,7 +167,6 @@ text-align: center;
 
 					</div>
 				</div>
-
 			</div>
 			<!-- 푸터 -->
 			<%@include
@@ -118,6 +174,25 @@ text-align: center;
 
 		</div>
 	</div>
+
+	<script>
+		function openModal(userSeq) {
+			document.getElementById('userSeqInput').value = userSeq;
+			document.getElementById('myModal').style.display = 'block';
+			// 모달이 열릴 때 결과 메시지 영역을 초기화
+			document.getElementById('resultMessage').innerText = "";
+		}
+
+		function closeModal() {
+			document.getElementById('myModal').style.display = 'none';
+
+		}
+
+		// 서블릿에서 받은 결과 메시지를 모달 내에 표시
+		function displayResultMessage(message) {
+			document.getElementById('resultMessage').innerText = message;
+		}
+	</script>
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
