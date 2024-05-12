@@ -186,7 +186,7 @@
 									<td>${book.likeCnt}</td>
 									<td>${book.bookScrapCnt}</td>
 									<td>${book.bookReviewCnt}</td>
-									<td>${book.likeCnt}+${book.bookScrapCnt}+${book.bookReviewCnt}</td>
+									<td>${book.likeCnt+book.bookScrapCnt+book.bookReviewCnt}</td>
 									<td>
 									<input type="checkbox" name="selectedBooks" value="${book.bookSeq}">
 									<select name="rank_${book.bookSeq}">
