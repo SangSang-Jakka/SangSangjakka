@@ -146,6 +146,7 @@ public class UserStats extends HttpServlet{
 //	    
 //	    System.out.println("post");
 	    String year = req.getParameter("selectedValue");
+	    System.out.println("year" +year);
 	    
 	    
 	   
@@ -165,7 +166,7 @@ public class UserStats extends HttpServlet{
 
             Gson gson = new Gson();
             String jsonData = gson.toJson(jsonArray);
-            System.out.println(jsonData);
+            System.out.println("멤버변화" +jsonData);
 
             resp.setContentType("application/json");
             resp.getWriter().write(jsonData);

@@ -744,5 +744,95 @@ public class ReviewDAOImpl implements ReviewDAO{
 	    return 0;
 	}
 	
+	@Override
+	public int addLike(ReviewDTO dto) {
+		
+		final String SQL = "insert into tblReviewLike(reviewSeq, userSeq) values(?, ?)";
+		
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	    	
+	  
+	    	
+	    	pstat.setString(1, dto.getReviewSeq());
+	    	pstat.setString(2, dto.getUserSeq());
+	        
+	        int result = pstat.executeUpdate();
+	        
+	        if (result > 0) {
+	        	
+	        	return result;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.| disable");
+	        e.printStackTrace();
+	    }
+	    
+	    return 0;
 	
+	}
+
+	@Override
+	public boolean isLike(String userSeq) {
+		final String SQL = "select count(*) from tblReviewLike where userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("ReviewDAOImpl.| isLike");
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+	
+	@Override
+	public ArrayList<ReviewDTO> findLikedReviews(String userSeq) {
+
+	    final String SQL = "SELECT * FROM tblReviewLike WHERE userSeq = ?";
+	    
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL);) {
+	        
+	        pstat.setString(1, userSeq);
+	        
+	        // SQL 쿼리를 실행하고 결과 집합을 얻습니다.
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            ArrayList<ReviewDTO> list = new ArrayList<>();
+	            
+	            while (rs.next()) {
+	                ReviewDTO dto = new ReviewDTO();
+	                
+	                dto.setReviewSeq(rs.getString("reviewSeq"));
+	                dto.setUserSeq(rs.getString("userSeq"));
+	                
+	                list.add(dto);
+	            }
+	            
+	            return list;
+	        }
+	        
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.| findAllBlack");
+	        e.printStackTrace();
+	    }
+	    
+	    return null;
+	}
+
 }//End of class

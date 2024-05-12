@@ -606,12 +606,13 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 
 	    return null;
 	}
-
+	
 	@Override
 	public int del(BoardCommentDTO cmntDto) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 	
 }// End of class

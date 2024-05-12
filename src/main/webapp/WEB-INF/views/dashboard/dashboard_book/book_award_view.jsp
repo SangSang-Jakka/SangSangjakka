@@ -176,29 +176,33 @@
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="book" items="${bookList }">
+								<c:forEach var="book" items="${bookList }">
 									<tr>
-									<td>${book.bookSeq}</td>
-									<td>${book.bookTitle}</td>
-									<td>${book.userNick}</td>
-									<td>${book.bookRegdate}</td>
-									<td>${book.bookCnt}</td>
-									<td>${book.likeCnt}</td>
-									<td>${book.bookScrapCnt}</td>
-									<td>${book.bookReviewCnt}</td>
-									<td>${book.likeCnt+book.bookScrapCnt+book.bookReviewCnt}</td>
-									<td>
-									<input type="checkbox" name="selectedBooks" value="${book.bookSeq}">
-									<select name="rank_${book.bookSeq}">
-										<option value="1">1등</option>
-										<option value="2">2등</option>
-										<option value="3">3등</option>
-										<option value="4">4등</option>
-										<option value="5">5등</option>
-									</select>
-									</td>
+										<td>${book.bookSeq}</td>
+										<td>${book.bookTitle}</td>
+										<td>${book.userNick}</td>
+										<td>${book.bookRegdate}</td>
+										<td>${book.bookCnt}</td>
+										<td>${book.likeCnt}</td>
+										<td>${book.bookScrapCnt}</td>
+										<td>${book.bookReviewCnt}</td>
+										<td>${book.likeCnt+book.bookScrapCnt+book.bookReviewCnt}</td>
+
+										<td>
+											<div class="bookSelection">
+												<input type="checkbox" name="selectedBooks"
+													value="${book.bookSeq}"> <select
+													name="selectedRanks">
+													<option value="1">1등</option>
+													<option value="2">2등</option>
+													<option value="3">3등</option>
+													<option value="4">4등</option>
+													<option value="5">5등</option>
+												</select>
+											</div>
+										</td>
 									</tr>
-									</c:forEach>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
@@ -206,56 +210,66 @@
 				<!-- Simple Datatable End -->
 			</div>
 
-			<button type="button" class="btn btn-primary left" onclick="location='/sangsangjakka/admin/dashboard/book/award.do'">목록</button>
-			<span class="buttonItem"> 
-					<button type="button" class="btn btn-primary" onclick="registerSelectedBooks()">
-						수상작 등록</button>
+			<button type="button" class="btn btn-primary left"
+				onclick="location='/sangsangjakka/admin/dashboard/book/award.do'">목록</button>
+			<span class="buttonItem">
+				<button type="button" class="btn btn-primary"
+					onclick="registerSelectedBooks()">수상작 등록</button>
 			</span>
 			<!-- 푸터 -->
 			<%@include
 				file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 		</div>
 	</div>
-	</div>
-	
+
+
 	<script>
-	 function registerSelectedBooks() {
-		 var selectedBookSeqs = [];
-		 var selectedRanks = [];
-		 
-		// 체크된 동화책 번호들과 해당하는 등수를 배열에 추가
-	        var checkboxes = document.getElementsByName("selectedBooks");
-	        for (var i = 0; i < checkboxes.length; i++) {
-	            if (checkboxes[i].checked) {
-	                selectedBookSeqs.push(checkboxes[i].value);
-	                var rankSelect = document.getElementsByName("rank_" + checkboxes[i].value)[0];
-	                if (rankSelect) { // null 체크
-	                selectedRanks.push(rankSelect.value);
-	                }
-	                	
-	            }
-	        }
-	        
-	     
-	        $.ajax({
-	            type: "POST",
-	            url: "/sangsangjakka/admin/dashboard/book/awardview.do", 
-	            data: { selectedBooks: selectedBookSeqs,
-	            	 selectedRanks: selectedRanks // 선택된 동화책의 등수도 함께 전송
-	  
-	            
-	            }, 
-	            success: function(response) {
-	                // 등록 성공 시 처리
-	                alert("수상작 등록이 완료되었습니다.");
-	            },
-	            error: function(xhr, status, error) {
-	                // 등록 실패 시 처리
-	                alert("수상작 등록에 실패했습니다.");
-	            }
-	        });
-	 }
-	
+		function registerSelectedBooks() {
+			var selectedBooks = [];
+			var selectedRanks = [];
+
+			// 모든 체크박스 요소에 대해 반복
+			var checkboxes = document.getElementsByName('selectedBooks');
+			checkboxes.forEach(function(checkbox) {
+
+				if (checkbox.checked) {
+					// 체크된 도서의 값(도서 번호)과 수상 순위를 배열에 추가
+					selectedBooks.push(checkbox.value);
+					var rank = checkbox.closest('tr').querySelector(
+							'select[name="selectedRanks"]');
+					selectedRanks.push(rank.value);
+				}
+			});
+
+			// JSON 데이터 생성
+			var jsonData = {
+				selectedBooks : selectedBooks,
+				selectedRanks : selectedRanks
+
+			};
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST',
+					'/sangsangjakka/admin/dashboard/book/awardview.do', true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status === 200) {
+						// 성공적으로 처리된 경우
+						alert('수상작이 성공적으로 등록되었습니다.');
+					} else {
+
+						alert('등록 중 오류가 발생했습니다. 다시 시도해주세요.');
+
+					}
+
+				}
+
+			};
+			// JSON 데이터 전송
+			xhr.send(JSON.stringify(jsonData));
+
+		}
 	</script>
 
 	<!-- js -->

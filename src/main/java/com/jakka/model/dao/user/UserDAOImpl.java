@@ -457,7 +457,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public int saveStorage(UserDTO dto, String adId) {
 		
-		final String SQL = "UPDATE tblUser SET limitStorage = ? WHERE userId = ?";
+		final String SQL = "UPDATE tblUser SET limitStorage = ? WHERE userSeq = ?";
 		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 3)";
 		
 		try (
@@ -469,7 +469,7 @@ public class UserDAOImpl implements UserDAO{
 				conn.setAutoCommit(false);
 			
 				pstat.setString(1, dto.getLimitStorage());
-		        pstat.setString(2, dto.getUserId());
+		        pstat.setString(2, dto.getUserSeq());
 		        
 		        int result = pstat.executeUpdate();
 		        
@@ -1204,6 +1204,60 @@ public class UserDAOImpl implements UserDAO{
 		
 		return null;
 	}
+	
+	
+	
+	@Override
+	public UserDTO findByBook(String userSeq) {
+		
+		final String SQL = "SELECT u.*, COUNT(b.bookSeq) AS numBooks FROM tblUser u LEFT JOIN tblBook b ON u.userSeq = b.userSeq WHERE u.userSeq = ? GROUP BY u.userSeq, u.userId, u.userPw, u.userName, u.userNick, u.userTel, u.userAddress, u.userEmail, u.userLeftSsn, u.userRightSsn, u.userState, u.userLv, u.userRegdate, u.limitStorage";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+			){
+			
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			
+			if (rs.next()) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setNumBooks(rs.getString("numBooks"));
+				
+				
+				
+				return dto;
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("UserDAO.| get");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
 	
 	@Override
 	public String[] findGenreScore(String userSeq) {

@@ -61,32 +61,45 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <c:if test="${list.size()} == 0">
+                  <c:if test="${list.size() == 0}">🔒
                   <tr>
                   	<td colspan="5">조회할 게시물이 없습니다.</td>
                   </c:if>
                   
-                  <c:forEach items="${list}" var="dto">
-                  	<tr>
-                  		<!-- 글 번호 -->
-                  		<td>${dto.sgstSeq}</td>
-                  		<!-- 제목 -->
-                  		<td><a href="/sangsangjakka/board/suggestion/View.do?page=${dto.sgstSeq}">${dto.sgstTitle}</a></td>
-                  		<!-- 작성자 -->
-                  		<td>${dto.userNick}</td>
-                  		<!-- 등록일 -->
-                  		<td>${dto.sgstRegdate}</td>
-                  		<!-- 조회수 -->
-                  		<td>${dto.sgstCnt}</td>
-                  	</tr>	
-                  </c:forEach>
-
+                  <c:if test="${not empty list}">
+	                  <c:forEach items="${list}" var="dto">
+	                  	<tr>
+	                  		<!-- 글 번호 -->
+	                  		<td>${dto.sgstSeq}</td>
+	                  		<!-- 제목 -->
+	                  		
+	                  		<c:if test="${dto.sgstSecretYN eq 'n'}">
+	                  			<td><a href="/sangsangjakka/board/suggestion/View.do?page=${dto.sgstSeq}">${dto.sgstTitle}</a></td>
+	                  			<!-- 작성자 -->
+		                  		<td>${dto.userNick}</td>
+		                  		<!-- 등록일 -->
+		                  		<td>${dto.sgstRegdate}</td>
+		                  		<!-- 조회수 -->
+		                  		<td>${dto.sgstCnt}</td>
+		                  	</c:if>
+	                  		
+	                  		<c:if test="${dto.sgstSecretYN eq 'y'}">
+	                  			<td><a href="#!">비밀글입니다🔒</a></td>
+		                  		<!-- 작성자 -->
+		                  		<td>익명의사용자</td>
+		                  		<!-- 등록일 -->
+		                  		<td>${dto.sgstRegdate}</td>
+		                  		<!-- 조회수 -->
+		                  		<td>${dto.sgstCnt}</td>
+	                  		</c:if>
+	                  		
+	                  	</tr>	
+	                  </c:forEach>
+				  </c:if>
                   </tbody>
-                  <footer></footer>
               </table>
           </div>
       </div>
-     </div> 
      <!-- 작성 -->
 
     <form action="location.href='/sangsangjakka/board/suggestion/add.do'" method="get">

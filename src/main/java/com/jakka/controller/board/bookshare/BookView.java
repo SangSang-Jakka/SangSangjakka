@@ -48,7 +48,7 @@ public class BookView extends HttpServlet{
 	    System.out.println(bookSeq);//14
 	    
 	    BookDAO dao = DAOManager.getBookDAO();
-	    
+
 	    if (session.getAttribute("read") != null
 				&& session.getAttribute("read").toString().equals("n")) {
 			//조회수 증가
@@ -56,19 +56,43 @@ public class BookView extends HttpServlet{
 			session.setAttribute("read", "y");
 		}
 	    
+	    ReviewDAO reviewDao = DAOManager.getReviewDAO();
+	    
 	    BookDTO dto = dao.findById(bookSeq);
+	    ReviewDTO reviewDto = new ReviewDTO();
 	    
 	    boolean result = dao.isLike(bookSeq, userSeq);
 	    boolean resultScrap = dao.isScrap(bookSeq, userSeq);
 	    boolean resultReport = dao.isReport(bookSeq, userSeq);
+	    
+	    
+	    String reviewSeq = req.getParameter("reviewSeq");
+	    
+	    
+	    
+	    ArrayList<ReviewDTO> likedReviews = reviewDao.findLikedReviews(userSeq);
+	    req.setAttribute("likedReviews", likedReviews);
+
+
+	    if (likedReviews != null && !likedReviews.isEmpty()) {
+	        System.out.println("Liked reviews exist.");
+	        System.out.println(likedReviews);
+	    } else {
+	        System.out.println("Liked reviews are empty.");
+	    }
+
+	   
+	    
 		
 		System.out.println(result);
 		System.out.println("scrap" + resultScrap);
 		System.out.println("report" + resultReport);
+		//System.out.println("reviewLike" + resultReviewLike);
 		
 		req.setAttribute("result", result);
 		req.setAttribute("resultScrap", resultScrap);
 		req.setAttribute("resultReport", resultReport);
+		/* req.setAttribute("reviewLike", resultReviewLike); */
 		
 	    
 	    //게시글 조작
@@ -79,10 +103,7 @@ public class BookView extends HttpServlet{
 	    PageDAO pageDAO = DAOManager.getPageDAO();
 	    HashMap<Integer, PageDTO> pageMap = pageDAO.findPages(bookSeq);
 	    
-	    ReviewDAO reviewDao = DAOManager.getReviewDAO();
 	    
-	   
-        
         ArrayList<ReviewDTO> reviewList = reviewDao.findChildWhite(bookSeq);
         
         int reviewTotal = reviewDao.reviewTotal(bookSeq);

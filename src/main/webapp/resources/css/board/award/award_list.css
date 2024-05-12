@@ -7,6 +7,12 @@ body {
 
 }
 
+button{
+	background-color:blue;
+	width:100px;
+	height:100px;
+}
+
 
 
 .pageWrap{
@@ -80,6 +86,7 @@ button {
 .userBestSellerWrap{
 	margin-top:0;
 	margin-bottom:170px;
+	margin-left:100px;
 }
 
 .mainTitle {
@@ -659,4 +666,27 @@ ul {
 .bookWrap:hover img {
     opacity: 0.7; /* 호버됐을 때 이미지 투명도 변경 */
 }
+
+
+.bookAwardPrev button {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+
+.fa-solid, .fas {
+    font-weight: 900;
+}
+
+.fa-chevron-right{
+	margin-right:300px;
+
+}
+
+
+.rightBtn{
+	margin-right:300px;
+}
+
 

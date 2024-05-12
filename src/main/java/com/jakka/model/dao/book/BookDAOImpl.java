@@ -1359,6 +1359,62 @@ public class BookDAOImpl implements BookDAO{
 		return null;
 	}
 	
+	
+	//현재 명예의 전당 책 리스트
+	
+	@Override
+	public ArrayList<BookDTO> findNowAward() {
+		
+		final String SQL = "SELECT * FROM vwAward WHERE EXTRACT(MONTH FROM awardRegdate) = EXTRACT(MONTH FROM SYSDATE) AND awardRank BETWEEN 1 AND 5";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				dto.setBookCover(rs.getString("bookCover"));
+				dto.setBookInfo(rs.getString("bookInfo"));
+				dto.setBookModDate(rs.getString("bookModDate"));
+				dto.setBookRegdate(rs.getString("bookRegdate"));
+				dto.setBookReportCnt(rs.getString("bookReportCnt"));
+				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setBookTitle(rs.getString("bookTitle"));
+				dto.setLikeCnt(rs.getString("likeCnt"));
+				dto.setParentBookSeq(rs.getString("parentBookSeq"));
+				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
+				dto.setAwardRegdate(rs.getString("awardRegdate"));
+				dto.setAwardRank(rs.getString("awardRank"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
 	//리스트에는 수여받을 동화책번호5개, 등수, 수여한 관리자 아이디가 들어있어야함
 	@Override
 	public int presentAward(ArrayList<BookDTO> list, String adId) {
@@ -1378,13 +1434,16 @@ public class BookDAOImpl implements BookDAO{
 			for(int i = 0; i < 5; i++) {
 				
 				String bookSeq = list.get(i).getBookSeq();
+				String awardRank = list.get(i).getAwardRank();
+				
 				
 				pstat.setString(1, bookSeq);
-				pstat.setString(2, i + 1 + "");
+//				pstat.setString(2, i + 1 + "");
+				pstat.setString(2, awardRank);
 				pstat.executeUpdate();
 				
 				log.setString(1, adId);
-				log.setString(2, "'" + adId + "'이 동화책번호'" + bookSeq  + "'에게 " + (i + 1) + "등을 수여했습니다.");
+				log.setString(2, "'" + adId + "'이 동화책번호'" + bookSeq  + "'에게 " + awardRank + "등을 수여했습니다.");
 				log.setString(3, AdminLog.BookAwarded.getValue());
 				log.executeUpdate();
 				
@@ -1533,10 +1592,12 @@ public class BookDAOImpl implements BookDAO{
     			
     				
     				
+    			
     				
     				dto.setBookTitle(rs.getString("bookTitle"));
     				dto.setShareCnt(rs.getString("shareCnt"));
-    				
+    				dto.setBookInfo(rs.getString("bookInfo"));
+    				dto.setBookRegdate(rs.getString("bookRegdate"));
     				
     				
     				sharelist.add(dto);
@@ -1718,7 +1779,8 @@ public class BookDAOImpl implements BookDAO{
 		    try {
 		    	 Connection conn = DBUtil.open();
 		         PreparedStatement pstat = conn.prepareStatement(SQL);
-		         pstat.setString(1, year); // 연도 값을 설정
+		         String yearFull = "20" + year;
+		         pstat.setString(1, yearFull); // 연도 값을 설정
 
 		         ResultSet rs = pstat.executeQuery();
 
@@ -1739,5 +1801,59 @@ public class BookDAOImpl implements BookDAO{
 		     return bookResult;
 	}
 	
+	
+	// userSeq로 해당 사용자의 동화책 찾기
+	@Override
+	public ArrayList<BookDTO> findByUserSeq(String userSeq) {
+		
+		final String SQL = "select * from vwBook where userSeq = ?";
+		
+		
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+		){
+			pstat.setInt(1, Integer.parseInt(userSeq));
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            list.add(dto);
+	            
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| get");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
 	
 }//End of class

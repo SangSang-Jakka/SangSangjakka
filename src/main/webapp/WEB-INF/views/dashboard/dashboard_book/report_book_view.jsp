@@ -201,8 +201,8 @@
                                                 <td>${report.userNick}</td>
                                                 <td>${report.reportDate }</td>
                                             </tr>
-                                        </tbody>
                                         </c:forEach>
+                                        </tbody>
                                     </table>
 
 

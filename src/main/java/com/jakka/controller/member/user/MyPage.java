@@ -13,10 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.jakka.model.DAOManager;
+import com.jakka.model.dao.board.BoardCommentsDAO;
 import com.jakka.model.dao.board.BoardDAO;
+import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dao.user.UserDAO;
+import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
+import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.user.UserDTO;
 
 @WebServlet("/user/mypage.do")
@@ -41,19 +47,29 @@ public class MyPage extends HttpServlet{
 	    try {
 	    	
 	    UserDAO dao = DAOManager.getUserDAO();
-	    UserDTO dto = dao.findById(userId);
-	    req.setAttribute("dto", dto);
-	    
 	    BoardDAO boardDAO = DAOManager.getBoardDAO();
+	    BoardCommentsDAO commentsDAO = DAOManager.getBoardCommentDAO();
+	    BookDAO bookDAO = DAOManager.getBookDAO();
+	    
+	    UserDTO dto = dao.findById(userId);
+	    
 	    ArrayList<BoardDTO> list = boardDAO.findByNickBoard(userNick);
-	    req.setAttribute("list", list);
         
 	    HashMap<String, Double> tendency = dao.findTendencyScore(userSeq);
+	    
+	    ArrayList<BoardCommentDTO> comments = commentsDAO.findByNick(userNick);
+	    
+	    ArrayList<BookDTO> bookList = bookDAO.findByNick(userNick);
+	    
+	    req.setAttribute("dto", dto);
+	    req.setAttribute("list", list);
 	    req.setAttribute("tendency", tendency);
-
+	    req.setAttribute("comments", comments);
+	    req.setAttribute("bookList", bookList);
 	
 	    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/mypage.jsp");
 	    dispatcher.forward(req, resp);
+	    
 	    }catch (Exception e) {
 	        // 예외 처리
 	        e.printStackTrace();

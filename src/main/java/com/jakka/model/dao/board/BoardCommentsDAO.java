@@ -1,6 +1,7 @@
 package com.jakka.model.dao.board;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.jakka.model.dao.ActiveStatus;
 import com.jakka.model.dao.BasicDAO;
@@ -14,11 +15,12 @@ public interface BoardCommentsDAO extends BasicDAO<BoardCommentDTO>, ActiveStatu
 
 
 	   public ArrayList<BoardCommentDTO> findAllChild(String parentBoardSeq);
-	    public ArrayList<BoardCommentDTO> findAllReport();
-	    public ArrayList<BoardCommentDTO> findAllNoReport();
+	   public ArrayList<BoardCommentDTO> findAllReport();
+	   public ArrayList<BoardCommentDTO> findAllNoReport();
+	   public ArrayList<BoardCommentDTO> findByNick(String userNcik);
 
 
 	    public int add(BoardCommentDTO dto);
 		public int del(BoardCommentDTO cmntDto);
-		public ArrayList<BoardCommentDTO> findByNick(String userNick);
+
 }

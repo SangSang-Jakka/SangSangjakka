@@ -1,5 +1,6 @@
 package com.jakka.controller.dashboard.book;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,6 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.BookDAO;
@@ -43,39 +49,63 @@ public class BookAwardView extends HttpServlet {
 		HttpSession session = req.getSession();
 		String adId = (String) session.getAttribute("adId");
 
-		String[] selectedBookSeqs = req.getParameterValues("selectedBooks");
-		String[] selectedRanks = req.getParameterValues("selectedRanks"); // 수정된 부분
 		
-		BookDAO bookDAO = DAOManager.getBookDAO();
-
-		ArrayList<BookDTO> selectedBooks = new ArrayList<>();
-
-		// 선택된 동화책들에 해당하는 BookDTO 객체를 생성하여 리스트에 추가
-
-		for (int i = 0; i < selectedBookSeqs.length; i++) {
+		// 받은 JSON 데이터 파싱
+		// 받은 JSON 데이터 파싱
+        BufferedReader reader = req.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+       
+        JSONParser parser = new JSONParser();
+        
+        try {
+        	
+        	JSONObject data = (JSONObject) parser.parse(sb.toString());
 			
-		
+        	 // 선택된 도서와 수상 순위 추출
+            JSONArray selectedBooks = (JSONArray) data.get("selectedBooks");
+            JSONArray selectedRanks = (JSONArray) data.get("selectedRanks");
+        	
+            // 여기서부터 수상작 등록 등의 로직을 수행합니다.
+            // BookDAOImpl.presentAward 호출 등의 작업을 수행합니다.
+            
+            ArrayList<BookDTO> awardBooks = new ArrayList<>();
+            
+            // BookDTO 리스트
+            for (int i = 0; i < selectedBooks.size(); i++) {
+            	String bookSeq = (String) selectedBooks.get(i);
+            	String awardRank = (String) selectedRanks.get(i);
+            	
+            	BookDTO dto = new BookDTO();
+            	dto.setBookSeq(bookSeq);
+            	dto.setAwardRank(awardRank);
+            	
+            	awardBooks.add(dto);
+            	
+            }
+            
+            BookDAO bookDAO = DAOManager.getBookDAO();
+            int result = bookDAO.presentAward(awardBooks, adId);
+            
+            
+         // 응답 작성
+            resp.setContentType("text/plain");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write("Success");
+            
+		} catch (Exception e) {
+			System.out.println("BookAwardView.doPost");
+			e.printStackTrace();
 			
-		    String bookSeq = selectedBookSeqs[i];
-	        String rank = selectedRanks[i]; 
-	        
-	        BookDTO dto = bookDAO.findById(bookSeq);
-	        dto.setAwardRank(rank); // 등수 설정
-	        selectedBooks.add(dto);
-	        
-		
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("Error");
 		}
-	
 
-		// DAO 메서드를 호출하여 수상작 등록
-		int result = bookDAO.presentAward(selectedBooks, adId);
+	    
 
-		// 결과에 따른 응답 처리
-		if (result == 0) {
-			resp.getWriter().write("success");
-		} else {
-			resp.getWriter().write("failure");
-		}
 	}
 
 }// End of class

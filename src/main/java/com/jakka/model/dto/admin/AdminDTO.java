@@ -26,6 +26,24 @@ public class AdminDTO {
 	
 	
 	
+	public String getRegistrationMonth() {
+		return registrationMonth;
+	}
+	public void setRegistrationMonth(String registrationMonth) {
+		this.registrationMonth = registrationMonth;
+	}
+	public String getInflowname() {
+		return inflowname;
+	}
+	public void setInflowname(String inflowname) {
+		this.inflowname = inflowname;
+	}
+	public String getInflowCount() {
+		return inflowCount;
+	}
+	public void setInflowCount(String inflowCount) {
+		this.inflowCount = inflowCount;
+	}
 	public String getAdLogSeq() {
 		return adLogSeq;
 	}
