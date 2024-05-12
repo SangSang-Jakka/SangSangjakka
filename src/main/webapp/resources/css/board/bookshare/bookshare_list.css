@@ -171,6 +171,13 @@ section.notice {
   justify-content : flex-end;
 }
 
+.createContents {
+	width:180px;
+	height:60px;
+	overflow:hidden;
+	background-color:tomato;
+}
+
 .subItems {
   display: flex;
   flex-direction: column;

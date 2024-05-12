@@ -200,7 +200,7 @@
                             <div class="reviewControllWrap">
                            	     <c:if test="${review.userSeq == userSeq}">
 								    <button class="reviewEdit" onclick="showEditArea(${review.reviewSeq});">수정하기</button>
-								    <button class="reviewDel">삭제하기</button>
+								    <button class="reviewDel" onclick="reviewDelete(${review.reviewSeq});">삭제하기</button>
 								</c:if>
 
                             </div>
@@ -571,6 +571,43 @@
             });
 
         }
+
+
+        function reviewDelete(reviewSeq) {
+        	
+        	var bookSeq = $('input[name="bookSeq"]').val();
+        	
+        	console.log(bookSeq);
+        	
+            if (confirm("정말 삭제 하시겠습니까?") == true) {
+                // 정말 삭제하겠다고 했을 때, ajax 통신
+                $.ajax({
+                    type: "POST",
+                    url: "/sangsangjakka/board/book/del.do",
+                    data: {
+                        reviewSeq: reviewSeq,
+                        bookSeq: bookSeq
+                    },
+                    dataType: "JSON",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("AJAX", "true");
+                    },
+                    success: function(response) {
+                        if (response.code === 0) {
+                            alert(response.message);
+                            location.href = '/sangsangjakka/board/book/view.do?no=' + bookSeq;
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("AJAX 요청 중 오류가 발생했습니다: " + error);
+                    }
+                });
+            }
+        }
+
+        
 
 
 

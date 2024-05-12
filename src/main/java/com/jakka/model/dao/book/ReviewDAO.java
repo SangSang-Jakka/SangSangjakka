@@ -24,6 +24,8 @@ public interface ReviewDAO extends BasicDAO<ReviewDTO>, ReportCnt, ActiveStatus<
 
 	public ReviewDTO edit(ReviewDTO dto);
 
+	public int reviewDel(String reviewSeq);
+
 	
 
 }
