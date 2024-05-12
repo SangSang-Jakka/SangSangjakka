@@ -25,13 +25,13 @@ public class Test {
 		
 		
 		//동화책 리뷰 더미 생성
-		//createReview();
+		createReview();
 		
-		UserDAO userDAO = DAOManager.getUserDAO();
-		
-		HashMap<String, Double> map = userDAO.findTendencyScore("6");
-		
-		System.out.println(map.get("창의성 성향"));
+//		UserDAO userDAO = DAOManager.getUserDAO();
+//		
+//		HashMap<String, Double> map = userDAO.findTendencyScore("6");
+//		
+//		System.out.println(map.get("창의성 성향"));
 		
 		
     }

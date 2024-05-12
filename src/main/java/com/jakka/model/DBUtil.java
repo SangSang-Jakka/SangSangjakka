@@ -9,7 +9,7 @@ public class DBUtil {
 		
 		Connection conn = null;
 		
-		String url = "jdbc:oracle:thin:@192.168.219.100:1521:xe";
+		String url = "jdbc:oracle:thin:@3.39.49.195:1521:xe";
 		String id = "jakka";
 		String pw = "java1234";
 		
