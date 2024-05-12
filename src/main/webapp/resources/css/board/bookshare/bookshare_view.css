@@ -483,7 +483,16 @@ button.like.saveBtn:active::before {
 
 .reviewListBtn {
 	display:flex;
-	justify-content:flex-end;
+	justify-content:space-between;
+	margin-top:30px;
+}
+
+.reviewBtnWrap {
+	display: flex;
+}
+
+.reviewControllWrap {
+	display : flex;
 }
 
 .reviewLike i{
@@ -510,4 +519,14 @@ button.like.saveBtn:active::before {
 	margin-top:20px;
 	display: block;
     margin: 30px auto;
+}
+
+.reviewEditBtn {
+	display : flex;
+	justify-content:flex-end;
+	margin-top : 10px;
+}
+
+.saveReviewBtn {
+	margin-right : 10px;
 }

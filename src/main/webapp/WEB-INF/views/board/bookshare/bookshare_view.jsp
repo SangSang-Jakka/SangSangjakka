@@ -156,7 +156,8 @@
     </form>
     
    	<div class="reviewTotal">
-   		<div class="reviewCnt">전체 리뷰 27건</div>
+   		<div class="reviewCnt">전체 리뷰 ${reviewTotal}건</div>
+   		<div>${review.reviewSeq}</div>
    	</div>
    	
     <div id="reviewContainer">
@@ -166,55 +167,108 @@
                 <div class="reviewListContainer">
                     
                     <div class="reviewUserWrap">
-                    	<div class="reviewUser">
+                    <div class="reviewUser">
 	                        <i class="fa-regular fa-user"></i>
 	                        <div class="reviewNick">${review.userNick}</div>
                         </div>
                         <div class="reviewDate">${review.reviewRegdate}</div>
                     </div>
-                    <div class="reviewContents">${review.reviewContents}</div>
-                    <form action="">
+                    <div class="reviewContents" id="reviewContent_${review.reviewSeq}">${review.reviewContents}</div>
+                    
+                    
+                    <div class="reviewEditArea" id="editArea_${review.reviewSeq}" style="display: none;">
+		                
+			                <textarea name="editReviewContents" id="textarea_${review.reviewSeq}" rows="4" cols="50"  style="resize: none; width: 1250px; height: 100px; margin-top:20px; padding:15px; font-size:16px; border-radius:10px;">${review.reviewContents}</textarea>
+			                <div class="reviewEditBtn">
+			                <button class="saveReviewBtn" onclick="saveReview(${review.reviewSeq});">저장하기</button>
+			                <button class="cancelReviewBtn" onclick="cancelReview(${review.reviewSeq});">취소하기</button>
+			            	</div>
+		            	
+		            </div>
+                    
+                    <input type="hidden" name="reviewSeq" value="${review.reviewSeq}">
+
                         <div class="reviewListBtn">
-                            <div class="reviewLike">
-                                <button><i class="fa-regular fa-heart"></i></button>
+                        	<div class="reviewBtnWrap">
+	                            <div class="reviewLike">
+	                                <button><i class="fa-regular fa-heart"></i></button>
+	                            </div>
+	                            <div class="reviewReport">
+	                                <button><i class="fa-regular fa-bell"></i></button>
+	                            </div>
                             </div>
-                            <div class="reviewReport">
-                                <button><i class="fa-regular fa-bell"></i></button>
+                            <div class="reviewControllWrap">
+                           	     <c:if test="${review.userSeq == userSeq}">
+								    <button class="reviewEdit" onclick="showEditArea(${review.reviewSeq});">수정하기</button>
+								    <button class="reviewDel">삭제하기</button>
+								</c:if>
+
                             </div>
+                            
                         </div>
-                    </form>
+
                 </div>
+                
             </div>
         </c:forEach>
         
+        
+        
          <!-- 나머지 리뷰는 display:none으로 숨김 -->
             <c:forEach items="${reviewList}" var="review" begin="5">
-                 <div class="reviewListWrap hidden">
-                <div class="reviewListContainer">       
+                             <div class="reviewListWrap">
+                <div class="reviewListContainer">
+                    
                     <div class="reviewUserWrap">
-                    	<div class="reviewUser">
+                    <div class="reviewUser">
 	                        <i class="fa-regular fa-user"></i>
 	                        <div class="reviewNick">${review.userNick}</div>
                         </div>
                         <div class="reviewDate">${review.reviewRegdate}</div>
                     </div>
                     <div class="reviewContents">${review.reviewContents}</div>
-                    <form action="">
+                    
+                    
+                    <div class="reviewEditArea" id="editArea_${review.reviewSeq}" style="display: none;">
+		                
+			                <textarea name="editReviewContents" id="textarea_${review.reviewSeq}" rows="4" cols="50"  style="resize: none; width: 1250px; height: 100px; margin-top:20px; padding:15px; font-size:16px; border-radius:10px;">${review.reviewContents}</textarea>
+			                <div class="reviewEditBtn">
+			                <button class="saveReviewBtn" onclick="saveReview(${review.reviewSeq});">저장하기</button>
+			                <button class="cancelReviewBtn" onclick="cancelReview(${review.reviewSeq});">취소하기</button>
+			            	</div>
+		            	
+		            </div>
+                    
+                    <input type="hidden" name="reviewSeq" value="${review.reviewSeq}">
+
                         <div class="reviewListBtn">
-                            <div class="reviewLike">
-                                <button><i class="fa-regular fa-heart"></i></button>
+                        	<div class="reviewBtnWrap">
+	                            <div class="reviewLike">
+	                                <button><i class="fa-regular fa-heart"></i></button>
+	                            </div>
+	                            <div class="reviewReport">
+	                                <button><i class="fa-regular fa-bell"></i></button>
+	                            </div>
                             </div>
-                            <div class="reviewReport">
-                                <button><i class="fa-regular fa-bell"></i></button>
+                            <div class="reviewControllWrap">
+                           	     <c:if test="${review.userSeq == userSeq}">
+								    <button class="reviewEdit" onclick="showEditArea(${review.reviewSeq});">수정하기</button>
+								    <button class="reviewDel">삭제하기</button>
+								</c:if>
+
                             </div>
+                            
                         </div>
-                    </form>
+
                 </div>
+                
             </div>
             </c:forEach>
     </div>
 
     <button id="showMoreBtn">더보기</button>
+    
+    <input type="hidden" name="seq" value="${seq}" >
    	
      </section>
     
@@ -435,6 +489,93 @@
             });
         });
 
+        
+        
+        function showEditArea(reviewSeq) {
+            // 해당 ID를 가진 요소를 찾습니다.
+            var editArea = $('#editArea_' + reviewSeq);
+            
+            // 요소가 존재하는지 확인합니다.
+            if (editArea.length > 0) {
+                // 요소가 존재하면 부드럽게 펼쳐집니다.
+                editArea.slideDown('slow');
+                $('.reviewEdit').hide();
+                $('.reviewDel').hide();
+            } else {
+                console.error('요소를 찾을 수 없습니다: editArea_' + reviewSeq);
+            }
+        }
+
+        
+        function cancelReview(reviewSeq) {
+            // 해당 ID를 가진 요소를 찾습니다.
+            var editArea = $('#editArea_' + reviewSeq);
+            
+            // 요소가 존재하는지 확인합니다.
+            if (editArea.length > 0) {
+                // 요소가 존재하면 부드럽게 숨깁니다.
+                editArea.slideUp('slow');
+                $('.reviewEdit').show();
+                $('.reviewDel').show();
+            } else {
+                console.error('요소를 찾을 수 없습니다: editArea_' + reviewSeq);
+            }
+        }
+
+        	
+        
+        function saveReview(reviewSeq) {
+            // 리뷰 내용을 가져옵니다.
+            var reviewContents = $('#textarea_' + reviewSeq).val();
+            // 책 일련번호를 가져옵니다.
+            var bookSeq = $('input[name="bookSeq"]').val();
+
+            // POST 요청을 보낼 URL을 지정합니다.
+            var url = '/sangsangjakka/board/book/edit.do';
+
+            // POST 요청을 위한 데이터를 구성합니다.
+            var editReview = {
+                editReviewContents: reviewContents,
+                reviewSeq: reviewSeq,
+                bookSeq: bookSeq // 책 일련번호를 추가합니다.
+            };
+
+            // jQuery AJAX를 사용하여 POST 요청을 보냅니다.
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: editReview,
+                success: function(response) {
+                    // 서버로부터 받은 JSON 데이터를 파싱합니다.
+                    var updatedReviewContents = response.reviewContents;
+                    
+                    console.log(updatedReviewContents);
+
+                    // 해당 리뷰의 DOM 요소를 선택하고, 텍스트 내용을 업데이트된 리뷰 내용으로 변경합니다.
+                    var reviewContentElement = $('#reviewContent_' + reviewSeq);
+
+				    // 해당 리뷰의 내용을 업데이트합니다.
+				    reviewContentElement.text(updatedReviewContents);
+
+                    // 리뷰 편집 영역을 부드럽게 숨깁니다.
+                    $('#editArea_' + reviewSeq).slideUp('slow', function() {
+                        $(this).hide();
+                    });
+
+                    console.log('리뷰가 성공적으로 저장되었습니다.');
+                },
+                error: function(xhr, status, error) {
+                    // 오류 처리
+                    console.error('리뷰 저장 중 오류가 발생했습니다:', error);
+                }
+            });
+
+        }
+
+
+
+
+        
         
     </script>
 

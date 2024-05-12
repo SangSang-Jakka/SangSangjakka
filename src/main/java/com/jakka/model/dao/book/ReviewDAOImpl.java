@@ -679,4 +679,42 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return 0;
 	}
 	
+	@Override
+	public ReviewDTO edit(ReviewDTO dto) {
+	    final String UPDATE_SQL = "update tblReview set reviewContents = ? where ReviewSeq = ?";
+	    final String SELECT_SQL = "select reviewContents from tblReview where ReviewSeq = ?";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement updatePstat = conn.prepareStatement(UPDATE_SQL);
+	        PreparedStatement selectPstat = conn.prepareStatement(SELECT_SQL);
+	    ) {
+	        // UPDATE 쿼리 실행
+	        updatePstat.setString(1, dto.getReviewContents());
+	        updatePstat.setString(2, dto.getReviewSeq());
+	        int result = updatePstat.executeUpdate();
+	        System.out.println("Update result: " + result);
+
+	        // 변경된 내용 확인을 위한 SELECT 쿼리 실행
+	        selectPstat.setString(1, dto.getReviewSeq());
+	        ResultSet resultSet = selectPstat.executeQuery();
+	        if (resultSet.next()) {
+	            String updatedContents = resultSet.getString("reviewContents");
+	            System.out.println("Updated contents: " + updatedContents);
+	            // 변경된 내용을 ReviewDTO 객체에 설정
+	            dto.setReviewContents(updatedContents);
+	        }
+
+	        // 수정된 ReviewDTO 객체 반환
+	        return dto;
+	    } catch (Exception e) {
+	        System.out.println("Exception occurred: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    // 예외 발생 시 null 반환
+	    return null;
+	}
+
+	
 }//End of class
