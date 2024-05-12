@@ -54,7 +54,7 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	public int getPageCount();
 	public  Map<String, Integer> makeBook(String month);
 
-	
+	public ArrayList<BookDTO> findByUserSeq(String userSeq);
 
 	
 }//End of interface

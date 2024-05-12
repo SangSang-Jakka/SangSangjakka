@@ -1799,4 +1799,58 @@ public class BookDAOImpl implements BookDAO{
 	}
 	
 	
+	// userSeq로 해당 사용자의 동화책 찾기
+	@Override
+	public ArrayList<BookDTO> findByUserSeq(String userSeq) {
+		
+		final String SQL = "select * from vwBook where userSeq = ?";
+		
+		
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+		){
+			pstat.setInt(1, Integer.parseInt(userSeq));
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            list.add(dto);
+	            
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| get");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
 }//End of class
