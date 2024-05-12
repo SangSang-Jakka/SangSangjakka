@@ -34,12 +34,12 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 
 		final String SQL = "insert into tblBoardComments (cmntSeq, userSeq, boardSeq, cmntContents, cmntRegdate) values((SELECT NVL(MAX(cmntSeq), 0) + 1 FROM tblBoardComments), ?, ?, ?, default)";
 		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
-		
-		 if (dto.getCmntContents() == null || dto.getCmntContents().trim().isEmpty()) {
-			    // cmntContents 값이 null이거나 빈 문자열인 경우 예외 처리
-			    throw new IllegalArgumentException("댓글 내용을 입력해주세요.");
-			  }
-		 
+
+		if (dto.getCmntContents() == null || dto.getCmntContents().trim().isEmpty()) {
+			// cmntContents 값이 null이거나 빈 문자열인 경우 예외 처리
+			throw new IllegalArgumentException("댓글 내용을 입력해주세요.");
+		}
+
 		try (
 
 				Connection conn = DBUtil.open();
@@ -50,10 +50,10 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 			pstat.setString(1, dto.getUserSeq());
 			pstat.setString(2, dto.getBoardSeq());
 			pstat.setString(3, dto.getCmntContents());
-	
+
 			System.out.println("add메서드 안에서 getBoardSeq 확인 : " + dto.getBoardSeq());
 			System.out.println("add메서드 안에서 getCmntContents 확인 : " + dto.getCmntContents());
-			
+
 			int result = pstat.executeUpdate();
 
 			if (result > 0) {
@@ -86,7 +86,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
 
-		) {
+				) {
 
 			pstat.setString(1, cmntSeq);
 
@@ -127,7 +127,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				Statement stat = conn.createStatement();
 				ResultSet rs = stat.executeQuery(SQL);
 
-		) {
+				) {
 
 			ArrayList<BoardCommentDTO> list = new ArrayList<>();
 
@@ -168,7 +168,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				Statement stat = conn.createStatement();
 				ResultSet rs = stat.executeQuery(SQL);
 
-		) {
+				) {
 
 			ArrayList<BoardCommentDTO> list = new ArrayList<>();
 
@@ -242,16 +242,16 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
 
-		) {
+				) {
 
 			pstat.setString(1, parentBoardSeq);
-			
+
 			ResultSet rs = pstat.executeQuery();
-			
+
 			ArrayList<BoardCommentDTO> list = new ArrayList<>();
 			System.out.println("findChild의 list : " + list);	// 나올리가 없음
 			while (rs.next()) {
-				
+
 				BoardCommentDTO dto = new BoardCommentDTO();
 
 				dto.setBoardSeq(rs.getString("boardSeq"));
@@ -282,40 +282,48 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 	@Override
 	// 댓글 내용 수정
 	public int save(BoardCommentDTO dto) {
-
-		final String SQL = "update tblBoardComments set cmntContents = ? where cmntSeq = ?";
-		final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		final String SQL = "UPDATE tblBoardComments SET cmntContents = ? WHERE cmntSeq = ?";
+		final String CSQL = "UPDATE tblBoardCommentsWhiteList tblBoardCommentsWhiteList SET cmntContents = ? WHERE cmntSeq = ?";
+		//	       final String LOGSQL = "INSERT INTO tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) VALUES((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), DEFAULT, ?, ?, ?)";
 
 		try (
-
 				Connection conn = DBUtil.open();
+				PreparedStatement pstmt = conn.prepareStatement(CSQL);
 				PreparedStatement pstat = conn.prepareStatement(SQL);
-				PreparedStatement log = conn.prepareStatement(LOGSQL);) {
+				//	           PreparedStatement log = conn.prepareStatement(LOGSQL);
+				) {
 			conn.setAutoCommit(false);
 
-			pstat.setString(1, dto.getCmntContents());
+			String cmntContents = dto.getCmntContents();
+			if (cmntContents == null || cmntContents.trim().isEmpty()) {
+				// 빈 문자열이나 null 값인 경우, 수정하지 않음
+				return 0;
+			}
+
+			pstmt.setString(1, cmntContents);
+			pstmt.setString(2, dto.getCmntSeq());
+
+			pstat.setString(1, cmntContents);
+			pstat.setString(2, dto.getCmntSeq());
 
 			int result = pstat.executeUpdate();
 
-			if (result > 0) {
-				log.setString(1, dto.getUserSeq());
-				log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBoardSeq() + "' 글번호'"
-						+ dto.getCmntSeq() + "' 글내용'" + dto.getCmntContents() + "'에 자유게시판 댓글을 '수정'했습니다.");
-				log.setString(3, UserLog.BoardCommentEdited.getValue());
-				log.executeUpdate();
-			}
+			//	           if (result > 0) {
+			//	               log.setString(1, dto.getUserSeq());
+			//	               log.setString(2, "사용자번호'" + dto.getUserSeq() + "'이 부모글번호'" + dto.getBoardSeq() + "' 글번호'" + dto.getCmntSeq() + "' 글내용'" + dto.getCmntContents() + "'에 자유게시판 댓글을 '수정'했습니다.");
+			//	               log.setString(3, UserLog.BoardCommentEdited.getValue());
+			//	               log.executeUpdate();
+			//	           }
 
 			conn.commit();
-
 			return result;
-
 		} catch (Exception e) {
 			System.out.println("BoardCommentDAO.| set");
 			e.printStackTrace();
 		}
-
 		return 0;
 	}
+
 
 	// 신고횟수 증가
 	public int addReportCnt(String cmntSeq, String userSeq) {
@@ -365,7 +373,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				PreparedStatement pstat = conn.prepareStatement(SQL);
 				PreparedStatement log = conn.prepareStatement(LOGSQL);
 
-		) {
+				) {
 			conn.setAutoCommit(false);
 
 			pstat.setString(1, cmntSeq);
@@ -459,7 +467,7 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 				Connection conn = DBUtil.open();
 				PreparedStatement pstat = conn.prepareStatement(SQL);
 
-		) {
+				) {
 
 			pstat.setString(1, parentBoardSeq);
 
@@ -567,52 +575,88 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public ArrayList<BoardCommentDTO> findByNick(String userNick) {
-	    final String SQL = "select * from vwBoardCommentsWhite where userNick = ? order by cmntRegdate desc";
-	    ArrayList<BoardCommentDTO> list = new ArrayList<>();
+		final String SQL = "select * from vwBoardCommentsWhite where userNick = ? order by cmntRegdate desc";
+		ArrayList<BoardCommentDTO> list = new ArrayList<>();
 
-	    try (
-	        Connection conn = DBUtil.open();
-	        PreparedStatement pstat = conn.prepareStatement(SQL);
-	    ) {
-	        pstat.setString(1, userNick);
-	        ResultSet rs = pstat.executeQuery();
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(SQL);
+				) {
+			pstat.setString(1, userNick);
+			ResultSet rs = pstat.executeQuery();
 
-	        int count = 0;
-	        while (rs.next() && count < 10) {
-	            BoardCommentDTO dto = new BoardCommentDTO();
-	            dto.setBoardSeq(rs.getString("boardSeq"));
-	            dto.setCmntContents(rs.getString("cmntContents"));
-	            dto.setCmntRegdate(rs.getString("cmntRegdate"));
-	            dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
-	            dto.setCmntSeq(rs.getString("cmntSeq"));
-	            dto.setUserSeq(rs.getString("userSeq"));
-	            dto.setUserNick(rs.getString("userNick"));
-	            list.add(dto);
-	            count++;
-	        }
+			int count = 0;
+			while (rs.next() && count < 10) {
+				BoardCommentDTO dto = new BoardCommentDTO();
+				dto.setBoardSeq(rs.getString("boardSeq"));
+				dto.setCmntContents(rs.getString("cmntContents"));
+				dto.setCmntRegdate(rs.getString("cmntRegdate"));
+				dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
+				dto.setCmntSeq(rs.getString("cmntSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				list.add(dto);
+				count++;
+			}
 
-	        
-	        rs.close();
-	        
-	        return list;
 
-	    } catch (Exception e) {
-	        System.out.println("BoardCommentsDAO.| findBySeq");
-	        e.printStackTrace();
-	    }
+			rs.close();
 
-	    return null;
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("BoardCommentsDAO.| findBySeq");
+			e.printStackTrace();
+		}
+
+		return null;
 	}
-	
+
 	@Override
-	public int del(BoardCommentDTO cmntDto) {
-		// TODO Auto-generated method stub
+	// 댓글 삭제
+	public int del(BoardCommentDTO dto) {
+		final String SQL = "delete from tblBoardComments where cmntSeq = ?";
+		final String CSQL = "delete from tblBoardCommentsWhiteList where cmntSeq = ?";
+		//	       final String LOGSQL = "insert into tblUserLog(userLogSeq, userLogDate, userSeq, userLogContents, userCatSeq) values((SELECT NVL(MAX(userLogSeq), 0) + 1 FROM tblUserLog), default, ?, ?, ?)";
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement pstat = conn.prepareStatement(CSQL);
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				//	           PreparedStatement log = conn.prepareStatement(LOGSQL);
+				) {
+			conn.setAutoCommit(false);
+			// 먼저 참조하는 테이블의 데이터를 삭제
+			pstat.setString(1, dto.getCmntSeq());
+			int result = pstat.executeUpdate();
+
+			// 참조되는 테이블의 데이터를 삭제
+			if (result > 0) {
+				pstmt.setString(1, dto.getCmntSeq());
+				result = pstmt.executeUpdate(); // 결과 업데이트
+			}
+
+			// 로그 기록
+			//	           if (result > 0) {
+			//	               log.setString(1, dto.getUserSeq());
+			//	               log.setString(2, "사용자번호 '" + dto.getUserSeq() + "'이 부모글번호 '" + dto.getBoardSeq() + "' 글번호 '"
+			//	                       + dto.getCmntSeq() + "' 글내용 '" + dto.getCmntContents() + "'에 자유게시판 댓글을 '삭제'했습니다.");
+			//	               log.setString(3, UserLog.BoardCommentDeleted.getValue());
+			//	               log.executeUpdate();
+			//	           }
+
+			conn.commit();
+			return result;
+		} catch (Exception e) {
+			System.out.println("BoardCommentDAO.del");
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
 
-	
+
+
 }// End of class

@@ -131,7 +131,7 @@
 		
 
 		function redirectTo(orderBy) {
-		    window.location.href = "http://localhost:8090/sangsangjakka/board/freeboard/list.do?orderBy=" + orderBy;
+		    window.location.href = "http://localhost:8080/sangsangjakka/board/freeboard/list.do?orderBy=" + orderBy;
 		}
 
 
