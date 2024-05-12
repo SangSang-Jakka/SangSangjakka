@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.jakka.model.DBUtil;
 import com.jakka.model.dto.board.BoardCommentDTO;
@@ -564,6 +566,51 @@ public class BoardCommentsDAOImpl implements BoardCommentsDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public ArrayList<BoardCommentDTO> findByNick(String userNick) {
+	    final String SQL = "select * from vwBoardCommentsWhite where userNick = ? order by cmntRegdate desc";
+	    ArrayList<BoardCommentDTO> list = new ArrayList<>();
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, userNick);
+	        ResultSet rs = pstat.executeQuery();
+
+	        int count = 0;
+	        while (rs.next() && count < 10) {
+	            BoardCommentDTO dto = new BoardCommentDTO();
+	            dto.setBoardSeq(rs.getString("boardSeq"));
+	            dto.setCmntContents(rs.getString("cmntContents"));
+	            dto.setCmntRegdate(rs.getString("cmntRegdate"));
+	            dto.setCmntReportCnt(rs.getString("cmntReportCnt"));
+	            dto.setCmntSeq(rs.getString("cmntSeq"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            list.add(dto);
+	            count++;
+	        }
+
+	        
+	        rs.close();
+	        
+	        return list;
+
+	    } catch (Exception e) {
+	        System.out.println("BoardCommentsDAO.| findBySeq");
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
+
+	@Override
+	public int del(BoardCommentDTO cmntDto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

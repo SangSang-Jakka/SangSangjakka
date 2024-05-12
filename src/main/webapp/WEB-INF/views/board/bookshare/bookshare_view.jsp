@@ -190,8 +190,12 @@
 
                         <div class="reviewListBtn">
                         	<div class="reviewBtnWrap">
-	                            <div class="reviewLike">
-	                                <button><i class="fa-regular fa-heart"></i></button>
+	                            <div class="reviewLike">							
+									  									             
+									   <button class="reviewLikeBtn_${review.reviewSeq}" onclick="reviewLike(${review.reviewSeq})">
+									         <i class="fa-regular fa-heart"></i>
+									    </button>
+
 	                            </div>
 	                            <div class="reviewReport">
 	                                <button><i class="fa-regular fa-bell"></i></button>
@@ -216,7 +220,7 @@
         
          <!-- 나머지 리뷰는 display:none으로 숨김 -->
             <c:forEach items="${reviewList}" var="review" begin="5">
-                             <div class="reviewListWrap">
+               <div class="reviewListWrap">
                 <div class="reviewListContainer">
                     
                     <div class="reviewUserWrap">
@@ -226,7 +230,7 @@
                         </div>
                         <div class="reviewDate">${review.reviewRegdate}</div>
                     </div>
-                    <div class="reviewContents">${review.reviewContents}</div>
+                    <div class="reviewContents" id="reviewContent_${review.reviewSeq}">${review.reviewContents}</div>
                     
                     
                     <div class="reviewEditArea" id="editArea_${review.reviewSeq}" style="display: none;">
@@ -244,7 +248,14 @@
                         <div class="reviewListBtn">
                         	<div class="reviewBtnWrap">
 	                            <div class="reviewLike">
-	                                <button><i class="fa-regular fa-heart"></i></button>
+	                            
+								
+	                                <button class="reviewLikeBtn_${review.reviewSeq}" onclick="reviewLike(${review.reviewSeq})">
+									    <i class="fa-regular fa-heart"></i>
+									</button> 
+								
+								
+								
 	                            </div>
 	                            <div class="reviewReport">
 	                                <button><i class="fa-regular fa-bell"></i></button>
@@ -253,7 +264,7 @@
                             <div class="reviewControllWrap">
                            	     <c:if test="${review.userSeq == userSeq}">
 								    <button class="reviewEdit" onclick="showEditArea(${review.reviewSeq});">수정하기</button>
-								    <button class="reviewDel">삭제하기</button>
+								    <button class="reviewDel" onclick="reviewDelete(${review.reviewSeq});">삭제하기</button>
 								</c:if>
 
                             </div>
@@ -607,13 +618,39 @@
             }
         }
 
-        
-
-
-
 
         
-        
+
+        function reviewLike(reviewSeq) {
+        	
+            $.ajax({
+                type: "POST",
+                url: "/sangsangjakka/board/review/like.do",
+                data: { reviewSeq: reviewSeq },
+                success: function(response) {
+                    if (response === "success") {
+                        // 성공적으로 update 되었을 때
+                        console.log("성공");
+                        
+                        var icon = $('.reviewLikeBtn_' + reviewSeq + ' i');  /* "reviewLikeBtn_${review.reviewSeq}" */
+                        icon.remove(); // 기존의 하트 아이콘 삭제
+                        $('.reviewLikeBtn_' + reviewSeq).append('<i class="fa-solid fa-heart heart"></i>'); // 새로운 하트 아이콘 추가
+
+                        
+                    } else {
+                        // 실패했을 때
+                        alert("좋아요 등록에 실패하였습니다.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+
+
+
     </script>
 
 </body>

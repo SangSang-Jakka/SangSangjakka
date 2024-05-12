@@ -9,6 +9,7 @@ public enum UserLog {
 	BoardEdited("5"),         // 자유게시판 글수정
 	BoardReported("6"),       // 자유게시판 글 신고누적
 	BoardCommentCreated("7"),     // 자유게시판 댓글 작성
+	BoardCommentDeleted("8"),	// 자유게시판 댓글 삭제
 	BoardCommentEdited("9"),      // 자유게시판 댓글 수정
 	BoardCommentReported("10"),   // 자유게시판 댓글 신고누적
 	BookCreated("11"),             // 동화책 공유 등록
