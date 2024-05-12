@@ -41,6 +41,7 @@ public class Dashboard extends HttpServlet {
 		// String year = selectedMonth.substring(0, 4);
 		 //System.out.println("년도만!?" + year);
 		 String year = req.getParameter("year");
+		 //year = "20" + year;
 		 System.out.println("이 값 뭐냐 : " + year);
 		
 		 
@@ -59,23 +60,42 @@ public class Dashboard extends HttpServlet {
 
 			 System.out.println("북 만든 수 " + makeBook);
 			 
-			 JsonObject bookData = new JsonObject();
-			    JsonArray monthYears = new JsonArray();
-			    JsonArray bookCounts = new JsonArray();
+//			 JsonObject bookData = new JsonObject();
+//			    JsonArray monthYears = new JsonArray();
+//			    JsonArray bookCounts = new JsonArray();
+//
+//			    // Map 데이터를 JsonObject로 변환
+//			    for (Map.Entry<String, Integer> entry : makeBook.entrySet()) {
+//			        String monthYear = entry.getKey();
+//			        int bookCount = entry.getValue();
+//
+//			        // monthYear와 bookCount를 JsonArray에 추가
+//			        monthYears.add(monthYear);
+//			        bookCounts.add(bookCount);
+//			    }
+//
+//			    // JsonObject에 JsonArray 추가
+//			    bookData.add("monthYears", monthYears);
+//			    bookData.add("bookCounts", bookCounts);
+//			    
+			    
+			 JsonArray bookData = new JsonArray();
 
-			    // Map 데이터를 JsonObject로 변환
-			    for (Map.Entry<String, Integer> entry : makeBook.entrySet()) {
-			        String monthYear = entry.getKey();
-			        int bookCount = entry.getValue();
+			 for (Map.Entry<String, Integer> entry : makeBook.entrySet()) {
+			     JsonObject monthData = new JsonObject();
+			     monthData.addProperty("monthYear", entry.getKey());
+			     monthData.addProperty("bookCount", entry.getValue());
+			     bookData.add(monthData);
+			 }
 
-			        // monthYear와 bookCount를 JsonArray에 추가
-			        monthYears.add(monthYear);
-			        bookCounts.add(bookCount);
-			    }
+			 // 만들어진 JSON 배열을 JsonObject에 추가
+			// JsonObject bookDataObject = new JsonObject();
+			// bookDataObject.add("bookData", bookData);
 
-			    // JsonObject에 JsonArray 추가
-			    bookData.add("monthYears", monthYears);
-			    bookData.add("bookCounts", bookCounts);
+			 // Gson을 사용하여 JSON 문자열로 변환
+			 Gson gson = new Gson();
+			 String jsonmakeBookData = gson.toJson(bookData);
+			    
 			    
 			    //Gson gson = new Gson();
 			    //String jsonmakeBookData = gson.toJson(bookData);
@@ -83,9 +103,8 @@ public class Dashboard extends HttpServlet {
 			    //String jsonmakeBookData = "<script>var chartData = " + jsonmakeBookData + ";</script>";
 				
 			    
-			    Gson gson = new Gson();
-		        String jsonmakeBookData = gson.toJson(bookData);
-		        System.out.println(jsonmakeBookData);
+			    
+		       // System.out.println(jsonmakeBookData);
 
 		        
 				
@@ -102,7 +121,10 @@ public class Dashboard extends HttpServlet {
 		resp.getWriter().write(json);
 		//resp.getWriter().write(currentjson);
 		
-        resp.getWriter().write(jsonmakeBookData);
+		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
+		resp.getWriter().write(jsonmakeBookData);
+       
 		
 		
 		 

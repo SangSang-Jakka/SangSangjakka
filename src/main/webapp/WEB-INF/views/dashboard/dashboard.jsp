@@ -323,72 +323,7 @@ var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 </script>
 
-<!-- <script> -->
-// function sendSelectedOptionValues(selectElement) {
-//     var selectedYear = selectElement.value; // 선택된 연도 값
 
-//     // 선택된 연도를 서버로 전송하여 차트 다시 렌더링
-//     renderChart(selectedYear);
-// }
-
-// var currentYear = new Date().getFullYear();
-// var currentYearShort = currentYear.toString().slice(-2);
-// console.log(currentYearShort);
-
-// $("#yearSelect2").val(currentYearShort);
-// // 현재 연도 차트 초기 렌더링
-// renderChart(currentYear.toString());
-
-// function renderChart(year) {
-//   $.ajax({
-//     type: "POST",
-//     url: "/sangsangjakka/admin/dashboard.do",
-//     data: { selectedValue: year },
-//     success: function(response) {
-//         console.log('으잉:', response);
-
-//         var labels = []; // 월별 라벨
-//         var bookData = []; // 월별 도서 수
-
-//         // JSON 데이터 파싱
-//         for (var i = 0; i < response.monthYears.length; i++) {
-//             var monthYear = response.monthYears[i];
-//             labels.push(monthYear);
-//             var bookCount = response.bookCounts[i];
-//             bookData.push(bookCount);
-//         }
-
-//         var context = document.getElementById('lineChart').getContext('2d');
-//         if (window.myChart) {
-//             window.myChart.destroy(); // 기존 차트 제거
-//         }
-
-//         window.myChart = new Chart(context, { 
-//             type: 'line',
-//             data: {
-//                 labels: labels, // labels에 월별 라벨 추가
-//                 datasets: [{ 
-//                     data: bookData, // bookData에 월별 도서 수 추가
-//                     label: "Book Counts",
-//                     borderColor: "#3e95cd",
-//                     fill: false
-//                 }]
-//             },
-//             options: {
-//                 title: {
-//                     display: true,
-//                     text: 'Monthly Book Counts'
-//                 }
-//             }
-//         });
-//     },
-//     error: function(xhr, status, error) {
-//       console.error('AJAX request error:', error);
-//     }
-//   });
-// }
-
-<!-- </script> -->
 
 </body>
 </html>

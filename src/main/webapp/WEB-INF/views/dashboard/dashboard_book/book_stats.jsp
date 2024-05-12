@@ -218,30 +218,75 @@ function renderData(selectedMonth) {
   
 
 <script>
-// 현재 연도 가져오기
-var currentYear = new Date().getFullYear();
-var currentYearShort = currentYear.toString().slice(-2);
-console.log(currentYearShort);
-console.log("이거 뭐지" , currentYear);
 
-$("#yearSelect").val(currentYearShort);
-// 현재 연도 차트 초기 렌더링
-renderChart(currentYear);
 
-resp.setContentType("application/json");
-resp.getWriter().write(jsonmakeBookData);
 
+// //현재 연도 가져오기
+// var currentYear = new Date().getFullYear();
+// var currentYearShort = currentYear.toString().slice(-2);
+// console.log(currentYearShort);
+
+// // $("#yearSelect").val(currentYearShort);
+// // //현재 연도 차트 초기 렌더링
+// // renderChart(currentYearShort);
+// // console.log( '이거 뭐야? ', currentYear.toString()); //2024
+// function renderChart(year) {
+// $.ajax({
+//  type: "POST",
+//  url: "/sangsangjakka/admin/dashboard.do",
+//  data: { year: year },
+//  success: function(response) {
+//      console.log('Server response:', response);
+
+    
+//    },
+//    error: function(xhr, status, error) {
+//      console.error('AJAX request error:', error);
+//    }
+//  });
+// }
+
+// function sendSelectedOptionValue(selectElement) {
+// var selectedOption = selectElement.options[selectElement.selectedIndex];
+// if (selectedOption) {
+//  var selectedValue = selectedOption.value;
+//  console.log(selectedValue);
+//  renderChart(selectedValue);
+// } else {
+//  console.log('No option selected');
+// }
+// }
+<!-- </script> -->
+
+
+<script>
 function sendSelectedOptionValue(selectElement) {
     var selectedOption = selectElement.options[selectElement.selectedIndex];
     if (selectedOption) {
         var selectedValue = selectedOption.value;
-        console.log(selectedValue);
-        renderChart(selectedValue);
+        console.log("선택된 연도:", selectedValue);
+
+        // AJAX 요청 보내기
+        $.ajax({
+            type: "POST", // 또는 GET, 원하는 HTTP 메서드를 사용할 수 있습니다.
+            url: "/sangsangjakka/admin/dashboard.do", // 서버의 엔드포인트 URL을 지정하세요.
+            data: { year: selectedValue }, // 선택된 연도를 데이터로 보냅니다.
+            success: function(response) {
+                console.log("서버 응답:", response);
+
+                // 응답 데이터를 처리하는 추가 로직을 여기에 작성하세요.
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX 요청 오류:", error);
+            }
+        });
     } else {
-        console.log('No option selected');
+        console.log("선택된 옵션이 없습니다.");
     }
 }
+
 </script>
+
 
 
 <script>
@@ -252,5 +297,7 @@ var options = getBarChartOptions();
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 </script>
+
+
 	</body>
 </html>
