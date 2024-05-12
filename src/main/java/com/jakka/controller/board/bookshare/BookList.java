@@ -29,13 +29,13 @@ public class BookList extends HttpServlet{
 		
 		int nowPage = 0;	//현재 페이지 번호
 		int totalCount = 0;	//총 게시물 수
-		int pageSize = 10;	//한 페이지에서 출력할 게시물 수
+		int pageSize = 9;	//한 페이지에서 출력할 게시물 수
 		int totalPage = 0;	//총 페이지 수
 		int begin = 0;		//페이징 시작 위치
 		int end = 0;		//페이지 끝 위치
 		int n = 0;			
 		int loop = 0;
-		int blockSize = 10;	//페이지 개수
+		int blockSize = 9;	//페이지 개수
 		
 		if (page == null || page.equals("")) {
 			nowPage = 1;
@@ -118,10 +118,10 @@ public class BookList extends HttpServlet{
 		
 		//이전 10페이지
 		if(n == 1) {
-			builder.append(String.format(" <a href='#!'>[이전 %d페이지]</a> ",blockSize));
+			builder.append(String.format(" <a href='#!'>[이전 페이지]</a> ",blockSize));
 				
 		} else {
-			builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a> ", n - 1, column != null ? column : "", word != null ? word : "", blockSize));
+			builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>[이전 페이지]</a> ", n - 1, column != null ? column : "", word != null ? word : "", blockSize));
 		}
 		
 		while (!(loop > blockSize || n > totalPage)) {
@@ -138,9 +138,9 @@ public class BookList extends HttpServlet{
 		
 		//다음 10페이지
 		if(n >= totalPage) {
-			builder.append(String.format(" <a href='#!'>[다음 %d페이지]</a> ", blockSize));
+			builder.append(String.format(" <a href='#!'>[다음 페이지]</a> ", blockSize));
 		}else {
-			builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a> ", n, column != null ? column : "", word != null ? word : "", blockSize));
+			builder.append(String.format(" <a href='/sangsangjakka/board/book/list.do?page=%d&column=%s&word=%s'>[다음 페이지]</a> ", n, column != null ? column : "", word != null ? word : "", blockSize));
 		}
 		
 
