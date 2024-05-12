@@ -716,5 +716,33 @@ public class ReviewDAOImpl implements ReviewDAO{
 	    return null;
 	}
 
+	@Override
+	public int reviewDel(String reviewSeq) {
+		
+		final String SQL = "DELETE FROM tblReviewWhiteList WHERE reviewSeq = ?";
+		
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	    	
+	  
+	    	
+	    	pstat.setString(1, reviewSeq);
+	        
+	        int result = pstat.executeUpdate();
+	        
+	        if (result > 0) {
+	        	
+	        	return result;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.| disable");
+	        e.printStackTrace();
+	    }
+	    
+	    return 0;
+	}
+	
 	
 }//End of class
