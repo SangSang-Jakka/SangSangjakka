@@ -457,7 +457,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public int saveStorage(UserDTO dto, String adId) {
 		
-		final String SQL = "UPDATE tblUser SET limitStorage = ? WHERE userId = ?";
+		final String SQL = "UPDATE tblUser SET limitStorage = ? WHERE userSeq = ?";
 		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 3)";
 		
 		try (
@@ -469,7 +469,7 @@ public class UserDAOImpl implements UserDAO{
 				conn.setAutoCommit(false);
 			
 				pstat.setString(1, dto.getLimitStorage());
-		        pstat.setString(2, dto.getUserId());
+		        pstat.setString(2, dto.getUserSeq());
 		        
 		        int result = pstat.executeUpdate();
 		        
