@@ -93,7 +93,6 @@ public class NoticeList extends HttpServlet{
 				dto.setNoticeTitle(title);
 			}
 			
-			totalCount += fix.size();
 		}
 		
 		if(list != null) {
@@ -113,7 +112,7 @@ public class NoticeList extends HttpServlet{
 				
 			}
 			
-			totalCount += dao.totalCnt(map);
+			totalCount = dao.totalCnt(map);
 			
 		}
 		
