@@ -6,11 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dto.user.GenreScore;
 import com.jakka.model.dto.user.UserDTO;
 import com.jakka.model.enums.UserLog;
 import com.jakka.model.enums.UserState;
@@ -18,6 +21,7 @@ import com.jakka.model.enums.UserState;
 public class UserDAOImpl implements UserDAO{
 
 	private final static UserDAOImpl DAO = new UserDAOImpl();
+	private static final Random RANDOM = new Random();
 	
 	private UserDAOImpl() {
 		//외부 생성 방지
@@ -1203,27 +1207,68 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Override
 	public String[] findGenreScore(String userSeq) {
-		
-		final String SQL = "select * from vwUserGenreScore where userSeq = ? order by score desc";
-		
-		try (
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(SQL);
-		){
-			pstat.setString(1, userSeq);
-			
-			ResultSet rs = pstat.executeQuery();
-			
-			
-			
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	    final String SQL = "SELECT * FROM vwUserGenreScore WHERE userSeq = ? ORDER BY score DESC";
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, userSeq);
+	        ResultSet rs = pstat.executeQuery();
+	        Map<Double, List<String>> scoreToGenres = new HashMap<>();
+	        while (rs.next()) {
+	            String genreName = getGenreName(rs.getString("genreSeq"));
+	            double score = rs.getDouble("score");
+	            scoreToGenres.computeIfAbsent(score, k -> new ArrayList<>()).add(genreName);
+	        }
 
-		return null;
+	        List<String> topGenres = new ArrayList<>();
+	        while (topGenres.size() < 4) {
+	            double maxScore = Collections.max(scoreToGenres.keySet());
+	            List<String> genres = scoreToGenres.get(maxScore);
+	            if (genres.size() == 1) {
+	                topGenres.add(genres.get(0));
+	            } else if (topGenres.size() + genres.size() <= 4) {
+	                topGenres.addAll(genres);
+	            } else {
+	                Collections.shuffle(genres, RANDOM);
+	                int remaining = 4 - topGenres.size();
+	                topGenres.addAll(genres.subList(0, remaining));
+	            }
+	            scoreToGenres.remove(maxScore);
+	        }
+
+	        return topGenres.toArray(new String[0]);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	private String getGenreName(String genreSeq) {
+	    switch (genreSeq) {
+	        case "1":
+	            return "FantasyTales";
+	        case "2":
+	            return "AdventureTales";
+	        case "3":
+	            return "FriendFamilyStories";
+	        case "4":
+	            return "HeartwarmingTales";
+	        case "5":
+	            return "ScienceNatureTales";
+	        case "6":
+	            return "HistoricalTales";
+	        case "7":
+	            return "HumorousTales";
+	        case "8":
+	            return "WordplayTales";
+	        case "9":
+	            return "InventionRelatedTales";
+	        case "10":
+	            return "ImaginativeTales";
+	        default:
+	            return "";
+	    }
 	}
 	
 	@Override

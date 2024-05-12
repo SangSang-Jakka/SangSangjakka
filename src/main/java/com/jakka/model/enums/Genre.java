@@ -12,7 +12,7 @@ public enum Genre {
 	WordplayTales("8"),			//말장난 동화
 	InventionRelatedTales("9"),	//발명품 관련 동화
 	ImaginativeTales("10");		//상상력 자극 동화
-	
+
 	private final String value;
 	
 	Genre(String vale) {
