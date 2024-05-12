@@ -26,6 +26,7 @@
 		<div class="pageTitle">
 			<h3>마이페이지</h3>
 		</div>
+
 		<div class="tab tabFormContainer">
 			<ul class="mainnav tabnav flex">
 				<li><a href="#tab01">개인정보</a></li>
@@ -290,7 +291,7 @@
 			</div>
 		</div><!--tab-->
 	</div>
-	
+
 
 	<!-- footer -->
 		<%@include file="/WEB-INF/views/template/footer.jsp"%>

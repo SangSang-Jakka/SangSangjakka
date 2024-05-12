@@ -175,7 +175,7 @@ section.notice {
 	width:180px;
 	height:60px;
 	overflow:hidden;
-	background-color:tomato;
+	/* background-color:tomato; */
 }
 
 .subItems {
