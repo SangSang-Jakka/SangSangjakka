@@ -38,8 +38,10 @@ public class Dashboard extends HttpServlet {
 		 String selectedMonth = req.getParameter("selectedMonth");
 		 //String currentMonth = req.getParameter("currentMonth");
 		 System.out.println("가져옴?" + selectedMonth);
-		 String year = selectedMonth.substring(0, 4);
-		 System.out.println("년도만!?" + year);
+		// String year = selectedMonth.substring(0, 4);
+		 //System.out.println("년도만!?" + year);
+		 String year = req.getParameter("year");
+		 System.out.println("이 값 뭐냐 : " + year);
 		
 		 
 		 AdminDAO dao = DAOManager.getAdminDAO();
@@ -75,14 +77,22 @@ public class Dashboard extends HttpServlet {
 			    bookData.add("monthYears", monthYears);
 			    bookData.add("bookCounts", bookCounts);
 			    
+			    //Gson gson = new Gson();
+			    //String jsonmakeBookData = gson.toJson(bookData);
+				
+			    //String jsonmakeBookData = "<script>var chartData = " + jsonmakeBookData + ";</script>";
+				
+			    
 			    Gson gson = new Gson();
-			    String jsonmakeBookData = gson.toJson(bookData);
-				String makeBookScript = "<script>var chartData = " + jsonmakeBookData + ";</script>";
+		        String jsonmakeBookData = gson.toJson(bookData);
+		        System.out.println(jsonmakeBookData);
+
+		        
 				
 				System.out.println("책 만든" +jsonmakeBookData);
 				
 			
-				 req.setAttribute("jsonmakeBookData", jsonmakeBookData);
+				 //req.setAttribute("jsonmakeBookData", jsonmakeBookData);
 			     
 		 
 		 
@@ -91,6 +101,10 @@ public class Dashboard extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().write(json);
 		//resp.getWriter().write(currentjson);
+		
+        resp.getWriter().write(jsonmakeBookData);
+		
+		
 		 
 		 
 		 
