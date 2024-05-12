@@ -248,7 +248,7 @@
 
 	<!-- Datatable Setting js -->
 	<script
-		src="/sangsangjakka/resources/vendors/scripts/test.js"></script>
+		src="/sangsangjakka/resources/vendors/scripts/user.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
