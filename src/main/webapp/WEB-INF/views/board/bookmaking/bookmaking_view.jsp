@@ -981,6 +981,46 @@
 						}
 					});
 				});
+				$('.pageText').submit(function(event) {
+					event.preventDefault();
+					$currentVisible = $('#bb-bookblock .bb-item:visible');
+					var preText;
+					if ($currentVisible.prev('.bb-item').length) {
+						preText = '이전페이지 내용' + $currentVisible.prev('.bb-item').find('p').text();
+					} else {
+						preText = '첫번째 페이지';
+					}
+					var prompt = preText + ', 현재 페이지 내용: ' + $('input[name="textPrompt"]').val();
+					var pageTextMakerBox = $('ul .pageTextMakerBox');
+					pageTextMakerBox.empty();
+					$('#textLoading').show(); // 로딩 이미지 표시
+					$.ajax({
+						url: '/sangsangjakka/story.do',
+						method: 'POST',
+						data: { data: prompt },
+						success: function(response) {
+							response.forEach(function(data) {
+								var pageTextMakerItem = $('<li>').addClass('pageTextMakerItem');
+								var span = $('<span>').text(data);
+								pageTextMakerItem.append(span);
+								var selectTextBox = $('<div>').addClass('selectTextBox');
+								var input = $('<input>').attr({
+				                    'type': 'submit',
+				                    'value': '선택'
+				                }).addClass('selectTextItem btnItem middleBtn tomato pointer');
+								selectTextBox.append(input);
+								var whitespace = $('<div>').addClass('whitespace').text('&nbsp;');
+								pageTextMakerItem.append(selectTextBox);
+								pageTextMakerItem.append(whitespace);
+							});
+							$('#textLoading').hide(); // 로딩 이미지 숨기기
+						},
+						error: function() {
+							alert('만들기 실패');
+							$('#textLoading').hide(); // 로딩 이미지 숨기기
+						}
+					});
+				});
 				
 			});//$(document).ready
 			
