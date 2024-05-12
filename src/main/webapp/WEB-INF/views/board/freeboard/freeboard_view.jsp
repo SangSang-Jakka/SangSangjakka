@@ -82,8 +82,8 @@
                         	<ul class="commentArea">
                             <li>
                               <div class="commentNick">${dto.userNick}</div>
-                                <div class="commentBtnBlock">
                                 <c:if test="${dto.userSeq == userSeq}">
+                                <div class="commentBtnBlock">
                                   <input type="button" class="btnCommentEdit" value="수정">
                                   <input type="button" class="btnCommentDel" value="삭제">
                                 </div>

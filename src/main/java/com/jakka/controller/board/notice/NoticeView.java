@@ -19,7 +19,7 @@ import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.NoticeDTO;
 
-	@WebServlet("/board/notice/View.do")
+	@WebServlet("/board/notice/view.do")
 	public class NoticeView extends HttpServlet{
 
 		@Override
@@ -46,12 +46,27 @@ import com.jakka.model.dto.board.NoticeDTO;
 				session.setAttribute("read", "y");
 			}
 			
+			NoticeDTO next = dao.findById(Integer.parseInt(noticeSeq) + 1 + "");
+			NoticeDTO prev = dao.findById(Integer.parseInt(noticeSeq) - 1 + "");
 			NoticeDTO dto = dao.findById(noticeSeq);
+			
+			if(next != null) {
+				next.setNoticeRegdate(next.getNoticeRegdate().substring(0, 10));
+				next.setNoticeTitle(next.getNoticeTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
+			}
+			
+			if(prev != null) {
+				prev.setNoticeRegdate(prev.getNoticeRegdate().substring(0, 10));
+				prev.setNoticeTitle(prev.getNoticeTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
+			}
 			
 			//게시글 조작
 			dto.setNoticeTitle(dto.getNoticeTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 			dto.setNoticeContents(dto.getNoticeContents().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
 			
+			
+			req.setAttribute("next", next);
+			req.setAttribute("prev", prev);
 			req.setAttribute("dto", dto);
 			
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/notice/notice_view.jsp");

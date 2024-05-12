@@ -1434,13 +1434,16 @@ public class BookDAOImpl implements BookDAO{
 			for(int i = 0; i < 5; i++) {
 				
 				String bookSeq = list.get(i).getBookSeq();
+				String awardRank = list.get(i).getAwardRank();
+				
 				
 				pstat.setString(1, bookSeq);
-				pstat.setString(2, i + 1 + "");
+//				pstat.setString(2, i + 1 + "");
+				pstat.setString(2, awardRank);
 				pstat.executeUpdate();
 				
 				log.setString(1, adId);
-				log.setString(2, "'" + adId + "'이 동화책번호'" + bookSeq  + "'에게 " + (i + 1) + "등을 수여했습니다.");
+				log.setString(2, "'" + adId + "'이 동화책번호'" + bookSeq  + "'에게 " + awardRank + "등을 수여했습니다.");
 				log.setString(3, AdminLog.BookAwarded.getValue());
 				log.executeUpdate();
 				

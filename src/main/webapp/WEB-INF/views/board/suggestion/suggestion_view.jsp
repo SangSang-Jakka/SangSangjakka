@@ -82,24 +82,7 @@
                       <div class="listWrap">
                         <table class="listTable">
                             <tbody class="listBox">
-                              <tr class="preBox">
-                                <th scope="col" class="listOrder">이전글</th>
-                                <th scope="col" class="listTitle">
-                                  <a href="">서버 관련</a>
-                                </th>
-                                <th scope="col" class="listDate">2024-01-04</th>
-                                <th scope="col" class="listViews">50</th>
-                              </tr>
-                              <tr>
-                                <th scope="col" class="listOrder">다음글</th>
-                                <th scope="col" class="listTitle">
-                                  <a href="">회원탈퇴 하고싶어요</a>
-                                </th>
-                                <th scope="col" class="listDate">2024-05-06</th>
-                                <th scope="col" class="listViews">10</th>
-                              </tr>
                             </tbody>
-
                         </table>
                       </div>
                    
