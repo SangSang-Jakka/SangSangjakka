@@ -285,6 +285,35 @@
                   </tbody>
               </table>
 					</div>
+					
+					<div id="tab06">
+					    <table class="boardTable">
+					        <thead>
+					            <tr>
+					                <th scope="col" class="thNum thList">번호</th>
+					                <th scope="col" class="thTitle thList">내용</th>
+					                <th scope="col" class="thDate thList">등록일</th>
+					                <th scope="col" class="thViews thList">신고횟수</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            <c:if test="${empty comments}">
+					                <tr>
+					                    <td colspan="5">댓글이 없습니다.</td>
+					                </tr>
+					            </c:if>
+					            <c:forEach items="${comments}" var="dto">
+					                <tr class="myBoardList">
+					                    <td>${dto.cmntSeq}</td>
+					                    <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.cmntContents}</a></th>
+					                    <td>${dto.cmntRegdate}</td>
+					                    <td>${dto.cmntReportCnt}</td>
+					                </tr>
+					            </c:forEach>
+					        </tbody>
+					    </table>
+					</div>
+					
 					</div>
 				</div>
 			</div>
@@ -299,6 +328,19 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="validation.js"></script>
 <script>
+		
+		var bookList = [];
+		<c:forEach items="${bookList}" var="book">
+		    var book = {
+		        bookSeq: '${book.bookSeq}',
+		        bookTitle: '${book.bookTitle}', 
+		        bookInfo: '${book.bookInfo}',
+		        bookCover: '${book.bookCover}',
+		        bookRegdate: '${book.bookRegdate}'
+		    };
+		    bookList.push(book); 
+		</c:forEach>
+		
 		
 		var tendencyData = [
 		    <c:forEach var="entry" items="${tendency}">
@@ -597,7 +639,7 @@
 		});
 
 		// 도서 데이터
-		let bookData = [{ "id": 1, name: "Book U", date: "2023-08-30" }, { "id": 2, name: "Book L", date: "2022-10-05" }, { "id": 3, name: "Book O", date: "2021-11-28" }, { "id": 4, name: "Book E", date: "2023-07-24" }, { "id": 5, name: "Book F", date: "2023-12-21" }, { "id": 6, name: "Book I", date: "2022-02-02" }, { "id": 7, name: "Book V", date: "2022-01-31" }, { "id": 8, name: "Book W", date: "2022-08-20" }, { "id": 9, name: "Book V", date: "2023-11-01" }, { "id": 10, name: "Book J", date: "2023-11-17" }, { "id": 11, name: "Book E", date: "2021-11-04" }, { "id": 12, name: "Book G", date: "2022-08-24" }, { "id": 13, name: "Book A", date: "2022-01-15" }, { "id": 14, name: "Book B", date: "2022-06-22" }, { "id": 15, name: "Book R", date: "2023-09-17" }, { "id": 16, name: "Book H", date: "2023-05-20" }, { "id": 17, name: "Book P", date: "2023-12-27" }, { "id": 18, name: "Book H", date: "2023-09-19" }, { "id": 19, name: "Book I", date: "2021-09-26" }, { "id": 20, name: "Book H", date: "2021-04-10" }, { "id": 21, name: "Book P", date: "2022-10-19" }, { "id": 22, name: "Book T", date: "2023-04-03" }, { "id": 23, name: "Book E", date: "2022-05-27" }, { "id": 24, name: "Book O", date: "2023-05-04" }, { "id": 25, name: "Book T", date: "2021-08-01" }, { "id": 26, name: "Book S", date: "2022-09-17" }, { "id": 27, name: "Book A", date: "2021-03-22" }, { "id": 28, name: "Book A", date: "2022-06-25" }, { "id": 29, name: "Book V", date: "2021-07-30" }, { "id": 30, name: "Book X", date: "2021-06-16" }, { "id": 31, name: "Book A", date: "2023-11-07" }, { "id": 32, name: "Book U", date: "2023-03-04" }, { "id": 33, name: "Book N", date: "2023-02-19" }, { "id": 34, name: "Book K", date: "2021-12-14" }, { "id": 35, name: "Book U", date: "2023-11-01" }, { "id": 36, name: "Book F", date: "2022-02-03" }, { "id": 37, name: "Book A", date: "2023-12-22" }, { "id": 38, name: "Book J", date: "2021-02-26" }, { "id": 39, name: "Book O", date: "2022-05-19" }, { "id": 40, name: "Book I", date: "2023-11-16" }, { "id": 41, name: "Book R", date: "2021-01-24" }, { "id": 42, name: "Book F", date: "2021-10-25" }, { "id": 43, name: "Book C", date: "2021-12-07" }, { "id": 44, name: "Book S", date: "2021-08-19" }, { "id": 45, name: "Book R", date: "2023-10-29" }, { "id": 46, name: "Book B", date: "2023-09-30" }, { "id": 47, name: "Book I", date: "2021-11-28" }, { "id": 48, name: "Book Q", date: "2021-09-07" }, { "id": 49, name: "Book T", date: "2021-07-07" }, { "id": 50, name: "Book B", date: "2023-10-27" }, { "id": 51, name: "Book M", date: "2022-12-25" }, { "id": 52, name: "Book B", date: "2023-04-21" }, { "id": 53, name: "Book U", date: "2021-11-27" }, { "id": 54, name: "Book J", date: "2023-01-13" }, { "id": 55, name: "Book I", date: "2022-06-15" }, { "id": 56, name: "Book L", date: "2023-04-29" }, { "id": 57, name: "Book H", date: "2023-09-28" }, { "id": 58, name: "Book B", date: "2022-03-07" }, { "id": 59, name: "Book E", date: "2022-07-28" }, { "id": 60, name: "Book X", date: "2021-01-31" }, { "id": 61, name: "Book R", date: "2021-10-02" }, { "id": 62, name: "Book E", date: "2022-01-24" }, { "id": 63, name: "Book U", date: "2022-03-27" }, { "id": 64, name: "Book G", date: "2022-05-20" }, { "id": 65, name: "Book I", date: "2023-12-05" }, { "id": 66, name: "Book G", date: "2022-04-04" }, { "id": 67, name: "Book S", date: "2021-09-07" }, { "id": 68, name: "Book E", date: "2023-03-21" }, { "id": 69, name: "Book O", date: "2023-08-03" }, { "id": 70, name: "Book U", date: "2023-03-15" }, { "id": 71, name: "Book D", date: "2023-12-10" }, { "id": 72, name: "Book P", date: "2022-10-08" }, { "id": 73, name: "Book X", date: "2021-08-21" }, { "id": 74, name: "Book H", date: "2021-07-25" }, { "id": 75, name: "Book L", date: "2021-02-04" }, { "id": 76, name: "Book U", date: "2022-09-13" }, { "id": 77, name: "Book P", date: "2022-12-23" }, { "id": 78, name: "Book V", date: "2021-04-30" }, { "id": 79, name: "Book A", date: "2022-11-01" }, { "id": 80, name: "Book V", date: "2021-05-04" }, { "id": 81, name: "Book U", date: "2022-11-12" }, { "id": 82, name: "Book E", date: "2022-07-29" }, { "id": 83, name: "Book M", date: "2021-11-19" }, { "id": 84, name: "Book V", date: "2021-01-29" }, { "id": 85, name: "Book N", date: "2021-04-23" }, { "id": 86, name: "Book U", date: "2022-09-06" }, { "id": 87, name: "Book V", date: "2021-04-11" }, { "id": 88, name: "Book O", date: "2022-06-07" }, { "id": 89, name: "Book A", date: "2022-11-08" }, { "id": 90, name: "Book G", date: "2023-08-08" }, { "id": 91, name: "Book O", date: "2022-09-01" }, { "id": 92, name: "Book E", date: "2021-10-28" }, { "id": 93, name: "Book B", date: "2022-12-03" }, { "id": 94, name: "Book C", date: "2022-03-10" }, { "id": 95, name: "Book E", date: "2021-05-22" }, { "id": 96, name: "Book X", date: "2023-07-19" }, { "id": 97, name: "Book K", date: "2021-04-30" }, { "id": 98, name: "Book G", date: "2021-07-09" }, { "id": 99, name: "Book I", date: "2021-04-10" }, { "id": 100, name: "Book N", date: "2023-10-02" }, { "id": 101, name: "Book Q", date: "2022-07-01" }, { "id": 102, name: "Book D", date: "2023-11-01" }, { "id": 103, name: "Book O", date: "2021-03-19" }, { "id": 104, name: "Book W", date: "2022-07-31" }, { "id": 105, name: "Book F", date: "2021-04-30" }, { "id": 106, name: "Book C", date: "2022-09-04" }, { "id": 107, name: "Book O", date: "2021-12-12" }, { "id": 108, name: "Book T", date: "2023-05-18" }, { "id": 109, name: "Book J", date: "2021-10-27" }, { "id": 110, name: "Book W", date: "2023-11-27" }, { "id": 111, name: "Book I", date: "2023-03-19" }, { "id": 112, name: "Book I", date: "2022-12-17" }, { "id": 113, name: "Book V", date: "2022-07-02" }, { "id": 114, name: "Book I", date: "2021-12-12" }, { "id": 115, name: "Book U", date: "2022-02-03" }, { "id": 116, name: "Book D", date: "2022-04-27" }, { "id": 117, name: "Book M", date: "2022-04-24" }, { "id": 118, name: "Book C", date: "2023-09-25" }, { "id": 119, name: "Book V", date: "2021-03-28" }, { "id": 120, name: "Book D", date: "2023-06-14" }, { "id": 121, name: "Book U", date: "2021-04-17" }, { "id": 122, name: "Book E", date: "2021-07-29" }, { "id": 123, name: "Book J", date: "2022-07-17" }, { "id": 124, name: "Book S", date: "2023-12-06" }, { "id": 125, name: "Book G", date: "2023-03-08" }, { "id": 126, name: "Book M", date: "2023-06-14" }, { "id": 127, name: "Book I", date: "2022-01-27" }, { "id": 128, name: "Book A", date: "2023-12-17" }, { "id": 129, name: "Book R", date: "2021-05-12" }, { "id": 130, name: "Book O", date: "2021-01-01" }, { "id": 131, name: "Book B", date: "2021-06-18" }, { "id": 132, name: "Book G", date: "2022-06-16" }, { "id": 133, name: "Book E", date: "2021-01-03" }, { "id": 134, name: "Book E", date: "2022-07-23" }, { "id": 135, name: "Book H", date: "2022-10-24" }, { "id": 136, name: "Book F", date: "2023-07-31" }, { "id": 137, name: "Book P", date: "2022-12-16" }, { "id": 138, name: "Book I", date: "2022-09-29" }, { "id": 139, name: "Book U", date: "2022-11-22" }, { "id": 140, name: "Book P", date: "2022-06-22" }, { "id": 141, name: "Book B", date: "2021-11-04" }, { "id": 142, name: "Book C", date: "2023-06-27" }, { "id": 143, name: "Book F", date: "2021-08-19" }, { "id": 144, name: "Book D", date: "2022-09-24" }, { "id": 145, name: "Book F", date: "2021-12-18" }, { "id": 146, name: "Book O", date: "2021-07-05" }, { "id": 147, name: "Book M", date: "2021-03-16" }, { "id": 148, name: "Book N", date: "2021-05-31" }, { "id": 149, name: "Book C", date: "2022-03-29" }, { "id": 150, name: "Book Q", date: "2023-07-02" }, { "id": 151, name: "Book W", date: "2022-07-21" }, { "id": 152, name: "Book I", date: "2021-09-04" }, { "id": 153, name: "Book U", date: "2023-05-17" }, { "id": 154, name: "Book V", date: "2023-08-18" }, { "id": 155, name: "Book H", date: "2022-12-12" }, { "id": 156, name: "Book J", date: "2023-11-14" }, { "id": 157, name: "Book V", date: "2023-07-10" }, { "id": 158, name: "Book P", date: "2021-06-06" }, { "id": 159, name: "Book V", date: "2023-02-26" }, { "id": 160, name: "Book D", date: "2023-09-07" }, { "id": 161, name: "Book L", date: "2021-09-21" }, { "id": 162, name: "Book S", date: "2023-07-05" }, { "id": 163, name: "Book U", date: "2021-04-04" }, { "id": 164, name: "Book E", date: "2023-05-24" }, { "id": 165, name: "Book D", date: "2022-11-30" }, { "id": 166, name: "Book X", date: "2023-05-06" }, { "id": 167, name: "Book H", date: "2022-06-07" }, { "id": 168, name: "Book D", date: "2021-09-12" }, { "id": 169, name: "Book C", date: "2021-07-14" }, { "id": 170, name: "Book M", date: "2022-07-13" }];
+		let bookData = bookList;
 
 		document.addEventListener("DOMContentLoaded", function () {
 			document.getElementById('sortOptions').addEventListener('change', sortBooks);
@@ -624,30 +666,35 @@
 		}
 
 		function renderBooks(data) {
-			const bookshelf = document.getElementById('bookshelf');
-			bookshelf.innerHTML = ''; // 기존 내용 지우기
-
-			if (data.length === 0) {
-				// 책 데이터가 없으면 메시지 출력
-				const noBooksDiv = document.createElement('div');
-				noBooksDiv.className = 'no-books';
-				noBooksDiv.textContent = '책이 없습니다.';
-				
-				bookshelf.appendChild(noBooksDiv);
-			} else {
-				const startIndex = (currentPage - 1) * itemsPerPage;
-				const endIndex = Math.min(startIndex + itemsPerPage, data.length);
-				const visibleBooks = data.slice(startIndex, endIndex);
-
-				visibleBooks.forEach(book => {
-					const bookDiv = document.createElement('div');
-					bookDiv.className = 'book';
-					bookDiv.textContent = book.name + ' (' + book.date + ')';
-					bookshelf.appendChild(bookDiv);
-				});
-
-				fillEmptySlots(bookshelf);
-			}
+		    const bookshelf = document.getElementById('bookshelf');
+		    bookshelf.innerHTML = ''; // 기존 내용 지우기
+		    
+		    if (data.length === 0) {
+		        const noBooksDiv = document.createElement('div');
+		        noBooksDiv.className = 'no-books';
+		        noBooksDiv.textContent = '책이 없습니다.';
+		        
+		        bookshelf.appendChild(noBooksDiv);
+		    } else {
+		        const startIndex = (currentPage - 1) * itemsPerPage;
+		        const endIndex = Math.min(startIndex + itemsPerPage, data.length);
+		        const visibleBooks = data.slice(startIndex, endIndex);
+		        
+		        visibleBooks.forEach(book => {
+		            const bookDiv = document.createElement('div');
+		            bookDiv.className = 'book';
+		            bookDiv.innerHTML = `
+		                <img src="${book.bookCover}" alt="${book.bookTitle}">
+		                <div class="book-info">
+		                  <h3><a href="/sangsangjakka/board/book/view.do?no=${book.bookSeq}">${book.bookTitle}</a></h3>
+		                  <p>${book.bookRegdate}</p>
+		                </div>
+		            `;
+		            bookshelf.appendChild(bookDiv);
+		        });
+		        
+		        fillEmptySlots(bookshelf);
+		    }
 		}
 
 		function fillEmptySlots(bookshelf) {
@@ -662,13 +709,13 @@
 
 		function sortBooks() {
 			const sortOption = document.getElementById('sortOptions').value;
-			if (sortOption === 'newest') {
-				filteredBooks.sort((a, b) => new Date(b.date) - new Date(a.date));
-			} else if (sortOption === 'oldest') {
-				filteredBooks.sort((a, b) => new Date(a.date) - new Date(b.date));
-			} else {
-				filteredBooks.sort((a, b) => a.name.localeCompare(b.name));
-			}
+		    if (sortOption === 'newest') {
+		        filteredBooks.sort((a, b) => new Date(b.bookRegdate) - new Date(a.bookRegdate));
+		    } else if (sortOption === 'oldest') {
+		        filteredBooks.sort((a, b) => new Date(a.bookRegdate) - new Date(b.bookRegdate));
+		    } else {
+		        filteredBooks.sort((a, b) => a.bookTitle.localeCompare(b.bookTitle));
+		    }
 			currentPage = 1; // 항상 첫 페이지로 리셋
 			renderBooks(filteredBooks);
 			updatePagination();
@@ -676,7 +723,7 @@
 
 		function searchBooks() {
 			let searchTerm = document.getElementById('searchInput').value.toLowerCase();
-			filteredBooks = bookData.filter(book => book.name.toLowerCase().includes(searchTerm));
+		    filteredBooks = bookData.filter(book => book.bookTitle.toLowerCase().includes(searchTerm));
 			totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
 			currentPage = Math.max(1, currentPage); // 검색 결과가 없어도 currentPage는 최소값 1
 			sortBooks();
