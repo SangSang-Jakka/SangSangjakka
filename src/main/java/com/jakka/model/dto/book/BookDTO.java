@@ -23,7 +23,10 @@ public class BookDTO {
 	private String userNick;
 	private String shareCnt;
 	
+	private String bookCnt;
 	
+	private String awardRegdate;
+	private String awardRank;
 	
 	private String reportDate;
 	
@@ -44,10 +47,6 @@ public class BookDTO {
 		this.shareCnt = shareCnt;
 	}
 
-	private String bookCnt;
-	
-	private String awardRegdate;
-	private String awardRank;
 	
 	public String getAwardRegdate() {
 		return awardRegdate;
