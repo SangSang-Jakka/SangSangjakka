@@ -111,17 +111,7 @@
 <!-- 				</div> -->
 					</div>
 				</div>
-				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
-					<div class="card-box pd-30 pt-10 height-100-p">
-						
-						<select class="selectpicker form-control" id ="yearSelect2" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
-            <c:forEach var="year" items="<%= yearList %>">
-              <option value="${year}">20${year}</option>
-            </c:forEach>
-          </select>
-						<canvas id="lineChart" width="300" height="250"></canvas>
-					</div>
-				</div>
+				
 			</div>
                 
                
@@ -333,66 +323,72 @@ var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 </script>
 
-<script>
+<!-- <script> -->
+// function sendSelectedOptionValues(selectElement) {
+//     var selectedYear = selectElement.value; // 선택된 연도 값
 
-var currentYear = new Date().getFullYear();
-var currentYearShort = currentYear.toString().slice(-2);
-console.log(currentYearShort);
+//     // 선택된 연도를 서버로 전송하여 차트 다시 렌더링
+//     renderChart(selectedYear);
+// }
 
-$("#yearSelect2").val(currentYearShort);
-// 현재 연도 차트 초기 렌더링
-renderChart(currentYear.toString());
+// var currentYear = new Date().getFullYear();
+// var currentYearShort = currentYear.toString().slice(-2);
+// console.log(currentYearShort);
 
-function renderChart(year) {
-  $.ajax({
-    type: "POST",
-    url: "/sangsangjakka/admin/dashboard.do",
-    data: { selectedValue: year },
-    success: function(response) {
-        console.log('Server response:', response);
+// $("#yearSelect2").val(currentYearShort);
+// // 현재 연도 차트 초기 렌더링
+// renderChart(currentYear.toString());
 
-        var labels = []; // 월별 라벨
-        var bookData = []; // 월별 도서 수
+// function renderChart(year) {
+//   $.ajax({
+//     type: "POST",
+//     url: "/sangsangjakka/admin/dashboard.do",
+//     data: { selectedValue: year },
+//     success: function(response) {
+//         console.log('으잉:', response);
 
-        // JSON 데이터 파싱
-        for (var i = 0; i < response.monthYears.length; i++) {
-            var monthYear = response.monthYears[i];
-            labels.push(monthYear);
-            var bookCount = response.bookCounts[i];
-            bookData.push(bookCount);
-        }
+//         var labels = []; // 월별 라벨
+//         var bookData = []; // 월별 도서 수
 
-        var context = document.getElementById('lineChart').getContext('2d');
-        if (window.myChart) {
-            window.myChart.destroy(); // 기존 차트 제거
-        }
+//         // JSON 데이터 파싱
+//         for (var i = 0; i < response.monthYears.length; i++) {
+//             var monthYear = response.monthYears[i];
+//             labels.push(monthYear);
+//             var bookCount = response.bookCounts[i];
+//             bookData.push(bookCount);
+//         }
 
-        window.myChart = new Chart(context, { 
-            type: 'line',
-            data: {
-                labels: labels, // labels에 월별 라벨 추가
-                datasets: [{ 
-                    data: bookData, // bookData에 월별 도서 수 추가
-                    label: "Book Counts",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Monthly Book Counts'
-                }
-            }
-        });
-    },
-    error: function(xhr, status, error) {
-      console.error('AJAX request error:', error);
-    }
-  });
-}
+//         var context = document.getElementById('lineChart').getContext('2d');
+//         if (window.myChart) {
+//             window.myChart.destroy(); // 기존 차트 제거
+//         }
 
-</script>
+//         window.myChart = new Chart(context, { 
+//             type: 'line',
+//             data: {
+//                 labels: labels, // labels에 월별 라벨 추가
+//                 datasets: [{ 
+//                     data: bookData, // bookData에 월별 도서 수 추가
+//                     label: "Book Counts",
+//                     borderColor: "#3e95cd",
+//                     fill: false
+//                 }]
+//             },
+//             options: {
+//                 title: {
+//                     display: true,
+//                     text: 'Monthly Book Counts'
+//                 }
+//             }
+//         });
+//     },
+//     error: function(xhr, status, error) {
+//       console.error('AJAX request error:', error);
+//     }
+//   });
+// }
+
+<!-- </script> -->
 
 </body>
 </html>

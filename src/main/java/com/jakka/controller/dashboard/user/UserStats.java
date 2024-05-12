@@ -146,6 +146,7 @@ public class UserStats extends HttpServlet{
 //	    
 //	    System.out.println("post");
 	    String year = req.getParameter("selectedValue");
+	    System.out.println("year" +year);
 	    
 	    
 	   

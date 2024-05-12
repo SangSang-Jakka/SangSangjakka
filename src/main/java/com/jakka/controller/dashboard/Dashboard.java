@@ -37,8 +37,8 @@ public class Dashboard extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 String selectedMonth = req.getParameter("selectedMonth");
 		 //String currentMonth = req.getParameter("currentMonth");
-		 String year = selectedMonth.substring(0, 4);
 		 System.out.println("가져옴?" + selectedMonth);
+		 String year = selectedMonth.substring(0, 4);
 		 System.out.println("년도만!?" + year);
 		
 		 

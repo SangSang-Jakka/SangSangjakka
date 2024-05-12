@@ -1592,10 +1592,12 @@ public class BookDAOImpl implements BookDAO{
     			
     				
     				
+    			
     				
     				dto.setBookTitle(rs.getString("bookTitle"));
     				dto.setShareCnt(rs.getString("shareCnt"));
-    				
+    				dto.setBookInfo(rs.getString("bookInfo"));
+    				dto.setBookRegdate(rs.getString("bookRegdate"));
     				
     				
     				sharelist.add(dto);
