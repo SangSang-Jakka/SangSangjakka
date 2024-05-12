@@ -41,6 +41,7 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 
 	public ArrayList<BookDTO> findAllReport();
 	public ArrayList<BookDTO> findAllNoReport();
+	public ArrayList<BookDTO> findNowAward();
 	
 	public List<BookDTO>getShareCount(String month);
 	

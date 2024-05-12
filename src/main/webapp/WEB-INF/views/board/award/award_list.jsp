@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.jakka.model.dto.book.BookDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.ArrayList" %>
+
+
 <!DOCTYPE html>
 <html>
    <%@include file="/WEB-INF/views/template/asset.jsp"%>
@@ -41,32 +45,29 @@
                         </div>
                     </div>
                     
-                    <div class="bookAwardWrap">
-                    <div class="bookAwardWrapTitle">
-                        <div class="mainTitle">🏆 명예의 전당</div>
-                    </div>
+                  
                     <div class="bookAwardContainer">
                         <div class="bookAwardPrev">
-                            <button type="button"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button type="button" class="rightBtn"><i class="fa-solid fa-chevron-left"></i></button>
                         </div>
                         <div class="bookAwardImg">
                             <img src="/sangsangjakka/resources/img/book1.jpg" alt="">
                         </div>
                         <div class="bookAwardInfo">
                             <div class="bookAwardInfoContainer">
-                                <div class="bookAwardInfoTitile">제목 : To The Sea</div>
-                                <div class="bookAwardInfoIntro"> 한줄 소개: 고래를 타고 바다로 나아가는 태리의 여정입니다.</div>
+                                <%
+						            ArrayList<BookDTO> list = (ArrayList<BookDTO>) request.getAttribute("list");
+						            if (list != null && !list.isEmpty()) {
+						                BookDTO book = list.get(0);
+						        %>
+						            <div class="bookAwardInfoTitile"><%= book.getBookTitle() %></div>
+						            <div class="bookAwardInfoUserNick">닉네임: <%= book.getUserNick() %></div>
+						            <div class="bookAwardInfoIntro">한줄 소개: <%= book.getBookInfo() %></div>
+						       <% } else { %>
+					                <div class="bookAwardInfoTitile">책 정보 없음</div>
+					            <% } %>
                             </div>
-                            <div class="bookAwardInfoReview">
-                                <div class="Review">소중한 소감평</div>
-                                <ul>
-                                    <li>고래를 만나 교감하는게 감동 깊었어요!</li>
-                                    <li>태리를 계속 응원했어요!</li>
-                                    <li>마지막에 눈물나요 ㅠㅠ </li>
-                                    <li>와 프론트 눈물나요 ㅠㅠ </li>
-                                    <li>너무 어려워요 ㅠㅠ </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                         <div class="bookAwardNext">
                             <button type="button"><i class="fa-solid fa-chevron-right"></i></button>
@@ -160,6 +161,7 @@
 		<%@include file="/WEB-INF/views/template/footer.jsp"%>
 		
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://kit.fontawesome.com/4b3c3b390b.js" crossorigin="anonymous"></script>
 	<script>
 	
 	
@@ -169,8 +171,6 @@
 	        // 관리자 로그인 페이지로 이동
 	        window.location.href = '/sangsangjakka/admin/login.do'; // 적절한 URL로 변경해야 합니다.
 	      }
-	    });
-	  });
 
 	
 	
@@ -242,38 +242,36 @@ const bookInfo = [
 
 
 	
-	const monthSelect = document.getElementById('monthSelect');
-	const currentMonth = new Date().getMonth() + 1; // 0부터 시작하므로 1을 더해줌
-	const prevMonth = currentMonth === 1 ? 12 : currentMonth - 1; // 이전 달 계산
-	const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+const monthSelect = document.getElementById('monthSelect');
+const currentMonth = new Date().getMonth() + 1; // 0부터 시작하므로 1을 더해줌
+const prevMonth = currentMonth === 1 ? 12 : currentMonth - 1; // 이전 달 계산
+const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
-	// 이전 달부터 현재 월 전까지의 옵션을 내림차순으로 추가
-	for (let i = 1; i <= 6; i++) {
-	  const month = (currentMonth - i + 12) % 12 || 12;
-	  const option = document.createElement('option');
-	  option.value = month;
-	  option.text = months[month - 1];
-	  monthSelect.add(option);
-	}
+// 이전 달부터 현재 월 전까지의 옵션을 내림차순으로 추가
+for (let i = 1; i <= 6; i++) {
+  const month = (currentMonth - i + 12) % 12 || 12;
+  const option = document.createElement('option');
+  option.value = month;
+  option.text = months[month - 1];
+  monthSelect.add(option);
+}
 
-	// 디폴트로 이전 달 선택
-	monthSelect.value = prevMonth;
-	
-	
-	monthSelect.addEventListener('change', () => {
-		  const selectedMonth = monthSelect.value;
-		  
-		  // AJAX 요청으로 선택된 월의 리스트를 가져옴
-		  fetch(`/getListByMonth?month=${selectedMonth}`)
-		    .then(response => response.text())
-		    .then(data => {
-		      // 기존 리스트를 비우고 새로운 리스트로 교체
-		      userBestSellerList.innerHTML = data;
-		    })
-		    .catch(error => console.error(error));
-		});
-	
-	
+// 디폴트로 이전 달 선택
+monthSelect.value = prevMonth;
+
+
+monthSelect.addEventListener('change', () => {
+	  const selectedMonth = monthSelect.value;
+	  
+	  // AJAX 요청으로 선택된 월의 리스트를 가져옴
+	  fetch(`/getListByMonth?month=${selectedMonth}`)
+	    .then(response => response.text())
+	    .then(data => {
+	      // 기존 리스트를 비우고 새로운 리스트로 교체
+	      userBestSellerList.innerHTML = data;
+	    })
+	    .catch(error => console.error(error));
+	});
 	
 	
 	
