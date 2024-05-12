@@ -259,14 +259,13 @@
 
 .pageImageMakerBox {
 	margin-top: 16px;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
-	gap: 10px;
 }
 
 .pageImageMakerItem {
 	width: 180px;
+	margin-right:30px;
+	margin-top:20px;
+	margin-bottom:30px;
 }
 
 .pageImageMakerItemImg {

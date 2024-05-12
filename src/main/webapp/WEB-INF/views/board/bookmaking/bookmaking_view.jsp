@@ -17,26 +17,36 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<style>
-	
+		
+		
+		
 		.loading {
 			display: none;
 		}
-		
+		 
 		.loading > img {
 			width : 370px;
 			height: 490px;
+			margin : 0 auto;
+		}
+		
+		.loadingGuide {
+			display:inline-block;
+			text-align:center;
+			margin-bottom:30px;
+			font-size:20px;
 		}
 		
 		#imageContainer > img {
 			widht: 180px;
 			height: 240px;
+			border-radius:10px;
 			
 		}
 		
 		#imageContainer {
-		  display: grid;
-		  grid-template-columns: repeat(2, 1fr);
-		  grid-gap: 20px;
+		  display:flex;
+		  justify-content:center;
 		}
 		
 		#coverImageContainer > img {
@@ -46,9 +56,8 @@
 		}
 		
 		#coverImageContainer {
-		  display: grid;
-		  grid-template-columns: repeat(2, 1fr);
-		  grid-gap: 20px;
+		  display:flex;
+		  justify-content:center;
 		}
 		
 		.pageImageMakerItem img {
@@ -57,6 +66,12 @@
 		  max-width: 400px; /* 최대 너비 400px로 제한 */
 		  max-height: 533px; /* 가로세로 비율 3:4로 계산한 높이 */
 		  object-fit: contain;
+		  border-radius:10px;
+		  transition: transform 0.3s ease;
+		}
+		
+		.pageImageMakerItem img:hover {
+	    	transform: scale(1.05); 
 		}
 		
 		.bookmakingOptionBox {
@@ -68,6 +83,14 @@
 		.bookmakingOptionWrap {
 			margin-bottom:30px;
 		}
+		
+		.pageImageDesItem {
+			font-size:20px;
+			margin-bottom:20px;
+		}
+	
+		
+		
 		
 	</style>
 </head>
@@ -214,6 +237,7 @@
 							<!-- 로딩중 -->
 							<div id="loading" class="loading">
 								<img src="/sangsangjakka/resources/img/loading.gif">
+								<div class="loadingGuide">🎨 오리가 열심히 이미지를 만드는 중입니다 🎨 </div>
 							</div>
 							
 							<!-- 생성된 이미지 -->
@@ -254,6 +278,7 @@
 							<div class="coverImageMakerBox" id="coverImageMakerBox">
 								<!-- 로딩중 -->
 								<div id="coverloading" class="loading">
+									<div class="loadingGuide">🎨 오리가 열심히 이미지를 만드는 중입니다 🎨  </div>
 									<img src="/sangsangjakka/resources/img/loading.gif">
 								</div>
 								
@@ -956,7 +981,7 @@
 								imageContainer.append(imgDiv);
 							});
 							var DesBox = $('<div>').addClass('pageImageDesBox');
-							var DesItem = $('<span>').addClass('pageImageDesItem');
+							var DesItem = $('<div>').addClass('pageImageDesItem');
 							DesItem.text('그림을 선택해주세요!');
 							DesBox.append(DesItem);
 							pageImageDesContainer.append(DesBox);
