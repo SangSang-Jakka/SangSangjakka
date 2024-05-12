@@ -66,7 +66,7 @@
 				  <c:forEach items="${fix}" var="dto">
 				  	<tr>
 				  	  	<td>📌공지</td>
-                      	<th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+                      	<th><a href="/sangsangjakka/board/notice/view.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
                       	<td>${dto.noticeRegdate}</td>
                       	<td>${dto.noticeCnt}</td>
                   	</tr>
@@ -75,7 +75,7 @@
                   <c:forEach items="${list}" var="dto">
                   	  <tr>
 	                      <td>공지</td>
-	                      <th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+	                      <th><a href="/sangsangjakka/board/notice/view.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
 	                      <td>${dto.noticeRegdate}</td>
 	                      <td>${dto.noticeCnt}</td>
 	                  </tr>
