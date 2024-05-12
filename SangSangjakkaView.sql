@@ -59,10 +59,13 @@ AS
 SELECT
     b.bookSeq,
     b.bookTitle,
-    b.bookInfo, 
+    b.bookInfo,
     b.bookCover,
     b.bookRegdate,
     b.bookModDate,
+    b.likeCnt,
+    b.bookReviewCnt,
+    b.bookScrapCnt,
     b.bookReportCnt,
     b.userSeq,
     b.parentBookSeq,
@@ -397,5 +400,74 @@ FROM
     INNER JOIN tblBookShareReport bsr ON vw.bookSeq = bsr.bookSeq
     INNER JOIN tblUserLog ul ON bsr.userSeq = ul.userSeq
     INNER JOIN tbluser u ON ul.userSeq = u.userSeq;
+   
+-- 사용자의 10개의 동화책 장르에 대한 가중치 계산 뷰
+CREATE OR REPLACE VIEW vwUserGenreScore AS
+SELECT 
+    u.userSeq AS userSeq,
+    u.userId AS userId,
+    u.userNick AS userNick,
+    g.genreName AS genreName,
+    g.genreSeq AS genreSeq,
+    COALESCE(SUM(
+        CASE 
+            WHEN ac.actionName = '조회' AND gi.genreSeq = g.genreSeq THEN 1.2
+            WHEN ac.actionName = '좋아요' AND gi.genreSeq = g.genreSeq THEN 1.8
+            WHEN ac.actionName = '스크랩' AND gi.genreSeq = g.genreSeq THEN 2.4
+            WHEN ac.actionName = '나의이야기로만들기' AND gi.genreSeq = g.genreSeq THEN 3.0
+            WHEN ac.actionName = '동화책제작' AND gi.genreSeq = g.genreSeq THEN 4.8
+            WHEN ac.actionName = '리뷰' AND gi.genreSeq = g.genreSeq THEN 3.6
+            ELSE 0
+        END
+    ), 0) AS score
+FROM 
+    tblUser u
+    CROSS JOIN tblGenre g
+    LEFT JOIN tblUserBookAction uba ON u.userSeq = uba.userSeq
+    LEFT JOIN tblActionCat ac ON uba.actionCatSeq = ac.actionCatSeq
+    LEFT JOIN tblBook b ON uba.bookSeq = b.bookSeq
+    LEFT JOIN tblGenreInfo gi ON b.bookSeq = gi.bookSeq
+GROUP BY 
+    u.userSeq, 
+    u.userId, 
+    u.userNick, 
+    g.genreName, 
+    g.genreSeq
+ORDER BY
+    u.userSeq,
+    g.genreSeq;
+    
+
+-- 마이페이지에서 보여질 사용자의 성향 점수
+CREATE OR REPLACE VIEW vwUserTendencyScore AS
+SELECT
+    u.userSeq,
+    u.userId,
+    u.userNick,
+    t.tendencySeq,
+    t.tendencyName,
+    ROUND(
+        COALESCE(SUM(ugs.score), 0) / 
+        NULLIF(
+            (SELECT SUM(score) FROM vwUserGenreScore WHERE userSeq = u.userSeq), 
+            0
+        ) * 5.0,
+        1
+    ) AS tendencyScore
+FROM
+    tblUser u
+    CROSS JOIN tblTendency t
+    LEFT JOIN tblTendencyGenre tg ON t.tendencySeq = tg.tendencySeq
+    LEFT JOIN vwUserGenreScore ugs ON tg.genreSeq = ugs.genreSeq AND u.userSeq = ugs.userSeq
+GROUP BY
+    u.userSeq,
+    u.userId,
+    u.userNick,
+    t.tendencySeq,
+    t.tendencyName
+ORDER BY
+    u.userSeq,
+    t.tendencySeq;
+   
    
 commit;

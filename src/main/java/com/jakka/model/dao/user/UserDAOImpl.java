@@ -1201,6 +1201,61 @@ public class UserDAOImpl implements UserDAO{
 		return null;
 	}
 	
+	@Override
+	public String[] findGenreScore(String userSeq) {
+		
+		final String SQL = "select * from vwUserGenreScore where userSeq = ? order by score desc";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Double> findTendencyScore(String userSeq) {
+		
+		final String SQL = "select * from vwUserTendencyScore where userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			HashMap<String, Double> map = new HashMap<>();
+			
+			while(rs.next()) {
+				
+				map.put(rs.getString("tendencyName"), rs.getDouble("tendencyScore"));
+				
+			}
+			
+			return map;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
 	
 	
 }//End of class

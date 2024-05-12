@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.jakka.model.DAOManager;
@@ -24,8 +25,15 @@ public class Test {
 		
 		
 		//동화책 리뷰 더미 생성
-		createReview();
-	
+		//createReview();
+		
+		UserDAO userDAO = DAOManager.getUserDAO();
+		
+		HashMap<String, Double> map = userDAO.findTendencyScore("6");
+		
+		System.out.println(map.get("창의성 성향"));
+		
+		
     }
 	
 

@@ -3,6 +3,7 @@ package com.jakka.controller.member.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ public class MyPage extends HttpServlet{
 	    HttpSession session = req.getSession();
 	    String userId = (String) session.getAttribute("userId");
 	    String userNick = (String) session.getAttribute("userNick");
+	    String userSeq = (String) session.getAttribute("userSeq");
 	    
 	    if (userId == null) {
 			
@@ -46,6 +48,8 @@ public class MyPage extends HttpServlet{
 	    ArrayList<BoardDTO> list = boardDAO.findByNickBoard(userNick);
 	    req.setAttribute("list", list);
         
+	    HashMap<String, Double> tendency = dao.findTendencyScore(userSeq);
+	    req.setAttribute("tendency", tendency);
 
 	
 	    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/mypage.jsp");

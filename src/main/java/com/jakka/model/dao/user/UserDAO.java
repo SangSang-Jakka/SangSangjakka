@@ -1,6 +1,7 @@
 package com.jakka.model.dao.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.jakka.model.dao.ActiveStatus;
@@ -38,5 +39,8 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public Map<String, Integer[]> member(String year);
     
     public ArrayList<UserDTO> findAllBook();
+    
+    public String[] findGenreScore(String userSeq);
+    public HashMap<String, Double> findTendencyScore(String userSeq);
 
 }

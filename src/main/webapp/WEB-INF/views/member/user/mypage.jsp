@@ -299,6 +299,14 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="validation.js"></script>
 <script>
+		
+		var tendencyData = [
+		    <c:forEach var="entry" items="${tendency}">
+		        ${entry.value},
+		    </c:forEach>
+		];
+
+
 		$(document).ready(function () {
 			// 로딩 시 모든 탭 컨텐츠를 숨기고 첫 번째 탭 컨텐츠를 표시
 			$('.maintabcontent > div').hide().first().show();
@@ -483,7 +491,7 @@
 					max: 360,
 					labels: {
 						formatter: function () {
-							const labels = ['항목1', '항목2', '항목3', '항목4', '항목5'];
+							const labels = ['창의성 성향', '교육 성향', '모험성향', '감성 성향', '유머 성향'];
 							return labels[(this.value / 72) % labels.length];
 						}
 					}
@@ -515,7 +523,7 @@
 					type: 'area',
 					name: 'Area',
 					color: '#ffa500',
-					data: [1, 2, 3, 4, 5]
+					data: tendencyData
 				}],
 				credits: {
 					enabled: false // 크레딧을 비활성화
@@ -548,7 +556,7 @@
 					max: 360,
 					labels: {
 						formatter: function () {
-							const labels = ['항목1', '항목2', '항목3', '항목4', '항목5'];
+							const labels = ['모험 성향', '감성 성향', '교육 성향', '유머 성향', '창의성 성향'];
 							return labels[(this.value / 72) % labels.length];
 						}
 					}
@@ -580,7 +588,7 @@
 					type: 'area',
 					name: 'Area',
 					color: '#ffa500',
-					data: [3, 2, 3, 4, 2]
+					data: chartData
 				}],
 				credits: {
 					enabled: false // 크레딧을 비활성화
