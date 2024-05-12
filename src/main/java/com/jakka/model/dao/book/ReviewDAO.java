@@ -26,6 +26,12 @@ public interface ReviewDAO extends BasicDAO<ReviewDTO>, ReportCnt, ActiveStatus<
 
 	public int reviewDel(String reviewSeq);
 
+	public int addLike(ReviewDTO dto);
+
+	boolean isLike(String userSeq);
+
+	public ArrayList<ReviewDTO> findLikedReviews(String userSeq);
+
 	
 
 }
