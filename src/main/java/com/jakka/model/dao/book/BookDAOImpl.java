@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -1703,6 +1704,40 @@ public class BookDAOImpl implements BookDAO{
 			    return pageCount;
 	}
 
+	
+	@Override
+	public Map<String, Integer> makeBook(String year) {
+		 Map<String, Integer> bookResult = new HashMap<>();
+
+		    String SQL = "SELECT TO_CHAR(bookregdate, 'YY/MM') AS monthYear,\r\n"
+		    		+ "       COUNT(*) AS bookCount\r\n"
+		    		+ "FROM tblBook\r\n"
+		    		+ "WHERE EXTRACT(YEAR FROM bookregdate) = ?\r\n"
+		    		+ "GROUP BY TO_CHAR(bookregdate, 'YY/MM')";
+
+		    try {
+		    	 Connection conn = DBUtil.open();
+		         PreparedStatement pstat = conn.prepareStatement(SQL);
+		         pstat.setString(1, year); // 연도 값을 설정
+
+		         ResultSet rs = pstat.executeQuery();
+
+		         while (rs.next()) {
+		             String monthYear = rs.getString("monthYear");
+		             int bookCount = rs.getInt("bookCount");
+
+		             // 결과를 Map에 저장
+		             bookResult.put(monthYear, bookCount);
+		         }
+
+		         conn.close(); // 연결 닫기
+
+		     } catch (Exception e) {
+		         System.out.println("UserDAOImpl.makeBook");
+		         e.printStackTrace();
+		     }
+		     return bookResult;
+	}
 	
 	
 }//End of class

@@ -73,131 +73,58 @@
        
       			<canvas id="memberChart"></canvas> 
 				</div>
-             
-<!--                 <div class="bg-white pd-20 card-box mb-30">  -->
-<!--                 <div class="col-md-4 col-sm-12"> -->
-<!-- <!--                  <div class="col-lg-4 col-md-6 col-sm-12 mb-30">  --> 
-<!-- <!-- 					<div class="card-box pd-30 pt-10 height-100-p">  --> 
-                    
-                   
-<!-- 			    <div class="browser-visits"> -->
-<!-- 			    <table class="table table-striped"> -->
-						
-
-
-<!-- 					  <tbody> -->
-<!-- 					    <tr> -->
-<!-- 					      	<th scope="col">#</th>	 -->
-<!-- 							<th scope="col">유입경로</th> -->
-<!-- 							<th scope="col">선택 수</th> -->
-					      
-<!-- 					    </tr> -->
-<!-- 					  </tbody> -->
-					  
-<%-- 					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop"> --%>
-<!-- 					      <tr> -->
-<%-- 					        <td>${loop.index + 1}</td> --%>
-<%-- 					        <td>${admin.inflowname}</td> --%>
-<%-- 					        <td>${admin.inflowCount}</td> --%>
-					       
-<!-- 					      </tr> -->
-<%-- 					    </c:forEach> --%>
-					  
-<!-- 					</table> -->
-<!-- 				</div> -->
 				
-<%-- <%-- 				<canvas id="memberChart"></canvas> --%> 
+				
 			
-<!--                 </div> -->
-<!--                 </div> -->
-<!--                 <div class="col-lg-4 col-md-6 col-sm-12 mb-30"> -->
-<!-- 					<div class="card-box pd-30 pt-10 height-100-p"> -->
-						
-<!-- 						<div class="browser-visits2"> -->
-							 
-<!--                     <div class="form-group has-success"> -->
-<!-- 				<label class="form-control-label"> DATE</label> -->
-<%-- 				<input type="text" id="monthPicker2" name="monthPicker2" class="form-control form-control-success" value="<%= currentYear%> "> --%>
-<!-- 			    <h2 class="mb-30 h4">Browser Visit</h2> -->
-<!-- 			    <div class="browser-visits siwon"> -->
-<!-- 			    <table class="table table-striped"> -->
-						
+             
 
-
-<!-- 					  <tbody> -->
-<!-- 					    <tr> -->
-<!-- 					      	<th scope="col">#</th>	 -->
-<!-- 							<th scope="col">유입경로</th> -->
-<!-- 							<th scope="col">선택 수</th> -->
-					      
-<!-- 					    </tr> -->
-<!-- 					  </tbody> -->
-					  
-<%-- 					    <c:forEach items="${inflowCount}" var="admin" varStatus="loop"> --%>
-<!-- 					      <tr> -->
-<%-- 					        <td>${loop.index + 1}</td> --%>
-<%-- 					        <td>${admin.inflowname}</td> --%>
-<%-- 					        <td>${admin.inflowCount}</td> --%>
-					       
-<!-- 					      </tr> -->
-<%-- 					    </c:forEach> --%>
-					  
-<!-- 					</table> -->
-<!-- 				</div> -->
-			    
-
-<!-- 			    </div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
-<!-- 				 <div class="form-group has-success"> -->
-<!-- 				<label class="form-control-label"> DATE</label> -->
-<%-- 				<input type="text" id="monthPicker" name="monthPicker" class="form-control form-control-success" value="<%= currentYear%> "> --%>
-<!-- 			    </div> -->
 				
 				<div class="row">
+				
 				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
 					<div class="card-box pd-30 pt-10 height-100-p">
-						<h2 class="mb-30 h4">Browser Visit</h2>
-						<div class="browser-visits">
-							<ul>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/chrome.png" alt=""></div>
-									<div class="browser-name">Google Chrome</div>
-									<div class="visit"><span class="badge badge-pill badge-primary">50%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/firefox.png" alt=""></div>
-									<div class="browser-name">Mozilla Firefox</div>
-									<div class="visit"><span class="badge badge-pill badge-secondary">40%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/safari.png" alt=""></div>
-									<div class="browser-name">Safari</div>
-									<div class="visit"><span class="badge badge-pill badge-success">40%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/edge.png" alt=""></div>
-									<div class="browser-name">Microsoft Edge</div>
-									<div class="visit"><span class="badge badge-pill badge-warning">20%</span></div>
-								</li>
-								<li class="d-flex flex-wrap align-items-center">
-									<div class="icon"><img src="vendors/images/opera.png" alt=""></div>
-									<div class="browser-name">Opera Mini</div>
-									<div class="visit"><span class="badge badge-pill badge-info">20%</span></div>
-								</li>
-							</ul>
-						</div>
+						
+<!-- 					<div class="pd-20 card-box mb-30"> -->
+<!-- 					<div class="clearfix mb-20"> -->
+						
+						<div class="form-group has-success">
+				<label class="form-control-label"> DATE</label>
+				<input type="text" id="monthPicker2" name="monthPicker2" class="form-control form-control-success">
+				
+			    </div>
+						
+<!-- 					</div> -->
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">First</th>
+								<th scope="col">Last</th>
+								
+							</tr>
+						</thead>
+						<tbody id="tableBody">
+							
+						</tbody>
+					</table>
+					
+<!-- 				</div> -->
 					</div>
 				</div>
 				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
 					<div class="card-box pd-30 pt-10 height-100-p">
-						<h2 class="mb-30 h4">World Map</h2>
-						<div id="browservisit" style="width:100%!important; height:380px"></div>
+						
+						<select class="selectpicker form-control" id ="yearSelect2" data-size="5" data-style="btn-outline-info" data-selected-text-format="count" name="year" onchange="sendSelectedOptionValue(this)">
+            <c:forEach var="year" items="<%= yearList %>">
+              <option value="${year}">20${year}</option>
+            </c:forEach>
+          </select>
+						<canvas id="lineChart" width="300" height="250"></canvas>
 					</div>
 				</div>
 			</div>
+                
+               
                 
                
                 
@@ -233,158 +160,7 @@
 	<script src="/sangsangjakka/resources/vendors/scripts/jquery.mtz.monthpicker.js"></script>
 
 
-<script>
-	$(document).ready(function() {
-		  var options = {
-		    pattern: 'yyyy/mm', // input태그에 표시될 형식
-		    selectedYear: <%= currentYear %>, // 선택할 연도
-		    startYear: 20<%= yearList.get(0) %>, // 시작연도
-		    finalYear: 20<%= yearList.get(yearList.size() - 1) %>, // 마지막연도
-		    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 화면에 보여줄 월이름
-		    openOnFocus: true, // focus시에 달력이 보일지 유무
-		    disableMonths: [] // 월 비활성화
-		  };
 
-		  // 방법1) options 따로 지정
-		  $("#monthPicker").monthpicker(options);
-		  $("#monthPicker2").monthpicker(options);
-		 
-	
-	
-	
-		
-
-		  // 입력 필드 값 변경 이벤트 핸들러 등록
-		  $("#monthPicker").on("change", function() {
-		    var newValue = $(this).val();
-		    console.log("새로운 값:", newValue);
-		    
-		 // Ajax POST 요청 전송
-		    $.ajax({
-		          type: "POST",
-		          url: "/sangsangjakka/admin/dashboard.do", // 서버 측 스크립트 경로
-		          data: { selectedMonth: newValue },
-		          success: function(response) {
-		        	  var inflowCountData = response; 
-		              
-		              // 받아온 데이터를 콘솔에 출력하여 확인
-		              console.log("서버 응답:", inflowCountData);
-		              // Browser Visit 제목을 담을 변수
-		              //var browserVisitTitle = '<h2 class="mb-30 h4">'+ response[0].registrationMonth + '</h2>'; // 첫 번째 항목의 registrationMonth 값을 가져와 제목에 추가
-
-		              // HTML을 저장할 변수
-		              var html = ''; // 제목을 먼저 추가
-
-		              // Browser Visit div 요소를 생성하여 HTML 변수에 추가
-		              
-						html += '<tbody>'	
-						html += '<tr>'	
-						html += '<th scope="col">#</th>'	
-						html += '<th scope="col">유입경로</th>'	
-						html += '<th scope="col">선택 수</th>'	
-							
-						html += '</tr>'	
-						html += '</body>'
-		              
-		              var rank =1;
-		              
-		              // JSON 데이터를 반복하여 HTML 생성
-		              response.forEach(function(item) {
- 		         
-
-							
-							
-						html += '<tr>'	
-						html += '<td>' + rank + '</td>'	
-						html += '<td>' + item.inflowname + '</td>'	
-						html += '<td>' + item.inflowCount + '</td>'	
-							
-						html += '</tr>'
-					
-		                  
-		                  rank++;
-		              });
-		              
-		              // 생성된 HTML을 적용할 요소에 추가
-//		            
-		              $('.bg-white.pd-20.card-box.mb-30 table tbody').html(html);
-
-		              
-		           
-		          },
-		          error: function(xhr, status, error) {
-		            console.error("Ajax 요청 실패:", error);
-		          }
-		        });
-		      });
-		  
-		  
-		  
-		  
-		  $("#monthPicker2").on("change", function() {
-			    var newValue = $(this).val();
-			    console.log("새로운 값:", newValue);
-			    
-			 // Ajax POST 요청 전송
-			    $.ajax({
-			          type: "POST",
-			          url: "/sangsangjakka/admin/dashboard.do", // 서버 측 스크립트 경로
-			          data: { selectedMonth: newValue },
-			          success: function(response) {
-			        	  var inflowCountData = response; 
-			              
-			              // 받아온 데이터를 콘솔에 출력하여 확인
-			              console.log("서버 응답:", inflowCountData);
-			              // Browser Visit 제목을 담을 변수
-			              //var browserVisitTitle = '<h2 class="mb-30 h4">'+ response[0].registrationMonth + '</h2>'; // 첫 번째 항목의 registrationMonth 값을 가져와 제목에 추가
-
-			              // HTML을 저장할 변수
-			              var html = ''; // 제목을 먼저 추가
-
-			              // Browser Visit div 요소를 생성하여 HTML 변수에 추가
-			              
-							html += '<tbody>'	
-							html += '<tr>'	
-							html += '<th scope="col">#</th>'	
-							html += '<th scope="col">유입경로</th>'	
-							html += '<th scope="col">선택 수</th>'	
-								
-							html += '</tr>'	
-							html += '</body>'
-			              
-			              var rank =1;
-			              
-			              // JSON 데이터를 반복하여 HTML 생성
-			              response.forEach(function(item) {
-	 		         
-
-								
-								
-							html += '<tr>'	
-							html += '<td>' + rank + '</td>'	
-							html += '<td>' + item.inflowname + '</td>'	
-							html += '<td>' + item.inflowCount + '</td>'	
-								
-							html += '</tr>'
-						
-			                  
-			                  rank++;
-			              });
-			              
-			              // 생성된 HTML을 적용할 요소에 추가
-//			            
-			             // $('.col-lg-4 col-md-6 col-sm-12 mb-30 table tbody').html(html);
-			              $('.browser-visits.siwon table tbody').html(html);
-			              
-			           
-			          },
-			          error: function(xhr, status, error) {
-			            console.error("Ajax 요청 실패:", error);
-			          }
-			        });
-			      });
-		    });
-		  </script>
 <script>
 
 // 현재 연도 가져오기
@@ -478,6 +254,77 @@ function sendSelectedOptionValue(selectElement) {
 
 
 <script>
+
+$(document).ready(function() {
+    // 현재 연도와 월 가져오기
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var currentMonth = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+
+    // 월 값이 한 자리 수인 경우 앞에 0을 붙여 두 자리로 만듭니다.
+    var currentMonthStr = currentMonth < 10 ? '0' + currentMonth : currentMonth;
+
+    // 현재 연도와 월을 YYYY/MM 형식으로 합쳐줍니다.
+    var currentDateString = currentYear + '/' + currentMonthStr;
+
+    var options = {
+        pattern: 'yyyy/mm', // input태그에 표시될 형식
+        selectedYear: currentYear, // 선택할 연도
+        selectedMonth: currentMonthStr, // 선택할 월
+        startYear: 20<%= yearList.get(0) %>, // 시작연도
+        finalYear: 20<%= yearList.get(yearList.size() - 1) %>, // 마지막연도
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 화면에 보여줄 월이름
+        openOnFocus: true, // focus시에 달력이 보일지 유무
+        disableMonths: [] // 월 비활성화
+    };
+
+    
+    // 월 선택 기능을 위한 monthpicker 초기화
+    $("#monthPicker2").monthpicker(options);
+    
+    $("#monthPicker2").val(currentDateString);
+
+    // 페이지 로드 시 현재 연도와 월의 데이터를 불러옵니다.
+    loadData(currentDateString);
+
+    // 월 선택이 변경될 때마다 데이터를 불러옵니다.
+    $("#monthPicker2").on("change", function() {
+        var newValue = $(this).val();
+        console.log("새로운 값:", newValue);
+        loadData(newValue);
+    });
+
+    // 데이터를 불러와서 화면에 표시하는 함수
+    function loadData(selectedMonth) {
+        $.ajax({
+            type: "POST",
+            url: "/sangsangjakka/admin/dashboard.do", // 서버 측 스크립트 경로
+            data: { selectedMonth: selectedMonth },
+            success: function(response) {
+                var rank = 1;
+                console.log("들어왔나? :", response)
+                var tbody = $('#tableBody');
+                tbody.empty(); // 기존 데이터를 비웁니다.
+                response.forEach(function(book) {
+                    var row = '<tr>' +
+                        '<td class="table-plus">' + rank + '</td>' +
+                        '<td>' + book.inflowname + '</td>' +
+                        '<td>' + book.inflowCount + '</td>' +
+                        '</tr>';
+                    rank++;
+                    tbody.append(row);
+                });
+            },
+            error: function(xhr, status, error, response) {
+                console.error("Ajax 요청 실패:", error);
+            }
+        });
+    }
+});
+
+</script>
+
+<script>
 // getBarChartOptions 함수 사용
 var options = getBarChartOptions();
 
@@ -486,6 +333,66 @@ var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 </script>
 
+<script>
+
+var currentYear = new Date().getFullYear();
+var currentYearShort = currentYear.toString().slice(-2);
+console.log(currentYearShort);
+
+$("#yearSelect2").val(currentYearShort);
+// 현재 연도 차트 초기 렌더링
+renderChart(currentYear.toString());
+
+function renderChart(year) {
+  $.ajax({
+    type: "POST",
+    url: "/sangsangjakka/admin/dashboard.do",
+    data: { selectedValue: year },
+    success: function(response) {
+        console.log('Server response:', response);
+
+        var labels = []; // 월별 라벨
+        var bookData = []; // 월별 도서 수
+
+        // JSON 데이터 파싱
+        for (var i = 0; i < response.monthYears.length; i++) {
+            var monthYear = response.monthYears[i];
+            labels.push(monthYear);
+            var bookCount = response.bookCounts[i];
+            bookData.push(bookCount);
+        }
+
+        var context = document.getElementById('lineChart').getContext('2d');
+        if (window.myChart) {
+            window.myChart.destroy(); // 기존 차트 제거
+        }
+
+        window.myChart = new Chart(context, { 
+            type: 'line',
+            data: {
+                labels: labels, // labels에 월별 라벨 추가
+                datasets: [{ 
+                    data: bookData, // bookData에 월별 도서 수 추가
+                    label: "Book Counts",
+                    borderColor: "#3e95cd",
+                    fill: false
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Monthly Book Counts'
+                }
+            }
+        });
+    },
+    error: function(xhr, status, error) {
+      console.error('AJAX request error:', error);
+    }
+  });
+}
+
+</script>
 
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.jakka.model.dao.book;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -50,6 +51,7 @@ public interface BookDAO extends BasicDAO<BookDTO>, ReportCnt, Cnt, ActiveStatus
 	public int getBookCount();
 	public int getTodayBookCount(String today);
 	public int getPageCount();
+	public  Map<String, Integer> makeBook(String month);
 
 	
 
