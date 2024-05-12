@@ -50,10 +50,6 @@ import com.jakka.model.dto.board.NoticeDTO;
 			NoticeDTO prev = dao.findById(Integer.parseInt(noticeSeq) - 1 + "");
 			NoticeDTO dto = dao.findById(noticeSeq);
 			
-			System.out.println(next);
-			System.out.println(prev);
-			System.out.println(dto);
-			
 			if(next != null) {
 				next.setNoticeRegdate(next.getNoticeRegdate().substring(0, 10));
 				next.setNoticeTitle(next.getNoticeTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
