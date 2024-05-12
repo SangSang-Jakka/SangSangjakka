@@ -63,23 +63,27 @@
 					</tr>
 				  </c:if>
 				  
-				  <c:forEach items="${fix}" var="dto">
-				  	<tr>
-				  	  	<td>📌공지</td>
-                      	<th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
-                      	<td>${dto.noticeRegdate}</td>
-                      	<td>${dto.noticeCnt}</td>
-                  	</tr>
-				  </c:forEach>
+				  <c:if test="${not empty fix}">
+					  <c:forEach items="${fix}" var="dto">
+					  	<tr>
+					  	  	<td>📌공지</td>
+	                      	<th><a href="/sangsangjakka/board/notice/view.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+	                      	<td>${dto.noticeRegdate}</td>
+	                      	<td>${dto.noticeCnt}</td>
+	                  	</tr>
+					  </c:forEach>
+                  </c:if>
                   
-                  <c:forEach items="${list}" var="dto">
-                  	  <tr>
-	                      <td>공지</td>
-	                      <th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
-	                      <td>${dto.noticeRegdate}</td>
-	                      <td>${dto.noticeCnt}</td>
-	                  </tr>
-				  </c:forEach>
+                  <c:if test="${not empty list}">
+	                  <c:forEach items="${list}" var="dto">
+	                  	  <tr>
+		                      <td>공지</td>
+		                      <th><a href="/sangsangjakka/board/notice/view.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+		                      <td>${dto.noticeRegdate}</td>
+		                      <td>${dto.noticeCnt}</td>
+		                  </tr>
+					  </c:forEach>
+				  </c:if>
                   
                   </tbody>
               </table>

@@ -55,18 +55,39 @@
                               <tr class="preBox">
                                 <th scope="col" class="listOrder">이전글</th>
                                 <th scope="col" class="listTitle">
-                                  <a href="">고객 블랙리스트</a>
+                                 
+                                  <c:if test="${not empty prev.noticeTitle}">
+	                                  <a href="/sangsangjakka/board/notice/view.do?no=${prev.noticeSeq}">${prev.noticeTitle}</a>
+     	                             <th scope="col" class="listDate">${prev.noticeRegdate}</th>
+	                                 <th scope="col" class="listViews">${prev.noticeCnt}</th>
+                                  </c:if>
+                                  
+                                  <c:if test="${empty prev}">
+                                  	  <a href="#!">이전글이 없습니다.</a>
+                                  	  <th scope="col" class="listDate"></th>
+	                                  <th scope="col" class="listViews"></th>
+                                  </c:if>
+                                
                                 </th>
-                                <th scope="col" class="listDate">2024-01-04</th>
-                                <th scope="col" class="listViews">50</th>
                               </tr>
                               <tr>
                                 <th scope="col" class="listOrder">다음글</th>
                                 <th scope="col" class="listTitle">
-                                  <a href="">동화 제작 오류 수정 안내</a>
+                                
+                                <c:if test="${not empty next.noticeTitle}">
+                                  <a href="/sangsangjakka/board/notice/view.do?no=${next.noticeSeq}">${next.noticeTitle}</a>
+	                                <th scope="col" class="listDate">${next.noticeRegdate}</th>
+		                            <th scope="col" class="listViews">${next.noticeCnt}</th>
+                                </c:if>
+                                
+                                <c:if test="${empty next}">
+                                  <a href="#!">다음글이 없습니다.</a>
+	                                <th scope="col" class="listDate"></th>
+		                            <th scope="col" class="listViews"></th>
+                                </c:if>
+                                
                                 </th>
-                                <th scope="col" class="listDate">2024-05-06</th>
-                                <th scope="col" class="listViews">10</th>
+                                
                               </tr>
                             </tbody>
 
@@ -75,7 +96,7 @@
                     </div>
                     
                      <div class="btnTable">
-                        <input type="button" class="btnList" value="목록">
+                        <input type="button" class="btnList" value="목록" onclick="location.href='/sangsangjakka/board/notice/list.do';">
                       </div>
                     
   </section>

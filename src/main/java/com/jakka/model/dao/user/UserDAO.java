@@ -39,6 +39,7 @@ public interface UserDAO extends BasicDAO<UserDTO>, ActiveStatus<UserDTO>{
     public Map<String, Integer[]> member(String year);
     
     public ArrayList<UserDTO> findAllBook();
+    public UserDTO findByBook(String userSeq);
     
     public String[] findGenreScore(String userSeq);
     public HashMap<String, Double> findTendencyScore(String userSeq);

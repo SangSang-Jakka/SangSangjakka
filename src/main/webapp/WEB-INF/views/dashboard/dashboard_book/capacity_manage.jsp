@@ -184,9 +184,7 @@ margin-right : 14px;
 											<div
 												class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/book/capacityview.do?seq=${capacity.userSeq}"><i class="dw dw-eye"></i>
-													View</a> <a class="dropdown-item" href="#"><i
-													class="dw dw-edit2"></i> Edit</a> <a class="dropdown-item"
-													href="#"><i class="dw dw-delete-3"></i> Delete</a>
+													View</a>
 											</div>
 										</div>
 									</td>
