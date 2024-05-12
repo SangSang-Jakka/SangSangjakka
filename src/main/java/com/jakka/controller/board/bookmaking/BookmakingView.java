@@ -109,12 +109,14 @@ public class BookmakingView extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		String userId = (String) session.getAttribute("userId");
-		
+		String userSeq = (String) session.getAttribute("userSeq");
 		
 		// 문자 인코딩을 UTF-8로 설정
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
+        UserDAO dao = DAOManager.getUserDAO();
+        
         try {
             // 사용자가 전송한 프롬프트 데이터 받기
             String prompt = req.getParameter("prompt");
@@ -122,12 +124,7 @@ public class BookmakingView extends HttpServlet {
             
             //여기서 사용자가 선호하는 
             
-            String[] category = {
-            		"HeartwarmingTales",
-            		"HumorousTales",
-            		"FriendFamilyStories",
-            		"Adventuretales"
-            };
+            String[] category = dao.findGenreScore(userSeq);
             String[] promptList = new String[2];
             
             for(int i = 0; i < 2; i++) {
