@@ -446,13 +446,16 @@ SELECT
     u.userNick,
     t.tendencySeq,
     t.tendencyName,
-    ROUND(
-        COALESCE(SUM(ugs.score), 0) / 
-        NULLIF(
-            (SELECT SUM(score) FROM vwUserGenreScore WHERE userSeq = u.userSeq), 
-            0
-        ) * 5.0,
-        1
+    COALESCE(
+        ROUND(
+            COALESCE(SUM(COALESCE(ugs.score, 0)), 0) /
+            NULLIF(
+                (SELECT SUM(COALESCE(score, 0)) FROM vwUserGenreScore WHERE userSeq = u.userSeq),
+                0
+            ) * 5.0,
+            1
+        ),
+        0
     ) AS tendencyScore
 FROM
     tblUser u
