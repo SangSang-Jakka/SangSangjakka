@@ -19,5 +19,8 @@ public interface BoardCommentsDAO extends BasicDAO<BoardCommentDTO>, ActiveStatu
 	   public ArrayList<BoardCommentDTO> findAllNoReport();
 	   public ArrayList<BoardCommentDTO> findByNick(String userNcik);
 
-	   public int add(BoardCommentDTO dto);
+
+	    public int add(BoardCommentDTO dto);
+		public int del(BoardCommentDTO cmntDto);
+
 }

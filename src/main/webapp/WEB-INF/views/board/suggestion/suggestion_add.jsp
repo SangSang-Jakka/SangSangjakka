@@ -18,7 +18,7 @@
 		<!-- header -->
 		<%@include file="/WEB-INF/views/template/header.jsp"%>
 		
-		
+	<section class="Suggestion">
         <div class="pageTitle">
               <div class="freeboardType">
                   <h3>건의 사항
@@ -49,19 +49,19 @@
                     
             <div class="btnBox">
             <button class="btnBack" onclick="location.href='/sangsangjakka/board/suggestion/list.do';">
-                </button>
                 <i class="fa-solid fa-rotate-left"></i> 돌아가기
+                </button>
                 <button type="submit" class="btnWrite" onclick="location.href='/sangsangjakka/board/suggestion/list.do'">
                 	<i class="fa-solid fa-pencil"></i> 쓰기
                 </button>
             
             	</div>
-            </form>
             
             <input type="hidden" name="reply" value="${reply}">
             <input type="hidden" name="thread" value="${thread}">
             <input type="hidden" name="depth" value="${depth}">
             <input type="hidden" name="seq" value="${userSeq}">
+            </form>
             
 
     </section>
