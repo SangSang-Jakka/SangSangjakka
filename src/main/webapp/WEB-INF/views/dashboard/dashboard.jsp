@@ -98,8 +98,8 @@
 						<thead>
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">First</th>
-								<th scope="col">Last</th>
+								<th scope="col">유입경로</th>
+								<th scope="col">선택수</th>
 								
 							</tr>
 						</thead>

@@ -18,7 +18,7 @@
             <div class="bannerWrap">
                 <div class="bannerContainer">
                     <div class="bannerTitle" style="font-family: 'SOYOMapleBoldTTF';">아이의 상상력을 현실로! <br> AI 동화책 제작</div>
-                    <div class="bannerContents" style="font-family: 'SOYOMapleBoldTTF';">상상자까는 아이들의 상상력을 현실로 만들어주는 특별한 경험을 선사합니다. <br>아이들은 작가가 되어 자신만의 이야기를 책으로 만날 수 있어요.</div>
+                    <div class="bannerContents">상상자까는 아이들의 상상력을 현실로 만들어주는 특별한 경험을 선사합니다. <br>아이들은 작가가 되어 자신만의 이야기를 책으로 만날 수 있어요.</div>
                     <button class="bannerbtn" style="font-family: 'SOYOMapleBoldTTF';" onclick="window.location.href='/sangsangjakka/board/bookmaking/add.do';">나만의 동화책 제작하기</button>
                     <div class="bannerTxt"> + Wake a imagination in a child</div>
                 </div>
