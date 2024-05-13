@@ -156,6 +156,9 @@ section.notice {
 
 .bookTitle {
    margin-bottom: 10px;
+   white-space: nowrap; /* 텍스트가 한 줄로만 표시되도록 함 */
+  overflow: hidden; /* 넘치는 텍스트를 감출 것임 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 생략 부호(...)로 표시함 */
 }
 
 .createTitle {
