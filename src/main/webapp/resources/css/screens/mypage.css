@@ -737,39 +737,35 @@ option {
     font-size: 16px; /* Uniform font size for options */
 }
 
-.bookshelf {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 16px;
-	padding: 16px;
-	max-width: 800px;
-	margin: auto;
+.bookshelfContainer {
+	width: 900px;
+	height: 520px;
+	margin: 0 auto;
 }
 
 .bookshelf {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 16px;
-	padding: 16px;
-	max-width: 800px;
-	margin: auto;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 30px;
+    justify-items: center;
+    margin-top: 20px;
 }
 
-.book {
+/* .book {
 	border: 1px solid #ccc;
 	padding: 16px;
 	text-align: center;
 	background-color: #f9f9f9;
-	/* Light background for the books */
+	Light background for the books
 	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-	/* Adds a subtle shadow to each book for a 3D effect */
+	Adds a subtle shadow to each book for a 3D effect
 	transition: transform 0.3s ease;
-	/* Smooth transformation on hover */
+	Smooth transformation on hover
 	position: relative;
-	/* Needed for pseudo-elements and hover effects */
+	Needed for pseudo-elements and hover effects
 	overflow: hidden;
-	/* Keeps pseudo-elements within the book div */
-}
+	Keeps pseudo-elements within the book div
+} */
 
 .book::before {
 	content: '';
@@ -790,6 +786,123 @@ option {
 
 .book:hover::before {
 	transform: rotate(25deg) translate(150%, -50%);
+}
+
+.bookShareContainer {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  width: 400px;
+  height: 240px;
+  margin-right: 20px;
+}
+
+.bookShareContainer:hover {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.bookImg img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.bookDetails {
+   display: flex;
+   flex-direction: column;
+   height : 200px;
+   width: 200px;
+   justify-content: space-between;
+} 
+
+.bookOwner {
+   display: flex;
+   align-items: center;
+}
+
+.createDate {
+  	margin-bottom: 10px;
+}
+
+.bookOwner {
+  margin-bottom: 10px;
+}
+
+.createDate {
+	font-size: 16px;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.createAuthor {
+	font-size: 16px;
+  	margin-left : 10px;
+}
+
+.bookContents {
+	width: 200px;
+	height: 60;
+	margin-bottom: 10px;
+	font-size : 14px;
+}
+
+.bookTitle {
+   margin-bottom: 10px;
+}
+
+.createTitle {
+  font-size: 20px;
+  width: fit-content;
+  font-weight: bold;
+  background: linear-gradient(to top, #bfffa1 40%, transparent 70%);
+}
+
+.iconItems {
+  display: flex;
+  align-items: center;
+  justify-content : flex-end;
+}
+
+.createContents {
+	width:180px;
+	height:60px;
+	overflow:hidden;
+	/* background-color:tomato; */
+}
+
+.subItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.subItems i {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+
+.subItems p {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.bookmarker{
+	color: #babab9;
+}
+
+.heart {
+	color:#FE2E64;
+}
+
+.comment {
+	color : #ee7143;
 }
 
 .pagination {

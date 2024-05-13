@@ -160,7 +160,7 @@
 								</div>
 								<div class="change full">
 									<div class="changegroup">
-										<div class="changebtnbox">                                                                                                                                                                                                                                                                          
+										<div class="changebtnbox">																																																																			
 											<input type="submit" value="수정완료" id="changecompletebtn"
 												class="pointer"></input>
 										</div>
@@ -204,7 +204,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="bookshelf" id="bookshelf"></div>
+					<div class="bookshelfContainer">
+						<div class="bookshelf" id="bookshelf"></div>
+					</div>
 					<div class="pagination">
 						<button id="firstPage">&lt;&lt;</button>
 						<button id="prevPage">&lt;</button>
@@ -227,92 +229,92 @@
 					<div class="tabcontent subtabcontent">
 						<div id="tab05">
 				<table class="boardTable">
-                  <thead>
-                    <tr>
-                        <th scope="col" class="thNum thList">번호</th>
-                        <th scope="col" class="thTitle thList">제목</th>
-                        <th scope="col" class="thDate thList">등록일</th>
-                        <th scope="col" class="thViews thList">조회수</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  
-                 <c:if test="${requestScope.list.size() == 0}">
-				    <tr>
-				        <td colspan="5">게시물이 없습니다.</td>
-				    </tr>
+				  <thead>
+					<tr>
+						<th scope="col" class="thNum thList">번호</th>
+						<th scope="col" class="thTitle thList">제목</th>
+						<th scope="col" class="thDate thList">등록일</th>
+						<th scope="col" class="thViews thList">조회수</th>
+					</tr>
+				  </thead>
+				  <tbody>
+				  
+				 <c:if test="${requestScope.list.size() == 0}">
+					<tr>
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
 				</c:if>
 				
 				<c:forEach items="${requestScope.list}" var="dto">
-				    <tr class=myBoardList>
-				        <td>${dto.boardSeq}</td>
-				        <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
-				        <td>${dto.boardRegdate}</td>
-				        <td>${dto.boardCnt}</td>
-				    </tr>
+					<tr class=myBoardList>
+						<td>${dto.boardSeq}</td>
+						<th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
+						<td>${dto.boardRegdate}</td>
+						<td>${dto.boardCnt}</td>
+					</tr>
 				</c:forEach>
-         
-                  </tbody>
-              </table>
+		 
+				  </tbody>
+			  </table>
 					</div>
 					
 						<div id="tab05">
 				<table class="boardTable">
-                  <thead>
-                    <tr>
-                        <th scope="col" class="thNum thList">번호</th>
-                        <th scope="col" class="thTitle thList">제목</th>
-                        <th scope="col" class="thDate thList">등록일</th>
-                        <th scope="col" class="thViews thList">조회수</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  
-                 <c:if test="${requestScope.list.size() == 0}">
-				    <tr>
-				        <td colspan="5">게시물이 없습니다.</td>
-				    </tr>
+				  <thead>
+					<tr>
+						<th scope="col" class="thNum thList">번호</th>
+						<th scope="col" class="thTitle thList">제목</th>
+						<th scope="col" class="thDate thList">등록일</th>
+						<th scope="col" class="thViews thList">조회수</th>
+					</tr>
+				  </thead>
+				  <tbody>
+				  
+				 <c:if test="${requestScope.list.size() == 0}">
+					<tr>
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
 				</c:if>
 				
 				<c:forEach items="${requestScope.list}" var="dto">
-				    <tr class=myBoardList>
-				        <td>${dto.boardSeq}</td>
-				        <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
-				        <td>${dto.boardRegdate}</td>
-				        <td>${dto.boardCnt}</td>
-				    </tr>
+					<tr class=myBoardList>
+						<td>${dto.boardSeq}</td>
+						<th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
+						<td>${dto.boardRegdate}</td>
+						<td>${dto.boardCnt}</td>
+					</tr>
 				</c:forEach>
-         
-                  </tbody>
-              </table>
+		 
+				  </tbody>
+			  </table>
 					</div>
 					
 					<div id="tab06">
-					    <table class="boardTable">
-					        <thead>
-					            <tr>
-					                <th scope="col" class="thNum thList">번호</th>
-					                <th scope="col" class="thTitle thList">내용</th>
-					                <th scope="col" class="thDate thList">등록일</th>
-					                <th scope="col" class="thViews thList">신고횟수</th>
-					            </tr>
-					        </thead>
-					        <tbody>
-					            <c:if test="${empty comments}">
-					                <tr>
-					                    <td colspan="5">댓글이 없습니다.</td>
-					                </tr>
-					            </c:if>
-					            <c:forEach items="${comments}" var="dto">
-					                <tr class="myBoardList">
-					                    <td>${dto.cmntSeq}</td>
-					                    <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.cmntContents}</a></th>
-					                    <td>${dto.cmntRegdate}</td>
-					                    <td>${dto.cmntReportCnt}</td>
-					                </tr>
-					            </c:forEach>
-					        </tbody>
-					    </table>
+						<table class="boardTable">
+							<thead>
+								<tr>
+									<th scope="col" class="thNum thList">번호</th>
+									<th scope="col" class="thTitle thList">내용</th>
+									<th scope="col" class="thDate thList">등록일</th>
+									<th scope="col" class="thViews thList">신고횟수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${empty comments}">
+									<tr>
+										<td colspan="5">댓글이 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:forEach items="${comments}" var="dto">
+									<tr class="myBoardList">
+										<td>${dto.cmntSeq}</td>
+										<th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.cmntContents}</a></th>
+										<td>${dto.cmntRegdate}</td>
+										<td>${dto.cmntReportCnt}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 					
 					</div>
@@ -332,21 +334,25 @@
 		
 		var bookList = [];
 		<c:forEach items="${bookList}" var="book">
-		    var book = {
-		        bookSeq: '${book.bookSeq}',
-		        bookTitle: '${book.bookTitle}', 
-		        bookInfo: '${book.bookInfo}',
-		        bookCover: '${book.bookCover}',
-		        bookRegdate: '${book.bookRegdate}'
-		    };
-		    bookList.push(book); 
+			var book = {
+				bookSeq: '${book.bookSeq}',
+				bookTitle: '${book.bookTitle}', 
+				bookInfo: '${book.bookInfo}',
+				bookCover: '${book.bookCover}',
+				bookRegdate: '${book.bookRegdate}'.split(' ')[0],
+				userNick: '${book.userNick}',
+				bookScrapCnt: '${book.bookScrapCnt}',
+				likeCnt: '${book.likeCnt}',
+				bookReviewCnt: '${book.bookReviewCnt}'
+			};
+			bookList.push(book); 
 		</c:forEach>
 		
 		
 		var tendencyData = [
-		    <c:forEach var="entry" items="${tendency}">
-		        ${entry.value},
-		    </c:forEach>
+			<c:forEach var="entry" items="${tendency}">
+				${entry.value},
+			</c:forEach>
 		];
 
 
@@ -370,7 +376,7 @@
 				if (tabId === '#tab01') {
 					$('.tab').css("height", "1600px");
 				} else {
-					$('.tab').css("height", "900px");
+					$('.tab').css("height", "1200px");
 				}
 		
 				// 서브 탭 초기화
@@ -400,11 +406,11 @@
 		// tab에 있는 인라인 style 변경
 		// 페이지가 처음 로드될 때 실행될 함수
 		if (!sessionStorage.getItem("hasBeenLoaded")) {
-		    window.onload = function() {
-		        var tabFormContainer = document.querySelector(".tabFormContainer");
-		        tabFormContainer.style.height = "1400px";
-		        sessionStorage.setItem("hasBeenLoaded", true);
-		    };
+			window.onload = function() {
+				var tabFormContainer = document.querySelector(".tabFormContainer");
+				tabFormContainer.style.height = "1400px";
+				sessionStorage.setItem("hasBeenLoaded", true);
+			};
 		}
 		
 
@@ -430,16 +436,16 @@
 			
 			//changebtn 눌렀을때만 입력 가능
 			document.getElementById('changebtn').addEventListener('click', function() {
-			    document.getElementById('userEmailInput').removeAttribute('readonly');
-			    document.getElementById('inputNick').removeAttribute('readonly');
-			    document.getElementById('phoneStart').removeAttribute('readonly');
-			    document.getElementById('phoneInput1').removeAttribute('readonly');
-			    document.getElementById('phoneInput2').removeAttribute('readonly');
-			    document.getElementById('sample6_postcode').removeAttribute('readonly');
-			    document.getElementById('sample6_address').removeAttribute('readonly');
-			    document.getElementById('sample6_detailAddress').removeAttribute('readonly');
-			    document.getElementById('sample6_extraAddress').removeAttribute('readonly');
-			    
+				document.getElementById('userEmailInput').removeAttribute('readonly');
+				document.getElementById('inputNick').removeAttribute('readonly');
+				document.getElementById('phoneStart').removeAttribute('readonly');
+				document.getElementById('phoneInput1').removeAttribute('readonly');
+				document.getElementById('phoneInput2').removeAttribute('readonly');
+				document.getElementById('sample6_postcode').removeAttribute('readonly');
+				document.getElementById('sample6_address').removeAttribute('readonly');
+				document.getElementById('sample6_detailAddress').removeAttribute('readonly');
+				document.getElementById('sample6_extraAddress').removeAttribute('readonly');
+				
 			});
 			
 			
@@ -451,27 +457,27 @@
 
 			// 수정하기 버튼을 누를 때
 			document.getElementById("changebtn").addEventListener("click", function() {
-			    // 우편번호 입력란과 상세주소, 참고항목 입력란을 보이도록 변경
-			    document.getElementById("postcodebox").style.display = "block";
-			    document.getElementById("addressDetailBox").style.display = "block";
-			    document.getElementById("addressExtraBox").style.display = "block";
+				// 우편번호 입력란과 상세주소, 참고항목 입력란을 보이도록 변경
+				document.getElementById("postcodebox").style.display = "block";
+				document.getElementById("addressDetailBox").style.display = "block";
+				document.getElementById("addressExtraBox").style.display = "block";
 			});
 
 			// 수정완료 버튼을 누를 때
 			document.getElementById("changecompletebtn").addEventListener("click", function() {
-			    // 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김
-			    document.getElementById("postcodebox").style.display = "none";
-			    document.getElementById("addressDetailBox").style.display = "none";
-			    document.getElementById("addressExtraBox").style.display = "none";
+				// 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김
+				document.getElementById("postcodebox").style.display = "none";
+				document.getElementById("addressDetailBox").style.display = "none";
+				document.getElementById("addressExtraBox").style.display = "none";
 			});
 
 			
 			// 취소 버튼을 누를 때
 			document.getElementById("cancelbtn").addEventListener("click", function() {
-			    // 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김.
-			    document.getElementById("postcodebox").style.display = "none";
-			    document.getElementById("addressDetailBox").style.display = "none";
-			    document.getElementById("addressExtraBox").style.display = "none";
+				// 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김.
+				document.getElementById("postcodebox").style.display = "none";
+				document.getElementById("addressDetailBox").style.display = "none";
+				document.getElementById("addressExtraBox").style.display = "none";
 			});
 			
 			
@@ -479,21 +485,21 @@
 			
 			// 수정하기 버튼을 클릭할 때 실행될 함수
 			document.getElementById("changebtn").addEventListener("click", function() {
-			    document.querySelector(".userInfo-address.title span").style.color = "#c95000";
-			    document.querySelector(".userInfoTel.title span").style.color = "#c95000";
-			    document.querySelector(".userInfoEmail span").style.color = "#c95000";
-			    document.querySelector(".userInfoNickName span").style.color = "#c95000";
-			    document.querySelector(".userInfoPw span").style.color = "#c95000";			    
+				document.querySelector(".userInfo-address.title span").style.color = "#c95000";
+				document.querySelector(".userInfoTel.title span").style.color = "#c95000";
+				document.querySelector(".userInfoEmail span").style.color = "#c95000";
+				document.querySelector(".userInfoNickName span").style.color = "#c95000";
+				document.querySelector(".userInfoPw span").style.color = "#c95000";				
 			});
 
 			// 수정완료 또는 취소 버튼을 클릭할 때 실행될 함수
 			function resetTextColor() {
-			    // 주소 텍스트 요소의 색상을 원래 색상으로 재설정합니다.
-			    document.querySelector(".userInfo-address.title span").style.color = "";
-			    document.querySelector(".userInfoTel.title span").style.color = "";
-			    document.querySelector(".userInfoEmail span").style.color = "";
-			    document.querySelector(".userInfoNickName span").style.color = "";
-			    document.querySelector(".userInfoPw span").style.color = "";
+				// 주소 텍스트 요소의 색상을 원래 색상으로 재설정합니다.
+				document.querySelector(".userInfo-address.title span").style.color = "";
+				document.querySelector(".userInfoTel.title span").style.color = "";
+				document.querySelector(".userInfoEmail span").style.color = "";
+				document.querySelector(".userInfoNickName span").style.color = "";
+				document.querySelector(".userInfoPw span").style.color = "";
 			}
 
 			// 수정완료 버튼을 클릭할 때 색상을 원래대로 변경합니다.
@@ -657,7 +663,7 @@
 
 		let filteredBooks = [];
 		let currentPage = 1;
-		const itemsPerPage = 12;
+		const itemsPerPage = 4;
 		let totalPages;
 
 		function updateFilteredBooks() {
@@ -667,36 +673,64 @@
 		}
 
 		function renderBooks(data) {
-		    const bookshelf = document.getElementById('bookshelf');
-		    bookshelf.innerHTML = ''; // 기존 내용 지우기
-		    
-		    if (data.length === 0) {
-		        const noBooksDiv = document.createElement('div');
-		        noBooksDiv.className = 'no-books';
-		        noBooksDiv.textContent = '책이 없습니다.';
-		        
-		        bookshelf.appendChild(noBooksDiv);
-		    } else {
-		        const startIndex = (currentPage - 1) * itemsPerPage;
-		        const endIndex = Math.min(startIndex + itemsPerPage, data.length);
-		        const visibleBooks = data.slice(startIndex, endIndex);
-		        
-		        visibleBooks.forEach(book => {
-		        	console.log(book);
-		            const bookDiv = document.createElement('div');
-		            bookDiv.className = 'book';
-		            bookDiv.innerHTML = `
-		                <img src="\${book.bookCover}" alt="\${book.bookTitle}">
-		                <div class="book-info">
-		                  <h3><a href="/sangsangjakka/board/book/view.do?no=\${book.bookSeq}">\${book.bookTitle}</a></h3>
-		                  <p>\${book.bookRegdate}</p>
-		                </div>
-		            `;
-		            bookshelf.appendChild(bookDiv);
-		        });
-		        
-		        fillEmptySlots(bookshelf);
-		    }
+			const bookshelf = document.getElementById('bookshelf');
+			bookshelf.innerHTML = ''; // 기존 내용 지우기
+			
+			if (data.length === 0) {
+				const noBooksDiv = document.createElement('div');
+				noBooksDiv.className = 'no-books';
+				noBooksDiv.textContent = '책이 없습니다.';
+				
+				bookshelf.appendChild(noBooksDiv);
+			} else {
+				const startIndex = (currentPage - 1) * itemsPerPage;
+				const endIndex = Math.min(startIndex + itemsPerPage, data.length);
+				const visibleBooks = data.slice(startIndex, endIndex);
+				
+				visibleBooks.forEach(book => {
+					console.log(book);
+					const bookDiv = document.createElement('div');
+					bookDiv.className = 'book';
+					bookDiv.innerHTML = `
+					<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=\${book.bookSeq}';">
+					<div class="bookImg">
+					  <img src="\${book.bookCover}" alt="책 표지 이미지">
+					</div>
+					<div class="bookDetails">
+					  <div class="bookDate">
+						<div class="createDate">\${book.bookRegdate}</div>
+					  </div>
+					  <div class="bookOwner">
+						<i class="fa-regular fa-user"></i>
+					   <div class="createAuthor">\${book.userNick}</div>
+					  </div>
+					  <div class="bookTitle">
+						<div class="createTitle">\${book.bookTitle}</div>
+					  </div>
+					  <div class="bookContents">
+						<div class="createContents">\${book.bookInfo}</div>
+					  </div>
+					  <div class="iconItems">
+						<div class="subItems">
+						  <i class="fa-solid fa-bookmark bookmarker"></i>
+						  <p>\${book.bookScrapCnt}</p>
+						</div>
+						<div class="subItems">
+						  <i class="fa-solid fa-heart heart"></i>
+						  <p>\${book.likeCnt}</p>
+						</div>
+						<div class="subItems">
+						  <i class="fa-solid fa-comment comment"></i>
+						  <p>\${book.bookReviewCnt}</p>
+						</div>
+					  </div>
+					</div>
+				  </div>`;
+					bookshelf.appendChild(bookDiv);
+				});
+				
+				fillEmptySlots(bookshelf);
+			}
 		}
 
 		function fillEmptySlots(bookshelf) {
@@ -711,13 +745,13 @@
 
 		function sortBooks() {
 			const sortOption = document.getElementById('sortOptions').value;
-		    if (sortOption === 'newest') {
-		        filteredBooks.sort((a, b) => new Date(b.bookRegdate) - new Date(a.bookRegdate));
-		    } else if (sortOption === 'oldest') {
-		        filteredBooks.sort((a, b) => new Date(a.bookRegdate) - new Date(b.bookRegdate));
-		    } else {
-		        filteredBooks.sort((a, b) => a.bookTitle.localeCompare(b.bookTitle));
-		    }
+			if (sortOption === 'newest') {
+				filteredBooks.sort((a, b) => new Date(b.bookRegdate) - new Date(a.bookRegdate));
+			} else if (sortOption === 'oldest') {
+				filteredBooks.sort((a, b) => new Date(a.bookRegdate) - new Date(b.bookRegdate));
+			} else {
+				filteredBooks.sort((a, b) => a.bookTitle.localeCompare(b.bookTitle));
+			}
 			currentPage = 1; // 항상 첫 페이지로 리셋
 			renderBooks(filteredBooks);
 			updatePagination();
@@ -725,7 +759,7 @@
 
 		function searchBooks() {
 			let searchTerm = document.getElementById('searchInput').value.toLowerCase();
-		    filteredBooks = bookData.filter(book => book.bookTitle.toLowerCase().includes(searchTerm));
+			filteredBooks = bookData.filter(book => book.bookTitle.toLowerCase().includes(searchTerm));
 			totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
 			currentPage = Math.max(1, currentPage); // 검색 결과가 없어도 currentPage는 최소값 1
 			sortBooks();
@@ -770,52 +804,52 @@
 		
 		//주소 입력
 		function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		new daum.Postcode({
+			oncomplete: function(data) {
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
+				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				var addr = ''; // 주소 변수
+				var extraAddr = ''; // 참고항목 변수
 
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
+				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+					addr = data.roadAddress;
+				} else { // 사용자가 지번 주소를 선택했을 경우(J)
+					addr = data.jibunAddress;
+				}
 
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
+				// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+				if(data.userSelectedType === 'R'){
+					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+					if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+						extraAddr += data.bname;
+					}
+					// 건물명이 있고, 공동주택일 경우 추가한다.
+					if(data.buildingName !== '' && data.apartment === 'Y'){
+						extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+					}
+					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+					if(extraAddr !== ''){
+						extraAddr = ' (' + extraAddr + ')';
+					}
+					// 조합된 참고항목을 해당 필드에 넣는다.
+					document.getElementById("sample6_extraAddress").value = extraAddr;
+				
+				} else {
+					document.getElementById("sample6_extraAddress").value = '';
+				}
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
-            }
-        }).open();
-    }
+				// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				document.getElementById('sample6_postcode').value = data.zonecode;
+				document.getElementById("sample6_address").value = addr;
+				// 커서를 상세주소 필드로 이동한다.
+				document.getElementById("sample6_detailAddress").focus();
+			}
+		}).open();
+	}
 		
 		
 		
@@ -824,90 +858,90 @@
 		//전화번호
 		
 		function validateInput(input) {
-	        // 입력된 값이 숫자가 아니면 삭제
-	        input.value = input.value.replace(/\D/g, '');
-	        }
+			// 입력된 값이 숫자가 아니면 삭제
+			input.value = input.value.replace(/\D/g, '');
+			}
 
-	        // 입력창 자동 이동 함수
-	        document.getElementById('phoneInput1').addEventListener('input', function() {
-	            if (this.value.length >= this.maxLength) {
-	                document.getElementById('phoneInput2').focus();
-	            }
-	        });
+			// 입력창 자동 이동 함수
+			document.getElementById('phoneInput1').addEventListener('input', function() {
+				if (this.value.length >= this.maxLength) {
+					document.getElementById('phoneInput2').focus();
+				}
+			});
 
-	        document.getElementById('phoneInput2').addEventListener('input', function() {
-	            if (this.value.length === 0) {
-	                document.getElementById('phoneInput1').focus();
-	            }
-	        });
+			document.getElementById('phoneInput2').addEventListener('input', function() {
+				if (this.value.length === 0) {
+					document.getElementById('phoneInput1').focus();
+				}
+			});
 
 		
 		
 		// 닉네임 유효성 및 중복 검사
 		document.addEventListener("DOMContentLoaded", function() {
-		    let inputNickName = document.getElementById("inputNick");
+			let inputNickName = document.getElementById("inputNick");
 
-		    inputNickName.addEventListener("keydown", function() {
-		        let value = inputNickName.value;
-		        let isValidLength = nickNameLength(value);
-		        let isValidNickName = checkNickName(value);
+			inputNickName.addEventListener("keydown", function() {
+				let value = inputNickName.value;
+				let isValidLength = nickNameLength(value);
+				let isValidNickName = checkNickName(value);
 
-		        // 이전에 추가된 모든 에러 메시지 삭제
-		        removeErrorMessages();
+				// 이전에 추가된 모든 에러 메시지 삭제
+				removeErrorMessages();
 
-		        // 글자수와 닉네임 형식이 모두 유효하지 않은 경우 메시지 표시
-		        if (!isValidLength && !isValidNickName) {
-		            showErrorMessage("  4~10 글자로 한글, 영어소문자, 숫자만 입력 가능합니다.");
-		        } else {
-		            // 글자수가 유효하지 않은 경우 메시지 표시
-		            if (!isValidLength) {
-		                showErrorMessage("  4~10 글자로 입력해주세요.");
-		            }
+				// 글자수와 닉네임 형식이 모두 유효하지 않은 경우 메시지 표시
+				if (!isValidLength && !isValidNickName) {
+					showErrorMessage("	4~10 글자로 한글, 영어소문자, 숫자만 입력 가능합니다.");
+				} else {
+					// 글자수가 유효하지 않은 경우 메시지 표시
+					if (!isValidLength) {
+						showErrorMessage("	4~10 글자로 입력해주세요.");
+					}
 
-		            // 닉네임 형식이 유효하지 않은 경우 메시지 표시
-		            if (!isValidNickName) {
-		                showErrorMessage("  한글, 영어소문자, 숫자만 입력 가능합니다.");
-		            }
-		        }
-		    });  
-		    
+					// 닉네임 형식이 유효하지 않은 경우 메시지 표시
+					if (!isValidNickName) {
+						showErrorMessage("	한글, 영어소문자, 숫자만 입력 가능합니다.");
+					}
+				}
+			});  
+			
 
-		    function nickNameLength(value) {
-		        return value.length >= 4 && value.length <= 10;
-		    }
+			function nickNameLength(value) {
+				return value.length >= 4 && value.length <= 10;
+			}
 
-		    function checkNickName(value) {
-		        return /^[a-zA-Z0-9가-힣]*$/.test(value);
-		    }
+			function checkNickName(value) {
+				return /^[a-zA-Z0-9가-힣]*$/.test(value);
+			}
 
-		    function showErrorMessage(message) {
-		        let errorMessage = document.createElement("span");
-		        errorMessage.textContent = message;
-		        errorMessage.style.color = "red";
-		        errorMessage.style.fontSize = "0.8em";
-		        errorMessage.id = "nickNameErrorMessage";
+			function showErrorMessage(message) {
+				let errorMessage = document.createElement("span");
+				errorMessage.textContent = message;
+				errorMessage.style.color = "red";
+				errorMessage.style.fontSize = "0.8em";
+				errorMessage.id = "nickNameErrorMessage";
 
-		        let errorContainer = document.querySelector(".userInfoNickName.title");
-		        errorContainer.appendChild(errorMessage);
-		    }
+				let errorContainer = document.querySelector(".userInfoNickName.title");
+				errorContainer.appendChild(errorMessage);
+			}
 
-		    function removeErrorMessages() {
-		        let errorMessages = document.querySelectorAll("#nickNameErrorMessage");
-		        errorMessages.forEach(errorMessage => errorMessage.remove());
-		    }
+			function removeErrorMessages() {
+				let errorMessages = document.querySelectorAll("#nickNameErrorMessage");
+				errorMessages.forEach(errorMessage => errorMessage.remove());
+			}
 		});
 
 	
 		
 		//중복검사
 		function signUp() {
-	    var idDuplicationValue = document.getElementById("idHidden").value;
-	    var nickDuplicationValue = document.getElementsById("nickHidden").value;
+		var idDuplicationValue = document.getElementById("idHidden").value;
+		var nickDuplicationValue = document.getElementsById("nickHidden").value;
 
-	    if (nickDuplicationValue !== "nickChecked") {
-	        alert("닉네임 중복검사를 먼저 실행해주세요.");
-	        return false;
-	    }
+		if (nickDuplicationValue !== "nickChecked") {
+			alert("닉네임 중복검사를 먼저 실행해주세요.");
+			return false;
+		}
 
 	}
 		
@@ -923,7 +957,7 @@
 		
 		//비밀번호 변경
 		document.getElementById("passwordChangeBtn").addEventListener("click", function() {
-    window.location.href = "/sangsangjakka/user/change_pw.do";
+	window.location.href = "/sangsangjakka/user/change_pw.do";
 });
 		
 		
