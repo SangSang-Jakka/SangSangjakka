@@ -111,13 +111,12 @@
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="title">
-								<h4>공지사항</h4>
+								<h4>관리자 로그</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">동화책
-										신고 관리</li>
+									<li class="breadcrumb-item active" aria-current="page">관리자 로그</li>
 								</ol>
 							</nav>
 						</div>
