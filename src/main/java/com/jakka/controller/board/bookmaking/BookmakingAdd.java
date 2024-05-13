@@ -122,7 +122,8 @@ public class BookmakingAdd extends HttpServlet {
 			req.setAttribute("lastpage", lastpage.getPageSeq());
 			req.setAttribute("bookSeq", "0");
 			// Redirect to other servlets based on condition
-			String redirectUrl = bookDtoList.isEmpty() ? "view.jsp"	: "list.jsp";
+			//String redirectUrl = bookDtoList.isEmpty() ? "view.jsp"	: "list.jsp";
+			String redirectUrl = "view.jsp";
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_"+redirectUrl);
 			dispatcher.forward(req, resp);
 
