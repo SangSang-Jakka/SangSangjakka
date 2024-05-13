@@ -17,10 +17,10 @@
 		<div id="banner">
             <div class="bannerWrap">
                 <div class="bannerContainer">
-                    <div class="bannerTitle">Wake a Genius <br> in a Child</div>
-                    <div class="bannerContents">Phasellus et nisl vitae tortor pharetra hendrerit ut et nibh. <br>Praesent fringilla dictum libero ac efficiturer.</div>
-                    <button class="bannerbtn">Sign up for a free consultation</button>
-                    <div class="bannerTxt"> + Wake a genius in a child</div>
+                    <div class="bannerTitle" style="font-family: 'SOYOMapleBoldTTF';">아이의 상상력을 현실로! <br> AI 동화책 제작</div>
+                    <div class="bannerContents" style="font-family: 'SOYOMapleBoldTTF';">상상자까는 아이들의 상상력을 현실로 만들어주는 특별한 경험을 선사합니다. <br>아이들은 작가가 되어 자신만의 이야기를 책으로 만날 수 있어요.</div>
+                    <button class="bannerbtn" style="font-family: 'SOYOMapleBoldTTF';" onclick="window.location.href='/sangsangjakka/board/bookmaking/add.do';">나만의 동화책 제작하기</button>
+                    <div class="bannerTxt"> + Wake a imagination in a child</div>
                 </div>
                 <div class="bannerImg"></div>
             </div>
@@ -132,40 +132,45 @@
                     <div class="websiteIntroContainer">
                         <div class="websiteIntroItem">
                             <img src="/sangsangjakka/resources/img/1.svg" alt="">
-                            <div class="websiteIntroItemTitle">Professionalism</div>
-                            <div class="websiteIntroItemContents">Classes for preschoolers from 8 months to 7 years. Small groups - up to 8 children</div>
+                            <div class="websiteIntroItemTitle">독서의 즐거움</div>
+                            <div class="websiteIntroItemContents">쉽고 재미있는 동화책으로 아이의 창의성과 독서 습관을 길러줍니다.</div>
                         </div>
                         
                         <div class="websiteIntroItem">
                             <img src="/sangsangjakka/resources/img/2.svg" alt="">
-                            <div class="websiteIntroItemTitle">Individuality</div>
-                            <div class="websiteIntroItemContents">Health-saving methods only. Comprehensive development of intellectual and physical abilities</div>
+                        <div class="websiteIntroItemTitle">다양한 선택지</div>
+                            <div class="websiteIntroItemContents">다양한 주제와 캐릭터를 선택하여 아이의 흥미를 끌어냅니다.</div>
                         </div>
 
                         <div class="websiteIntroItem">
                             <img src="/sangsangjakka/resources/img/3.svg" alt="">
-                            <div class="websiteIntroItemTitle">Uniqueness</div>
-                            <div class="websiteIntroItemContents">Safe play space. A place on Earth where the child is understood and loved as he is</div>
+                            <div class="websiteIntroItemTitle">맞춤형 선물</div> 
+                            <div class="websiteIntroItemContents">부모와 아이가 함께 작성한 이야기를 맞춤형 동화책으로 전달합니다
+                            </div>
                         </div>
-
+                
                         <div class="websiteIntroItem">
                             <img src="/sangsangjakka/resources/img/4.svg" alt="">
-                        <div class="websiteIntroItemTitle">Quality</div>
-                            <div class="websiteIntroItemContents">Classes for A great amount of centers with 19 years of child development experience at your service</div>
+                            <div class="websiteIntroItemTitle">공간과 자원을 절약</div>
+                            <div class="websiteIntroItemContents">동화책의 구입으로 인한 공간적, 자원적 낭비를 줄여줍니다.</div>
                         </div>
+
+
 
                         <div class="websiteIntroItem">
                             <img src="/sangsangjakka/resources/img/5.svg" alt="">
-                        <div class="websiteIntroItemTitle">Multilingualism</div>
-                            <div class="websiteIntroItemContents">Your child is able to choose what language he or she will love the most and have a unique treatment</div>
+                        <div class="websiteIntroItemTitle">디지털 미디어 중독 방지</div>
+                            <div class="websiteIntroItemContents">상상력과 집중력을 유발하는 동화책 경험을 제공하여 디지털 미디어 중독을 예방합니다.
+                            </div>
                         </div>
                         
                         <div class="websiteIntroItem">
                             <img src="/sangsangjakka/resources/img/6.svg" alt="">
-                        <div class="websiteIntroItemTitle">Convenience</div>
-                            <div class="websiteIntroItemContents">Preparing children for kindergarten, school and adult life. Children are tought to plan their time</div>
+                        <div class="websiteIntroItemTitle">재정적 부담 완화</div>
+                            <div class="websiteIntroItemContents">맞춤형 동화책을 무료로 제작하여 아이 성장에 따른 책 구입에 따른 재정적 어려움을 완화합니다.</div>
                         </div>
                 </div>
+                
             </div>
             </div>
 
