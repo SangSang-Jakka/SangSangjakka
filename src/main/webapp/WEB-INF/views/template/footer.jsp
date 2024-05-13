@@ -10,10 +10,7 @@
                     </div>
                     <div class="footerServicesList">
                         <ul>
-                            <li><a href="#!">About</a></li>
-                            <li><a href="#!">How it work</a></li>
-                            <li><a href="#!">Customer</a></li>
-                            <li><a href="#!">Careers</a></li>
+                            <li><a href="/sangsangjakka/index.do">About</a></li>
                         </ul>
                     </div>
                 </div>
@@ -23,9 +20,9 @@
                     </div>
                     <div class="footerServicesList">
                         <ul>
-                            <li><a href="#!">Contacts</a></li>
-                            <li><a href="#!">FAQs</a></li>
-                            <li><a href="#!">Legal & Privacy</a></li>
+                            <li><a href="/sangsangjakka/board/suggestion/list.do">Contacts</a></li>
+                            <li><a href="/sangsangjakka/board/suggestion/list.do">FAQs</a></li>
+                            <!--  <li><a href="#!">Legal & Privacy</a></li>  -->
                         </ul>
                     </div>
                 </div>
@@ -35,20 +32,18 @@
                     </div>
                     <div class="footerServicesList">
                         <ul>
-                            <li><a href="#!">Baby little stars</a></li>
-                            <li><a href="#!">Little Stars</a></li>
-                            <li><a href="#!">First steps</a></li>
-                            <li><a href="#!">Little Einsteins</a></li>
-                            <li><a href="#!">English Language</a></li>
-                            <li><a href="#!">Pre-school</a></li>
+                            <li><a href="/sangsangjakka/board/bookmaking/add.do">동화제작</a></li>
+                            <li><a href="/sangsangjakka/board/book/list.do">동화나라</a></li>
+                            <li><a href="/sangsangjakka/board/award/list.do">명예의 전당</a></li>
+                            <li><a href="/sangsangjakka/board/freeboard/list.do">자유게시판</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="footerWebInfo">
-                <div class="headerLogo">
+                <div class="headerLogo" style="text-align: center;">
                     <!--   <img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" id="dashboard" class="jet-logo__img" alt="Funcare" width="205" height="78"> --> 
-                <img src="/sangsangjakka/resources/img/temp.png" id="dashboard" class="jet-logo__img" alt="Funcare" width="205" height="78"> 
+                <img src="/sangsangjakka/resources/img/temptemp.png" id="dashboard" class="jet-logo__img" alt="Funcare" width="205" height="78" style="display: inline-block; margin-right: 50px;"> 
                 
                 </div>
                 <div class="footerAddress">
