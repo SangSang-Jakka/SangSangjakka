@@ -35,8 +35,18 @@ public class DBUtil {
         config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         config.setMaximumPoolSize(10);
 
-        HikariDataSource ds = new HikariDataSource(config);
-        return ds.getConnection();
+
+	     // 매번 새로운 인스턴스를 생성하는 대신, 기존 인스턴스를 재사용
+	        if (dataSource == null) {
+	            dataSource = new HikariDataSource(config);
+	        } else {
+	            // 기존 인스턴스의 설정을 변경
+	            dataSource.setJdbcUrl(config.getJdbcUrl());
+	            dataSource.setUsername(config.getUsername());
+	            dataSource.setPassword(config.getPassword());
+	        }
+        
+        return dataSource.getConnection();
     }
 
 }//End of class

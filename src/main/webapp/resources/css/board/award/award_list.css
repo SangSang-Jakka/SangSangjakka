@@ -94,6 +94,12 @@ display: flex;
   
 } 
  */
+ 
+ .awardBookWrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 
 .awardBookImg {
   width: 320px;
