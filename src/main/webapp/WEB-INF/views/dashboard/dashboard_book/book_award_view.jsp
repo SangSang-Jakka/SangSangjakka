@@ -119,13 +119,13 @@
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="title">
-								<h4>동화책 수상 관리</h4>
+								<h4>동화책 수상 등록</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
 									<li class="breadcrumb-item active" aria-current="page">동화책
-										수상 관리</li>
+										수상 등록</li>
 								</ol>
 							</nav>
 						</div>

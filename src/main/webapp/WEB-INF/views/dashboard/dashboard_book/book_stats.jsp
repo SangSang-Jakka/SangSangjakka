@@ -51,12 +51,12 @@
 	                        <div class="row">
 	                            <div class="col-md-12 col-sm-12">
 	                                <div class="title">
-	                                    <h4>게시판 통계</h4>
+	                                    <h4>동화책 통계</h4>
 	                                </div>
 	                                <nav aria-label="breadcrumb" role="navigation">
 	                                    <ol class="breadcrumb">
 	                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	                                        <li class="breadcrumb-item active" aria-current="page">게시판 통계</li>
+	                                        <li class="breadcrumb-item active" aria-current="page">동화책 통계</li>
 	                                    </ol>
 	                                </nav>
 	                            </div>

@@ -196,40 +196,17 @@
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
 						<div class="pageTextMakerBox">
-							<input class="insertContents" type="text" placeholder="어떤 이야기를 만들까요?"><input type="submit" value="만들기" class="insertBtn pointer">
+						<form class="pageText">
+							<input class="insertContents" type="text" name="textPrompt" placeholder="어떤 이야기를 만들까요?"><input type="submit" value="만들기" class="insertBtn pointer">
+						</form>
 						</div>
 						<ul class="pageTextMakerBox contentsList">
-							<li class="pageTextMakerItem">
-								<span>1. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.
-								</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem selectBtn pointer ">
-								</div>
-								</li>
-							<li class="pageTextMakerItem"><span>2. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem selectBtn pointer">
-								</div>
-								</li>
-							<li class="pageTextMakerItem"><span>3. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem selectBtn pointer">
-								</div>
-								</li>
-							<li class="pageTextMakerItem"><span>4. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem selectBtn pointer">
-								</div>
-								</li>
 						</ul>
+						<!-- 로딩중 -->
+						<div id="textLoading" class="loading">
+							<img src="/sangsangjakka/resources/img/loading.gif">
+							<div class="loadingGuide"> 오리가 열심히 동화를 만드는 중입니다 </div>
+						</div>
 						<div class="pageDescriptionBox">
 							<div class="pageDescriptionItem">
 								<input class="insertContents" type="text" placeholder="내용을 입력해주세요.">
@@ -713,6 +690,15 @@
 					pageChange();
 				});
 				
+				$(document).on('click', '.selectTextItem', function() {
+				    var selectedText = $(this).closest('.pageTextMakerItem').find('span').text();
+
+				    var $visibleBbItem = $('#bb-bookblock .bb-item:visible');
+				    $visibleBbItem.find('p').text(selectedText);
+
+				    pageChange();
+				});
+				
 				$('.pageImageUploadBox input[type="button"]').click(function() {
 					var fileInput = $('#pageImageUpload')[0];
 					var file = fileInput.files[0];
@@ -1060,7 +1046,7 @@
 						preText = '첫번째 페이지';
 					}
 					var prompt = preText + ', 현재 페이지 내용: ' + $('input[name="textPrompt"]').val();
-					var pageTextMakerBox = $('ul .pageTextMakerBox');
+					var pageTextMakerBox = $('.contentsList');
 					pageTextMakerBox.empty();
 					$('#textLoading').show(); // 로딩 이미지 표시
 					$.ajax({
@@ -1074,13 +1060,12 @@
 								pageTextMakerItem.append(span);
 								var selectTextBox = $('<div>').addClass('selectTextBox');
 								var input = $('<input>').attr({
-				                    'type': 'submit',
+				                    'type': 'button',
 				                    'value': '선택'
 				                }).addClass('selectTextItem btnItem middleBtn tomato pointer');
 								selectTextBox.append(input);
-								var whitespace = $('<div>').addClass('whitespace').text('&nbsp;');
 								pageTextMakerItem.append(selectTextBox);
-								pageTextMakerItem.append(whitespace);
+								pageTextMakerBox.append(pageTextMakerItem);
 							});
 							$('#textLoading').hide(); // 로딩 이미지 숨기기
 						},
@@ -1091,10 +1076,6 @@
 					});
 				});
 				
-				document.querySelector('.custom-file-upload').addEventListener('click', function() {
-				    document.getElementById('pageImageUpload').click();
-				});
-
 				
 			});//$(document).ready
 			
