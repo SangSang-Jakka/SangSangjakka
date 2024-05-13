@@ -339,12 +339,12 @@
 					    <div class="categoryMaker">
 					    	<div class="categoryBox">
 					    		<c:forEach items="${genre}" var="dto" varStatus="status">
-									<div class="draggableCategory" id="${dto.genreName}">${dto.genreName}</div>
+									<div class="draggableCategory bg-color-${status.count % 4 + 1} btnItem pointer" id="${dto.genreName}">${dto.genreName}</div>
 								</c:forEach>
 					    	</div>
 					    	<div class="categoryWrap">
 					    	<div class="categoryInfo">어떤 동화책인가요? (동화책과 관련된 박스를 여기로 이동해주세요!)</div>
-						    <div class="categoryDropArea"></div>
+						    <div class="categoryDropArea "></div>
 						    </div>
 					    </div>
 					</div>
@@ -542,7 +542,7 @@
 			        tolerance: "intersect",
 			        drop: function(event, ui) {
 			            // Create a new selectedCategory at the drop position
-			            var newCat = $('<div class="selectedCategory">' + ui.draggable.text() + '</div>').css({
+			            var newCat = $('<div class="selectedCategory bg-color-fix btnItem pointer">' + ui.draggable.text() + '</div>').css({
 			                position: 'absolute',
 			                top: ui.offset.top - $(this).offset().top, // Adjust the top position
 			                left: ui.offset.left - $(this).offset().left, // Adjust the left position

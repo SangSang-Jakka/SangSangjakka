@@ -320,20 +320,27 @@
 .draggableCategory, .selectedCategory {
     width: 100px;
     height: 50px;
-    border: 1px solid #000;
+/*     border: 1px solid #000; */
     margin: 5px;
     text-align: center;
     line-height: 50px;
     user-select: none;
 }
 
-.draggableCategory {
-	background: lightblue;
-}
+/* .draggableCategory { */
+/* 	background: lightblue; */
+/* } */
 
-.selectedCategory {
-	background: tomato;
-}
+.bg-color-1 { background-color: #FE4848; } /* 빨강 */
+.bg-color-2 { background-color: #9CC624; } /* 초록 */
+.bg-color-3 { background-color: #0E9AFF; } /* 파랑 */
+.bg-color-4 { background-color: #FFA012; } /* 파랑 */
+.bg-color-5 { background-color: #790083; } /* 파랑 */
+
+.bg-color-fix {background-color: #C61FA1;}
+/* .selectedCategory { */
+/* 	background: tomato; */
+/* } */
 
 .categoryWrap {
 	display : flex;
