@@ -18,7 +18,8 @@
             </c:if>
          
             <div class="headerLogo">
-                <a href="/sangsangjakka/index.do"><img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78"></a>
+            <!--      <a href="/sangsangjakka/index.do"><img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78"></a> -->
+            <a href="/sangsangjakka/index.do"><img src="/sangsangjakka/resources/img/temp.png" class="jet-logo__img" alt="Funcare" width="205" height="78"></a> 
             </div>
             
             <c:if test="${empty userId}">
