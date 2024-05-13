@@ -35,14 +35,19 @@
       </div>
 
      
-      <div>
-        <form>
-           <select class="notice">
-               <option value="recent">최신순</option>
-               <option value="view">조회순</option>
-           </select>
-       </form>
+    <div>
+       
+           <div class="bookOrderWrap">
+			  <div class="bookOrder">
+			    <button type="button" class="bookNew" onclick="redirectTo('newest')">최신순</button>
+				<button type="button" class="bookClick" onclick="redirectTo('view_count')">조회순</button>
+
+
+			  </div>
+			</div>
+    
        </div>
+ 
     <!-- board list area -->
       <div>
           <div>

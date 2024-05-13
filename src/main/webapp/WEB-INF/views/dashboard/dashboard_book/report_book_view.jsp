@@ -123,6 +123,9 @@
 	float: right;
 	margin-top: 10px;
 }
+
+
+
 </style>
 </head>
 <body>
@@ -194,7 +197,8 @@
                                                
                                             </tr>
                                         </thead>
-                                        <tbody>
+                              
+                                        <tbody style="text-align: center;">
                                         <c:forEach var="report" items="${reportList}" varStatus="status">
                                             <tr>
                                                 <th scope="row">${status.count}</th>
