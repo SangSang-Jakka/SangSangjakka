@@ -24,13 +24,12 @@ public class AwardList extends HttpServlet {
 		try {
 			
 			BookDAO bookDAO = DAOManager.getBookDAO();
+			
 	        ArrayList<BookDTO> list = bookDAO.findNowAward();
+	        
 	        req.setAttribute("list", list);
 	        
 	        
-	        
-		
-		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/award/award_list.jsp");
 		dispatcher.forward(req, resp);
 		}catch (Exception e) {
