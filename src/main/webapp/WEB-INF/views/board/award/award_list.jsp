@@ -20,14 +20,14 @@
 <section class="notice">
     <div class="pageTitle">
         <div>
-            <h3>명예의 전당</h3>
+            <h3>🏆 명예의 전당 🏆</h3>
         </div>
     </div>
 
     <div class="awardWrap">
         <div class="awardBookWrap">
             <c:forEach var="item" items="${list}" varStatus="loop">
-			    <div class="awardBookWrap">
+			    <div class="awardBookWrapContainer">
 			        <div class="awardBookImg" style="background-image: url('${item.bookCover}');" data-index="${loop.index}">
 			            <div class="inputDiv">
 			                <div class="bookListContents">
