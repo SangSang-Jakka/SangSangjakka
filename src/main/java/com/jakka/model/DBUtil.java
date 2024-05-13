@@ -2,56 +2,41 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class DBUtil {
 	
-	public static Connection open() {
-		
-		Connection conn = null;
-		
-		String url = "jdbc:oracle:thin:@3.39.49.195:1521:xe";
-		String id = "jakka";
-		String pw = "java1234";
-		
-		try {
-			
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-			conn = DriverManager.getConnection(url, id, pw);
-//			conn.setAutoCommit(false);
-			
-			return conn;			
-			
-		} catch (Exception e) {
-			System.out.println("DBUtil.open");
-			e.printStackTrace();
-		}
-		
-		return null;
-		
-	}
+	private static HikariDataSource dataSource;
 	
-	public static Connection open(String host, String id, String pw) {
-		
-		Connection conn = null;
-		
-		String url = "jdbc:oracle:thin:@" + host + ":1521:xe";
-				
-		try {
-			
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-			conn = DriverManager.getConnection(url, id, pw);
-			
-			return conn;			
-			
-		} catch (Exception e) {
-			System.out.println("DBUtil.open");
-			e.printStackTrace();
-		}
-		
-		return null;
-		
-	}
+	static {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:oracle:thin:@3.39.49.195:1521:xe");
+        config.setUsername("jakka");
+        config.setPassword("java1234");
+        config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+        config.setMaximumPoolSize(10);
+
+        dataSource = new HikariDataSource(config);
+    }
+	
+	
+	public static Connection open() throws SQLException {
+        return dataSource.getConnection();
+    }
+
+    public static Connection open(String host, String id, String pw) throws SQLException {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:oracle:thin:@" + host + ":1521:xe");
+        config.setUsername(id);
+        config.setPassword(pw);
+        config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+        config.setMaximumPoolSize(10);
+
+        HikariDataSource ds = new HikariDataSource(config);
+        return ds.getConnection();
+    }
 
 }//End of class
