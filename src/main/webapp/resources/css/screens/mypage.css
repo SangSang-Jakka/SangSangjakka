@@ -496,7 +496,7 @@ option {
 .tabFormContainer {
 
 	align-items: center;
-	width: 1080px;
+	width: 100%;
 	margin-top: 100px;
 	margin-bottom: 200px;
 	background: #ffffff;
@@ -832,8 +832,7 @@ span span:hover {
 .myMainWrap {
 	height: auto;
 	display: block;
-	max-width: 1080px;
-	width: 1080px;
+	width: 1300px;
 	margin: 60px auto;
 	align-items:center;
 	margin-bottom:1600px;

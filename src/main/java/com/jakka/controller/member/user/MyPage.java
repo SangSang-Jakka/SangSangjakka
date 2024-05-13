@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,14 +60,23 @@ public class MyPage extends HttpServlet{
 	    
 	    ArrayList<BoardCommentDTO> comments = commentsDAO.findByNick(userNick);
 	    
-	    ArrayList<BookDTO> bookList = bookDAO.findByNick(userNick);
+	    ArrayList<BookDTO> allBookList = bookDAO.findByNick(userNick);
+	    Iterator<BookDTO> iterator = allBookList.iterator();
+	    ArrayList<BookDTO> bookList = new ArrayList<>();
+        while (iterator.hasNext()) {
+            BookDTO bookDto = iterator.next();
+            if ("작성중".equals(bookDto.getBookTitle()) && "작성중".equals(bookDto.getBookInfo())) {
+            	iterator.remove();
+            } else {
+            	bookList.add(bookDto);
+            }
+        }
 	    
 	    req.setAttribute("dto", dto);
 	    req.setAttribute("list", list);
 	    req.setAttribute("tendency", tendency);
 	    req.setAttribute("comments", comments);
 	    req.setAttribute("bookList", bookList);
-	
 	    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/mypage.jsp");
 	    dispatcher.forward(req, resp);
 	    
