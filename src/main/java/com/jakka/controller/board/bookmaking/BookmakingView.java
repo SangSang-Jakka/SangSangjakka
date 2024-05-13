@@ -126,9 +126,9 @@ public class BookmakingView extends HttpServlet {
             //여기서 사용자가 선호하는 
             
             String[] category = dao.findGenreScore(userSeq);
-            String[] promptList = new String[2];
+            String[] promptList = new String[4];
             
-            for(int i = 0; i < 2; i++) {
+            for(int i = 0; i < 4; i++) {
             	
             	promptList[i] = enPrompt +  "in a " + category[i] + " style suitable for children aged 1 to 10";
             	System.out.println(promptList[i]);

@@ -20,7 +20,7 @@
 <section class="notice">
     <div class="pageTitle">
         <div>
-            <h3>🏆 명예의 전당 🏆</h3>
+            <h3>🏆 5월 명예의 전당 🏆</h3>
         </div>
     </div>
 
