@@ -20,6 +20,7 @@
 		
 		
 		
+		
 		.loading {
 			display: none;
 		}
@@ -31,7 +32,6 @@
 		}
 		
 		.loadingGuide {
-			display:inline-block;
 			text-align:center;
 			margin-bottom:30px;
 			font-size:20px;
@@ -52,6 +52,7 @@
 		#coverImageContainer > img {
 			widht: 180px;
 			height: 240px;
+			border-radius:10px;
 			
 		}
 		
@@ -74,6 +75,22 @@
 	    	transform: scale(1.05); 
 		}
 		
+		.coverImageMakerItem img {
+			width: 100%;
+			height: auto;
+			max-width: 400px; /* 최대 너비 400px로 제한 */
+			max-height: 533px; /* 가로세로 비율 3:4로 계산한 높이 */
+			object-fit: contain;
+			border-radius:10px;
+			transition: transform 0.3s ease;
+		}
+		
+		.coverImageMakerItem img:hover {
+			transform: scale(1.05); 
+		}
+		
+		
+		
 		.bookmakingOptionBox {
 			display : flex;
 			justify-content:center;
@@ -85,6 +102,11 @@
 		}
 		
 		.pageImageDesItem {
+			font-size:20px;
+			margin-bottom:20px;
+		}
+		
+		.coverImageDesItem {
 			font-size:20px;
 			margin-bottom:20px;
 		}
@@ -278,8 +300,8 @@
 							<div class="coverImageMakerBox" id="coverImageMakerBox">
 								<!-- 로딩중 -->
 								<div id="coverloading" class="loading">
-									<div class="loadingGuide">🎨 오리가 열심히 이미지를 만드는 중입니다 🎨  </div>
 									<img src="/sangsangjakka/resources/img/loading.gif">
+									<div class="loadingGuide">🎨 오리가 열심히 이미지를 만드는 중입니다 🎨  </div>
 								</div>
 								
 								<!-- 생성된 이미지 -->
@@ -1016,7 +1038,7 @@
 								coverImageContainer.append(imgDiv);
 							});
 							var DesBox = $('<div>').addClass('coverImageDesBox');
-							var DesItem = $('<span>').addClass('coverImageDesItem');
+							var DesItem = $('<div>').addClass('coverImageDesItem');
 							DesItem.text('그림을 선택해주세요!');
 							DesBox.append(DesItem);
 							pageImageDesContainer.append(DesBox);

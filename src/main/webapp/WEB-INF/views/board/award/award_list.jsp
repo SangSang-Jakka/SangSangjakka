@@ -24,17 +24,28 @@
         <button class="bottom"><i class="fa-solid fa-caret-down"></i></button>
     </div> -->
 
-<section class="notice">
 
-    <div class="award">
-        <p>명예의 전당</p>
-    </div>
+
+	<section class="notice">
+    <div class="pageTitle">
+          <div>
+              <h3>명예의 전당</h3>
+          </div>
+      </div>
+      
+      
+      <div class="awardWrap">
+      		<div class="awardBookWrap">
+      			<c:forEach var="item" items="${list}">
+				    <div class="awardBookImg" style=" background-image: url('${item.bookCover}');"></div>
+				</c:forEach>
+      		</div>
+      		<div class="awardBookBtnWrap">
+      			<button class="bookPrev">이전</button>
+      			<button class="bookNext">다음</button>
+      		</div>
+      </div>
     
-    
-       </section>
-
-
-    <article id="article">
         <div class="articleLeft"></div>
         <div class="articleMain">
 
@@ -152,9 +163,9 @@
                 </div>
             </div>
 
-        
+         </section>
        
-    </article>
+
   
 
     <!-- footer -->
@@ -276,6 +287,7 @@ monthSelect.addEventListener('change', () => {
 	
 	
 	
+
 	
 	</script>
 	</body>

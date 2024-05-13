@@ -283,20 +283,21 @@
 
 .coverImageMakerBox {
 	margin-top: 16px;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
-	gap: 10px;
 }
 
 .coverImageMakerItem {
 	width: 180px;
 }
 
+.coverImageMakerItem img {
+	
+	margin-right:20px;
+}
 .coverImageMakerItemImg {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	
 }
 
 .titleTextMakerBox li:nth-child(1) {
