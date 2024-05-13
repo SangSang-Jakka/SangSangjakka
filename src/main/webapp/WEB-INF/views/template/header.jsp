@@ -12,8 +12,8 @@
          </c:if>
          
          <c:if test="${not empty userId}">
-          		<div class="empty">
-           	 		<div>${userNick}님 안녕하세요</div>
+          		<div class="empty" >
+           	 		<div style="margin-left: -150px; font-weight: bold;">${userNick}님 안녕하세요</div>
             	</div>
             </c:if>
          

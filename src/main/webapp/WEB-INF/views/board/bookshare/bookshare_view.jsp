@@ -29,12 +29,13 @@
      <div class="makedPageViewer">
         <div class="containerLeft">
             <nav class="flex">
+             	<a id="bb-nav-first" href="#" class="bb-custom-icon pointer">
+                    <i class="fa-solid fa-angles-left"></i>
+                </a>
                 <a id="bb-nav-prev" href="#" class="bb-custom-icon pointer">
                     <i class="fa-solid fa-angle-left"></i>
                 </a>
-                <a id="bb-nav-first" href="#" class="bb-custom-icon pointer">
-                    <i class="fa-solid fa-angles-left"></i>
-                </a>
+               
             </nav>
         </div>
         <div class="bb-custom-wrapper">
