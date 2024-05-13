@@ -60,12 +60,12 @@ public class MyPage extends HttpServlet{
 	    
 	    ArrayList<BoardCommentDTO> comments = commentsDAO.findByNick(userNick);
 	    
-	    ArrayList<BookDTO> allBookList = bookDAO.findByNick(userNick);
+	    ArrayList<BookDTO> allBookList = bookDAO.findAllWhite();
 	    Iterator<BookDTO> iterator = allBookList.iterator();
 	    ArrayList<BookDTO> bookList = new ArrayList<>();
         while (iterator.hasNext()) {
             BookDTO bookDto = iterator.next();
-            if ("작성중".equals(bookDto.getBookTitle()) && "작성중".equals(bookDto.getBookInfo())) {
+            if (("작성중".equals(bookDto.getBookTitle()) && "작성중".equals(bookDto.getBookInfo())) || !bookDto.getUserSeq().equals(userSeq)) {
             	iterator.remove();
             } else {
             	bookList.add(bookDto);

@@ -609,39 +609,24 @@ public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String
 	}// list()
 	
 	public int del(String seq) {
-	    Connection conn = DBUtil.open();
-	    PreparedStatement pstat = null;
+		
+		String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
+		String pSQL = "delete from tblSuggestion where sgstSeq = ?";
 	    
-	    try {
-	        String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
-	        pstat = conn.prepareStatement(cSQL);
+	    try (
+	    	Connection conn = DBUtil.open();
+	    	PreparedStatement pstat = conn.prepareStatement(cSQL);
+	    	PreparedStatement ppstat = conn.prepareStatement(pSQL);
+	    ){
 	        pstat.setString(1, seq);
 	        pstat.executeUpdate();
 
-	        String pSQL = "delete from tblSuggestion where sgstSeq = ?";
-	        pstat = conn.prepareStatement(pSQL);
 	        pstat.setString(1, seq);
 	        return pstat.executeUpdate();
 
 	    } catch (Exception e) {
 	        System.out.println("SuggestionDAO.| del");
 	        e.printStackTrace();
-	    } finally {
-	        // 리소스 정리 코드 추가
-	        if (pstat != null) {
-	            try {
-	                pstat.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	        if (conn != null) {
-	            try {
-	                conn.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
 	    }
 	    
 	    return 0;
