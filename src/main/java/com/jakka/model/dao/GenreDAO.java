@@ -31,8 +31,8 @@ public class GenreDAO {
 
 				GenreDTO dto = new GenreDTO();
 
-				//dto.setGenreSeq(rs.getString("GenreSeq"));
-				//dto.setGenreName(rs.getString("GenreName"));
+				dto.setGenreSeq(rs.getString("GenreSeq"));
+				dto.setGenreName(rs.getString("GenreName"));
 
 				list.add(dto);
 

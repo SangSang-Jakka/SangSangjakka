@@ -327,7 +327,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="validation.js"></script>
+<script src="/sangsangjakka/resources/js/validation.js"></script>
 <script>
 		
 		var bookList = [];
@@ -574,69 +574,69 @@
 			});
 
 			//저장목록 차트
-			Highcharts.chart('scrap', {
+			//Highcharts.chart('scrap', {
 
-				chart: {
-					polar: true
-				},
+			//	chart: {
+			//		polar: true
+			//	},
 
-				title: {
-					text: null // 차트 이름 비활성화
-				},
+			//	title: {
+			//		text: null // 차트 이름 비활성화
+			//	},
 
-				exporting: {
-					enabled: false // 차트 메뉴 비활성화
-				},
+			//	exporting: {
+			//		enabled: false // 차트 메뉴 비활성화
+			//	},
 
-				pane: {
-					startAngle: 0,
-					endAngle: 360
-				},
+			//	pane: {
+			//		startAngle: 0,
+			//		endAngle: 360
+			//	},
 
-				xAxis: {
-					tickInterval: 72,
-					min: 0,
-					max: 360,
-					labels: {
-						formatter: function () {
-							const labels = ['모험 성향', '감성 성향', '교육 성향', '유머 성향', '창의성 성향'];
-							return labels[(this.value / 72) % labels.length];
-						}
-					}
-				},
+			//	xAxis: {
+			//		tickInterval: 72,
+			//		min: 0,
+			//		max: 360,
+			//		labels: {
+			//			formatter: function () {
+			//				const labels = ['모험 성향', '감성 성향', '교육 성향', '유머 성향', '창의성 성향'];
+			//				return labels[(this.value / 72) % labels.length];
+			//			}
+			//		}
+			//	},
 
-				yAxis: {
-					min: 0
-				},
+			//	yAxis: {
+			//		min: 0
+			//	},
 
-				tooltip: {
-					formatter: function () {
-						return this.y; // `this.y`는 호버된 데이터 포인트의 값
-					}
-				},
+			//	tooltip: {
+			//		formatter: function () {
+			//			return this.y; // `this.y`는 호버된 데이터 포인트의 값
+			//		}
+			//	},
 
-				plotOptions: {
-					series: {
-						pointStart: 0,
-						pointInterval: 72,
-						showInLegend: false
-					},
-					column: {
-						pointPadding: 0,
-						groupPadding: 0
-					}
-				},
+			//	plotOptions: {
+			//		series: {
+			//			pointStart: 0,
+			//			pointInterval: 72,
+			//			showInLegend: false
+			//		},
+			//		column: {
+			//			pointPadding: 0,
+			//			groupPadding: 0
+			//		}
+			//	},
 
-				series: [{
-					type: 'area',
-					name: 'Area',
-					color: '#ffa500',
-					data: chartData
-				}],
-				credits: {
-					enabled: false // 크레딧을 비활성화
-				}
-			});
+			//	series: [{
+			//		type: 'area',
+			//		name: 'Area',
+			//		color: '#ffa500',
+			//		data: chartData
+			//	}],
+			//	credits: {
+			//		enabled: false // 크레딧을 비활성화
+			//	}
+			//});
 		});
 
 		// 도서 데이터
@@ -682,13 +682,14 @@
 		        const visibleBooks = data.slice(startIndex, endIndex);
 		        
 		        visibleBooks.forEach(book => {
+		        	console.log(book);
 		            const bookDiv = document.createElement('div');
 		            bookDiv.className = 'book';
 		            bookDiv.innerHTML = `
-		                <img src="${book.bookCover}" alt="${book.bookTitle}">
+		                <img src="\${book.bookCover}" alt="\${book.bookTitle}">
 		                <div class="book-info">
-		                  <h3><a href="/sangsangjakka/board/book/view.do?no=${book.bookSeq}">${book.bookTitle}</a></h3>
-		                  <p>${book.bookRegdate}</p>
+		                  <h3><a href="/sangsangjakka/board/book/view.do?no=\${book.bookSeq}">\${book.bookTitle}</a></h3>
+		                  <p>\${book.bookRegdate}</p>
 		                </div>
 		            `;
 		            bookshelf.appendChild(bookDiv);

@@ -78,10 +78,11 @@ public class BookmakingView extends HttpServlet {
 			GenreDAO genreDao = new GenreDAO();
 			ArrayList<GenreDTO> genre = genreDao.findAll();
 			for (GenreDTO item : genre) {
-				//item.setGenreName(item.getGenreName().replace(" 동화", ""));
+				item.setGenreName(item.getGenreName().replace(" 동화", ""));
 			}
 			
 			req.setAttribute("genre", genre);
+			System.out.println(genre);
 			req.setAttribute("firstpage", dto.get(0));
 			req.setAttribute("lastpage", lastpage.getPageSeq());
 			req.setAttribute("dto", dto);
