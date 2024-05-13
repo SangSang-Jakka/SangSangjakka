@@ -1062,7 +1062,7 @@
 								var input = $('<input>').attr({
 				                    'type': 'button',
 				                    'value': '선택'
-				                }).addClass('selectTextItem btnItem middleBtn tomato pointer');
+				                }).addClass('selectTextItem selectBtn pointer');
 								selectTextBox.append(input);
 								pageTextMakerItem.append(selectTextBox);
 								pageTextMakerBox.append(pageTextMakerItem);
