@@ -291,11 +291,11 @@ button {
 
 
 
-.category, .titleLink{
+.userNick, .titleLink{
     text-align: center;
 }
 
-.category{
+.userNick{
     margin-top: 15px;
     margin-bottom: 10px;
     color: #6e6e6e;

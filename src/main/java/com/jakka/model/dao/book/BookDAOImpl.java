@@ -1415,6 +1415,50 @@ public class BookDAOImpl implements BookDAO{
 	
 	
 	
+	@Override
+	public ArrayList<BookDTO> findMonthAward(String month) {
+	    final String SQL = "SELECT * FROM vwAward WHERE SUBSTR(awardRegdate, 4, 2) = ? AND awardRank BETWEEN 1 AND 5";
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstmt = conn.prepareStatement(SQL)
+	    ) {
+	        pstmt.setString(1, month);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<BookDTO> list = new ArrayList<>();
+
+	        while(rs.next()) {
+	            BookDTO dto = new BookDTO();
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            dto.setAwardRegdate(rs.getString("awardRegdate"));
+	            dto.setAwardRank(rs.getString("awardRank"));
+	            list.add(dto);
+	        }
+
+	        return list;
+
+	    } catch (Exception e) {
+	        System.out.println("BookDAO.| findMonthAward");
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	
 	//리스트에는 수여받을 동화책번호5개, 등수, 수여한 관리자 아이디가 들어있어야함
 	@Override
 	public int presentAward(ArrayList<BookDTO> list, String adId) {

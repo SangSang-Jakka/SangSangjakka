@@ -62,6 +62,8 @@
                         <div class="mainTitle">🏆 지난 인기 작품도 살펴봐요 🏆
                         </div>	
                     </div>
+                    
+                    
                     <div class="userBestSellerList">
         
 					        <div class="month-selector">
@@ -70,54 +72,48 @@
 							</div>
 					
 					
+					<c:forEach var="item" items="${list}" varStatus="loop">
+			    <div class="awardBookWrapContainer">
+			        <div class="awardBookImg" style="background-image: url('${item.bookCover}');" data-index="${loop.index}">
+			            <div class="inputDiv">
+			                <div class="bookListContents">
+			                	<div class="bookListRegdateWrap">
+			                		<div class="bookListRegdate">${item.bookRegdate}</div>
+			                	</div>
+			                	<div class="bookListUserWrap">
+			                		<div class="bookListUser">🎀 작가님: ${item.userNick} 🎀</div>
+			                	</div>
+			                	<div class="bookListTitleWrap">
+			                		<div class="bookListTitle">${item.bookTitle}</div>
+			                	</div>
+			                	<div class="bookListContentWrap">
+			                		<div class="bookListContent">${item.bookInfo}</div>
+			                	</div>
+			                	
+			                </div>
+
+			            </div>
+			        </div>
+			    </div>
+			</c:forEach>
+					
                         <ul>
-                            <li class="bookWrap">
-                                <a href="https://naver.com/">
-                                    <img src="/sangsangjakka/resources/img/book1.jpg" id="imgThisFirst" alt="">
-                                </a>
-                                    <div class="category textFirst">카테고리</div>
-                                    <div class="titleLink textFirst">
-                                        <p><a href="https://naver.com/">To the Sea</a></p>
-                                    </div>
-                            </li>
-                            <li class="bookWrap">
-                                <a href="https://naver.com/">
-                                    <img src="/sangsangjakka/resources/img/book2.jpg" class="imgThis" alt="">
-                                </a>
-                                <div class="category">카테고리</div>
-                                <div class="titleLink">
-                                    <p><a href="동화나라 세부정보 링크">당근 유치원</a></p>
-                                </div>
-                               </li>
-                            <li class="bookWrap">
-                                <a href="https://naver.com/">
-                                    <img src="/sangsangjakka/resources/img/book3.jpg" class="imgThis" alt="">
-                                </a>
-                                <div class="category">카테고리</div>
-                                <div class="titleLink">
-                                    <p><a href="동화나라 세부정보 링크">화가 나서 그랬어!</a></p>
-                                </div>
-                               </li>
-                            <li class="bookWrap">
-                                <a href="https://naver.com/">
-                                    <img src="/sangsangjakka/resources/img/book4.jpg" class="imgThis" alt="">
-                                </a>
-                                <div class="category">카테고리</div>
-                                <div class="titleLink">
-                                    <p><a href="동화나라 세부정보 링크">할아버지와 순돌이는</a></p>
-                                </div>
-                                </li>
-                            <li class="bookWrap">
-                                <a href="https://naver.com/">
-                                    <img src="/sangsangjakka/resources/img/book5.jpg" alt="" id="imgThisLast">
-                                </a>
-                                <div class="category textLast">카테고리</div>
-                                <div class="titleLink textLast">
-                                    <p><a href="동화나라 세부정보 링크">세상에서 두 번째로 신기한</a></p>
-                                </div>
-                               </li>
-                        </ul>
+						    <c:forEach var="book" items="${listMonth}">
+						        <li class="bookWrap">
+						            <a href="#">
+						                <img src="${book.bookCover}" alt="">
+						            </a>
+						            <div class="userNick">${book.userNick}</div>
+						            <div class="titleLink">
+						                <p><a href="#">${book.bookTitle}</a></p>
+						                <p>${book.userNick}</p>
+						            </div>
+						        </li>
+						    </c:forEach>
+						</ul>
                     </div>
+                    
+                    
                 
 
 </section>
@@ -193,7 +189,7 @@
 
 
     monthSelect.addEventListener('change', () => {
-    	  const selectedMonth = monthSelect.value;
+    	const selectedMonth = monthSelect.value.replace('월', '');
     	  
     	  // AJAX 요청으로 선택된 월의 리스트를 가져옴
     	  fetch(`/getListByMonth?month=${selectedMonth}`)
