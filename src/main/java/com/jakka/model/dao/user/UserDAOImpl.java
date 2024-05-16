@@ -18,6 +18,9 @@ import com.jakka.model.dto.user.UserDTO;
 import com.jakka.model.enums.UserLog;
 import com.jakka.model.enums.UserState;
 
+/**
+* UserDAOImpl 클래스는 UserDAO 인터페이스를 구현한 클래스로, 사용자 관련 데이터 액세스 작업을 수행합니다.
+*/
 public class UserDAOImpl implements UserDAO{
 
 	private final static UserDAOImpl DAO = new UserDAOImpl();

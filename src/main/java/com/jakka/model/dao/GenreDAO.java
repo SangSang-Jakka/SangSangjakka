@@ -13,6 +13,12 @@ import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.book.BookDTO;
 
 public class GenreDAO {
+	
+	/**
+     * 전체 장르 목록을 조회합니다.
+     *
+     * @return 장르 목록
+     */
 	public ArrayList<GenreDTO> findAll() {
 
 		final String SQL = "select * from tblgenre order by genreseq";
@@ -49,6 +55,12 @@ public class GenreDAO {
 
 	}
 	
+	/**
+     * 장르 이름으로 장르 정보를 조회합니다.
+     *
+     * @param genreName 장르 이름
+     * @return 장르 DTO
+     */
 	public GenreDTO findByName(String genreName) {
 		
 		final String SQL = "select * from tblgenre where genreName = ?";
@@ -83,6 +95,13 @@ public class GenreDAO {
 		return null;
 	}
 
+	/**
+     * 동화책과 장르 정보를 연결합니다.
+     *
+     * @param dto     장르 DTO 목록
+     * @param bookSeq 동화책 시퀀스
+     * @return 연결 성공 여부 (1: 성공, 0: 실패)
+     */
 	public int infoAdd(ArrayList<GenreDTO> dto, String bookSeq) {
 		{
 			final String SQL = "INSERT INTO tblgenreinfo (bookSeq, genreSeq) VALUES (?, ?)";
@@ -110,4 +129,4 @@ public class GenreDAO {
 		}
 	}
 
-}
+}//End of class
