@@ -22,9 +22,22 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 import com.jakka.model.dto.book.ReviewDTO;
 
+/**
+ * 동화책 상세 보기 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/book/view.do")
 public class BookView extends HttpServlet{
 
+	/**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -119,6 +132,14 @@ public class BookView extends HttpServlet{
 		
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");

@@ -19,9 +19,22 @@ import com.jakka.model.dao.board.BoardDAO;
 import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
 
+/**
+ * 자유게시판 글 상세보기 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/freeboard/view.do")
 public class FreeboardView extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -72,6 +85,14 @@ public class FreeboardView extends HttpServlet {
 
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 댓글 추가

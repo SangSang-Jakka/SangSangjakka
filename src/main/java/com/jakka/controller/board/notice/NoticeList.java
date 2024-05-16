@@ -18,13 +18,25 @@ import com.jakka.model.dao.board.NoticeDAO;
 import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.NoticeDTO;
 
+/**
+* NoticeList 서블릿은 공지사항 게시판의 목록을 표시하는 기능을 수행합니다.
+* 페이징 기능과 검색 기능을 제공하며, 고정 공지사항과 일반 공지사항을 구분하여 표시합니다.
+*/
 @WebServlet("/board/notice/list.do")
 public class NoticeList extends HttpServlet{
 
+	/**
+     * GET 요청을 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//페이징
+		// 페이징 관련 변수 초기화
 		String page = req.getParameter("page");
 		
 		int nowPage = 0;	//현재 페이지 번호

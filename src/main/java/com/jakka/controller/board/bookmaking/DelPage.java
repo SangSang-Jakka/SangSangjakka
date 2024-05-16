@@ -12,9 +12,22 @@ import javax.servlet.http.HttpSession;
 import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.PageDAO;
 
+/**
+ * 동화책 페이지 삭제 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/bookmaking/delpage.do")
 public class DelPage extends HttpServlet {
 
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

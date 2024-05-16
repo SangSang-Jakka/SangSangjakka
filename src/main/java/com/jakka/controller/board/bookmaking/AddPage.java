@@ -31,9 +31,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 동화책에 페이지를 추가하는 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/bookmaking/addpage.do")
 public class AddPage extends HttpServlet {
 
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

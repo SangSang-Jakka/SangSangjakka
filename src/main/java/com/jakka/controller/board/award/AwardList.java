@@ -15,8 +15,22 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dto.book.BookDTO;
 
+/**
+ * 수상작 목록을 처리하는 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/award/list.do")
 public class AwardList extends HttpServlet {
+	
+	/**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    try {

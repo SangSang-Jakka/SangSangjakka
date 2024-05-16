@@ -2,46 +2,16 @@ package com.jakka.model.dto.board;
 
 import lombok.Data;
 
+/**
+ * 건의사항 답변 정보를 저장하는 DTO 클래스입니다.
+ */
 @Data
 public class SuggestionAnswerDTO {
 
-	private String answSeq;
-	private String adId;
-	private String sgstSeq;
-	private String sgstAnsw;
-	private String sgstRegdate;
-	
-	public String getAnswSeq() {
-		return answSeq;
-	}
-	public void setAnswSeq(String answSeq) {
-		this.answSeq = answSeq;
-	}
-	public String getAdId() {
-		return adId;
-	}
-	public void setAdId(String adId) {
-		this.adId = adId;
-	}
-	public String getSgstSeq() {
-		return sgstSeq;
-	}
-	public void setSgstSeq(String sgstSeq) {
-		this.sgstSeq = sgstSeq;
-	}
-	public String getSgstAnsw() {
-		return sgstAnsw;
-	}
-	public void setSgstAnsw(String sgstAnsw) {
-		this.sgstAnsw = sgstAnsw;
-	}
-	public String getSgstRegdate() {
-		return sgstRegdate;
-	}
-	public void setSgstRegdate(String sgstRegdate) {
-		this.sgstRegdate = sgstRegdate;
-	}
-	
-	
+	private String answSeq; // 답변 시퀀스
+    private String adId; // 관리자 ID
+    private String sgstSeq; // 건의사항 시퀀스
+    private String sgstAnsw; // 건의사항 답변
+    private String sgstRegdate; // 건의사항 답변 등록일자
 	
 }//End of class

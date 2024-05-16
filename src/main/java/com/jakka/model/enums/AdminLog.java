@@ -1,5 +1,8 @@
 package com.jakka.model.enums;
 
+/**
+ * 관리자 로그 유형을 나타내는 열거형입니다.
+ */
 public enum AdminLog {
 	
 	serDisabled("1"),         // 사용자 비활성화
@@ -29,6 +32,11 @@ public enum AdminLog {
 		this.value = vale;
 	}
 	
+	 /**
+     * 열거형 값을 반환합니다.
+     *
+     * @return 열거형 값
+     */
 	public String getValue() {
 		return value;
 	}

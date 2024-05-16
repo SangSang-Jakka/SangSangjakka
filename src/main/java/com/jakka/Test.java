@@ -17,10 +17,20 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.user.UserDTO;
 import com.jakka.model.enums.UserLog;
 
+/**
+ * 테스트를 위한 클래스입니다.
+ * 
+ * @author Jakka
+ */
 public class Test {
 	
 	private static Random rnd = new Random();
 	
+	/**
+     * 메인 메서드로 테스트를 실행합니다.
+     * 
+     * @param args 프로그램 실행 인자
+     */
 	public static void main(String[] args) {
 		
 		
@@ -40,6 +50,9 @@ public class Test {
     }
 	
 
+	/**
+     * 동화책 리뷰 더미 데이터를 생성합니다.
+     */
 	private static void createReview() {
 		
 		
@@ -120,6 +133,12 @@ public class Test {
 		
 	}//createReview()
 	
+	/**
+     * 지정된 날짜 이후의 랜덤한 날짜와 시간을 생성합니다.
+     * 
+     * @param dateTime 기준 날짜와 시간
+     * @return 랜덤한 날짜와 시간
+     */
 	private static LocalDateTime generateRandomDateTimeAfter(LocalDateTime dateTime) {
 	    long startEpochSecond = dateTime.atZone(ZoneId.systemDefault()).toEpochSecond();
 	    long endEpochSecond = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();

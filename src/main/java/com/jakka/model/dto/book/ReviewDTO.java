@@ -2,84 +2,19 @@ package com.jakka.model.dto.book;
 
 import lombok.Data;
 
+/**
+ * 동화책 리뷰 정보를 저장하는 DTO 클래스입니다.
+ */
 @Data
 public class ReviewDTO {
 
-	private String reviewSeq;
-	private String reviewContents;
-	private String reviewLikeCnt;
-	private String reviewReportCnt;
-	private String userSeq;
-	private String bookSeq;
-	private String reviewRegdate;
-	
-	private String userNick;
-
-	
-	public String getReviewSeq() {
-		return reviewSeq;
-	}
-
-	public void setReviewSeq(String reviewSeq) {
-		this.reviewSeq = reviewSeq;
-	}
-
-	public String getReviewContents() {
-		return reviewContents;
-	}
-
-	public void setReviewContents(String reviewContents) {
-		this.reviewContents = reviewContents;
-	}
-
-	public String getReviewLikeCnt() {
-		return reviewLikeCnt;
-	}
-
-	public void setReviewLikeCnt(String reviewLikeCnt) {
-		this.reviewLikeCnt = reviewLikeCnt;
-	}
-
-	public String getReviewReportCnt() {
-		return reviewReportCnt;
-	}
-
-	public void setReviewReportCnt(String reviewReportCnt) {
-		this.reviewReportCnt = reviewReportCnt;
-	}
-
-	public String getUserSeq() {
-		return userSeq;
-	}
-
-	public void setUserSeq(String userSeq) {
-		this.userSeq = userSeq;
-	}
-
-	public String getBookSeq() {
-		return bookSeq;
-	}
-
-	public void setBookSeq(String bookSeq) {
-		this.bookSeq = bookSeq;
-	}
-
-	public String getReviewRegdate() {
-		return reviewRegdate;
-	}
-
-	public void setReviewRegdate(String reviewRegdate) {
-		this.reviewRegdate = reviewRegdate;
-	}
-
-	public String getUserNick() {
-		return userNick;
-	}
-
-	public void setUserNick(String userNick) {
-		this.userNick = userNick;
-	}
-	
-	
+	private String reviewSeq; // 리뷰 시퀀스
+    private String reviewContents; // 리뷰 내용
+    private String reviewLikeCnt; // 리뷰 좋아요 수
+    private String reviewReportCnt; // 리뷰 신고 수
+    private String userSeq; // 사용자 시퀀스
+    private String bookSeq; // 동화책 시퀀스
+    private String reviewRegdate; // 리뷰 등록일자
+    private String userNick; // 사용자 닉네임
 	
 }//End of class

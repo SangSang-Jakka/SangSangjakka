@@ -14,8 +14,22 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.BoardCommentsDAO;
 import com.jakka.model.dto.board.BoardCommentDTO;
 
+/**
+ * 자유게시판 댓글 수정 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/freeboard/editcomment.do")
 public class FreeboardEditComment extends HttpServlet {
+	
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 

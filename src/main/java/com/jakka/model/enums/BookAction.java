@@ -1,5 +1,8 @@
 package com.jakka.model.enums;
 
+/**
+ * 동화책에 대한 사용자 액션을 나타내는 열거형입니다.
+ */
 public enum BookAction {
 	
 	Inquiry("1"),		// 조회
@@ -15,6 +18,11 @@ public enum BookAction {
 		this.value = vale;
 	}
 	
+	/**
+     * 열거형 값을 반환합니다.
+     *
+     * @return 열거형 값
+     */
 	public String getValue() {
 		return value;
 	}

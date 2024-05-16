@@ -1,5 +1,8 @@
 package com.jakka.model.enums;
 
+/**
+* 동화의 장르를 나타내는 열거형입니다.
+*/
 public enum Genre {
 
 	Fantasytales("1"),				//판타지 동화
@@ -19,6 +22,11 @@ public enum Genre {
 		this.value = vale;
 	}
 	
+	/**
+	    * 열거형 값을 반환합니다.
+	    *
+	    * @return 열거형 값
+	    */
 	public String getValue() {
 		return value;
 	}

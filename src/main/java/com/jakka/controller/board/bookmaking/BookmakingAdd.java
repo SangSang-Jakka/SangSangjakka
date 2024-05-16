@@ -23,9 +23,22 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * 동화책 제작 추가 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/bookmaking/add.do")
 public class BookmakingAdd extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -54,6 +67,16 @@ public class BookmakingAdd extends HttpServlet {
 
 	}
 
+	/**
+     * 새로운 동화책을 생성합니다.
+     * 
+     * @param req     HttpServletRequest 객체
+     * @param resp    HttpServletResponse 객체
+     * @param type    동화책 유형
+     * @param userDto 사용자 DTO
+     * @param bookDao 동화책 DAO
+     * @param pageDao 페이지 DAO
+     */
 	private void creatBook(HttpServletRequest req, HttpServletResponse resp, String type, UserDTO userDto, BookDAO bookDao,
 			PageDAO pageDao) {
 		try {
@@ -98,6 +121,15 @@ public class BookmakingAdd extends HttpServlet {
 
 	}
 
+	 /**
+     * 완료되지 않은 동화책을 처리합니다.
+     * 
+     * @param req     HttpServletRequest 객체
+     * @param resp    HttpServletResponse 객체
+     * @param userDto 사용자 DTO
+     * @param bookDao 동화책 DAO
+     * @param pageDao 페이지 DAO
+     */
 	private void notFinBook(HttpServletRequest req, HttpServletResponse resp, UserDTO userDto, BookDAO bookDao,
 			PageDAO pageDao) {
 		try {

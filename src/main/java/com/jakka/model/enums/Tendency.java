@@ -1,5 +1,8 @@
 package com.jakka.model.enums;
 
+/**
+ * 동화 취향 성향을 나타내는 열거형입니다.
+ */
 public enum Tendency {
 
 	AdventureInclination("1"),	//모험 성향
@@ -14,6 +17,11 @@ public enum Tendency {
 		this.value = vale;
 	}
 	
+	/**
+     * 열거형 값을 반환합니다.
+     *
+     * @return 열거형 값
+     */
 	public String getValue() {
 		return value;
 	}

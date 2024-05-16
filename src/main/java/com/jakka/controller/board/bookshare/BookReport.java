@@ -13,10 +13,22 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dto.book.BookDTO;
 
-
+/**
+ * 동화책 신고 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/book/report.do")
 public class BookReport extends HttpServlet{
 
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
