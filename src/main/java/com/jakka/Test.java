@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.jakka.model.DAOManager;
@@ -16,19 +17,42 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.user.UserDTO;
 import com.jakka.model.enums.UserLog;
 
+/**
+ * 테스트를 위한 클래스입니다.
+ * 
+ * @author Jakka
+ */
 public class Test {
 	
 	private static Random rnd = new Random();
 	
+	/**
+     * 메인 메서드로 테스트를 실행합니다.
+     * 
+     * @param args 프로그램 실행 인자
+     */
 	public static void main(String[] args) {
 		
 		
 		//동화책 리뷰 더미 생성
-		createReview();
-	
+		//createReview();
+		
+		UserDAO userDAO = DAOManager.getUserDAO();
+		
+		String[] arr = userDAO.findGenreScore("6");
+		
+		for(int i =0; i < arr.length; i++) {
+			System.out.println(arr[i]);
+		}
+		
+		
+		
     }
 	
 
+	/**
+     * 동화책 리뷰 더미 데이터를 생성합니다.
+     */
 	private static void createReview() {
 		
 		
@@ -109,6 +133,12 @@ public class Test {
 		
 	}//createReview()
 	
+	/**
+     * 지정된 날짜 이후의 랜덤한 날짜와 시간을 생성합니다.
+     * 
+     * @param dateTime 기준 날짜와 시간
+     * @return 랜덤한 날짜와 시간
+     */
 	private static LocalDateTime generateRandomDateTimeAfter(LocalDateTime dateTime) {
 	    long startEpochSecond = dateTime.atZone(ZoneId.systemDefault()).toEpochSecond();
 	    long endEpochSecond = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();

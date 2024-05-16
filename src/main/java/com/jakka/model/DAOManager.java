@@ -24,65 +24,55 @@ import com.jakka.model.dao.user.UserDAOImpl;
 public class DAOManager {
 
 	
-	public static AdminDAO getAdminDAO() {
-		
-		return AdminDAOImpl.getInstance();
-		
-	}//getBoardDAO()
-	
-	public static BoardDAO getBoardDAO() {
-		
-		return BoardDAOImpl.getInstance();
-		
-	}//getBoardDAO()
-	
-	public static NoticeDAO getNoticeDAO() {
-		
-		return NoticeDAOImpl.getInstance();
-		
-	}//getBoardDAO()
-	
-	public static SuggestionDAO getSuggestionDAO() {
-		
-		return SuggestionDAOImpl.getInstance();
-		
-	}//getBoardDAO()
-	
-	public static BoardCommentsDAO getBoardCommentDAO() {
-		
-		return BoardCommentsDAOImpl.getInstance();
-		
-	}//BoardCommentDAO()
-	
-	public static SuggestionAnswerDAO getSuggestionAnswerDAO() {
-		
-		return SuggestionAnswerDAOImpl.getInstance();
-		
-	}//SuggestionCommentDAO()
-	
-	public static UserDAO getUserDAO() {
-		
-		return UserDAOImpl.getInstance();
-		
-	}//getUserDAO()
-	
-	public static BookDAO getBookDAO() {
-		
-		return BookDAOImpl.getInstace();
-		
-	}//getBookDAO()
-	
-	public static PageDAO getPageDAO() {
-		
-		return PageDAOImpl.getInstance();
-		
-	}//getPageDAO()
-	
-	public static ReviewDAO getReviewDAO() {
-		
-		return ReviewDAOImpl.getInstance();
-		
-	}//getReviewDAO()
+	// 관리자 DAO 객체 반환
+    public static AdminDAO getAdminDAO() {
+        return AdminDAOImpl.getInstance();
+    }
+
+    // 게시판 DAO 객체 반환
+    public static BoardDAO getBoardDAO() {
+        return BoardDAOImpl.getInstance();
+    }
+
+    // 공지사항 DAO 객체 반환
+    public static NoticeDAO getNoticeDAO() {
+        return NoticeDAOImpl.getInstance();
+    }
+
+    // 건의사항 DAO 객체 반환
+    public static SuggestionDAO getSuggestionDAO() {
+        return SuggestionDAOImpl.getInstance();
+    }
+
+    // 게시판 댓글 DAO 객체 반환
+    public static BoardCommentsDAO getBoardCommentDAO() {
+        return BoardCommentsDAOImpl.getInstance();
+    }
+
+    // 건의사항 답변 DAO 객체 반환
+    public static SuggestionAnswerDAO getSuggestionAnswerDAO() {
+        return SuggestionAnswerDAOImpl.getInstance();
+    }
+
+    // 사용자 DAO 객체 반환
+    public static UserDAO getUserDAO() {
+        return UserDAOImpl.getInstance();
+    }
+
+    // 동화책 DAO 객체 반환
+    public static BookDAO getBookDAO() {
+        return BookDAOImpl.getInstace();
+    }
+
+    // 페이지 DAO 객체 반환
+    public static PageDAO getPageDAO() {
+        return PageDAOImpl.getInstance();
+    }
+
+    // 리뷰 DAO 객체 반환
+    public static ReviewDAO getReviewDAO() {
+        return ReviewDAOImpl.getInstance();
+    }
 	
 	
 }//End of class

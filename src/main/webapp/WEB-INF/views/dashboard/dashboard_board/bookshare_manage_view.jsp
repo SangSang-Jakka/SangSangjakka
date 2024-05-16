@@ -58,7 +58,7 @@
 	font-size: 12px;
 	position: absolute;
 	top: 30px;
-	right: 90px;
+	right: 80px;
 }
 
 .commentContent {
@@ -164,8 +164,10 @@
 						<h2>동화책 상세</h2>
 
 						<span class="right"> <input type="button" value="공개"
-							class="btn btn-primary"> <input type="button" value="비공개"
-							class="btn btn-primary">
+							class="btn btn-primary"
+							onclick="activationBook('${dto.bookSeq}')"> <input
+							type="button" value="비공개" class="btn btn-primary"
+							onclick="disableBook('${dto.bookSeq}')">
 						</span>
 
 						<table>
@@ -183,17 +185,31 @@
 							</tr>
 							<tr>
 								<th>닉네임</th>
-								<td>${book.userNick}</td>
+								<td>${dto.userNick}</td>
 								<th>좋아요수</th>
-								<td>${book.likeCnt}</td>
+								<td>${dto.likeCnt}</td>
 							</tr>
 							<tr>
 								<th>동화책</th>
-								<td colspan="3"></td>
+								<td colspan="3">
+									<!--  동화책 그림/글  -->
+									<div class="bb-custom-wrapper">
+										<div id="bb-bookblock" class="bb-bookblock">
+											<c:forEach items="${pageMap}" var="entry" varStatus="status">
+												<div class="bb-item">
+													<a href="${entry.value.pageUrl}" target="_blank">${status.count}
+														페이지 그림</a>
+													<div class="pageContents">${status.count}페이지 내용 :
+														${entry.value.pageContents}</div>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th>한 줄 소개</th>
-								<td colspan="3">${book.bookInfo}</td>
+								<td colspan="3">${dto.bookInfo}</td>
 							</tr>
 						</table>
 
@@ -205,76 +221,174 @@
 										<div class="commentHeader">
 											<div class="commentWriter">${review.userNick}</div>
 											<div class="commentActions">
-												<button class="btnEdit">공개</button>
-												<button class="btnDel">비공개</button>
+												<button class="btnEdit"
+													onclick="activationReview('${review.reviewSeq}')">공개</button>
+												<button class="btnDel"
+													onclick="disableReview('${review.reviewSeq}')">비공개</button>
 											</div>
 										</div>
 										<div class="commentTime">${review.reviewRegdate}</div>
-										<div class="commentLike">추천수: ${review.reviewLikeCnt}</div>
 										<div class="commentReport">신고수:
-											${reivew.reviewReportCnt}</div>
+											${review.reviewReportCnt}</div>
+										<div class="commentLike">추천수: ${review.reviewLikeCnt}</div>
+										<div class="commentContent">${review.reviewContents}</div>
 									</div>
-									<div class="commentContent">${review.reviewContents}</div>
 								</div>
+							</c:forEach>
+
+
+							<span class="left"> <a
+								href="/sangsangjakka/admin/dashboard/bookshare/manageview.do?seq=${dto.bookSeq - 1}"
+								class="btn btn-primary">이전</a> <a
+								href="/sangsangjakka/admin/dashboard/bookshare/manageview.do?seq=${dto.bookSeq + 1}"
+								class="btn btn-primary">다음</a>
+							</span> <span class="right"> <input type="button" value="목록"
+								class="btn btn-primary pull-right"
+								onclick="location='/sangsangjakka/admin/dashboard/bookshare/manage.do'">
+							</span>
+
 						</div>
-						</c:forEach>
-
-
-						<span class="left"> <input type="button" value="이전"
-							class="btn btn-primary"> <input type="button" value="다음"
-							class="btn btn-primary">
-						</span> <span class="right"> <input type="button" value="목록"
-							class="btn btn-primary pull-right" onclick="location='/sangsangjakka/admin/dashboard/bookshare/manage.do'">
-						</span>
-
 					</div>
+
 				</div>
+				<!-- 푸터 -->
+				<%@include
+					file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 
 			</div>
-			<!-- 푸터 -->
-			<%@include
-				file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
-
 		</div>
-	</div>
 
-	<!-- js -->
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<%@include
-		file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+		<script>
+			// 동화책  활성화
 
-	<!-- buttons for Export datatable -->
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.print.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/pdfmake.min.js"></script>
-	<script
-		src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
+			function activationBook(bookSeq) {
 
-	<!-- Datatable Setting js -->
-	<script
-		src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
+				var xhr = new XMLHttpRequest();
+				xhr
+						.open(
+								'POST',
+								'/sangsangjakka/admin/dashboard/bookshare/managedel.do',
+								true);
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						// 서블릿으로부터 받은 응답 처리
+						alert(xhr.responseText);
+						// 페이지 리로드 또는 다른 작업 수행
+					}
+				};
+				// 서블릿으로 전달할 파라미터 설정
+				var params = 'bookSeq=' + encodeURIComponent(bookSeq)
+						+ '&action=activationBook';
+				xhr.send(params);
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-	<script>
-		
-	</script>
+			}
+
+			// 동화책 비활성화
+
+			function disableBook(bookSeq) {
+
+				var xhr = new XMLHttpRequest();
+				xhr
+						.open(
+								'POST',
+								'/sangsangjakka/admin/dashboard/bookshare/managedel.do',
+								true);
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						// 서블릿으로부터 받은 응답 처리
+						alert(xhr.responseText);
+						// 페이지 리로드 또는 다른 작업 수행
+					}
+				};
+
+				var params = 'bookSeq=' + encodeURIComponent(bookSeq)
+						+ '&action=disableBook';
+				xhr.send(params);
+
+			}
+
+			// 리뷰 활성화
+			function activationReview(reviewSeq) {
+
+				var xhr = new XMLHttpRequest();
+				xhr
+						.open(
+								'POST',
+								'/sangsangjakka/admin/dashboard/bookshare/manageview.do',
+								true);
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						// 서블릿으로부터 받은 응답 처리
+						alert(xhr.responseText);
+						// 페이지 리로드 또는 다른 작업 수행
+					}
+				};
+				// 서블릿으로 전달할 파라미터 설정
+				var params = 'reviewSeq=' + encodeURIComponent(reviewSeq)
+						+ '&action=activationReview';
+				xhr.send(params);
+
+			}
+
+			// 리뷰 비활성화
+
+			function disableReview(reviewSeq) {
+				var xhr = new XMLHttpRequest();
+				xhr
+						.open(
+								'POST',
+								'/sangsangjakka/admin/dashboard/bookshare/manageview.do',
+								true);
+				xhr.setRequestHeader('Content-Type',
+						'application/x-www-form-urlencoded');
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						// 서블릿으로부터 받은 응답 처리
+						alert(xhr.responseText);
+						// 페이지 리로드 또는 다른 작업 수행
+					}
+				};
+
+				var params = 'reviewSeq=' + encodeURIComponent(reviewSeq)
+						+ '&action=disableReview';
+				xhr.send(params);
+
+			}
+		</script>
+
+		<!-- js -->
+		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+		<%@include
+			file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+
+		<!-- buttons for Export datatable -->
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.print.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.html5.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/buttons.flash.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/pdfmake.min.js"></script>
+		<script
+			src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 </body>
 </html>

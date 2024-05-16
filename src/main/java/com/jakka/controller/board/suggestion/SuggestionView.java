@@ -14,10 +14,22 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.SuggestionDAO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
+/**
+ * SuggestionView 서블릿은 건의사항 게시글의 상세 조회 기능을 제공합니다.
+ */
 @WebServlet("/board/suggestion/View.do")
-
 public class SuggestionView extends HttpServlet{
 
+	/**
+     * GET 요청을 처리합니다.
+     * 로그인 상태를 확인하고, 선택한 건의사항 게시글의 상세 정보를 조회하여
+     * JSP 페이지로 전달합니다. 조회수도 증가시킵니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -54,6 +66,6 @@ public class SuggestionView extends HttpServlet{
 		
 	}
 	
-}
+}//End of class
 
 

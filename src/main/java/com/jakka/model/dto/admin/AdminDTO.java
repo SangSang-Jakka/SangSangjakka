@@ -2,92 +2,29 @@ package com.jakka.model.dto.admin;
 
 import lombok.Data;
 
+/**
+* 관리자 정보와 관리자 로그를 저장하는 DTO 클래스입니다.
+*/
 @Data
 public class AdminDTO {
 
-	private String adId;
-	private String adPw;
-	private String adName;
-	private String adNick;
-	private String adAddress;
-	private String adTel;
-	private String adLv;
+	private String adId; // 관리자 ID
+    private String adPw; // 관리자 비밀번호
+    private String adName; // 관리자 이름
+    private String adNick; // 관리자 닉네임
+    private String adAddress; // 관리자 주소
+    private String adTel; // 관리자 전화번호
+    private String adLv; // 관리자 레벨
 	
-	//관리자 로그
-	private String adLogSeq;
-	private String adLogDate;
-	private String adCatContents;
-	private String adLogContents;
+    // 관리자 로그
+    private String adLogSeq; // 관리자 로그 시퀀스
+    private String adLogDate; // 관리자 로그 날짜
+    private String adCatContents; // 관리자 로그 카테고리 내용
+    private String adLogContents; // 관리자 로그 내용
 	
-	
-	
-	public String getAdLogSeq() {
-		return adLogSeq;
-	}
-	public void setAdLogSeq(String adLogSeq) {
-		this.adLogSeq = adLogSeq;
-	}
-	public String getAdLogDate() {
-		return adLogDate;
-	}
-	public void setAdLogDate(String adLogDate) {
-		this.adLogDate = adLogDate;
-	}
-	public String getAdCatContents() {
-		return adCatContents;
-	}
-	public void setAdCatContents(String adCatContents) {
-		this.adCatContents = adCatContents;
-	}
-	public String getAdLogContents() {
-		return adLogContents;
-	}
-	public void setAdLogContents(String adLogContents) {
-		this.adLogContents = adLogContents;
-	}
-	public String getAdId() {
-		return adId;
-	}
-	public void setAdId(String adId) {
-		this.adId = adId;
-	}
-	public String getAdPw() {
-		return adPw;
-	}
-	public void setAdPw(String adPw) {
-		this.adPw = adPw;
-	}
-	public String getAdName() {
-		return adName;
-	}
-	public void setAdName(String adName) {
-		this.adName = adName;
-	}
-	public String getAdNick() {
-		return adNick;
-	}
-	public void setAdNick(String adNick) {
-		this.adNick = adNick;
-	}
-	public String getAdAddress() {
-		return adAddress;
-	}
-	public void setAdAddress(String adAddress) {
-		this.adAddress = adAddress;
-	}
-	public String getAdTel() {
-		return adTel;
-	}
-	public void setAdTel(String adTel) {
-		this.adTel = adTel;
-	}
-	public String getAdLv() {
-		return adLv;
-	}
-	public void setAdLv(String adLv) {
-		this.adLv = adLv;
-	}
-	
-	
+    // 유입경로
+    private String registrationMonth; // 등록 월
+    private String inflowname; // 유입경로 이름
+    private String inflowCount; // 유입경로 수
 	
 }//End of class

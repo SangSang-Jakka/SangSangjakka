@@ -22,7 +22,7 @@
             <div class="booklistSliderContainer">
                 <button class="sliderBtn left">&nbsp;&#10094;&nbsp;</button>
                 <div class="slider">
-                    <div class="sliderItemBox">
+                    <div class="sliderItemBox" style="justify-content : space-evenly;">
                         <c:forEach items="${bookDtoList}" var="dto" varStatus="status">
                         <a href="/sangsangjakka/board/bookmaking/view.do?no=${dto.bookSeq}">
 			                <div class="sliderItem pointer" data-page-url="${pageDtoList[status.index].pageUrl}">
@@ -36,7 +36,7 @@
             </div>
             <div class="makeNewBook">
             	<a href="/sangsangjakka/board/bookmaking/view.do">
-            	<input type="button" value="새 동화책 만들기"/>
+            	<input class="newBookBtn" type="button" value="새로운 동화책 만들기"/>
             	</a>
             </div>
         </div>

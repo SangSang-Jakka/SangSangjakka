@@ -679,4 +679,160 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return 0;
 	}
 	
+	@Override
+	public ReviewDTO edit(ReviewDTO dto) {
+	    final String UPDATE_SQL = "update tblReview set reviewContents = ? where ReviewSeq = ?";
+	    final String SELECT_SQL = "select reviewContents from tblReview where ReviewSeq = ?";
+
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement updatePstat = conn.prepareStatement(UPDATE_SQL);
+	        PreparedStatement selectPstat = conn.prepareStatement(SELECT_SQL);
+	    ) {
+	        // UPDATE 쿼리 실행
+	        updatePstat.setString(1, dto.getReviewContents());
+	        updatePstat.setString(2, dto.getReviewSeq());
+	        int result = updatePstat.executeUpdate();
+	        System.out.println("Update result: " + result);
+
+	        // 변경된 내용 확인을 위한 SELECT 쿼리 실행
+	        selectPstat.setString(1, dto.getReviewSeq());
+	        ResultSet resultSet = selectPstat.executeQuery();
+	        if (resultSet.next()) {
+	            String updatedContents = resultSet.getString("reviewContents");
+	            System.out.println("Updated contents: " + updatedContents);
+	            // 변경된 내용을 ReviewDTO 객체에 설정
+	            dto.setReviewContents(updatedContents);
+	        }
+
+	        // 수정된 ReviewDTO 객체 반환
+	        return dto;
+	    } catch (Exception e) {
+	        System.out.println("Exception occurred: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    // 예외 발생 시 null 반환
+	    return null;
+	}
+
+	@Override
+	public int reviewDel(String reviewSeq) {
+		
+		final String SQL = "DELETE FROM tblReviewWhiteList WHERE reviewSeq = ?";
+		
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	    	
+	  
+	    	
+	    	pstat.setString(1, reviewSeq);
+	        
+	        int result = pstat.executeUpdate();
+	        
+	        if (result > 0) {
+	        	
+	        	return result;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.| disable");
+	        e.printStackTrace();
+	    }
+	    
+	    return 0;
+	}
+	
+	@Override
+	public int addLike(ReviewDTO dto) {
+		
+		final String SQL = "insert into tblReviewLike(reviewSeq, userSeq) values(?, ?)";
+		
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	    	
+	  
+	    	
+	    	pstat.setString(1, dto.getReviewSeq());
+	    	pstat.setString(2, dto.getUserSeq());
+	        
+	        int result = pstat.executeUpdate();
+	        
+	        if (result > 0) {
+	        	
+	        	return result;
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.| disable");
+	        e.printStackTrace();
+	    }
+	    
+	    return 0;
+	
+	}
+
+	@Override
+	public boolean isLike(String userSeq) {
+		final String SQL = "select count(*) from tblReviewLike where userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				return count > 0;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("ReviewDAOImpl.| isLike");
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+	
+	@Override
+	public ArrayList<ReviewDTO> findLikedReviews(String userSeq) {
+
+	    final String SQL = "SELECT * FROM tblReviewLike WHERE userSeq = ?";
+	    
+	    try (Connection conn = DBUtil.open();
+	         PreparedStatement pstat = conn.prepareStatement(SQL);) {
+	        
+	        pstat.setString(1, userSeq);
+	        
+	        // SQL 쿼리를 실행하고 결과 집합을 얻습니다.
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            ArrayList<ReviewDTO> list = new ArrayList<>();
+	            
+	            while (rs.next()) {
+	                ReviewDTO dto = new ReviewDTO();
+	                
+	                dto.setReviewSeq(rs.getString("reviewSeq"));
+	                dto.setUserSeq(rs.getString("userSeq"));
+	                
+	                list.add(dto);
+	            }
+	            
+	            return list;
+	        }
+	        
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.| findAllBlack");
+	        e.printStackTrace();
+	    }
+	    
+	    return null;
+	}
+
 }//End of class

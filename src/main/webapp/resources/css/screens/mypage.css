@@ -7,26 +7,36 @@ input.btnSearch {
 }
 
 
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
 
-section.notice {
-	margin: auto;
-	padding: 0 10px;
-	max-width: 1080px;
+body {
+	font-size: 18px;
+	align-items:center;
 }
 
-.pageTitle {
-	margin-bottom: 60px;
-}
 
 .pageTitle h3 {
-	font-size: 28px;
-	color: #333333;
-	font-weight: 600;
-	text-align: center;
+    font-size: 40px;
+    color: #333333;
+    font-weight: 600;
+    text-align: center;
+    margin-top:80px;
+    margin-bottom:60px;
+}
+
+
+ul,
+li {
+	list-style: none;
+}
+
+span{
+	font-weight: 700;
+	color:grey;
 }
 
 #boardSearch .searchWindow {
@@ -77,12 +87,6 @@ section.notice {
 
 
 
-select.notice {
-	margin-bottom: 7px;
-	width: 70px;
-	height: 25px;
-	text-align: center;
-}
 
 
 .boardTable {
@@ -220,13 +224,6 @@ select.notice {
 	color: #333333;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'SOYOMapleBoldTTF';
-	font-style: normal;
-}
 
 input {
 	appearance: none;
@@ -281,115 +278,12 @@ option {
 	background: #f1f7ff;
 }
 
-.childrenAgeContainer {
-	margin-top: 20px;
-	display: flex;
-	justify-content: space-between;
-}
 
-.childrenAgeContainer div {
-	margin-bottom: 10px;
-}
 
-.childrenAgeContainer input[type="checkbox"] {
-	display: none;
-}
-
-.childrenAgeContainer input[type="checkbox"]+label {
-	display: inline-block;
-	cursor: pointer;
-	padding-left: 25px;
-	position: relative;
-
-}
-
-.childrenAgeContainer input[type="checkbox"]+label:before {
-	content: '';
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	border: 1px solid #ccc;
-	position: absolute;
-	left: 0;
-	top: 1px;
-}
-
-.childrenAgeContainer input[type="checkbox"]:checked+label:before {
-	background-color: orange;
-}
-
-.childrenAgeContainer input[type="checkbox"]+label:after {
-	content: '\2713';
-	color: #fff;
-	font-size: 12px;
-	position: absolute;
-	left: 3px;
-	top: -1px;
-	visibility: hidden;
-}
-
-.childrenAgeContainer input[type="checkbox"]:checked+label:after {
-	visibility: visible;
-}
-
-.inFlowContainer {
-	display: flex;
-	flex-Container: Container;
-	margin-top: 20px;
-	justify-content: space-between;
-}
-
-.inFlowContainer div {
-	width: 32%;
-	/* 한 줄에 4개의 체크박스가 보이도록 설정 */
-	margin-bottom: 20px;
-}
-
-.inFlowContainer input[type="checkbox"] {
-	display: none;
-
-}
-
-.inFlowContainer input[type="checkbox"]+label {
-	display: inline-block;
-	cursor: pointer;
-	padding-left: 25px;
-	position: relative;
-}
-
-.inFlowContainer input[type="checkbox"]+label:before {
-	content: '';
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	border: 1px solid #ccc;
-	position: absolute;
-	left: 0;
-	top: 1px;
-}
-
-.inFlowContainer input[type="checkbox"]:checked+label:before {
-	background-color: orange;
-}
-
-.inFlowContainer input[type="checkbox"]+label:after {
-	content: '\2713';
-	color: #fff;
-	font-size: 12px;
-	position: absolute;
-	left: 3px;
-	top: -1px;
-	visibility: hidden;
-}
-
-.inFlowContainer input[type="checkbox"]:checked+label:after {
-	visibility: visible;
-}
 
 .agree-check {
 	width: 454px;
 	height: 21.06px;
-	margin-top: 80px;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 21px;
@@ -403,27 +297,37 @@ option {
 
 .inputBorder {
 	border-bottom: 1px solid #cfcfcf;
+	width:70%;
 }
+
+
+
 
 .userInfoContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 600px;
+	width: 1200px;
 	margin-top: 0px;
 	margin-bottom: 70px;
+	height:800px;
 }
 
 .userInfo {
-	margin-top: 39px;
+	margin-top: 130px;
+	width:900px;
+	margin-left:250px;
+	margin-bottom:100px;
+	height:1400px;
 }
 
 .userInfo input {
 	font-weight: 400;
 	height: 40px;
-	font-size: 16px;
+	font-size: 20px;
 	line-height: 24px;
 	border: none;
+	margin-top:10px;
 }
 
 
@@ -471,11 +375,13 @@ option {
 }
 
 .changebtnbox input {
-	width: 100%;
+	width: 60%;
 	cursor: pointer;
 	border-radius: 4px;
 	background-color: orange;
 	color: white;
+	height: 40px;
+	margin-left: 0px;
 }
 
 .idContainer {
@@ -570,12 +476,12 @@ option {
 }
 
 .postNum {
-	width: 70%;
+	width: 20%;
 	margin-right: 20px;
 }
 
 #sample6_address {
-	width: 100%;
+	width: 60%;
 	/* 주소 입력란 너비 */
 }
 
@@ -584,19 +490,25 @@ option {
 }
 
 #sample6_detailAddress {
-	width: 100%;
+	width: 60%;
 }
 
 .tabFormContainer {
-	display: flex;
-	flex-direction: column;
+
 	align-items: center;
-	width: 800px;
-	margin-top: 10px;
-	margin-bottom: 120px;
+	width: 100%;
+	margin-top: 100px;
+	margin-bottom: 200px;
 	background: #ffffff;
 	border: 4px dashed #ffa500;
 	border-radius: 20px;
+	height: 1400px;
+
+}
+
+.tab{
+	margin-bottom:200px;
+
 }
 
 
@@ -617,7 +529,9 @@ li {
 .tab {
 	box-sizing: border-box;
 	float: left;
-	height: 1600px;
+	height: 1400px;
+	margin: 0 auto;
+
 }
 
 .tabnav {
@@ -709,7 +623,18 @@ li {
 #changecompletebtn {
 	text-align: center;
 	/* 텍스트를 중앙 정렬합니다 */
+	margin-left:50px;
 }
+
+#changebtn{
+	width:50%;
+	height:40px;
+	font-size:20px;
+	margin-left: 100px;
+	margin-top:50px;
+}
+
+
 
 .itemchangebtn input {
 	width: 100%;
@@ -749,7 +674,7 @@ li {
 }
 
 .phoneInput {
-	width: 30%;
+	width: 20%;
 }
 
 .bookshelfControl {
@@ -812,39 +737,35 @@ option {
     font-size: 16px; /* Uniform font size for options */
 }
 
-.bookshelf {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 16px;
-	padding: 16px;
-	max-width: 800px;
-	margin: auto;
+.bookshelfContainer {
+	width: 900px;
+	height: 520px;
+	margin: 0 auto;
 }
 
 .bookshelf {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 16px;
-	padding: 16px;
-	max-width: 800px;
-	margin: auto;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 30px;
+    justify-items: center;
+    margin-top: 20px;
 }
 
-.book {
+/* .book {
 	border: 1px solid #ccc;
 	padding: 16px;
 	text-align: center;
 	background-color: #f9f9f9;
-	/* Light background for the books */
+	Light background for the books
 	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-	/* Adds a subtle shadow to each book for a 3D effect */
+	Adds a subtle shadow to each book for a 3D effect
 	transition: transform 0.3s ease;
-	/* Smooth transformation on hover */
+	Smooth transformation on hover
 	position: relative;
-	/* Needed for pseudo-elements and hover effects */
+	Needed for pseudo-elements and hover effects
 	overflow: hidden;
-	/* Keeps pseudo-elements within the book div */
-}
+	Keeps pseudo-elements within the book div
+} */
 
 .book::before {
 	content: '';
@@ -865,6 +786,123 @@ option {
 
 .book:hover::before {
 	transform: rotate(25deg) translate(150%, -50%);
+}
+
+.bookShareContainer {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  width: 400px;
+  height: 240px;
+  margin-right: 20px;
+}
+
+.bookShareContainer:hover {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.bookImg img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.bookDetails {
+   display: flex;
+   flex-direction: column;
+   height : 200px;
+   width: 200px;
+   justify-content: space-between;
+} 
+
+.bookOwner {
+   display: flex;
+   align-items: center;
+}
+
+.createDate {
+  	margin-bottom: 10px;
+}
+
+.bookOwner {
+  margin-bottom: 10px;
+}
+
+.createDate {
+	font-size: 16px;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.createAuthor {
+	font-size: 16px;
+  	margin-left : 10px;
+}
+
+.bookContents {
+	width: 200px;
+	height: 60;
+	margin-bottom: 10px;
+	font-size : 14px;
+}
+
+.bookTitle {
+   margin-bottom: 10px;
+}
+
+.createTitle {
+  font-size: 20px;
+  width: fit-content;
+  font-weight: bold;
+  background: linear-gradient(to top, #bfffa1 40%, transparent 70%);
+}
+
+.iconItems {
+  display: flex;
+  align-items: center;
+  justify-content : flex-end;
+}
+
+.createContents {
+	width:180px;
+	height:60px;
+	overflow:hidden;
+	/* background-color:tomato; */
+}
+
+.subItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.subItems i {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+
+.subItems p {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.bookmarker{
+	color: #babab9;
+}
+
+.heart {
+	color:#FE2E64;
+}
+
+.comment {
+	color : #ee7143;
 }
 
 .pagination {
@@ -900,21 +938,32 @@ span span:hover {
 	color: #ffa500;
 }
 
+#passwordChangeBtn{
+	margin-top:10px;
+}
+
 .myMainWrap {
 	height: auto;
 	display: block;
-	max-width: 800px;
-	width: 80%;
+	width: 1300px;
 	margin: 60px auto;
+	align-items:center;
+	margin-bottom:1600px;
 }
+
 
 .userInfoForm {
 	display: flex;
 	justify-content: center;
-	width: 100%;
-	max-width: 680px;
-	margin: 10px auto;
+	max-width: 1072px;
+ 	margin: 10px auto;
+	height: 1400px;
+
+
 }
+
+
+
 
 .changegroup {
 	display: flex;
@@ -924,20 +973,22 @@ span span:hover {
 
 .changebtncontainer {
 	width: 400px;
-	margin-top: 60px;
+	margin-top: 20px;
 }
 
 .changebtncontainer div {
-	height: 40px;
+	height: 50px;
+	
 }
 
 .changebtncontainer input {
-	font-size: 18px;
 	border: none;
+
 }
 
+
 .changegroup input {
-	font-size: 18px;
+	font-size: 20px;
 	border: none;
 }
 
@@ -946,11 +997,14 @@ span span:hover {
 }
 
 .changegroup .changebtnbox {
-	width: 40%;
+	width: 60%;
+
 }
+
 
 #cancelbtn {
 	background-color: #ccc;
+	margin-left:20px;
 }
 
 .pagination {
@@ -962,3 +1016,27 @@ span span:hover {
 	display: inline-block;
 	width: 45px;
 }
+
+.thList{
+	font-size:18px;	
+}
+
+.myBoardList{
+	font-size:17px;	
+}
+
+.thNum{
+	width:15%;
+}
+
+.thTitle{
+	width:45%;
+}
+
+.thDate{
+	width:20%;
+}
+.thViews{
+	width:20%;
+}
+

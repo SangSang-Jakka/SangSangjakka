@@ -156,6 +156,9 @@ section.notice {
 
 .bookTitle {
    margin-bottom: 10px;
+   white-space: nowrap; /* 텍스트가 한 줄로만 표시되도록 함 */
+  overflow: hidden; /* 넘치는 텍스트를 감출 것임 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 생략 부호(...)로 표시함 */
 }
 
 .createTitle {
@@ -169,6 +172,13 @@ section.notice {
   display: flex;
   align-items: center;
   justify-content : flex-end;
+}
+
+.createContents {
+	width:180px;
+	height:60px;
+	overflow:hidden;
+	/* background-color:tomato; */
 }
 
 .subItems {
@@ -199,4 +209,18 @@ section.notice {
 
 .comment {
 	color : #ee7143;
+}
+
+.paging {
+	margin-top: 30px;
+}
+
+.paging{
+  text-align: center;
+}
+
+.paging a{
+  margin: 10px;
+  color: #333333;
+  font-size: 20px;
 }

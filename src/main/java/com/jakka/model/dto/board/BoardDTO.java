@@ -2,94 +2,20 @@ package com.jakka.model.dto.board;
 
 import lombok.Data;
 
+/**
+ * 게시판 정보를 저장하는 DTO 클래스입니다.
+ */
 @Data
 public class BoardDTO {
 	
-	private String boardSeq;
-	private String boardTitle;
-	private String boardContents;
-	private String boardRegdate;
-	private String boardReportCnt;
-	private String boardCnt;
-	private String userSeq;
-	
-	private String userNick;
-	
-	private String cmntCnt;
-	
-
-	public String getCmntCnt() {
-		return cmntCnt;
-	}
-
-	public void setCmntCnt(String cmntCnt) {
-		this.cmntCnt = cmntCnt;
-	}
-
-	public String getBoardSeq() {
-		return boardSeq;
-	}
-
-	public void setBoardSeq(String boardSeq) {
-		this.boardSeq = boardSeq;
-	}
-
-	public String getBoardTitle() {
-		return boardTitle;
-	}
-
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
-	}
-
-	public String getBoardContents() {
-		return boardContents;
-	}
-
-	public void setBoardContents(String boardContents) {
-		this.boardContents = boardContents;
-	}
-
-	public String getBoardRegdate() {
-		return boardRegdate;
-	}
-
-	public void setBoardRegdate(String boardRegdate) {
-		this.boardRegdate = boardRegdate;
-	}
-
-	public String getBoardReportCnt() {
-		return boardReportCnt;
-	}
-
-	public void setBoardReportCnt(String boardReportCnt) {
-		this.boardReportCnt = boardReportCnt;
-	}
-
-	public String getBoardCnt() {
-		return boardCnt;
-	}
-
-	public void setBoardCnt(String boardCnt) {
-		this.boardCnt = boardCnt;
-	}
-
-	public String getUserSeq() {
-		return userSeq;
-	}
-
-	public void setUserSeq(String userSeq) {
-		this.userSeq = userSeq;
-	}
-
-	public String getUserNick() {
-		return userNick;
-	}
-
-	public void setUserNick(String userNick) {
-		this.userNick = userNick;
-	}
-	
-	
+	private String boardSeq; // 게시판 시퀀스
+    private String boardTitle; // 게시판 제목
+    private String boardContents; // 게시판 내용
+    private String boardRegdate; // 게시판 등록일자
+    private String boardReportCnt; // 게시판 신고 수
+    private String boardCnt; // 게시판 수
+    private String userSeq; // 사용자 시퀀스
+    private String userNick; // 사용자 닉네임
+    private String cmntCnt; // 댓글 수
 	
 }//End of class

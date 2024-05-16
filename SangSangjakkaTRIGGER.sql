@@ -234,28 +234,5 @@ BEGIN
 END;
 /
 
--- 프로시저 생성
-CREATE OR REPLACE PROCEDURE proc_insert_monthly_award
-IS
-BEGIN
-  -- 지난달 생성된 동화책 중 신고횟수 5회 미만, 좋아요/조회/댓글/스크랩 합계 상위 5개 선정하여 tblAward에 INSERT
-  FOR i IN 1..5 LOOP
-    INSERT INTO tblAward (bookSeq, awardRegdate, awardRank)
-    SELECT b.bookSeq, SYSDATE, i
-    FROM (
-      SELECT bookSeq
-      FROM vwBookWhite
-      WHERE bookRegdate BETWEEN ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1) AND LAST_DAY(ADD_MONTHS(SYSDATE, -1))
-        AND bookReportCnt < 5
-      ORDER BY (likeCnt + bookReviewCnt + bookCnt + bookScrapCnt) DESC
-    ) b
-    WHERE ROWNUM = i;
-      
-    -- 관리자 로그 테이블에 기록
-    INSERT INTO tblAdLog (adLogSeq, adLogDate, adId, adLogContents, adCatSeq)
-    VALUES ((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), SYSDATE, 'super', '시스템이 동화책 번호 '|| (SELECT bookSeq FROM tblAward WHERE awardRegdate = SYSDATE AND awardRank = i) ||'에게 '|| i ||'등을 수여했습니다.', 15);
-  END LOOP;
-END;
-/
 
 commit;

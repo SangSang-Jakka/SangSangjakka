@@ -82,6 +82,7 @@ public class BookmakingView extends HttpServlet {
 			}
 			
 			req.setAttribute("genre", genre);
+			System.out.println(genre);
 			req.setAttribute("firstpage", dto.get(0));
 			req.setAttribute("lastpage", lastpage.getPageSeq());
 			req.setAttribute("dto", dto);
@@ -109,12 +110,14 @@ public class BookmakingView extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		String userId = (String) session.getAttribute("userId");
-		
+		String userSeq = (String) session.getAttribute("userSeq");
 		
 		// 문자 인코딩을 UTF-8로 설정
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
+        UserDAO dao = DAOManager.getUserDAO();
+        
         try {
             // 사용자가 전송한 프롬프트 데이터 받기
             String prompt = req.getParameter("prompt");
@@ -122,15 +125,10 @@ public class BookmakingView extends HttpServlet {
             
             //여기서 사용자가 선호하는 
             
-            String[] category = {
-            		"HeartwarmingTales",
-            		"HumorousTales",
-            		"FriendFamilyStories",
-            		"Adventuretales"
-            };
-            String[] promptList = new String[2];
+            String[] category = dao.findGenreScore(userSeq);
+            String[] promptList = new String[4];
             
-            for(int i = 0; i < 2; i++) {
+            for(int i = 0; i < 4; i++) {
             	
             	promptList[i] = enPrompt +  "in a " + category[i] + " style suitable for children aged 1 to 10";
             	System.out.println(promptList[i]);

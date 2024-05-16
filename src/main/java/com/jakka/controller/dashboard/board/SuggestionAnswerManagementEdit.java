@@ -17,9 +17,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.SuggestionAnswerDAO;
 import com.jakka.model.dto.board.SuggestionAnswerDTO;
 
+/**
+ * SuggestionAnswerManagementEdit 서블릿은 건의사항 답변 수정 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/suggestionanswer/manageedit.do")
 public class SuggestionAnswerManagementEdit extends HttpServlet {
-
+	
+	/**
+     * GET 요청을 처리합니다.
+     * 건의사항 답변을 수정합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -30,7 +42,6 @@ public class SuggestionAnswerManagementEdit extends HttpServlet {
 		String adId = (String) session.getAttribute("adId");
 		String answSeq = req.getParameter("answSeq");
 		String sgstAnsw = req.getParameter("sgstAnsw");
-	//	String seq = req.getParameter("seq"); // 게시글 번호
 		
 		SuggestionAnswerDAO dao = DAOManager.getSuggestionAnswerDAO();
 		
@@ -54,18 +65,8 @@ public class SuggestionAnswerManagementEdit extends HttpServlet {
 			if (result == 1) {
 				
 				out.println("{\"result\": \"1\"}");
-			//	resp.sendRedirect("/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=" + seq);
 				
 			} else {
-				/*
-				resp.setCharacterEncoding("UTF-8");
-				PrintWriter writer = resp.getWriter();
-				writer.println("<html><head><meta charset=\"UTF-8\"></head><body>");
-				writer.println("<script>alert('수정 실패했습니다.');</script>");
-				writer.println("<script>location.href='/sangsangjakka/admin/dashboard/notice/manage.do';</script>");
-				writer.println("</body></html>");
-				writer.close();
-				*/
 				  out.println("{\"result\": \"0\"}");
 			} 
 			out.close();

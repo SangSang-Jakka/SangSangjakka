@@ -27,37 +27,30 @@
 }
 
 .fixbtn {
-
-background-color : red;
-padding-left: 35px;
-font-size: 16px;
-
+	background-color: red;
+	padding-left: 35px;
+	font-size: 16px;
 }
 
 .topleft .btn {
-    background-color: #ff0000;
-    border-color: #ff0000;
-    color: white; 
+	background-color: #ff0000;
+	border-color: #ff0000;
+	color: white;
 }
 
 /* 마우스를 올리고 있는 동안 */
 .topleft .btn:hover {
-    background-color: #cc0000;
-    border-color: #cc0000;
-    color: white;
+	background-color: #cc0000;
+	border-color: #cc0000;
+	color: white;
 }
 
 /* 마우스를 클릭하고 있는 동안 */
 .topleft .btn:active {
-
-    background-color: #cc0000;
-    border-color: #cc0000;
-    color: white;
+	background-color: #cc0000;
+	border-color: #cc0000;
+	color: white;
 }
-
-
-
-
 </style>
 </head>
 <body>
@@ -99,10 +92,11 @@ font-size: 16px;
 
 
 						<span class="topleft">
-							<button type="button" class="btn btn-primary" onclick="activationFix('${dto.noticeSeq}')">고정</button>
-							<button type="button" class="btn btn-primary" onclick="unFix('${dto.noticeSeq}')">고정 해제</button>
-						</span>
-						<span class="topright"> <c:if test="${not empty adId}">
+							<button type="button" class="btn btn-primary"
+								onclick="activationFix('${dto.noticeSeq}')">고정</button>
+							<button type="button" class="btn btn-primary"
+								onclick="unFix('${dto.noticeSeq}')">고정 해제</button>
+						</span> <span class="topright"> <c:if test="${not empty adId}">
 								<button type="button" class="btn btn-primary"
 									onclick="location.href='/sangsangjakka/admin/dashboard/notice/manageedit.do?seq=${dto.noticeSeq}';">수정</button>
 								<button type="button" class="btn btn-primary"
@@ -130,9 +124,11 @@ font-size: 16px;
 							</tr>
 						</table>
 
-						<span class="left"> <input type="button" value="이전"
-							class="btn btn-primary"> <input type="button" value="다음"
-							class="btn btn-primary">
+						<span class="left"> <a
+							href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=${dto.noticeSeq - 1}"
+							class="btn btn-primary">이전</a> <a
+							href="/sangsangjakka/admin/dashboard/notice/manageview.do?seq=${dto.noticeSeq + 1}"
+							class="btn btn-primary">다음</a>
 						</span> <span class="right">
 							<button type="button" class="btn btn-primary"
 								onclick="location.href='/sangsangjakka/admin/dashboard/notice/manage.do'">

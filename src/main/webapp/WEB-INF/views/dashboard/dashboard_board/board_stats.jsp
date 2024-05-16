@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.jakka.model.dao.admin.AdminDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,7 +7,11 @@
 <html>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/asset.jsp"%>
 	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/vendors/styles/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
 </head>
+
+
 <body>
 	
 	<!-- 헤더 -->
@@ -47,16 +53,7 @@
 						<h4 class="text-blue h4 center">자유 게시판</h4>
 						<div class="filter-container">
 						<!--  조건별 조회 -->
-						<select id="conditionSelect">
-							<option value="all">전체</option>
-							<option value="option">고정글</option>
-						</select>
-						<!--  기간 조회 -->
-						<div class="date-range-container">
-							<input type="date" id="min" name="min" class="date-input">
-							<span class="date-separator">~</span>
-							<input type="date" id="max" name="max" class="date-input">
-						</div>
+						
 					</div>
 					</div>
 					<div class="pb-20">
@@ -103,14 +100,137 @@
 				</div>
 			<!-- Simple Datatable End -->
 	
+	
+	<div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4 center">건의사항 게시판</h4>
+						<div class="filter-container">
+						<!--  조건별 조회 -->
+						
+					</div>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap" id="myTable">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">번호</th>
+									<th>구분</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>조회수</th>
+									<th class="datatable-nosort">Action</th>
+								</tr>
+							</thead>
+				
+							<tbody>
+							<c:forEach var="suggestion" items="${suggestionList}">
+								<tr>
+									<td class="table-plus">${suggestion.sgstSeq}</td>
+									<td>${suggestion.sgstSecretYN eq 'y' ? '비밀' : '일반'}</td>
+									<td><a href ="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}">${suggestion.sgstTitle}</a></td>
+									<td>${suggestion.userNick}</td>
+									<td>${suggestion.sgstRegdate}</td>
+									<td>${suggestion.sgstCnt}</td>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="/sangsangjakka/admin/dashboard/suggestion/manageview.do?seq=${suggestion.sgstSeq}"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								</c:forEach>
+							</tbody>
+					
+						</table>
+					</div>
+				</div>
+				
+				<div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4 center">댓글 관리</h4>
+						<div class="filter-container">
+						
+					</div>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap" id="myTable">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">번호</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>댓글내용</th>
+									<th>신고수</th>
+									<th class="datatable-nosort">Action</th>
+								</tr>
+							</thead>
+						
+							<tbody>
+							<c:forEach var="cmnt" items="${cmntList}">
+								<tr>
+									<td class="table-plus">${cmnt.cmntSeq}</td>
+									<td>${cmnt.userNick}</td>
+									<td>${cmnt.cmntRegdate}</td>
+									<td>${cmnt.cmntContents}</td>
+									<td>${cmnt.cmntReportCnt}</td>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								</c:forEach>
+							</tbody>
+					
+						</table>
+					</div>
+					
+					
+				</div>
+	
+	
 			</div>
 			<!-- 푸터 -->
 			<%@include file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
 			
 		</div>
 	</div>
--->
+
+	
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<%@include file="/WEB-INF/views/dashboard/dashboard_template/javascript.jsp"%>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+	
+	<!-- buttons for Export datatable -->
+	<script src="/sangsangjakka/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.print.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.html5.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/buttons.flash.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/pdfmake.min.js"></script>
+	<script src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
+	
+	<!-- Datatable Setting js -->
+	<script src="/sangsangjakka/resources/vendors/scripts/board.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	
 </body>
 </html>

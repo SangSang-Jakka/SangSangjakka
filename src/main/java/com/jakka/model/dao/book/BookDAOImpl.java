@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -354,11 +356,11 @@ public class BookDAOImpl implements BookDAO{
 				dto.setBookModDate(rs.getString("bookModDate"));
 				dto.setBookRegdate(rs.getString("bookRegdate"));
 				dto.setBookReportCnt(rs.getString("bookReportCnt"));
-				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
-				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+//				dto.setBookReviewCnt(rs.getString("BookReviewCnt"));
+//				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
 				dto.setBookSeq(rs.getString("bookSeq"));
 				dto.setBookTitle(rs.getString("bookTitle"));
-				dto.setLikeCnt(rs.getString("likeCnt"));
+//				dto.setLikeCnt(rs.getString("likeCnt"));
 				dto.setParentBookSeq(rs.getString("parentBookSeq"));
 				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
 				dto.setUserSeq(rs.getString("userSeq"));
@@ -402,7 +404,7 @@ public class BookDAOImpl implements BookDAO{
 					dto.setBookModDate(rs.getString("bookModDate"));
 					dto.setBookRegdate(rs.getString("bookRegdate"));
 					dto.setBookReportCnt(rs.getString("bookReportCnt"));
-					dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+					dto.setBookReviewCnt(rs.getString("bookReviewCnt")); 
 					dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
 					dto.setBookSeq(rs.getString("bookSeq"));
 					dto.setBookTitle(rs.getString("bookTitle"));
@@ -947,10 +949,14 @@ public class BookDAOImpl implements BookDAO{
 			pstat.setString(1, bookSeq);
 			pstat.setString(2, userSeq);
 			
+			System.out.println(bookSeq);
+			System.out.println(userSeq);
+			
 			ResultSet rs = pstat.executeQuery();
 			
 			if(rs.next()) {
 				int count = rs.getInt(1);
+				System.out.println(count);
 				return count > 0;
 			}
 			
@@ -1353,6 +1359,106 @@ public class BookDAOImpl implements BookDAO{
 		return null;
 	}
 	
+	
+	//현재 명예의 전당 책 리스트
+	
+	@Override
+	public ArrayList<BookDTO> findNowAward() {
+		
+		final String SQL = "SELECT * FROM vwAward WHERE EXTRACT(MONTH FROM awardRegdate) = EXTRACT(MONTH FROM SYSDATE) AND awardRank BETWEEN 1 AND 5";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				dto.setBookCover(rs.getString("bookCover"));
+				dto.setBookInfo(rs.getString("bookInfo"));
+				dto.setBookModDate(rs.getString("bookModDate"));
+				dto.setBookRegdate(rs.getString("bookRegdate"));
+				dto.setBookReportCnt(rs.getString("bookReportCnt"));
+				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setBookTitle(rs.getString("bookTitle"));
+				dto.setLikeCnt(rs.getString("likeCnt"));
+				dto.setParentBookSeq(rs.getString("parentBookSeq"));
+				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
+				dto.setAwardRegdate(rs.getString("awardRegdate"));
+				dto.setAwardRank(rs.getString("awardRank"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
+	@Override
+	public ArrayList<BookDTO> findMonthAward(String month) {
+	    final String SQL = "SELECT * FROM vwAward WHERE SUBSTR(awardRegdate, 4, 2) = ? AND awardRank BETWEEN 1 AND 5";
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstmt = conn.prepareStatement(SQL)
+	    ) {
+	        pstmt.setString(1, month);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        ArrayList<BookDTO> list = new ArrayList<>();
+
+	        while(rs.next()) {
+	            BookDTO dto = new BookDTO();
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            dto.setBookCnt(rs.getString("bookCnt"));
+	            dto.setAwardRegdate(rs.getString("awardRegdate"));
+	            dto.setAwardRank(rs.getString("awardRank"));
+	            list.add(dto);
+	        }
+
+	        return list;
+
+	    } catch (Exception e) {
+	        System.out.println("BookDAO.| findMonthAward");
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	
 	//리스트에는 수여받을 동화책번호5개, 등수, 수여한 관리자 아이디가 들어있어야함
 	@Override
 	public int presentAward(ArrayList<BookDTO> list, String adId) {
@@ -1372,13 +1478,16 @@ public class BookDAOImpl implements BookDAO{
 			for(int i = 0; i < 5; i++) {
 				
 				String bookSeq = list.get(i).getBookSeq();
+				String awardRank = list.get(i).getAwardRank();
+				
 				
 				pstat.setString(1, bookSeq);
-				pstat.setString(2, i + 1 + "");
+//				pstat.setString(2, i + 1 + "");
+				pstat.setString(2, awardRank);
 				pstat.executeUpdate();
 				
 				log.setString(1, adId);
-				log.setString(2, "'" + adId + "'이 동화책번호'" + bookSeq  + "'에게 " + (i + 1) + "등을 수여했습니다.");
+				log.setString(2, "'" + adId + "'이 동화책번호'" + bookSeq  + "'에게 " + awardRank + "등을 수여했습니다.");
 				log.setString(3, AdminLog.BookAwarded.getValue());
 				log.executeUpdate();
 				
@@ -1397,7 +1506,398 @@ public class BookDAOImpl implements BookDAO{
 		return 0;
 	}
 	
+	// 신고가 있는 동화책 조회
+	@Override
+	public ArrayList<BookDTO> findAllReport() {
+		
+		final String SQL = "select * from vwBook where bookReportCnt > 0";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				dto.setBookCover(rs.getString("bookCover"));
+				dto.setBookInfo(rs.getString("bookInfo"));
+				dto.setBookModDate(rs.getString("bookModDate"));
+				dto.setBookRegdate(rs.getString("bookRegdate"));
+				dto.setBookReportCnt(rs.getString("bookReportCnt"));
+				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setBookTitle(rs.getString("bookTitle"));
+				dto.setLikeCnt(rs.getString("likeCnt"));
+				dto.setParentBookSeq(rs.getString("parentBookSeq"));
+				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	// 신고가 없는 동화책 조회
+	@Override
+	public ArrayList<BookDTO> findAllNoReport() {
+		
+		final String SQL = "select * from vwBook where bookReportCnt = 0";
+		
+		try (
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+		){
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				dto.setBookCover(rs.getString("bookCover"));
+				dto.setBookInfo(rs.getString("bookInfo"));
+				dto.setBookModDate(rs.getString("bookModDate"));
+				dto.setBookRegdate(rs.getString("bookRegdate"));
+				dto.setBookReportCnt(rs.getString("bookReportCnt"));
+				dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+				dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+				dto.setBookSeq(rs.getString("bookSeq"));
+				dto.setBookTitle(rs.getString("bookTitle"));
+				dto.setLikeCnt(rs.getString("likeCnt"));
+				dto.setParentBookSeq(rs.getString("parentBookSeq"));
+				dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserNick(rs.getString("userNick"));
+				
+				dto.setBookCnt(rs.getString("bookCnt"));
+				
+				list.add(dto);
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 	
+	@Override
+	public List<BookDTO> getShareCount(String month) {
+		List<BookDTO> sharelist = new ArrayList<>();
+        String sql = "SELECT *\r\n"
+        		+ "FROM (\r\n"
+        		+ "    SELECT *\r\n"
+        		+ "    FROM tblBook \r\n"
+        		+ "    WHERE TO_CHAR(bookregdate, 'YYYY/MM') = ?\r\n"
+        		+ "      AND SHARECNT > 0\r\n"
+        		+ "    ORDER BY SHARECNT DESC\r\n"
+        		+ ") \r\n"
+        		+ "WHERE ROWNUM <= 10";
+       
+        try(Connection conn = DBUtil.open();
+    			PreparedStatement pstat = conn.prepareStatement(sql)) {
+    		
+    			pstat.setString(1, month);
+    			
+    			
+    			ResultSet rs = pstat.executeQuery();
+    			
+    			
+    			
+    			 for (ResultSet row = rs; row.next(); ) {
+    				
+    				
+    				BookDTO dto = new BookDTO();
+    				
+    			
+    				
+    				
+    			
+    				
+    				dto.setBookTitle(rs.getString("bookTitle"));
+    				dto.setShareCnt(rs.getString("shareCnt"));
+    				dto.setBookInfo(rs.getString("bookInfo"));
+    				dto.setBookRegdate(rs.getString("bookRegdate"));
+    				
+    				
+    				sharelist.add(dto);
+    			}
+    			
+    			return sharelist;
+    			}
+        catch (Exception e) {
+			System.out.println("AdminDAOImpl.getInflowCountData");
+			e.printStackTrace();
+		}
+        
+        return null;
+	}
+	
+	
+	// 신고내역
+	@Override
+	public ArrayList<BookDTO> findByReport(String bookSeq) {
+		
+		final String SQL = "select * from vwReportUser where bookSeq = ? and userCatSeq = 16";
+		
+		try (
+				Connection conn = DBUtil.open();
+				PreparedStatement stat = conn.prepareStatement(SQL);
+			
+		){
+			
+			stat.setInt(1, Integer.parseInt(bookSeq));
+			ResultSet rs = stat.executeQuery();
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+				
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            dto.setReportDate(rs.getString("reportDate"));
+	         
+	            list.add(dto);
+
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| get");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	
+	
+	// 수상 삭제
+	@Override
+	public int delAward(String bookSeq) {
+		
+		final String SQL = "delete from tblAward where bookSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			
+			pstat.setString(1, bookSeq);
+			
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| remove");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int getBookCount() {
+		int bookCount =0;
+		final String SQL = "select count(*) as totalbook from tblBook";
+		
+
+		 try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstat = conn.prepareStatement(SQL);
+			    ) {
+			        ResultSet rs = pstat.executeQuery();
+
+			        if (rs.next()) {
+			        	bookCount = rs.getInt("totalbook");
+			        }
+
+			    } catch (Exception e) {
+			        System.out.println("UserDAOImpl.nUserCount");
+			        e.printStackTrace();
+			    }
+
+			    return bookCount;
+	}
+	
+	
+	@Override
+	public int getTodayBookCount(String today) {
+		
+		int todayBookCount =0;
+		final String SQL = "select count(*) as todaybook from tblBook where TO_CHAR(bookregdate, 'YY/MM/dd') = ?";
+		
+
+		 try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstat = conn.prepareStatement(SQL);
+			    ) {
+			 
+					pstat.setString(1, today);
+			        ResultSet rs = pstat.executeQuery();
+
+			        if (rs.next()) {
+			        	todayBookCount = rs.getInt("todaybook");
+			        }
+
+			    } catch (Exception e) {
+			        System.out.println("UserDAOImpl.nUserCount");
+			        e.printStackTrace();
+			    }
+
+			    return todayBookCount;
+	}
+	
+	
+	@Override
+	public int getPageCount() {
+		int pageCount =0;
+		final String SQL = "SELECT TRUNC(AVG(pagecount)) AS page\r\n"
+				+ "FROM (\r\n"
+				+ "    SELECT COUNT(pageseq) AS pagecount\r\n"
+				+ "    FROM tblPage\r\n"
+				+ "    GROUP BY bookseq\r\n"
+				+ ") subquery";
+		
+
+		 try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstat = conn.prepareStatement(SQL);
+			    ) {
+			        ResultSet rs = pstat.executeQuery();
+
+			        if (rs.next()) {
+			        	pageCount = rs.getInt("page");
+			        }
+
+			    } catch (Exception e) {
+			        System.out.println("UserDAOImpl.nUserCount");
+			        e.printStackTrace();
+			    }
+
+			    return pageCount;
+	}
+
+	
+	@Override
+	public Map<String, Integer> makeBook(String year) {
+		 Map<String, Integer> bookResult = new HashMap<>();
+
+		    String SQL = "SELECT TO_CHAR(bookregdate, 'YY/MM') AS monthYear,\r\n"
+		    		+ "       COUNT(*) AS bookCount\r\n"
+		    		+ "FROM tblBook\r\n"
+		    		+ "WHERE EXTRACT(YEAR FROM bookregdate) = ?\r\n"
+		    		+ "GROUP BY TO_CHAR(bookregdate, 'YY/MM')";
+
+		    try {
+		    	 Connection conn = DBUtil.open();
+		         PreparedStatement pstat = conn.prepareStatement(SQL);
+		         String yearFull = "20" + year;
+		         pstat.setString(1, yearFull); // 연도 값을 설정
+
+		         ResultSet rs = pstat.executeQuery();
+
+		         while (rs.next()) {
+		             String monthYear = rs.getString("monthYear");
+		             int bookCount = rs.getInt("bookCount");
+
+		             // 결과를 Map에 저장
+		             bookResult.put(monthYear, bookCount);
+		         }
+
+		         conn.close(); // 연결 닫기
+
+		     } catch (Exception e) {
+		         System.out.println("UserDAOImpl.makeBook");
+		         e.printStackTrace();
+		     }
+		     return bookResult;
+	}
+	
+	
+	// userSeq로 해당 사용자의 동화책 찾기
+	@Override
+	public ArrayList<BookDTO> findByUserSeq(String userSeq) {
+		
+		final String SQL = "select * from vwBook where userSeq = ?";
+		
+		
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+		){
+			pstat.setInt(1, Integer.parseInt(userSeq));
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			ArrayList<BookDTO> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				
+				BookDTO dto = new BookDTO();
+				
+	            dto.setBookSeq(rs.getString("bookSeq"));
+	            dto.setBookTitle(rs.getString("bookTitle"));
+	            dto.setBookInfo(rs.getString("bookInfo"));
+	            dto.setBookCover(rs.getString("bookCover"));
+	            dto.setBookRegdate(rs.getString("bookRegdate"));
+	            dto.setBookModDate(rs.getString("bookModDate"));
+	            dto.setLikeCnt(rs.getString("likeCnt"));
+	            dto.setBookReviewCnt(rs.getString("bookReviewCnt"));
+	            dto.setBookScrapCnt(rs.getString("bookScrapCnt"));
+	            dto.setBookReportCnt(rs.getString("bookReportCnt"));
+	            dto.setUserSeq(rs.getString("userSeq"));
+	            dto.setParentBookSeq(rs.getString("parentBookSeq"));
+	            dto.setRcmAgeSeq(rs.getString("rcmAgeSeq"));
+	            dto.setUserNick(rs.getString("userNick"));
+	            
+	            list.add(dto);
+	            
+				
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("BookDAO.| get");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
 	
 }//End of class

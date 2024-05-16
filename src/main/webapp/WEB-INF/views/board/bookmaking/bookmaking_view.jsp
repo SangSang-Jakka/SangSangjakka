@@ -17,38 +17,48 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<style>
-	
+		
+		
+		
+		
 		.loading {
 			display: none;
 		}
-		
+		 
 		.loading > img {
 			width : 370px;
 			height: 490px;
+			margin : 0 auto;
+		}
+		
+		.loadingGuide {
+			text-align:center;
+			margin-bottom:30px;
+			font-size:20px;
 		}
 		
 		#imageContainer > img {
 			widht: 180px;
 			height: 240px;
+			border-radius:10px;
 			
 		}
 		
 		#imageContainer {
-		  display: grid;
-		  grid-template-columns: repeat(2, 1fr);
-		  grid-gap: 20px;
+		  display:flex;
+		  justify-content:center;
 		}
 		
 		#coverImageContainer > img {
 			widht: 180px;
 			height: 240px;
+			border-radius:10px;
 			
 		}
 		
 		#coverImageContainer {
-		  display: grid;
-		  grid-template-columns: repeat(2, 1fr);
-		  grid-gap: 20px;
+		  display:flex;
+		  justify-content:center;
 		}
 		
 		.pageImageMakerItem img {
@@ -57,7 +67,52 @@
 		  max-width: 400px; /* 최대 너비 400px로 제한 */
 		  max-height: 533px; /* 가로세로 비율 3:4로 계산한 높이 */
 		  object-fit: contain;
+		  border-radius:10px;
+		  transition: transform 0.3s ease;
 		}
+		
+		.pageImageMakerItem img:hover {
+	    	transform: scale(1.05); 
+		}
+		
+		.coverImageMakerItem img {
+			width: 100%;
+			height: auto;
+			max-width: 400px; /* 최대 너비 400px로 제한 */
+			max-height: 533px; /* 가로세로 비율 3:4로 계산한 높이 */
+			object-fit: contain;
+			border-radius:10px;
+			transition: transform 0.3s ease;
+		}
+		
+		.coverImageMakerItem img:hover {
+			transform: scale(1.05); 
+		}
+		
+		
+		
+		.bookmakingOptionBox {
+			display : flex;
+			justify-content:center;
+			
+		}
+		
+		.bookmakingOptionWrap {
+			margin-bottom:30px;
+		}
+		
+		.pageImageDesItem {
+			font-size:20px;
+			margin-bottom:20px;
+		}
+		
+		.coverImageDesItem {
+			font-size:20px;
+			margin-bottom:20px;
+		}
+	
+		
+		
 		
 	</style>
 </head>
@@ -112,7 +167,9 @@
 								<div class="bb-item" id="${dto.pageSeq}">
 									<div class="pageImage" style="background-image: url('${dto.pageUrl}');">
 									</div>
+									<div class="makePageContents">
 									<p>${dto.pageContents}</p>
+									</div>
 								</div>
 							</c:forEach>
 						</div>
@@ -138,45 +195,24 @@
 							<input type="checkbox" name="textAiSupport" id="textAiSupport" checked>
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
-						<div class="full flex pageTextMakerBox">
-							<input type="text"><input type="submit" value="만들기" class="btnItem orange middleBtn pointer">
+						<div class="pageTextMakerBox">
+						<form class="pageText">
+							<input class="insertContents" type="text" name="textPrompt" placeholder="어떤 이야기를 만들까요?"><input type="submit" value="만들기" class="insertBtn pointer">
+						</form>
 						</div>
-						<ul class="pageTextMakerBox">
-							<li class="pageTextMakerItem"><span>1. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
-							<li class="pageTextMakerItem"><span>2. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
-							<li class="pageTextMakerItem"><span>3. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
-							<li class="pageTextMakerItem"><span>4. Lorem ipsum
-									dolor sit amet, consectetur adipisicing elit. Fugiat, porro.</span>
-								<div class="selectTextBox">
-									<input type="submit" value="선택"
-										class="selectTextItem btnItem middleBtn tomato pointer">
-								</div>
-								<div class="whitespace">&nbsp;</div></li>
+						<ul class="pageTextMakerBox contentsList">
 						</ul>
+						<!-- 로딩중 -->
+						<div id="textLoading" class="loading">
+							<img src="/sangsangjakka/resources/img/loading.gif">
+							<div class="loadingGuide"> 오리가 열심히 동화를 만드는 중입니다 </div>
+						</div>
 						<div class="pageDescriptionBox">
 							<div class="pageDescriptionItem">
-								<input type="text" placeholder="내용을 입력해주세요.">
+								<input class="insertContents" type="text" placeholder="내용을 입력해주세요.">
 							</div>
 							<div class="pageDescriptionItem">
-								<input type="button" value="전송" />
+								<input class="insertBtn" type="button" value="전송" />
 							</div>
 						</div>
 					</div>
@@ -189,10 +225,10 @@
 							<input type="checkbox" name="imageAiSupport" id="imageAiSupport" checked>
 							<label><small>ai의 도움을 받아요</small></label>
 						</h3>
-						<div class="full flex pageImageDesBox">
+						<div class="pageImageDesBox">
 							<form class="pageImage">
-								<input type="text" name="prompt" required>
-								<button type="submit">만들기</button>
+								<input class="insertContents" type="text" name="prompt" placeholder="만들고 싶은 이미지를 설명해주세요." required>
+								<button class="insertBtn" type="submit" >만들기</button>
 							</form>
 						</div>
 						<div class="pageImageMakerBox">
@@ -200,6 +236,7 @@
 							<!-- 로딩중 -->
 							<div id="loading" class="loading">
 								<img src="/sangsangjakka/resources/img/loading.gif">
+								<div class="loadingGuide">🎨 오리가 열심히 이미지를 만드는 중입니다 🎨 </div>
 							</div>
 							
 							<!-- 생성된 이미지 -->
@@ -210,8 +247,11 @@
 						
 						<div class="pageImageUploadBox">
 							<div class="pageImageUploadItem">
-								<input type="file" name="pageImageUpload" id="pageImageUpload">
-								<input type="button" value="페이지에 사용하기">
+								<label for="pageImageUpload" class="custom-file-upload">
+								    <i class="fas fa-cloud-upload-alt"></i> 파일 선택하기
+								</label>
+								<input type="file" name="pageImageUpload" id="pageImageUpload" style="display: none;">
+								<input class="insertBtn" type="button" value="사용하기">
 							</div>
 						</div>
 					</div>
@@ -228,16 +268,17 @@
 								<input type="checkbox" name="coverAiSupport" id="coverAiSupport" checked>
 								<label><small>ai의 도움을 받아요</small></label>
 							</h3>
-							<div class="full flex coverImageDesBox">
+							<div class="coverImageDesBox">
 								<form class="coverImageForm">
-									<input type="text" name="coverprompt" required>
-									<button type="submit" >만들기</button>
+									<input class="insertContents" type="text" name="coverprompt" placeholder="어떤 표지를 만들어 볼까요?" required>
+									<button class="insertBtn" type="submit" >만들기</button>
 								</form>
 							</div>
 							<div class="coverImageMakerBox" id="coverImageMakerBox">
 								<!-- 로딩중 -->
 								<div id="coverloading" class="loading">
 									<img src="/sangsangjakka/resources/img/loading.gif">
+									<div class="loadingGuide">🎨 오리가 열심히 이미지를 만드는 중입니다 🎨  </div>
 								</div>
 								
 								<!-- 생성된 이미지 -->
@@ -253,33 +294,38 @@
 							</div>
 						</div>
 					</div>
-					<div class="coverOptionBox full flex">
+					<div class="coverOptionBox">
 						<div class="coverOptionItem btnItem pointer" id="coverPrev">이전으로</div>
 						<div class="coverOptionItem btnItem pointer" id="coverNext">제목</div>
 					</div>
 				</div>
 				<div class="titleMaker">
+					<div class="step">Step 1 (책 정보를 입력해주세요!)</div>
 					<div class="titleBox">
 					    <div class="titleItem">
-					        <input type="text" placeholder="제목" required/>
+					        <input class="insertContents" type="text" placeholder="제목을 입력해주세요." required/>
 					    </div>
 					</div>
 					<div class="bookInfoBox">
 					    <div class="bookInfoItem">
-					        <input type="text" placeholder="소개글" required/>
+					        <input class="insertContents " type="text" placeholder="간단한 책 소개를 입력해주세요." required/>
 					    </div>
 					</div>
+					<div class="step">Step 2 (동화책의 장르를 선택해주세요!)</div>
 					<div class="categoryMakerBox">
 					    <div class="categoryMaker">
 					    	<div class="categoryBox">
 					    		<c:forEach items="${genre}" var="dto" varStatus="status">
-									<div class="draggableCategory" id="${dto.genreName}">${dto.genreName}</div>
+									<div class="draggableCategory bg-color-${status.count % 4 + 1} btnItem pointer" id="${dto.genreName}">${dto.genreName}</div>
 								</c:forEach>
 					    	</div>
-						    <div class="categoryDropArea"></div>
+					    	<div class="categoryWrap">
+					    	<div class="categoryInfo">어떤 동화책인가요? (동화책과 관련된 박스를 여기로 이동해주세요!)</div>
+						    <div class="categoryDropArea "></div>
+						    </div>
 					    </div>
 					</div>
-				    <div class="titleOptionBox full flex">
+				    <div class="titleOptionBox">
 				        <div class="titleOptionItem btnItem pointer" id="titlePrev">이전으로</div>
 				        <div class="titleOptionItem btnItem pointer" id="titleNext">완성</div>
 				    </div>
@@ -473,7 +519,7 @@
 			        tolerance: "intersect",
 			        drop: function(event, ui) {
 			            // Create a new selectedCategory at the drop position
-			            var newCat = $('<div class="selectedCategory">' + ui.draggable.text() + '</div>').css({
+			            var newCat = $('<div class="selectedCategory bg-color-fix btnItem pointer">' + ui.draggable.text() + '</div>').css({
 			                position: 'absolute',
 			                top: ui.offset.top - $(this).offset().top, // Adjust the top position
 			                left: ui.offset.left - $(this).offset().left, // Adjust the left position
@@ -642,6 +688,15 @@
 					var $visibleBbItem = $('#bb-bookblock .bb-item:visible');
 					$visibleBbItem.find('p').text(newText);
 					pageChange();
+				});
+				
+				$(document).on('click', '.selectTextItem', function() {
+				    var selectedText = $(this).closest('.pageTextMakerItem').find('span').text();
+
+				    var $visibleBbItem = $('#bb-bookblock .bb-item:visible');
+				    $visibleBbItem.find('p').text(selectedText);
+
+				    pageChange();
 				});
 				
 				$('.pageImageUploadBox input[type="button"]').click(function() {
@@ -899,6 +954,7 @@
 							bookInfo: bookInfo
 							}),
 						success: function(result) {
+						window.location.href = '/sangsangjakka/board/bookmaking/fin.do?no=' + bookSeq;
 						},
 						error: function(xhr, status, error) {
 							alert('업로드 실패: ' + error);
@@ -933,7 +989,7 @@
 								imageContainer.append(imgDiv);
 							});
 							var DesBox = $('<div>').addClass('pageImageDesBox');
-							var DesItem = $('<span>').addClass('pageImageDesItem');
+							var DesItem = $('<div>').addClass('pageImageDesItem');
 							DesItem.text('그림을 선택해주세요!');
 							DesBox.append(DesItem);
 							pageImageDesContainer.append(DesBox);
@@ -968,7 +1024,7 @@
 								coverImageContainer.append(imgDiv);
 							});
 							var DesBox = $('<div>').addClass('coverImageDesBox');
-							var DesItem = $('<span>').addClass('coverImageDesItem');
+							var DesItem = $('<div>').addClass('coverImageDesItem');
 							DesItem.text('그림을 선택해주세요!');
 							DesBox.append(DesItem);
 							pageImageDesContainer.append(DesBox);
@@ -980,6 +1036,46 @@
 						}
 					});
 				});
+				$('.pageText').submit(function(event) {
+					event.preventDefault();
+					$currentVisible = $('#bb-bookblock .bb-item:visible');
+					var preText;
+					if ($currentVisible.prev('.bb-item').length) {
+						preText = '이전페이지 내용' + $currentVisible.prev('.bb-item').find('p').text();
+					} else {
+						preText = '첫번째 페이지';
+					}
+					var prompt = preText + ', 현재 페이지 내용: ' + $('input[name="textPrompt"]').val();
+					var pageTextMakerBox = $('.contentsList');
+					pageTextMakerBox.empty();
+					$('#textLoading').show(); // 로딩 이미지 표시
+					$.ajax({
+						url: '/sangsangjakka/story.do',
+						method: 'POST',
+						data: { data: prompt },
+						success: function(response) {
+							response.forEach(function(data) {
+								var pageTextMakerItem = $('<li>').addClass('pageTextMakerItem');
+								var span = $('<span>').text(data);
+								pageTextMakerItem.append(span);
+								var selectTextBox = $('<div>').addClass('selectTextBox');
+								var input = $('<input>').attr({
+				                    'type': 'button',
+				                    'value': '선택'
+				                }).addClass('selectTextItem selectBtn pointer');
+								selectTextBox.append(input);
+								pageTextMakerItem.append(selectTextBox);
+								pageTextMakerBox.append(pageTextMakerItem);
+							});
+							$('#textLoading').hide(); // 로딩 이미지 숨기기
+						},
+						error: function() {
+							alert('만들기 실패');
+							$('#textLoading').hide(); // 로딩 이미지 숨기기
+						}
+					});
+				});
+				
 				
 			});//$(document).ready
 			

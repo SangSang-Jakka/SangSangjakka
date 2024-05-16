@@ -6,18 +6,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.jakka.model.DBUtil;
+import com.jakka.model.dto.user.GenreScore;
 import com.jakka.model.dto.user.UserDTO;
 import com.jakka.model.enums.UserLog;
 import com.jakka.model.enums.UserState;
 
+/**
+* UserDAOImpl 클래스는 UserDAO 인터페이스를 구현한 클래스로, 사용자 관련 데이터 액세스 작업을 수행합니다.
+*/
 public class UserDAOImpl implements UserDAO{
 
 	private final static UserDAOImpl DAO = new UserDAOImpl();
+	private static final Random RANDOM = new Random();
 	
 	private UserDAOImpl() {
 		//외부 생성 방지
@@ -453,7 +460,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public int saveStorage(UserDTO dto, String adId) {
 		
-		final String SQL = "UPDATE tblUser SET limitStorage = ? WHERE userId = ?";
+		final String SQL = "UPDATE tblUser SET limitStorage = ? WHERE userSeq = ?";
 		final String LOGSQL = "insert into tblAdLog(adLogSeq, adLogDate, adId, adLogContents, adCatSeq) values((SELECT NVL(MAX(adLogSeq), 0) + 1 FROM tblAdLog), default, ?, ?, 3)";
 		
 		try (
@@ -465,7 +472,7 @@ public class UserDAOImpl implements UserDAO{
 				conn.setAutoCommit(false);
 			
 				pstat.setString(1, dto.getLimitStorage());
-		        pstat.setString(2, dto.getUserId());
+		        pstat.setString(2, dto.getUserSeq());
 		        
 		        int result = pstat.executeUpdate();
 		        
@@ -734,6 +741,7 @@ public class UserDAOImpl implements UserDAO{
 		        
 		        ResultSet rs = pstat.executeQuery();
 		        if (rs.next()) {
+		        	System.out.println("Aaaaa");
 		            int count = rs.getInt(1);
 		            System.out.println(count); // 디버깅을 위해 출력
 		            return count;
@@ -743,7 +751,6 @@ public class UserDAOImpl implements UserDAO{
 		        e.printStackTrace();
 		    }
 		    
-		    System.out.println(0);
 		    return 0;
 	}
 	
@@ -1082,123 +1089,6 @@ public class UserDAOImpl implements UserDAO{
 		return 0;
 	}
 	
-	@Override
-	public int getNewPostCount(String userRegdate) {
-	
-		int postCount = 0;  
-		
-		
-		String SQL = "SELECT COUNT(*) AS post_count FROM tblBoard WHERE TO_CHAR(boardregdate, 'YY/MM/DD') = ?";
-
-		try {
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(SQL);
-			
-			pstat.setString(1, userRegdate);
-			
-			ResultSet rs = pstat.executeQuery();
-			
-			 if (rs.next()) {
-		            
-				 	postCount = rs.getInt("post_count");
-		        }
-			
-			
-		} catch (Exception e) {
-			System.out.println("UserDAOImpl.getNewPostCount");
-			e.printStackTrace();
-		}
-		 return postCount;
-	}
-	
-	@Override
-	public int getNewSuggestionCount(String userRegdate) {
-		int sgstCount = 0;  
-		
-		
-		String SQL = "SELECT COUNT(*) AS sgst_count FROM tblSuggestion WHERE TO_CHAR(sgstregdate, 'YY/MM/DD') = ?";
-
-		try {
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(SQL);
-			
-			pstat.setString(1, userRegdate);
-			
-			ResultSet rs = pstat.executeQuery();
-			
-			 if (rs.next()) {
-		            
-				 sgstCount = rs.getInt("sgst_count");
-		        }
-			
-			
-		} catch (Exception e) {
-			System.out.println("UserDAOImpl.getNewPostCount");
-			e.printStackTrace();
-		}
-		 return sgstCount;
-	}
-
-	// 신규 신고 게시글 갯수
-	@Override
-	public int boardReportCount(String userRegdate) {
-		int boardReportCount = 0;  
-		
-		
-		String SQL = "select count(*) as boardReportCount from tblUserLog where usercatseq = 6 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
-
-		try {
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(SQL);
-			
-			pstat.setString(1, userRegdate);
-			
-			ResultSet rs = pstat.executeQuery();
-			
-			 if (rs.next()) {
-		            
-				 boardReportCount = rs.getInt("boardReportCount");
-		        }
-			
-			
-		} catch (Exception e) {
-			System.out.println("UserDAOImpl.getNewPostCount");
-			e.printStackTrace();
-		}
-		 return boardReportCount;
-	}
-	
-	@Override
-	public int CommReportCount(String userRegdate) {
-		int CommReportCount = 0;  
-		
-		
-		String SQL = "select count(*) as CommReportCount from tblUserLog where usercatseq = 10 and TO_CHAR(userlogdate, 'YY/MM/DD') = ?";
-
-		try {
-			
-			Connection conn = DBUtil.open();
-			PreparedStatement pstat = conn.prepareStatement(SQL);
-			
-			pstat.setString(1, userRegdate);
-			
-			ResultSet rs = pstat.executeQuery();
-			
-			 if (rs.next()) {
-		            
-				 CommReportCount = rs.getInt("CommReportCount");
-		        }
-			
-			
-		} catch (Exception e) {
-			System.out.println("UserDAOImpl.CommReportCount");
-			e.printStackTrace();
-		}
-		 return CommReportCount;
-	}
 	
 	
 	@Override
@@ -1268,4 +1158,206 @@ public class UserDAOImpl implements UserDAO{
 
 	    return result;
 	}
+	
+	// 사용자가 만든 동화책 수 조회
+	
+	@Override
+	public ArrayList<UserDTO> findAllBook() {
+		
+		final String SQL = "select u.*, count(b.bookSeq) AS numBooks from tblUser u left join tblBook b ON u.userSeq = b.userSeq group by u.userSeq, u.userId, u.userPw, u.userName, u.userNick, u.userTel, u.userAddress, u.userEmail, u.userLeftSsn, u.userRightSsn, u.userState, u.userLv, u.userRegdate, u.limitStorage";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			Statement stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(SQL);
+				
+			){
+			
+			ArrayList<UserDTO> list = new ArrayList<>();
+			
+			 for (ResultSet row = rs; row.next(); ) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setNumBooks(rs.getString("numBooks"));
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			System.out.println("AdminDAO.| listAll");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	
+	
+	@Override
+	public UserDTO findByBook(String userSeq) {
+		
+		final String SQL = "SELECT u.*, COUNT(b.bookSeq) AS numBooks FROM tblUser u LEFT JOIN tblBook b ON u.userSeq = b.userSeq WHERE u.userSeq = ? GROUP BY u.userSeq, u.userId, u.userPw, u.userName, u.userNick, u.userTel, u.userAddress, u.userEmail, u.userLeftSsn, u.userRightSsn, u.userState, u.userLv, u.userRegdate, u.limitStorage";
+		
+		try (
+			
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+				
+			){
+			
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			
+			if (rs.next()) {
+				
+				UserDTO dto = new UserDTO();
+				
+				dto.setUserAddress(rs.getString("userAddress"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserLeftSsn(rs.getString("userLeftSsn"));
+				dto.setLimitStorage(rs.getString("limitStorage"));
+				dto.setUserLV(rs.getString("userLv"));
+				dto.setUserNick(rs.getString("userNick"));
+				dto.setUserRegdate(rs.getString("userRegdate"));
+				dto.setUserSeq(rs.getString("userSeq"));
+				dto.setUserState(rs.getString("userState"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setNumBooks(rs.getString("numBooks"));
+				
+				
+				
+				return dto;
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("UserDAO.| get");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
+	
+	@Override
+	public String[] findGenreScore(String userSeq) {
+	    final String SQL = "SELECT * FROM vwUserGenreScore WHERE userSeq = ? ORDER BY score DESC";
+	    try (
+	        Connection conn = DBUtil.open();
+	        PreparedStatement pstat = conn.prepareStatement(SQL);
+	    ) {
+	        pstat.setString(1, userSeq);
+	        ResultSet rs = pstat.executeQuery();
+	        Map<Double, List<String>> scoreToGenres = new HashMap<>();
+	        while (rs.next()) {
+	            String genreName = getGenreName(rs.getString("genreSeq"));
+	            double score = rs.getDouble("score");
+	            scoreToGenres.computeIfAbsent(score, k -> new ArrayList<>()).add(genreName);
+	        }
+
+	        List<String> topGenres = new ArrayList<>();
+	        while (topGenres.size() < 4) {
+	            double maxScore = Collections.max(scoreToGenres.keySet());
+	            List<String> genres = scoreToGenres.get(maxScore);
+	            if (genres.size() == 1) {
+	                topGenres.add(genres.get(0));
+	            } else if (topGenres.size() + genres.size() <= 4) {
+	                topGenres.addAll(genres);
+	            } else {
+	                Collections.shuffle(genres, RANDOM);
+	                int remaining = 4 - topGenres.size();
+	                topGenres.addAll(genres.subList(0, remaining));
+	            }
+	            scoreToGenres.remove(maxScore);
+	        }
+
+	        return topGenres.toArray(new String[0]);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	private String getGenreName(String genreSeq) {
+	    switch (genreSeq) {
+	        case "1":
+	            return "FantasyTales";
+	        case "2":
+	            return "AdventureTales";
+	        case "3":
+	            return "FriendFamilyStories";
+	        case "4":
+	            return "HeartwarmingTales";
+	        case "5":
+	            return "ScienceNatureTales";
+	        case "6":
+	            return "HistoricalTales";
+	        case "7":
+	            return "HumorousTales";
+	        case "8":
+	            return "WordplayTales";
+	        case "9":
+	            return "InventionRelatedTales";
+	        case "10":
+	            return "ImaginativeTales";
+	        default:
+	            return "";
+	    }
+	}
+	
+	@Override
+	public HashMap<String, Double> findTendencyScore(String userSeq) {
+		
+		final String SQL = "select * from vwUserTendencyScore where userSeq = ?";
+		
+		try (
+			Connection conn = DBUtil.open();
+			PreparedStatement pstat = conn.prepareStatement(SQL);
+		){
+			pstat.setString(1, userSeq);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			HashMap<String, Double> map = new HashMap<>();
+			
+			while(rs.next()) {
+				
+				map.put(rs.getString("tendencyName"), rs.getDouble("tendencyScore"));
+				
+			}
+			
+			return map;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	
 }//End of class

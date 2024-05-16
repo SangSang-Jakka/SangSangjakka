@@ -17,9 +17,20 @@ import com.jakka.model.dto.board.SuggestionDTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+/**
+ * SuggestionEdit 서블릿은 건의사항 게시글 수정 기능을 제공합니다.
+ */
 @WebServlet("/board/suggestion/edit.do")
 public class SuggestionEdit extends HttpServlet {
 
+		/**
+	     * GET 요청을 처리합니다.
+	     *
+	     * @param req  HttpServletRequest 객체
+	     * @param resp HttpServletResponse 객체
+	     * @throws ServletException 서블릿 예외가 발생한 경우
+	     * @throws IOException      입출력 예외가 발생한 경우
+	     */
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
@@ -36,17 +47,17 @@ public class SuggestionEdit extends HttpServlet {
 	
 		}
 	
+	/**
+     * POST 요청을 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// form에서 넘긴 값 받아오기
-		// 제목, 내용, 파일 등
-//		MultipartRequest multi = new MultipartRequest(
-//			req,	
-//			req.getRealPath("/asset/pic"),	
-//				1024 * 1024 * 30,
-//				"UTF-8",
-//				new DefaultFileRenamePolicy()
-//		);
+
 		req.setCharacterEncoding("UTF-8");	
 		HttpSession session = req.getSession();
 		
@@ -56,15 +67,8 @@ public class SuggestionEdit extends HttpServlet {
 		String sgstSecretYN = req.getParameter("secret");
 		String sgstSeq = req.getParameter("sgstSeq");
 		
-		System.out.println("edit.do의 post sgstTitle:" + sgstTitle);
-		System.out.println("edit.do의 post sgstContents:" + sgstContents);
-		System.out.println("edit.do의 post attach:" + attach);
-		System.out.println("edit.do의 post sgst SecretYN:" + sgstSecretYN);
-		System.out.println("edit.do의 post sgstSeq:" + sgstSeq);
-		
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
 		SuggestionDTO dto = new SuggestionDTO();
-		
 		
 		dto.setUserSeq((String) session.getAttribute("userSeq"));
 		dto.setSgstTitle(sgstTitle);
@@ -73,7 +77,6 @@ public class SuggestionEdit extends HttpServlet {
 		dto.setSgstSecretYN(sgstSecretYN);
 		dto.setSgstSeq(sgstSeq);
 		
-		System.out.println("edit.do의 수정하기 save메서드 전 dto:" + dto);
 		int result = dao.save(dto);
 
 		resp.setContentType("text/html; charset=UTF-8");

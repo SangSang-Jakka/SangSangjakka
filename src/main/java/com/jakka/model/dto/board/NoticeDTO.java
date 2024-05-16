@@ -2,51 +2,17 @@ package com.jakka.model.dto.board;
 
 import lombok.Data;
 
+/**
+ * 공지사항 정보를 저장하는 DTO 클래스입니다.
+ */
 @Data
 public class NoticeDTO {
 
-	private String noticeSeq;
-	private String noticeTitle;
-	private String noticeContents;
-	private String noticeRegdate;
-	private String noticeCnt;
-	private String adId;
-	public String getNoticeSeq() {
-		return noticeSeq;
-	}
-	public void setNoticeSeq(String noticeSeq) {
-		this.noticeSeq = noticeSeq;
-	}
-	public String getNoticeTitle() {
-		return noticeTitle;
-	}
-	public void setNoticeTitle(String noticeTitle) {
-		this.noticeTitle = noticeTitle;
-	}
-	public String getNoticeContents() {
-		return noticeContents;
-	}
-	public void setNoticeContents(String noticeContents) {
-		this.noticeContents = noticeContents;
-	}
-	public String getNoticeRegdate() {
-		return noticeRegdate;
-	}
-	public void setNoticeRegdate(String noticeRegdate) {
-		this.noticeRegdate = noticeRegdate;
-	}
-	public String getNoticeCnt() {
-		return noticeCnt;
-	}
-	public void setNoticeCnt(String noticeCnt) {
-		this.noticeCnt = noticeCnt;
-	}
-	public String getAdId() {
-		return adId;
-	}
-	public void setAdId(String adId) {
-		this.adId = adId;
-	}
-	
+	private String noticeSeq; // 공지사항 시퀀스
+    private String noticeTitle; // 공지사항 제목
+    private String noticeContents; // 공지사항 내용
+    private String noticeRegdate; // 공지사항 등록일자
+    private String noticeCnt; // 공지사항 수
+    private String adId; // 관리자 ID
 	
 }//End of class

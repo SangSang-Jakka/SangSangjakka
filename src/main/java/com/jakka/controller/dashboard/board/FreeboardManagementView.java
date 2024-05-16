@@ -20,9 +20,21 @@ import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.SuggestionAnswerDTO;
 
+/**
+ * FreeboardManagementView 서블릿은 자유 게시판 관리 기능 중 게시글 상세 보기와 댓글 관리 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/freeboard/manageview.do")
 public class FreeboardManagementView extends HttpServlet {
 	
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 자유 게시글의 상세 정보와 댓글 목록을 조회하여 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -76,6 +88,7 @@ public class FreeboardManagementView extends HttpServlet {
 		
 		req.setAttribute("cmntList", cmntList);
 		
+	
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_board/freeboard_manage_view.jsp");
 		dispatcher.forward(req, resp);
@@ -83,6 +96,15 @@ public class FreeboardManagementView extends HttpServlet {
 		
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 댓글의 비활성화 또는 활성화를 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

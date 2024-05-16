@@ -24,11 +24,21 @@ import com.jakka.model.enums.RecommendAge;
 import com.jakka.model.enums.UserLog;
 import com.jakka.model.enums.UserState;
 
+/**
+ * 더미 데이터를 생성하는 클래스입니다.
+ * 
+ * @author Jakka
+ */
 public class Dummy {
 
 	private static Random rnd = new Random();
 	private static final List<String> USED_PHONE_NUMBERS = new ArrayList<>();
 	
+	/**
+     * 메인 메서드로 더미 데이터 생성을 시작합니다.
+     * 
+     * @param args 프로그램 실행 인자
+     */
 	public static void main(String[] args) {
 		
 		//더미 제작
@@ -52,7 +62,9 @@ public class Dummy {
 		addFreeboardCmnt();
 	}
 	
-	
+	 /**
+     * 자유게시판 댓글 더미 데이터를 생성합니다.
+     */
 	private static void addFreeboardCmnt() {
 	    int cmntSeqCnt = 0;
 
@@ -195,7 +207,9 @@ public class Dummy {
 	    }
 	}
 
-
+	 /**
+     * 자유게시판 게시글 더미 데이터를 생성합니다.
+     */
 	private static void addFreeboard() {
 		
 		int boardSeqCnt = 0;
@@ -383,6 +397,9 @@ public class Dummy {
 		
 	}
 
+	/**
+     * 건의사항 더미 데이터를 생성합니다.
+     */
 	private static void addSuggestion() {
 		
 		int sugCount = 0;
@@ -528,6 +545,12 @@ public class Dummy {
 		
 	}
 
+	/**
+     * 지정된 날짜 이후의 랜덤한 날짜와 시간을 생성합니다.
+     * 
+     * @param dateTime 기준 날짜와 시간
+     * @return 랜덤한 날짜와 시간
+     */
 	private static LocalDateTime generateRandomDateTimeAfter(LocalDateTime dateTime) {
 	    long startEpochSecond = dateTime.atZone(ZoneId.systemDefault()).toEpochSecond();
 	    long endEpochSecond = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
@@ -535,6 +558,9 @@ public class Dummy {
 	    return LocalDateTime.ofEpochSecond(randomEpochSecond, 0, ZoneId.systemDefault().getRules().getOffset(LocalDateTime.now()));
 	}
 
+	/**
+     * 사용자 계정 더미 데이터를 생성합니다.
+     */
 	private static void addUser() {
 		
 		final String[] LASTEMAIL = {"@naver.com", "@daum.net", "@gmail.com", "@nate.com"};
@@ -675,6 +701,9 @@ public class Dummy {
 		
 	}
 
+	/**
+     * 공지사항 더미 데이터를 생성합니다.
+     */
 	private static void addNotice() {
 		
 		String[] adminId = {"admin1", "admin2", "admin3", "admin4", "admin5", "super"};
@@ -780,6 +809,10 @@ public class Dummy {
 		
 	}
 
+	
+	/**
+     * 일반 관리자 5명을 생성합니다.
+     */
 	private static void addAdmin5() {
 		
 		String[] names = {"김철수", "이영희", "박민수", "최지웅", "황진이"};
@@ -815,6 +848,11 @@ public class Dummy {
 		
 	}
 
+	/**
+     * 사용자의 폴더를 생성합니다.
+     * 
+     * @param userId 사용자 아이디
+     */
 	private static void createUserFolder(String userId) {
 		
 		final String BASE_DIRECTORY = "src/main/webapp/generated/";
@@ -836,6 +874,11 @@ public class Dummy {
 		
 	}
 	
+	 /**
+     * 고유한 전화번호를 생성합니다.
+     * 
+     * @return 고유한 전화번호
+     */
 	private static String generateUniquePhoneNumber() {
 	       String phoneNumber;
 	       do {
@@ -846,6 +889,15 @@ public class Dummy {
 	       return phoneNumber;
 	}
 	
+	/**
+     * 랜덤한 주민등록번호를 생성합니다.
+     * 
+     * @param year    년도
+     * @param month   월
+     * @param day     일
+     * @param isMale  남성인지 여부
+     * @return 랜덤한 주민등록번호
+     */
 	private static String generateRandomSsn(int year, int month, int day, boolean isMale) {
 	    StringBuilder ssn = new StringBuilder();
 

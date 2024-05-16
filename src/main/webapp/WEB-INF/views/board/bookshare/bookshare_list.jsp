@@ -54,8 +54,9 @@
 
        
   <div class="bookShareWrap">
- 
-       <c:forEach items="${list}" var="dto">
+ 		
+ 		<c:if test="${not empty list}">
+       	<c:forEach items="${list}" var="dto">
 		  		<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=${dto.bookSeq}';">
 				    <div class="bookImg">
 				      <img src="${dto.bookCover}" alt="책 표지 이미지" />
@@ -91,151 +92,12 @@
 				    </div>
 				  </div>
 		  </c:forEach>
-       
-  <div class="bookShareContainer">
-    <div class="bookImg">
-      <img src="/sangsangjakka/resources/img/book1.jpg" alt="책 표지 이미지" />
-    </div>
-    <div class="bookDetails">
-      <div class="bookDate">
-        <div class="createDate">2024-05-09</div>
-      </div>
-      <div class="bookOwner">
-      	<i class="fa-regular fa-user user-icon"></i>
-       <div class="createAuthor">예지야놀자</div>
-	  </div>
-      <div class="bookTitle">
-        <div class="createTitle">To the Sea</div>
-      </div>
-      <div class="bookContents">
-        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
-      </div>
-      <div class="iconItems">
-        <div class="subItems">
-          <i class="fa-solid fa-bookmark bookmarker"></i>
-          <p>20</p>
-        </div>
-        <div class="subItems">
-          <i class="fa-solid fa-heart heart"></i>
-          <p>30</p>
-        </div>
-        <div class="subItems">
-          <i class="fa-solid fa-comment comment"></i>
-          <p>10</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="bookShareContainer">
-    <div class="bookImg">
-      <img src="/sangsangjakka/resources/img/book4.jpg" alt="책 표지 이미지" />
-    </div>
-    <div class="bookDetails">
-      <div class="bookDate">
-        <div class="createDate">2024-05-09</div>
-      </div>
-      <div class="bookOwner">
-      	<i class="fa-regular fa-user"></i>
-       <div class="createAuthor">예지야놀자</div>
-	  </div>
-      <div class="bookTitle">
-        <div class="createTitle">To the Sea</div>
-      </div>
-      <div class="bookContents">
-        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
-      </div>
-      <div class="iconItems">
-        <div class="subItems">
-          <i class="fa-solid fa-bookmark bookmarker"></i>
-          <p>20</p>
-        </div>
-        <div class="subItems">
-         <i class="fa-solid fa-heart heart"></i>
-          <p>30</p>
-        </div>
-        <div class="subItems">
-          <i class="fa-solid fa-comment comment"></i>
-          <p>10</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="bookShareContainer">
-    <div class="bookImg">
-      <img src="/sangsangjakka/resources/img/book3.jpg" alt="책 표지 이미지" />
-    </div>
-    <div class="bookDetails">
-      <div class="bookDate">
-        <div class="createDate">2024-05-09</div>
-      </div>
-      <div class="bookOwner">
-      	<i class="fa-regular fa-user"></i>
-       <div class="createAuthor">예지야놀자</div>
-	  </div>
-      <div class="bookTitle">
-        <div class="createTitle">To the Sea</div>
-      </div>
-      <div class="bookContents">
-        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
-      </div>
-      <div class="iconItems">
-        <div class="subItems">
-          <i class="fa-solid fa-bookmark bookmarker"></i>
-          <p>20</p>
-        </div>
-        <div class="subItems">
-          <i class="fa-solid fa-heart heart"></i>
-          <p>30</p>
-        </div>
-        <div class="subItems">
-          <i class="fa-solid fa-comment comment"></i>
-          <p>10</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-    <div class="bookShareContainer">
-    <div class="bookImg">
-      <img src="/sangsangjakka/resources/img/book2.jpg" alt="책 표지 이미지" />
-    </div>
-    <div class="bookDetails">
-      <div class="bookDate">
-        <div class="createDate">2024-05-09</div>
-      </div>
-      <div class="bookOwner">
-      	<i class="fa-regular fa-user"></i>
-       <div class="createAuthor">예지야놀자</div>
-	  </div>
-      <div class="bookTitle">
-        <div class="createTitle">To the Sea</div>
-      </div>
-      <div class="bookContents">
-        <div class="createContents">여러 귀여운 동물들의 보물찾기 대탐험! 직접 그린 그림입니다 ㅎㅎ 재미있게 봐주세요.</div>
-      </div>
-      <div class="iconItems">
-        <div class="subItems">
-          <i class="fa-solid fa-bookmark bookmarker"></i>
-          <p>20</p>
-        </div>
-        <div class="subItems">
-          <i class="fa-solid fa-heart heart"></i>
-          <p>30</p>
-        </div>
-        <div class="subItems">
-          <i class="fa-solid fa-comment comment"></i>
-          <p>10</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-  
+  		</c:if>
 </div>
-    
+    	
+    	<div class="paging">
+	      <div id="pagebar">${pagebar}</div>
+	    </div>
 		    
 	 </section>
 		

@@ -1,5 +1,6 @@
 body, input.btnList, .btnEdit,.btnDel,.btnReview, textarea, input{
     font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+    resize:none;
 }
 
 
@@ -316,10 +317,12 @@ display: inline-block;
 
 .commentArea{
   border-bottom: 1px solid #ffffff;
+  height:140px;
 }
 
 .commentInfo{
 margin-top: 6px;
+margin-right:45px;
 font-size: 15px;
 color: #838383;
 
@@ -374,6 +377,7 @@ color: #838383;
 
 .commentInfo{
   text-align: right;
+  
 }
 
 
@@ -389,7 +393,7 @@ color: #838383;
 
 .commentText{
   display: inline-block;
-  width: 100%;
+  width: 70%;
 }
 
 
@@ -420,4 +424,11 @@ color: #838383;
   margin-left: 3px;
 }
 
+i {
+	margin-right:6px;
+}
 
+textarea[name="editReviewContents"] {
+    max-height: 200px; /* 원하는 높이로 조정 가능 */
+    overflow: auto; /* 내용이 범위를 벗어나면 스크롤바 표시 */
+}

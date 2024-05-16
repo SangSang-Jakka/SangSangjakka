@@ -12,13 +12,14 @@
          </c:if>
          
          <c:if test="${not empty userId}">
-          		<div class="empty">
-           	 		<div>${userNick}님 안녕하세요</div>
+          		<div class="empty" >
+           	 		<div style="margin-left: -150px; font-weight: bold;">${userNick}님 안녕하세요</div>
             	</div>
             </c:if>
          
             <div class="headerLogo">
-                <a href="/sangsangjakka/index.do"><img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78"></a>
+            <!--      <a href="/sangsangjakka/index.do"><img src="https://ld-wp73.template-help.com/wordpress/prod_26992/v5/wp-content/uploads/2019/12/Group-178.svg" class="jet-logo__img" alt="Funcare" width="205" height="78"></a> -->
+            <a href="/sangsangjakka/index.do"><img src="/sangsangjakka/resources/img/temp.png" class="jet-logo__img" alt="Funcare" width="205" height="78"></a> 
             </div>
             
             <c:if test="${empty userId}">

@@ -1,4 +1,4 @@
-
+<%@page import="com.jakka.model.dao.book.BookDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.jakka.model.DAOManager"%>
@@ -10,7 +10,7 @@
 
 <%
     // DAO 객체 생성
-    UserDAO dao = DAOManager.getUserDAO();
+    BookDAO dao = DAOManager.getBookDAO();
 
     // DB에서 값 가져오기
    // int newBookCount = dao.getNewBookCount();
@@ -27,20 +27,15 @@
 
     // 형식에 맞게 날짜 문자열 생성
     String currentDate = formatter.format(now);
+   
     
-    int newPostCount = dao.getNewPostCount(currentDate);
-    int newSuggestionCount = dao.getNewSuggestionCount(currentDate);
+    int newBookCount = dao.getBookCount();
+    int todayBookCount = dao.getTodayBookCount(currentDate);
+    int pageCount = dao.getPageCount();
     
     
     
-    int boardReportCount = dao.boardReportCount(currentDate);
-    System.out.println("신고된 게시글: " + boardReportCount);
-    
-    int CommReportCount = dao.CommReportCount(currentDate);
-    System.out.println("신고된 댓글: " + CommReportCount);
-    
-
-    
+   
 %>
 
 <div class="updateContainer">
@@ -50,8 +45,8 @@
 				<i class="icon fa fa-book fa-3x" style="color: white"></i>
 			</div>
 			<div class="info">
-				<div class="titleElement">신규 동화책</div>
-				<div class="countElement"><%= newPostCount + newSuggestionCount%></div>
+				<div class="titleElement">새로운 동화책 </div>
+				<div class="countElement"><%=todayBookCount %></div>
 			</div>
 		</div>
 	</div>
@@ -61,8 +56,8 @@
 				<i class="icon fa fa-star fa-3x" style="color: white"></i>
 			</div>
 			<div class="info">
-				<div class="titleElement">신고된 동화책</div>
-				<div class="countElement"><%=boardReportCount%></div>
+				<div class="titleElement">평균 페이지수</div>
+				<div class="countElement"><%=pageCount%></div>
 			</div>
 		</div>
 	</div>
@@ -73,21 +68,19 @@
 			</div>
 			<div class="info">
 				<div class="titleElement">총 동화책 수</div>
-				<div class="countElement"><%=CommReportCount%></div>
+				<div class="countElement"><%=newBookCount %></div>
 			</div>
 		</div>
 	</div>
-	<div class="card-box mr">
-		<div class="widget-small primary">
-			<div class="coloured-icon-d">
-				<i class="icon fa fa-quora fa-3x" style="color: white"></i>
-			</div>
-			<div class="info">
-				<div class="titleElement">데이터 용량</div>
-				<div class="countElement">해야함</div>
-			</div>
-		</div>
-	</div>
+<!-- 	<div class="card-box mr"> -->
+<!-- 		<div class="widget-small primary"> -->
+<!-- 			<div class="coloured-icon-d"> -->
+<!-- 				<i class="icon fa fa-quora fa-3x" style="color: white"></i> -->
+<!-- 			</div> -->
+<!-- 			<div class="info"> -->
+<!-- 				<div class="titleElement">신고리뷰</div> -->
+<!-- 				<div class="countElement">해야함</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 </div>
-
-

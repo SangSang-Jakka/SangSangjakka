@@ -79,7 +79,7 @@
   
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-	<script>
+
     $('#summernote').summernote({
         // 에디터 높이
         height: 370,

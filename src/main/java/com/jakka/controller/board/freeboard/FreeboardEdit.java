@@ -17,9 +17,22 @@ import com.jakka.model.dao.board.SuggestionDAO;
 import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
+/**
+ * 자유게시판 글 수정 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/freeboard/edit.do")
 public class FreeboardEdit extends HttpServlet {
 	
+	 /**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -45,6 +58,14 @@ public class FreeboardEdit extends HttpServlet {
 		
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");

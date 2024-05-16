@@ -1,5 +1,8 @@
 package com.jakka.model.enums;
 
+/**
+ * 사용자 로그 유형을 나타내는 열거형입니다.
+ */
 public enum UserLog {
 
 	SignUp("1"),                  // 회원가입
@@ -9,6 +12,7 @@ public enum UserLog {
 	BoardEdited("5"),         // 자유게시판 글수정
 	BoardReported("6"),       // 자유게시판 글 신고누적
 	BoardCommentCreated("7"),     // 자유게시판 댓글 작성
+	BoardCommentDeleted("8"),	// 자유게시판 댓글 삭제
 	BoardCommentEdited("9"),      // 자유게시판 댓글 수정
 	BoardCommentReported("10"),   // 자유게시판 댓글 신고누적
 	BookCreated("11"),             // 동화책 공유 등록
@@ -32,6 +36,11 @@ public enum UserLog {
 		this.value = vale;
 	}
 	
+	/**
+     * 열거형 값을 반환합니다.
+     *
+     * @return 열거형 값
+     */
 	public String getValue() {
 		return value;
 	}

@@ -17,9 +17,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.SuggestionDAO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
+/**
+* SuggestionList 서블릿은 건의사항 게시판의 목록 조회 기능을 제공합니다.
+*/
 @WebServlet("/board/suggestion/list.do")
 public class SuggestionList extends HttpServlet {
 
+	/**
+     * 페이징 및 검색 기능을 포함하여 건의사항 게시글 목록을 조회하고,
+     * 조회된 데이터를 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 페이징
@@ -90,11 +102,8 @@ public class SuggestionList extends HttpServlet {
 	        orderBy = "newest"; // 기본값으로 설정
 	    }
 		
-		System.out.println("orderBy: " + orderBy);
-		
 		ArrayList<SuggestionDTO> list = dao.findAllWhite(map, orderBy);	// 쿼리 실행 결과를 반환한다.
 		 
-		System.out.println(list);
 		if(list != null) {
 			for(SuggestionDTO dto : list) {						// 쿼리 실행 결과인 arraylist에 담은 list를 dto에 반복해서 담음
 				dto.setSgstRegdate(dto.getSgstRegdate().substring(0, 10));
@@ -112,9 +121,9 @@ public class SuggestionList extends HttpServlet {
 			totalCount = dao.whiteTotalCnt(map);
 			System.out.println("totalCount: " + totalCount);
 		}
-		// 총 게시물? 총 페이지 개수?
+		// 총 게시물? 총 페이지 개수
 		totalPage = (int)Math.ceil((double)totalCount / pageSize);
-		System.out.println("totalPage: " + totalPage);
+		
 		// 페이지바 작업
 		StringBuilder builder = new StringBuilder();
 		
@@ -154,15 +163,21 @@ public class SuggestionList extends HttpServlet {
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pageBar", builder.toString());
 		
-//		System.out.println("list안에 들어있는건? 여기는 list.do(GET): " + list);
-//		list안에 들어있는건? 여기는 list.do(GET): [SuggestionDTO(sgstSeq=53, sgstTitle=고객 지원 강화 요청, sgstContents=보안변경제안합니다, sgstRegdate=2024-05-08, sgstSecretYN=n, userSeq=29, sgstCnt=0, userNick=user0028NICK, attach=null), SuggestionDTO(sgstSeq=106, sgstTitle=사용자 경험 향상 방법, sgstContents=성능추가좋겠다, sgs
-		System.out.println("userId안에 들어있는건? 여기는 list.do(GET) : " + userId);
-		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/suggestion/suggestion_list.jsp");
 		dispatcher.forward(req, resp);
 
 	}
 	
+	
+	/**
+     * POST 요청을 처리합니다.
+     * 건의사항 목록 페이지로 리다이렉트합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

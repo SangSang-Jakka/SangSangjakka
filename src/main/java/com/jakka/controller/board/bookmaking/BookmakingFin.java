@@ -25,9 +25,22 @@ import com.jakka.model.dto.GenreDTO;
 import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * 동화책 제작 완료 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/bookmaking/fin.do")
 public class BookmakingFin extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -39,7 +52,13 @@ public class BookmakingFin extends HttpServlet {
 	    UserDTO userDto = userDao.findById(userId);
 	    
 	    if (userDto != null) {
-
+	    
+	    BookDAO dao = DAOManager.getBookDAO();
+	    BookDTO dto = dao.findById(bookSeq);
+	    req.setAttribute("bookSeq", bookSeq);
+	    req.setAttribute("bookTitle", dto.getBookTitle());
+	    req.setAttribute("bookCover", dto.getBookCover());
+	    req.setAttribute("bookInfo", dto.getBookInfo());
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/board/bookmaking/bookmaking_fin.jsp");
 		dispatcher.forward(req, resp);
 		
@@ -49,6 +68,14 @@ public class BookmakingFin extends HttpServlet {
 
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

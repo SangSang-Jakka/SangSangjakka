@@ -15,10 +15,20 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.SuggestionDAO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
-
+/**
+* SuggestionAdd 서블릿은 건의사항 게시글 작성 기능을 제공합니다.
+*/
 @WebServlet("/board/suggestion/add.do")
 public class SuggestionAdd extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=UTF-8");
@@ -33,6 +43,14 @@ public class SuggestionAdd extends HttpServlet {
 		
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=UTF-8");
@@ -41,15 +59,7 @@ public class SuggestionAdd extends HttpServlet {
 		//1. 데이터 가져오기
 		//2. DB 작업 > update
 		//3. 결과
-		
-		// 파일 받아오기
-//		MultipartRequest multi = new MultipartRequest(
-//				req,
-//				req.getRealPath("/generated"),
-//				1024 * 1024 * 30,
-//				"UTF-8",
-//				new DefaultFileRenamePolicy()
-//		);
+
 		HttpSession session = req.getSession();
 	    String userSeq = (String) session.getAttribute("userSeq");		
 		
@@ -71,33 +81,19 @@ public class SuggestionAdd extends HttpServlet {
 			secret = "y";
 		}
 		
-		System.out.println("3" + secret);
-		// seq 받아오기
-		
-		System.out.println("4" + seq);
-		
 		// DB 작업하기 > INSERT
 		SuggestionDAO dao = DAOManager.getSuggestionDAO();
 		SuggestionDTO dto = new SuggestionDTO();
 		
-		// dto를 들고 가기 전 dto에 값 쓰기
-		// 제목
 		dto.setSgstTitle(subject);
-		// 내용
 		dto.setSgstContents(content);
-		// 파일, 필요한지 체크
-//		dto.setAttach(multi.getFilesystemName("attach"));
-		// 비밀글 체크 여부
 		dto.setSgstSecretYN(secret);
-		// Seq
 		dto.setUserSeq(userSeq);
+		
 		// dto를 들고 DB 작업
 		// 생성 int
-		System.out.println("dto:" + dto);
 		// SuggestionDTO(sgstSeq=79, sgstTitle=접근성 개선 방안, sgstContents=게시판통합되었으면asdfasdf, sgstRegdate=2024-05-04 06:38:59, sgstSecretYN=y, userSeq=92, sgstCnt=21, userNick=null, attach=null)
 		int result = dao.add(dto);
-		System.out.println(result);
-		
 		
 		PrintWriter writer = resp.getWriter();
 		if(result > 0) {

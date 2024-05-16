@@ -1,5 +1,8 @@
 package com.jakka.model.enums;
 
+/**
+ * 유입 경로를 나타내는 열거형입니다.
+ */
 public enum Inflow {
 
 	Internet_Search("1"),			//인터넷 검색
@@ -16,6 +19,11 @@ public enum Inflow {
 		this.value = vale;
 	}
 	
+	/**
+     * 열거형 값을 반환합니다.
+     *
+     * @return 열거형 값
+     */
 	public String getValue() {
 		return value;
 	}

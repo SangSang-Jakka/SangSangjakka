@@ -22,9 +22,22 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 import com.jakka.model.dto.book.ReviewDTO;
 
+/**
+ * 동화책 상세 보기 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/book/view.do")
 public class BookView extends HttpServlet{
 
+	/**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -48,7 +61,7 @@ public class BookView extends HttpServlet{
 	    System.out.println(bookSeq);//14
 	    
 	    BookDAO dao = DAOManager.getBookDAO();
-	    
+
 	    if (session.getAttribute("read") != null
 				&& session.getAttribute("read").toString().equals("n")) {
 			//조회수 증가
@@ -56,13 +69,44 @@ public class BookView extends HttpServlet{
 			session.setAttribute("read", "y");
 		}
 	    
+	    ReviewDAO reviewDao = DAOManager.getReviewDAO();
+	    
 	    BookDTO dto = dao.findById(bookSeq);
+	    ReviewDTO reviewDto = new ReviewDTO();
 	    
 	    boolean result = dao.isLike(bookSeq, userSeq);
+	    boolean resultScrap = dao.isScrap(bookSeq, userSeq);
+	    boolean resultReport = dao.isReport(bookSeq, userSeq);
+	    
+	    
+	    String reviewSeq = req.getParameter("reviewSeq");
+	    
+	    
+	    
+	    ArrayList<ReviewDTO> likedReviews = reviewDao.findLikedReviews(userSeq);
+	    req.setAttribute("likedReviews", likedReviews);
+
+
+	    if (likedReviews != null && !likedReviews.isEmpty()) {
+	        System.out.println("Liked reviews exist.");
+	        System.out.println(likedReviews);
+	    } else {
+	        System.out.println("Liked reviews are empty.");
+	    }
+
+	   
+	    
 		
 		System.out.println(result);
+		System.out.println("scrap" + resultScrap);
+		System.out.println("report" + resultReport);
+		//System.out.println("reviewLike" + resultReviewLike);
 		
 		req.setAttribute("result", result);
+		req.setAttribute("resultScrap", resultScrap);
+		req.setAttribute("resultReport", resultReport);
+		/* req.setAttribute("reviewLike", resultReviewLike); */
+		
 	    
 	    //게시글 조작
 	    dto.setBookTitle(dto.getBookTitle().replace(">", "&gt;").replace("<", "&lt;").replace("\r\n", "<br>"));
@@ -72,10 +116,7 @@ public class BookView extends HttpServlet{
 	    PageDAO pageDAO = DAOManager.getPageDAO();
 	    HashMap<Integer, PageDTO> pageMap = pageDAO.findPages(bookSeq);
 	    
-	    ReviewDAO reviewDao = DAOManager.getReviewDAO();
 	    
-	   
-        
         ArrayList<ReviewDTO> reviewList = reviewDao.findChildWhite(bookSeq);
         
         int reviewTotal = reviewDao.reviewTotal(bookSeq);
@@ -91,6 +132,14 @@ public class BookView extends HttpServlet{
 		
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");

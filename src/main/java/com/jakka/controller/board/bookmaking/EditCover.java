@@ -31,6 +31,11 @@ import com.jakka.model.dao.book.PageDAO;
 import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 
+/**
+ * 동화책 표지 편집 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/bookmaking/editcover.do")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 1 MB
 		maxFileSize = 1024 * 1024 * 50, // 50 MB
@@ -38,6 +43,14 @@ import com.jakka.model.dto.book.PageDTO;
 )
 public class EditCover extends HttpServlet {
 
+	/**
+     * POST 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -115,7 +128,13 @@ public class EditCover extends HttpServlet {
 	}
 
 
-
+	/**
+     * Part에서 값을 가져옵니다.
+     * 
+     * @param part Part 객체
+     * @return Part의 값
+     * @throws IOException 입출력 예외가 발생한 경우
+     */
 	private String getValue(Part part) throws IOException {
 		if (part == null) {
 			return null;

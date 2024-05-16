@@ -217,7 +217,7 @@ margin-right : 14px;
 	<script src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 	
 	<!-- Datatable Setting js -->
-	<script src="/sangsangjakka/resources/vendors/scripts/aa.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/rv.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>

@@ -30,13 +30,13 @@
     String currentDate = formatter.format(now);
     System.out.println("현재 날짜: " + currentDate);
     
-    int newPostCount = dao.getNewPostCount(currentDate);
-    System.out.println("새 포스터: " + newPostCount);
+    //int newPostCount = dao.getNewPostCount(currentDate);
+    //System.out.println("새 포스터: " + newPostCount);
     int newUserCount = dao.userCnt(currentDate);
     System.out.println("새 유저: " + newUserCount);
     
-    int newSuggestionCount = dao.getNewSuggestionCount(currentDate);
-    System.out.println("새 건의사항: " + newSuggestionCount);
+    //int newSuggestionCount = dao.getNewSuggestionCount(currentDate);
+   // System.out.println("새 건의사항: " + newSuggestionCount);
     
 %>
 
@@ -48,7 +48,7 @@
 			</div>
 			<div class="info">
 				<div class="titleElement">신규 작성글</div>
-				<div class="countElement"><%= newPostCount + newSuggestionCount%></div>
+				<%-- <div class="countElement"><%= newPostCount + newSuggestionCount%></div> --%>
 			</div>
 		</div>
 	</div>

@@ -609,39 +609,24 @@ public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String
 	}// list()
 	
 	public int del(String seq) {
-	    Connection conn = DBUtil.open();
-	    PreparedStatement pstat = null;
+		
+		String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
+		String pSQL = "delete from tblSuggestion where sgstSeq = ?";
 	    
-	    try {
-	        String cSQL = "delete from tblSuggestionAnswer where sgstSeq = ?";
-	        pstat = conn.prepareStatement(cSQL);
+	    try (
+	    	Connection conn = DBUtil.open();
+	    	PreparedStatement pstat = conn.prepareStatement(cSQL);
+	    	PreparedStatement ppstat = conn.prepareStatement(pSQL);
+	    ){
 	        pstat.setString(1, seq);
 	        pstat.executeUpdate();
 
-	        String pSQL = "delete from tblSuggestion where sgstSeq = ?";
-	        pstat = conn.prepareStatement(pSQL);
 	        pstat.setString(1, seq);
 	        return pstat.executeUpdate();
 
 	    } catch (Exception e) {
 	        System.out.println("SuggestionDAO.| del");
 	        e.printStackTrace();
-	    } finally {
-	        // 리소스 정리 코드 추가
-	        if (pstat != null) {
-	            try {
-	                pstat.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	        if (conn != null) {
-	            try {
-	                conn.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
 	    }
 	    
 	    return 0;
@@ -858,6 +843,48 @@ public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String
 			
 		}
 		
+		
+		@Override
+		public ArrayList<SuggestionDTO> findToday(String today) {
+			
+			final String SQL = "SELECT * \r\n"
+					+ "FROM vwSuggestion \r\n"
+					+ "WHERE TRUNC(SGSTREGDATE) = TO_DATE(?, 'YY/MM/DD') \r\n"
+					+ "ORDER BY SGSTREGDATE DESC";
+
+			try (
+			        Connection conn = DBUtil.open();
+			        PreparedStatement pstmt = conn.prepareStatement(SQL);
+			    ) {
+			        pstmt.setString(1, today);
+			        ResultSet rs = pstmt.executeQuery();
+			        
+			        ArrayList<SuggestionDTO> list = new ArrayList<>();
+					
+					while(rs.next()) {
+						
+						SuggestionDTO dto = new SuggestionDTO();
+						
+						dto.setSgstCnt(rs.getString("sgstCnt"));
+						dto.setSgstContents(rs.getString("sgstContents"));
+						dto.setSgstRegdate(rs.getString("sgstRegdate"));
+						dto.setSgstSecretYN(rs.getString("sgstSecretYN"));
+						dto.setSgstSeq(rs.getString("sgstSeq"));
+						dto.setSgstTitle(rs.getString("sgstTitle"));
+						dto.setUserSeq(rs.getString("userSeq"));
+						dto.setUserNick(rs.getString("userNick"));
+						
+						list.add(dto);
+					}
+					
+					return list;
+			    } catch (Exception e) {
+			        System.out.println("BoardDAO.| list");
+			        e.printStackTrace();
+			    }
+
+			    return null;
+		}
 
 	
 }//End of class

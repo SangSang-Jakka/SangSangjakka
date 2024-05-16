@@ -20,11 +20,13 @@
 	<!-- header -->
 	<%@include file="/WEB-INF/views/template/header.jsp"%>
 
+
 	<div class="myMainWrap">
 
-		<div class="articleTitle">
-			<h1>마이페이지</h1>
+		<div class="pageTitle">
+			<h3>마이페이지</h3>
 		</div>
+
 		<div class="tab tabFormContainer">
 			<ul class="mainnav tabnav flex">
 				<li><a href="#tab01">개인정보</a></li>
@@ -43,7 +45,7 @@
 										<input type="text" class="userEmail w70pc" value="${dto.userEmail}" id="userEmailInput" name="email" required readonly/>
 									</div>
 								</div>
-								<div class="userInfoNcikName title">
+								<div class="userInfoNickName title">
 									<span>닉네임</span>
 									<div class="changableContainer">
 										<div class="changableInput inputBorder">
@@ -52,7 +54,9 @@
 										<div class="changebtnbox change">
 											<input type="button" value="중복검사" id="nickNameChangeBtn" class="pointer" onclick="openNickCheck()">
 										</div>
+										  <input type="hidden" id="nickHidden" name="nicknameDuplication" value="nicknameUncheck" />
 									</div>
+									
 								</div>
 
 								<div class="userInfoId title">
@@ -72,7 +76,7 @@
 											<input type="password" id="passwordInput" required readonly/>
 										</div>
 										<div class="changebtnbox change">
-											<input type="button" value="변경" id="passwordCheck" class="pointer">
+											<input type="button" value="비밀번호 변경" id="passwordChangeBtn" class="pointer">
 										</div>
 									</div>
 								</div>
@@ -117,9 +121,6 @@
 											<input type="text" id="phoneInput2" name="phoneInput2" class="phoneInput" maxlength="4"
 												value="${telArray[2]}" required readonly>
 										</div>
-										<div class="changebtnbox change">
-											<input type="button" value="변경" id="telChangebtn" class="pointer">
-										</div>
 									</div>
 								</div>
 
@@ -128,7 +129,7 @@
 									<div class="addressContainer">
 										<div class="addressInput">
 											<div class="addressFind">
-												<div class="inputBorder postNum">
+												<div class="inputBorder postNum" id="postcodebox">
 													<input type="text" id="sample6_postcode" placeholder="우편번호"
 														readonly required>
 												</div>
@@ -137,14 +138,14 @@
 														class="pointer" onclick="sample6_execDaumPostcode()">
 												</div>
 											</div>
-											<div class="inputBorder">
+											<div class="inputBorder" id="addressBox">
 												<input type="text" id="sample6_address" name="address" placeholder="주소" required value="${dto.userAddress}" readonly>
 											</div>
-											<div class="inputBorder">
+											<div class="inputBorder" id="addressDetailBox">
 												<input type="text" id="sample6_detailAddress" placeholder="상세주소" readonly
 													>
 											</div>
-											<div class="inputBorder">
+											<div class="inputBorder" id="addressExtraBox">
 												<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly
 													>
 											</div>
@@ -153,18 +154,13 @@
 								</div>
 
 							</div>
-							<div class="agree-check">
-								<input type="checkbox" /> <a href="#!">이용약관</a>과 <a href="#!">개인정보 정책</a>에
-								</br>따른 수집 및 이용, 마케팅 활용
-								선택에 모두 동의합니다.
-							</div>
 							<div class="changebtncontainer">
 								<div class="changecomplete changebtnbox full">
 									<input type="button" value="수정하기" id="changebtn" class="pointer"></input>
 								</div>
 								<div class="change full">
 									<div class="changegroup">
-										<div class="changebtnbox">                                                                                                                                                                                                                                                                          
+										<div class="changebtnbox">																																																																			
 											<input type="submit" value="수정완료" id="changecompletebtn"
 												class="pointer"></input>
 										</div>
@@ -208,7 +204,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="bookshelf" id="bookshelf"></div>
+					<div class="bookshelfContainer">
+						<div class="bookshelf" id="bookshelf"></div>
+					</div>
 					<div class="pagination">
 						<button id="firstPage">&lt;&lt;</button>
 						<button id="prevPage">&lt;</button>
@@ -227,53 +225,137 @@
 						<li><a href="#tab05">내 게시글</a></li>
 						<li><a href="#tab06">내 댓글</a></li>
 					</ul>
+					
 					<div class="tabcontent subtabcontent">
 						<div id="tab05">
-							<table class="boardTable">
-                  <thead>
-                    <tr>
-                        <th scope="col" class="thNum">번호</th>
-                        <th scope="col" class="thTitle">제목</th>
-                        <th scope="col" class="thDate">등록일</th>
-                        <th scope="col" class="thViews">조회수</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  
-                  <c:if test="${list.size() == 0}">
+				<table class="boardTable">
+				  <thead>
+					<tr>
+						<th scope="col" class="thNum thList">번호</th>
+						<th scope="col" class="thTitle thList">제목</th>
+						<th scope="col" class="thDate thList">등록일</th>
+						<th scope="col" class="thViews thList">조회수</th>
+					</tr>
+				  </thead>
+				  <tbody>
+				  
+				 <c:if test="${requestScope.list.size() == 0}">
 					<tr>
 						<td colspan="5">게시물이 없습니다.</td>
 					</tr>
-				  </c:if>
+				</c:if>
+				
+				<c:forEach items="${requestScope.list}" var="dto">
+					<tr class=myBoardList>
+						<td>${dto.boardSeq}</td>
+						<th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
+						<td>${dto.boardRegdate}</td>
+						<td>${dto.boardCnt}</td>
+					</tr>
+				</c:forEach>
+		 
+				  </tbody>
+			  </table>
+					</div>
+					
+						<div id="tab05">
+				<table class="boardTable">
+				  <thead>
+					<tr>
+						<th scope="col" class="thNum thList">번호</th>
+						<th scope="col" class="thTitle thList">제목</th>
+						<th scope="col" class="thDate thList">등록일</th>
+						<th scope="col" class="thViews thList">조회수</th>
+					</tr>
+				  </thead>
+				  <tbody>
 				  
-				  <c:forEach items="${list}" var="dto">
-				  		<tr>
-	                      <td>${dto.boardSeq}</td>
-	                      <th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle }</a><p>${dto.cmntCnt}</p></th>
-	                      <td>${dto.boardRegdate}</td>
-	                      <td>${dto.boardCnt}</td>
-	                   </tr>
-				  </c:forEach>
-         
-                  </tbody>
-              </table>
-						</div>
-						<div id="tab06">
-							tab6 content
-						</div>
+				 <c:if test="${requestScope.list.size() == 0}">
+					<tr>
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
+				</c:if>
+				
+				<c:forEach items="${requestScope.list}" var="dto">
+					<tr class=myBoardList>
+						<td>${dto.boardSeq}</td>
+						<th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.boardTitle}</a><p>${dto.boardCnt}</p></th>
+						<td>${dto.boardRegdate}</td>
+						<td>${dto.boardCnt}</td>
+					</tr>
+				</c:forEach>
+		 
+				  </tbody>
+			  </table>
+					</div>
+					
+					<div id="tab06">
+						<table class="boardTable">
+							<thead>
+								<tr>
+									<th scope="col" class="thNum thList">번호</th>
+									<th scope="col" class="thTitle thList">내용</th>
+									<th scope="col" class="thDate thList">등록일</th>
+									<th scope="col" class="thViews thList">신고횟수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${empty comments}">
+									<tr>
+										<td colspan="5">댓글이 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:forEach items="${comments}" var="dto">
+									<tr class="myBoardList">
+										<td>${dto.cmntSeq}</td>
+										<th><a href="/sangsangjakka/board/freeboard/view.do?no=${dto.boardSeq}">${dto.cmntContents}</a></th>
+										<td>${dto.cmntRegdate}</td>
+										<td>${dto.cmntReportCnt}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					
 					</div>
 				</div>
 			</div>
 		</div><!--tab-->
 	</div>
-	
+
+
 	<!-- footer -->
-	<%@include file="/WEB-INF/views/template/footer.jsp"%>
+		<%@include file="/WEB-INF/views/template/footer.jsp"%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="validation.js"></script>
+<script src="/sangsangjakka/resources/js/validation.js"></script>
 <script>
+		
+		var bookList = [];
+		<c:forEach items="${bookList}" var="book">
+			var book = {
+				bookSeq: '${book.bookSeq}',
+				bookTitle: '${book.bookTitle}', 
+				bookInfo: '${book.bookInfo}',
+				bookCover: '${book.bookCover}',
+				bookRegdate: '${book.bookRegdate}'.split(' ')[0],
+				userNick: '${book.userNick}',
+				bookScrapCnt: '${book.bookScrapCnt}',
+				likeCnt: '${book.likeCnt}',
+				bookReviewCnt: '${book.bookReviewCnt}'
+			};
+			bookList.push(book); 
+		</c:forEach>
+		
+		
+		var tendencyData = [
+			<c:forEach var="entry" items="${tendency}">
+				${entry.value},
+			</c:forEach>
+		];
+
+
 		$(document).ready(function () {
 			// 로딩 시 모든 탭 컨텐츠를 숨기고 첫 번째 탭 컨텐츠를 표시
 			$('.maintabcontent > div').hide().first().show();
@@ -294,7 +376,7 @@
 				if (tabId === '#tab01') {
 					$('.tab').css("height", "1600px");
 				} else {
-					$('.tab').css("height", "900px");
+					$('.tab').css("height", "1200px");
 				}
 		
 				// 서브 탭 초기화
@@ -318,6 +400,19 @@
 				$(this).addClass('active');
 			});
 		});
+		
+		
+		
+		// tab에 있는 인라인 style 변경
+		// 페이지가 처음 로드될 때 실행될 함수
+		if (!sessionStorage.getItem("hasBeenLoaded")) {
+			window.onload = function() {
+				var tabFormContainer = document.querySelector(".tabFormContainer");
+				tabFormContainer.style.height = "1400px";
+				sessionStorage.setItem("hasBeenLoaded", true);
+			};
+		}
+		
 
 		$(function () {
 			//수정 완료 버튼
@@ -341,17 +436,81 @@
 			
 			//changebtn 눌렀을때만 입력 가능
 			document.getElementById('changebtn').addEventListener('click', function() {
-			    document.getElementById('userEmailInput').removeAttribute('readonly');
-			    document.getElementById('nickName').removeAttribute('readonly');
-			    document.getElementById('phoneStart').removeAttribute('readonly');
-			    document.getElementById('phoneInput1').removeAttribute('readonly');
-			    document.getElementById('phoneInput2').removeAttribute('readonly');
-			    document.getElementById('sample6_postcode').removeAttribute('readonly');
-			    document.getElementById('sample6_address').removeAttribute('readonly');
-			    document.getElementById('sample6_detailAddress').removeAttribute('readonly');
-			    document.getElementById('sample6_extraAddress').removeAttribute('readonly');
-			    
+				document.getElementById('userEmailInput').removeAttribute('readonly');
+				document.getElementById('inputNick').removeAttribute('readonly');
+				document.getElementById('phoneStart').removeAttribute('readonly');
+				document.getElementById('phoneInput1').removeAttribute('readonly');
+				document.getElementById('phoneInput2').removeAttribute('readonly');
+				document.getElementById('sample6_postcode').removeAttribute('readonly');
+				document.getElementById('sample6_address').removeAttribute('readonly');
+				document.getElementById('sample6_detailAddress').removeAttribute('readonly');
+				document.getElementById('sample6_extraAddress').removeAttribute('readonly');
+				
 			});
+			
+			
+			
+			// 초기에는 주소 입력란과 수정하기 버튼만 보이도록 설정.
+			document.getElementById("postcodebox").style.display = "none";
+			document.getElementById("addressDetailBox").style.display = "none";
+			document.getElementById("addressExtraBox").style.display = "none";
+
+			// 수정하기 버튼을 누를 때
+			document.getElementById("changebtn").addEventListener("click", function() {
+				// 우편번호 입력란과 상세주소, 참고항목 입력란을 보이도록 변경
+				document.getElementById("postcodebox").style.display = "block";
+				document.getElementById("addressDetailBox").style.display = "block";
+				document.getElementById("addressExtraBox").style.display = "block";
+			});
+
+			// 수정완료 버튼을 누를 때
+			document.getElementById("changecompletebtn").addEventListener("click", function() {
+				// 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김
+				document.getElementById("postcodebox").style.display = "none";
+				document.getElementById("addressDetailBox").style.display = "none";
+				document.getElementById("addressExtraBox").style.display = "none";
+			});
+
+			
+			// 취소 버튼을 누를 때
+			document.getElementById("cancelbtn").addEventListener("click", function() {
+				// 우편번호 입력란과 상세주소, 참고항목 입력란을 다시 숨김.
+				document.getElementById("postcodebox").style.display = "none";
+				document.getElementById("addressDetailBox").style.display = "none";
+				document.getElementById("addressExtraBox").style.display = "none";
+			});
+			
+			
+			//span태그 색상 변경
+			
+			// 수정하기 버튼을 클릭할 때 실행될 함수
+			document.getElementById("changebtn").addEventListener("click", function() {
+				document.querySelector(".userInfo-address.title span").style.color = "#c95000";
+				document.querySelector(".userInfoTel.title span").style.color = "#c95000";
+				document.querySelector(".userInfoEmail span").style.color = "#c95000";
+				document.querySelector(".userInfoNickName span").style.color = "#c95000";
+				document.querySelector(".userInfoPw span").style.color = "#c95000";				
+			});
+
+			// 수정완료 또는 취소 버튼을 클릭할 때 실행될 함수
+			function resetTextColor() {
+				// 주소 텍스트 요소의 색상을 원래 색상으로 재설정합니다.
+				document.querySelector(".userInfo-address.title span").style.color = "";
+				document.querySelector(".userInfoTel.title span").style.color = "";
+				document.querySelector(".userInfoEmail span").style.color = "";
+				document.querySelector(".userInfoNickName span").style.color = "";
+				document.querySelector(".userInfoPw span").style.color = "";
+			}
+
+			// 수정완료 버튼을 클릭할 때 색상을 원래대로 변경합니다.
+			document.getElementById("changecompletebtn").addEventListener("click", resetTextColor);
+
+			// 취소 버튼을 클릭할 때 색상을 원래대로 변경합니다.
+			document.getElementById("cancelbtn").addEventListener("click", resetTextColor);
+			
+			
+			
+			
 			
 			
 
@@ -381,7 +540,7 @@
 					max: 360,
 					labels: {
 						formatter: function () {
-							const labels = ['항목1', '항목2', '항목3', '항목4', '항목5'];
+							const labels = ['창의성 성향', '교육 성향', '모험성향', '감성 성향', '유머 성향'];
 							return labels[(this.value / 72) % labels.length];
 						}
 					}
@@ -413,7 +572,7 @@
 					type: 'area',
 					name: 'Area',
 					color: '#ffa500',
-					data: [1, 2, 3, 4, 5]
+					data: tendencyData
 				}],
 				credits: {
 					enabled: false // 크레딧을 비활성화
@@ -421,73 +580,73 @@
 			});
 
 			//저장목록 차트
-			Highcharts.chart('scrap', {
+			//Highcharts.chart('scrap', {
 
-				chart: {
-					polar: true
-				},
+			//	chart: {
+			//		polar: true
+			//	},
 
-				title: {
-					text: null // 차트 이름 비활성화
-				},
+			//	title: {
+			//		text: null // 차트 이름 비활성화
+			//	},
 
-				exporting: {
-					enabled: false // 차트 메뉴 비활성화
-				},
+			//	exporting: {
+			//		enabled: false // 차트 메뉴 비활성화
+			//	},
 
-				pane: {
-					startAngle: 0,
-					endAngle: 360
-				},
+			//	pane: {
+			//		startAngle: 0,
+			//		endAngle: 360
+			//	},
 
-				xAxis: {
-					tickInterval: 72,
-					min: 0,
-					max: 360,
-					labels: {
-						formatter: function () {
-							const labels = ['항목1', '항목2', '항목3', '항목4', '항목5'];
-							return labels[(this.value / 72) % labels.length];
-						}
-					}
-				},
+			//	xAxis: {
+			//		tickInterval: 72,
+			//		min: 0,
+			//		max: 360,
+			//		labels: {
+			//			formatter: function () {
+			//				const labels = ['모험 성향', '감성 성향', '교육 성향', '유머 성향', '창의성 성향'];
+			//				return labels[(this.value / 72) % labels.length];
+			//			}
+			//		}
+			//	},
 
-				yAxis: {
-					min: 0
-				},
+			//	yAxis: {
+			//		min: 0
+			//	},
 
-				tooltip: {
-					formatter: function () {
-						return this.y; // `this.y`는 호버된 데이터 포인트의 값
-					}
-				},
+			//	tooltip: {
+			//		formatter: function () {
+			//			return this.y; // `this.y`는 호버된 데이터 포인트의 값
+			//		}
+			//	},
 
-				plotOptions: {
-					series: {
-						pointStart: 0,
-						pointInterval: 72,
-						showInLegend: false
-					},
-					column: {
-						pointPadding: 0,
-						groupPadding: 0
-					}
-				},
+			//	plotOptions: {
+			//		series: {
+			//			pointStart: 0,
+			//			pointInterval: 72,
+			//			showInLegend: false
+			//		},
+			//		column: {
+			//			pointPadding: 0,
+			//			groupPadding: 0
+			//		}
+			//	},
 
-				series: [{
-					type: 'area',
-					name: 'Area',
-					color: '#ffa500',
-					data: [3, 2, 3, 4, 2]
-				}],
-				credits: {
-					enabled: false // 크레딧을 비활성화
-				}
-			});
+			//	series: [{
+			//		type: 'area',
+			//		name: 'Area',
+			//		color: '#ffa500',
+			//		data: chartData
+			//	}],
+			//	credits: {
+			//		enabled: false // 크레딧을 비활성화
+			//	}
+			//});
 		});
 
 		// 도서 데이터
-		let bookData = [{ "id": 1, name: "Book U", date: "2023-08-30" }, { "id": 2, name: "Book L", date: "2022-10-05" }, { "id": 3, name: "Book O", date: "2021-11-28" }, { "id": 4, name: "Book E", date: "2023-07-24" }, { "id": 5, name: "Book F", date: "2023-12-21" }, { "id": 6, name: "Book I", date: "2022-02-02" }, { "id": 7, name: "Book V", date: "2022-01-31" }, { "id": 8, name: "Book W", date: "2022-08-20" }, { "id": 9, name: "Book V", date: "2023-11-01" }, { "id": 10, name: "Book J", date: "2023-11-17" }, { "id": 11, name: "Book E", date: "2021-11-04" }, { "id": 12, name: "Book G", date: "2022-08-24" }, { "id": 13, name: "Book A", date: "2022-01-15" }, { "id": 14, name: "Book B", date: "2022-06-22" }, { "id": 15, name: "Book R", date: "2023-09-17" }, { "id": 16, name: "Book H", date: "2023-05-20" }, { "id": 17, name: "Book P", date: "2023-12-27" }, { "id": 18, name: "Book H", date: "2023-09-19" }, { "id": 19, name: "Book I", date: "2021-09-26" }, { "id": 20, name: "Book H", date: "2021-04-10" }, { "id": 21, name: "Book P", date: "2022-10-19" }, { "id": 22, name: "Book T", date: "2023-04-03" }, { "id": 23, name: "Book E", date: "2022-05-27" }, { "id": 24, name: "Book O", date: "2023-05-04" }, { "id": 25, name: "Book T", date: "2021-08-01" }, { "id": 26, name: "Book S", date: "2022-09-17" }, { "id": 27, name: "Book A", date: "2021-03-22" }, { "id": 28, name: "Book A", date: "2022-06-25" }, { "id": 29, name: "Book V", date: "2021-07-30" }, { "id": 30, name: "Book X", date: "2021-06-16" }, { "id": 31, name: "Book A", date: "2023-11-07" }, { "id": 32, name: "Book U", date: "2023-03-04" }, { "id": 33, name: "Book N", date: "2023-02-19" }, { "id": 34, name: "Book K", date: "2021-12-14" }, { "id": 35, name: "Book U", date: "2023-11-01" }, { "id": 36, name: "Book F", date: "2022-02-03" }, { "id": 37, name: "Book A", date: "2023-12-22" }, { "id": 38, name: "Book J", date: "2021-02-26" }, { "id": 39, name: "Book O", date: "2022-05-19" }, { "id": 40, name: "Book I", date: "2023-11-16" }, { "id": 41, name: "Book R", date: "2021-01-24" }, { "id": 42, name: "Book F", date: "2021-10-25" }, { "id": 43, name: "Book C", date: "2021-12-07" }, { "id": 44, name: "Book S", date: "2021-08-19" }, { "id": 45, name: "Book R", date: "2023-10-29" }, { "id": 46, name: "Book B", date: "2023-09-30" }, { "id": 47, name: "Book I", date: "2021-11-28" }, { "id": 48, name: "Book Q", date: "2021-09-07" }, { "id": 49, name: "Book T", date: "2021-07-07" }, { "id": 50, name: "Book B", date: "2023-10-27" }, { "id": 51, name: "Book M", date: "2022-12-25" }, { "id": 52, name: "Book B", date: "2023-04-21" }, { "id": 53, name: "Book U", date: "2021-11-27" }, { "id": 54, name: "Book J", date: "2023-01-13" }, { "id": 55, name: "Book I", date: "2022-06-15" }, { "id": 56, name: "Book L", date: "2023-04-29" }, { "id": 57, name: "Book H", date: "2023-09-28" }, { "id": 58, name: "Book B", date: "2022-03-07" }, { "id": 59, name: "Book E", date: "2022-07-28" }, { "id": 60, name: "Book X", date: "2021-01-31" }, { "id": 61, name: "Book R", date: "2021-10-02" }, { "id": 62, name: "Book E", date: "2022-01-24" }, { "id": 63, name: "Book U", date: "2022-03-27" }, { "id": 64, name: "Book G", date: "2022-05-20" }, { "id": 65, name: "Book I", date: "2023-12-05" }, { "id": 66, name: "Book G", date: "2022-04-04" }, { "id": 67, name: "Book S", date: "2021-09-07" }, { "id": 68, name: "Book E", date: "2023-03-21" }, { "id": 69, name: "Book O", date: "2023-08-03" }, { "id": 70, name: "Book U", date: "2023-03-15" }, { "id": 71, name: "Book D", date: "2023-12-10" }, { "id": 72, name: "Book P", date: "2022-10-08" }, { "id": 73, name: "Book X", date: "2021-08-21" }, { "id": 74, name: "Book H", date: "2021-07-25" }, { "id": 75, name: "Book L", date: "2021-02-04" }, { "id": 76, name: "Book U", date: "2022-09-13" }, { "id": 77, name: "Book P", date: "2022-12-23" }, { "id": 78, name: "Book V", date: "2021-04-30" }, { "id": 79, name: "Book A", date: "2022-11-01" }, { "id": 80, name: "Book V", date: "2021-05-04" }, { "id": 81, name: "Book U", date: "2022-11-12" }, { "id": 82, name: "Book E", date: "2022-07-29" }, { "id": 83, name: "Book M", date: "2021-11-19" }, { "id": 84, name: "Book V", date: "2021-01-29" }, { "id": 85, name: "Book N", date: "2021-04-23" }, { "id": 86, name: "Book U", date: "2022-09-06" }, { "id": 87, name: "Book V", date: "2021-04-11" }, { "id": 88, name: "Book O", date: "2022-06-07" }, { "id": 89, name: "Book A", date: "2022-11-08" }, { "id": 90, name: "Book G", date: "2023-08-08" }, { "id": 91, name: "Book O", date: "2022-09-01" }, { "id": 92, name: "Book E", date: "2021-10-28" }, { "id": 93, name: "Book B", date: "2022-12-03" }, { "id": 94, name: "Book C", date: "2022-03-10" }, { "id": 95, name: "Book E", date: "2021-05-22" }, { "id": 96, name: "Book X", date: "2023-07-19" }, { "id": 97, name: "Book K", date: "2021-04-30" }, { "id": 98, name: "Book G", date: "2021-07-09" }, { "id": 99, name: "Book I", date: "2021-04-10" }, { "id": 100, name: "Book N", date: "2023-10-02" }, { "id": 101, name: "Book Q", date: "2022-07-01" }, { "id": 102, name: "Book D", date: "2023-11-01" }, { "id": 103, name: "Book O", date: "2021-03-19" }, { "id": 104, name: "Book W", date: "2022-07-31" }, { "id": 105, name: "Book F", date: "2021-04-30" }, { "id": 106, name: "Book C", date: "2022-09-04" }, { "id": 107, name: "Book O", date: "2021-12-12" }, { "id": 108, name: "Book T", date: "2023-05-18" }, { "id": 109, name: "Book J", date: "2021-10-27" }, { "id": 110, name: "Book W", date: "2023-11-27" }, { "id": 111, name: "Book I", date: "2023-03-19" }, { "id": 112, name: "Book I", date: "2022-12-17" }, { "id": 113, name: "Book V", date: "2022-07-02" }, { "id": 114, name: "Book I", date: "2021-12-12" }, { "id": 115, name: "Book U", date: "2022-02-03" }, { "id": 116, name: "Book D", date: "2022-04-27" }, { "id": 117, name: "Book M", date: "2022-04-24" }, { "id": 118, name: "Book C", date: "2023-09-25" }, { "id": 119, name: "Book V", date: "2021-03-28" }, { "id": 120, name: "Book D", date: "2023-06-14" }, { "id": 121, name: "Book U", date: "2021-04-17" }, { "id": 122, name: "Book E", date: "2021-07-29" }, { "id": 123, name: "Book J", date: "2022-07-17" }, { "id": 124, name: "Book S", date: "2023-12-06" }, { "id": 125, name: "Book G", date: "2023-03-08" }, { "id": 126, name: "Book M", date: "2023-06-14" }, { "id": 127, name: "Book I", date: "2022-01-27" }, { "id": 128, name: "Book A", date: "2023-12-17" }, { "id": 129, name: "Book R", date: "2021-05-12" }, { "id": 130, name: "Book O", date: "2021-01-01" }, { "id": 131, name: "Book B", date: "2021-06-18" }, { "id": 132, name: "Book G", date: "2022-06-16" }, { "id": 133, name: "Book E", date: "2021-01-03" }, { "id": 134, name: "Book E", date: "2022-07-23" }, { "id": 135, name: "Book H", date: "2022-10-24" }, { "id": 136, name: "Book F", date: "2023-07-31" }, { "id": 137, name: "Book P", date: "2022-12-16" }, { "id": 138, name: "Book I", date: "2022-09-29" }, { "id": 139, name: "Book U", date: "2022-11-22" }, { "id": 140, name: "Book P", date: "2022-06-22" }, { "id": 141, name: "Book B", date: "2021-11-04" }, { "id": 142, name: "Book C", date: "2023-06-27" }, { "id": 143, name: "Book F", date: "2021-08-19" }, { "id": 144, name: "Book D", date: "2022-09-24" }, { "id": 145, name: "Book F", date: "2021-12-18" }, { "id": 146, name: "Book O", date: "2021-07-05" }, { "id": 147, name: "Book M", date: "2021-03-16" }, { "id": 148, name: "Book N", date: "2021-05-31" }, { "id": 149, name: "Book C", date: "2022-03-29" }, { "id": 150, name: "Book Q", date: "2023-07-02" }, { "id": 151, name: "Book W", date: "2022-07-21" }, { "id": 152, name: "Book I", date: "2021-09-04" }, { "id": 153, name: "Book U", date: "2023-05-17" }, { "id": 154, name: "Book V", date: "2023-08-18" }, { "id": 155, name: "Book H", date: "2022-12-12" }, { "id": 156, name: "Book J", date: "2023-11-14" }, { "id": 157, name: "Book V", date: "2023-07-10" }, { "id": 158, name: "Book P", date: "2021-06-06" }, { "id": 159, name: "Book V", date: "2023-02-26" }, { "id": 160, name: "Book D", date: "2023-09-07" }, { "id": 161, name: "Book L", date: "2021-09-21" }, { "id": 162, name: "Book S", date: "2023-07-05" }, { "id": 163, name: "Book U", date: "2021-04-04" }, { "id": 164, name: "Book E", date: "2023-05-24" }, { "id": 165, name: "Book D", date: "2022-11-30" }, { "id": 166, name: "Book X", date: "2023-05-06" }, { "id": 167, name: "Book H", date: "2022-06-07" }, { "id": 168, name: "Book D", date: "2021-09-12" }, { "id": 169, name: "Book C", date: "2021-07-14" }, { "id": 170, name: "Book M", date: "2022-07-13" }];
+		let bookData = bookList;
 
 		document.addEventListener("DOMContentLoaded", function () {
 			document.getElementById('sortOptions').addEventListener('change', sortBooks);
@@ -504,7 +663,7 @@
 
 		let filteredBooks = [];
 		let currentPage = 1;
-		const itemsPerPage = 12;
+		const itemsPerPage = 4;
 		let totalPages;
 
 		function updateFilteredBooks() {
@@ -516,9 +675,8 @@
 		function renderBooks(data) {
 			const bookshelf = document.getElementById('bookshelf');
 			bookshelf.innerHTML = ''; // 기존 내용 지우기
-
+			
 			if (data.length === 0) {
-				// 책 데이터가 없으면 메시지 출력
 				const noBooksDiv = document.createElement('div');
 				noBooksDiv.className = 'no-books';
 				noBooksDiv.textContent = '책이 없습니다.';
@@ -528,14 +686,49 @@
 				const startIndex = (currentPage - 1) * itemsPerPage;
 				const endIndex = Math.min(startIndex + itemsPerPage, data.length);
 				const visibleBooks = data.slice(startIndex, endIndex);
-
+				
 				visibleBooks.forEach(book => {
+					console.log(book);
 					const bookDiv = document.createElement('div');
 					bookDiv.className = 'book';
-					bookDiv.textContent = book.name + ' (' + book.date + ')';
+					bookDiv.innerHTML = `
+					<div class="bookShareContainer" onclick="location.href='/sangsangjakka/board/book/view.do?no=\${book.bookSeq}';">
+					<div class="bookImg">
+					  <img src="\${book.bookCover}" alt="책 표지 이미지">
+					</div>
+					<div class="bookDetails">
+					  <div class="bookDate">
+						<div class="createDate">\${book.bookRegdate}</div>
+					  </div>
+					  <div class="bookOwner">
+						<i class="fa-regular fa-user"></i>
+					   <div class="createAuthor">\${book.userNick}</div>
+					  </div>
+					  <div class="bookTitle">
+						<div class="createTitle">\${book.bookTitle}</div>
+					  </div>
+					  <div class="bookContents">
+						<div class="createContents">\${book.bookInfo}</div>
+					  </div>
+					  <div class="iconItems">
+						<div class="subItems">
+						  <i class="fa-solid fa-bookmark bookmarker"></i>
+						  <p>\${book.bookScrapCnt}</p>
+						</div>
+						<div class="subItems">
+						  <i class="fa-solid fa-heart heart"></i>
+						  <p>\${book.likeCnt}</p>
+						</div>
+						<div class="subItems">
+						  <i class="fa-solid fa-comment comment"></i>
+						  <p>\${book.bookReviewCnt}</p>
+						</div>
+					  </div>
+					</div>
+				  </div>`;
 					bookshelf.appendChild(bookDiv);
 				});
-
+				
 				fillEmptySlots(bookshelf);
 			}
 		}
@@ -553,11 +746,11 @@
 		function sortBooks() {
 			const sortOption = document.getElementById('sortOptions').value;
 			if (sortOption === 'newest') {
-				filteredBooks.sort((a, b) => new Date(b.date) - new Date(a.date));
+				filteredBooks.sort((a, b) => new Date(b.bookRegdate) - new Date(a.bookRegdate));
 			} else if (sortOption === 'oldest') {
-				filteredBooks.sort((a, b) => new Date(a.date) - new Date(b.date));
+				filteredBooks.sort((a, b) => new Date(a.bookRegdate) - new Date(b.bookRegdate));
 			} else {
-				filteredBooks.sort((a, b) => a.name.localeCompare(b.name));
+				filteredBooks.sort((a, b) => a.bookTitle.localeCompare(b.bookTitle));
 			}
 			currentPage = 1; // 항상 첫 페이지로 리셋
 			renderBooks(filteredBooks);
@@ -566,7 +759,7 @@
 
 		function searchBooks() {
 			let searchTerm = document.getElementById('searchInput').value.toLowerCase();
-			filteredBooks = bookData.filter(book => book.name.toLowerCase().includes(searchTerm));
+			filteredBooks = bookData.filter(book => book.bookTitle.toLowerCase().includes(searchTerm));
 			totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
 			currentPage = Math.max(1, currentPage); // 검색 결과가 없어도 currentPage는 최소값 1
 			sortBooks();
@@ -611,147 +804,144 @@
 		
 		//주소 입력
 		function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		new daum.Postcode({
+			oncomplete: function(data) {
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
+				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				var addr = ''; // 주소 변수
+				var extraAddr = ''; // 참고항목 변수
 
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
+				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+					addr = data.roadAddress;
+				} else { // 사용자가 지번 주소를 선택했을 경우(J)
+					addr = data.jibunAddress;
+				}
 
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
+				// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+				if(data.userSelectedType === 'R'){
+					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+					if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+						extraAddr += data.bname;
+					}
+					// 건물명이 있고, 공동주택일 경우 추가한다.
+					if(data.buildingName !== '' && data.apartment === 'Y'){
+						extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+					}
+					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+					if(extraAddr !== ''){
+						extraAddr = ' (' + extraAddr + ')';
+					}
+					// 조합된 참고항목을 해당 필드에 넣는다.
+					document.getElementById("sample6_extraAddress").value = extraAddr;
+				
+				} else {
+					document.getElementById("sample6_extraAddress").value = '';
+				}
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
-            }
-        }).open();
-    }
+				// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				document.getElementById('sample6_postcode').value = data.zonecode;
+				document.getElementById("sample6_address").value = addr;
+				// 커서를 상세주소 필드로 이동한다.
+				document.getElementById("sample6_detailAddress").focus();
+			}
+		}).open();
+	}
+		
+		
+		
+		
+		
+		//전화번호
 		
 		function validateInput(input) {
-	        // 입력된 값이 숫자가 아니면 삭제
-	        input.value = input.value.replace(/\D/g, '');
-	        }
+			// 입력된 값이 숫자가 아니면 삭제
+			input.value = input.value.replace(/\D/g, '');
+			}
 
-	        // 입력창 자동 이동 함수
-	        document.getElementById('phoneInput1').addEventListener('input', function() {
-	            if (this.value.length >= this.maxLength) {
-	                document.getElementById('phoneInput2').focus();
-	            }
-	        });
+			// 입력창 자동 이동 함수
+			document.getElementById('phoneInput1').addEventListener('input', function() {
+				if (this.value.length >= this.maxLength) {
+					document.getElementById('phoneInput2').focus();
+				}
+			});
 
-	        document.getElementById('phoneInput2').addEventListener('input', function() {
-	            if (this.value.length === 0) {
-	                document.getElementById('phoneInput1').focus();
-	            }
-	        });
+			document.getElementById('phoneInput2').addEventListener('input', function() {
+				if (this.value.length === 0) {
+					document.getElementById('phoneInput1').focus();
+				}
+			});
 
 		
 		
 		// 닉네임 유효성 및 중복 검사
 		document.addEventListener("DOMContentLoaded", function() {
-		    let inputNickName = document.getElementById("nickName");
+			let inputNickName = document.getElementById("inputNick");
 
-		    inputNickName.addEventListener("input", function() {
-		        let value = inputNickName.value;
-		        let isValidLength = nickNameLength(value);
-		        let isValidNickName = checkNickName(value);
+			inputNickName.addEventListener("keydown", function() {
+				let value = inputNickName.value;
+				let isValidLength = nickNameLength(value);
+				let isValidNickName = checkNickName(value);
 
-		        // 이전에 추가된 모든 에러 메시지 삭제
-		        removeErrorMessages();
+				// 이전에 추가된 모든 에러 메시지 삭제
+				removeErrorMessages();
 
-		        // 글자수와 닉네임 형식이 모두 유효하지 않은 경우 메시지 표시
-		        if (!isValidLength || !isValidNickName) {
-		            showErrorMessage("닉네임은 4~10 글자로 한글, 영어소문자, 숫자만 입력 가능합니다.");
-		        }
-		    });
+				// 글자수와 닉네임 형식이 모두 유효하지 않은 경우 메시지 표시
+				if (!isValidLength && !isValidNickName) {
+					showErrorMessage("	4~10 글자로 한글, 영어소문자, 숫자만 입력 가능합니다.");
+				} else {
+					// 글자수가 유효하지 않은 경우 메시지 표시
+					if (!isValidLength) {
+						showErrorMessage("	4~10 글자로 입력해주세요.");
+					}
 
-		    function nickNameLength(value) {
-		        return value.length >= 4 && value.length <= 10;
-		    }
+					// 닉네임 형식이 유효하지 않은 경우 메시지 표시
+					if (!isValidNickName) {
+						showErrorMessage("	한글, 영어소문자, 숫자만 입력 가능합니다.");
+					}
+				}
+			});  
+			
 
-		    function checkNickName(value) {
-		        return /^[a-zA-Z0-9가-힣]*$/.test(value);
-		    }
+			function nickNameLength(value) {
+				return value.length >= 4 && value.length <= 10;
+			}
 
-		    function showErrorMessage(message) {
-		        let errorMessage = document.createElement("span");
-		        errorMessage.textContent = message;
-		        errorMessage.style.color = "red";
-		        errorMessage.style.fontSize = "0.8em";
-		        errorMessage.id = "nickNameErrorMessage";
+			function checkNickName(value) {
+				return /^[a-zA-Z0-9가-힣]*$/.test(value);
+			}
 
-		        let errorContainer = document.querySelector(".userInfoNcikName.title");
-		        errorContainer.appendChild(errorMessage);
-		    }
+			function showErrorMessage(message) {
+				let errorMessage = document.createElement("span");
+				errorMessage.textContent = message;
+				errorMessage.style.color = "red";
+				errorMessage.style.fontSize = "0.8em";
+				errorMessage.id = "nickNameErrorMessage";
 
-		    function removeErrorMessages() {
-		        let errorMessages = document.querySelectorAll("#nickNameErrorMessage");
-		        errorMessages.forEach(errorMessage => errorMessage.remove());
-		    }
+				let errorContainer = document.querySelector(".userInfoNickName.title");
+				errorContainer.appendChild(errorMessage);
+			}
+
+			function removeErrorMessages() {
+				let errorMessages = document.querySelectorAll("#nickNameErrorMessage");
+				errorMessages.forEach(errorMessage => errorMessage.remove());
+			}
 		});
 
-		//이메일
-		document.addEventListener("DOMContentLoaded", function() {
-		    let inputEmail = document.getElementById("userEmailInput");
-
-		    function showErrorMessage(message) {
-		        let errorMessage = document.createElement("span");
-		        errorMessage.textContent = message;
-		        errorMessage.style.color = "red";
-		        errorMessage.style.fontSize = "0.8em";
-		        errorMessage.id = "emailErrorMessage";
-
-		        let errorContainer = document.querySelector(".userInfoEmail");
-		        errorContainer.appendChild(errorMessage);
-		    }
-
-		    function removeErrorMessages() {
-		        let errorMessages = document.querySelectorAll("#emailErrorMessage");
-		        errorMessages.forEach(errorMessage => errorMessage.remove());
-		    }
-		});
-		
+	
 		
 		//중복검사
 		function signUp() {
-	    var idDuplicationValue = document.getElementById("idHidden").value;
-	    var nickDuplicationValue = document.getElementsById("nickHidden").value;
+		var idDuplicationValue = document.getElementById("idHidden").value;
+		var nickDuplicationValue = document.getElementsById("nickHidden").value;
 
-	    if (nickDuplicationValue !== "nickChecked") {
-	        alert("닉네임 중복검사를 먼저 실행해주세요.");
-	        return false;
-	    }
+		if (nickDuplicationValue !== "nickChecked") {
+			alert("닉네임 중복검사를 먼저 실행해주세요.");
+			return false;
+		}
 
 	}
 		
@@ -763,6 +953,12 @@
 			window.open("/sangsangjakka/user/nickcheck.do",
 					"checkFrom","width=500, height=300, resizable=no, scrollbars=no");
 		}	
+		
+		
+		//비밀번호 변경
+		document.getElementById("passwordChangeBtn").addEventListener("click", function() {
+	window.location.href = "/sangsangjakka/user/change_pw.do";
+});
 		
 		
 

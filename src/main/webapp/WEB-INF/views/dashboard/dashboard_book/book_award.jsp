@@ -9,12 +9,110 @@
 	href="/sangsangjakka/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/sangsangjakka/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css"
-	href="/sangsangjakka/resources/vendors/styles/suggestions.css">
-<link rel="stylesheet" type="text/css"
-	href="/sangsangjakka/resources/vendors/styles/boardStatistics.css">
+<!--   <link rel="stylesheet" type="text/css"
+	href="/sangsangjakka/resources/vendors/styles/suggestions.css"> -->
+
 
 <style>
+.center {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 1.7em;
+}
+
+.buttonItem {
+	float: right;
+	margin-right: 10px;
+	margin-top: -20px;
+}
+
+.footer {
+	margin-top: 50px;
+}
+
+.filter-container {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: -30px;
+}
+
+/* 기간 조회 스타일 */
+.date-range-container {
+	display: inline-flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.date-input {
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	width: 150px;
+	height: 38px;
+	margin-right: 10px;
+	transition: border-color 0.3s;
+}
+
+.date-separator {
+	font-size: 16px;
+	margin-right: 10px;
+}
+
+/* 조건 조회 스타일 */
+#conditionSelect {
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	width: auto;
+	height: 38px;
+	margin-right: 10px;
+	transition: border-color 0.3s;
+	margin-bottom: 10px;
+}
+
+#conditionSelect:focus {
+	outline: none;
+	border-color: #6c757d;
+}
+
+#conditionSelect option {
+	background-color: #fff;
+	color: #333;
+	font-size: 14px;
+}
+
+#conditionSelect option:checked {
+	background-color: #007bff;
+	color: #fff;
+}
+
+/* 검색창 */
+#myTable_filter input {
+	margin-right: 14px;
+}
+
+.choice {
+
+border : none;
+border-radius : 5px;
+background-color : #ff6b6b;
+color: white;
+padding: 10px 15px;
+font-size: 12px;
+font-weight: bold;
+cursor: pointer;
+ transition: background-color 0.3s; 
+
+}
+
+.choice:hover {
+    background-color: #ff4d4d; /* 마우스 호버 시 밝은 빨간색 */
+}
+
 </style>
 </head>
 <body>
@@ -35,7 +133,7 @@
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="title">
-								<h4>공지사항</h4>
+								<h4>동화책 수상 관리</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
@@ -50,8 +148,8 @@
 
 
 				<!-- 배너 -->
-<%-- 				<%@include --%>
-<%-- 					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%> --%>
+				<%-- 				<%@include --%>
+				<%-- 					file="/WEB-INF/views/dashboard/dashboard_template/banner.jsp"%> --%>
 
 
 
@@ -60,43 +158,90 @@
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">명예의 전당</h4>
+						<h4 class="text-blue h4 center">명예의 전당</h4>
+						<div class="filter-container">
+							<!--  조건별 조회
+							<select id="conditionSelect">
+								<option value="all">전체</option>
+								<option value="option">조건</option>
+							</select>  -->
+							<!--  기간 조회 -->
+							<div class="date-range-container">
+								<input type="date" id="min" name="min" class="date-input">
+								<span class="date-separator">~</span> <input type="date"
+									id="max" name="max" class="date-input">
+							</div>
+						</div>
 					</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap" id="myTable">
 							<thead>
 								<tr>
-									<th class="table-plus datatable-nosort">번호</th>
+									<th class="table-plus">번호</th>
 									<th>동화책명</th>
 									<th>작성자</th>
 									<th>수상일자</th>
 									<th>등수</th>
+									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="award" items="${awardList}">
-								<tr>
-									<td class="table-plus">${award.bookSeq}</td>
-									<td><a
-										href="/sangsangjakka/admin/dashboard/book/awardview.do">${award.bookTitle}</a></td>
-									<td>${award.userNick}</td>
-									<td>${award.awardRegdate}</td>
-									<td>${award.awardRank}</td>
-								</tr>
+								<c:forEach var="award" items="${awardList}">
+									<tr>
+										<td class="table-plus">${award.bookSeq}</td>
+										<td><a
+											href="/sangsangjakka/admin/dashboard/book/awardview.do">${award.bookTitle}</a></td>
+										<td>${award.userNick}</td>
+										<td>${award.awardRegdate}</td>
+										<td>${award.awardRank}</td>
+										<td>
+											<button type="button" class="choice" onclick="deleteAward(${award.bookSeq});">삭제</button>									
+										</td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
 				<!-- Simple Datatable End -->
-
 			</div>
+
+			<span class="buttonItem"> <c:if test="${not empty adId}">
+					<button type="button" class="btn btn-primary" onclick="location.href='/sangsangjakka/admin/dashboard/book/awardview.do'">
+						수상작 등록</button>
+				</c:if>
+			</span>
 			<!-- 푸터 -->
 			<%@include
 				file="/WEB-INF/views/dashboard/dashboard_template/footer.jsp"%>
-
 		</div>
 	</div>
+	</div>
+	
+	<script>
+	
+	 	function deleteAward(bookSeq) {
+	        if (confirm("정말로 삭제하시겠습니까?")) {
+	            var xhr = new XMLHttpRequest();
+	            xhr.onreadystatechange = function() {
+	                if (xhr.readyState === XMLHttpRequest.DONE) {
+	                    if (xhr.status === 200) {
+	                        // 성공
+	                        location.reload();
+	                    } else {
+	                        // 오류
+	                        console.error('삭제 요청 실패: ' + xhr.status);
+	                   
+	                    }
+	                }
+	            };
+	            xhr.open("POST", "/sangsangjakka/admin/dashboard/book/award.do", true);
+	            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	            xhr.send("bookSeq=" + bookSeq);
+	        }
+	    }
+	 
+	</script>
 
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -128,13 +273,10 @@
 		src="/sangsangjakka/resources/plugins/datatables/js/vfs_fonts.js"></script>
 
 	<!-- Datatable Setting js -->
-	<script
-		src="/sangsangjakka/resources/vendors/scripts/datatable-setting-ver2.js"></script>
+	<script src="/sangsangjakka/resources/vendors/scripts/test.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-	<script>
-		
-	</script>
+
 </body>
 </html>

@@ -19,9 +19,22 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.admin.AdminDAO;
 import com.jakka.model.dao.user.UserDAO;
 
+/**
+ * UserStats 서블릿은 사용자 통계 정보를 제공합니다.
+ */
 @WebServlet("/admin/dashboard/user/stats.do")
 public class UserStats extends HttpServlet{
 
+	/**
+     * GET 요청을 처리합니다.
+     * 사용자 성별 비율, 연령대별 자녀 수, 사용자 연령대 분포 정보를 조회하여
+     * JSON 형식으로 JSP 페이지에 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -50,15 +63,8 @@ public class UserStats extends HttpServlet{
 		counts.add(womanCount);
 		chartData.add("data", counts);
 
-	
-		
-		
-	        
 	     
 			// 사용자 나이 보여주는 차트
-	    
-		
-	       
 			
 			Map<String,Integer> child  = dao.childAge();
 			System.out.println(child);
@@ -77,8 +83,6 @@ public class UserStats extends HttpServlet{
 			ageData.add("labels", ageRanges);
 			ageData.add("data", ageCounts);
 			
-			
-			
 			// 사용자 연령대 보여주는 차트
 			Map<String,Integer> userAge  = dao.userAge();
 			System.out.println(child);
@@ -96,8 +100,6 @@ public class UserStats extends HttpServlet{
 
 			userAgeData.add("labels", userAgeRanges);
 			userAgeData.add("data", userAgeCounts);
-			
-			
 
 			// Gson을 사용하여 JSON 형식의 문자열로 변환
 			Gson gson = new Gson();
@@ -119,33 +121,25 @@ public class UserStats extends HttpServlet{
 			 req.setAttribute("jsonUserAgeData", jsonUserAgeData);
 		     req.setAttribute("userCnt", userCnt); // 신규 가입
 	     
-	     
-	     
-	     
-	     
-	     
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/dashboard/dashboard_user/user_stats.jsp");
 		dispatcher.forward(req, resp);
 		
 	}
 	
-	
+	/**
+     * POST 요청을 처리합니다.
+     * 선택한 연도의 월별 가입자 수와 탈퇴자 수 정보를 JSON 형식으로 응답합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		String num1 = req.getParameter("month1");
-//		String num2 = req.getParameter("month2");
-//			
-//			
-//		String formattedNum1 = num1.substring(2).replace("-", "/");
-//	    String formattedNum2 = num2.substring(2).replace("-", "/");
-//	    
-//	    
-//	    // 변경된 값 확인
-//	    System.out.println(formattedNum1); // 출력: 21/06
-//	    System.out.println(formattedNum2); // 출력: 21/06
-//	    
-//	    System.out.println("post");
+		
 	    String year = req.getParameter("selectedValue");
+	    System.out.println("year" +year);
 	    
 	    
 	   
@@ -165,7 +159,7 @@ public class UserStats extends HttpServlet{
 
             Gson gson = new Gson();
             String jsonData = gson.toJson(jsonArray);
-            System.out.println(jsonData);
+            System.out.println("멤버변화" +jsonData);
 
             resp.setContentType("application/json");
             resp.getWriter().write(jsonData);
@@ -174,71 +168,8 @@ public class UserStats extends HttpServlet{
         	resp.getWriter().write("Invalid request parameters");
         }
     
-	    
-	    
-	    
-	    
-	    
-//
-        
-//	    
-//	    
-//	    
-//	    UserDAO dao = DAOManager.getUserDAO();
-//	    Map<String, Map<String, Integer>> countsMap = dao.newCnt(formattedNum1, formattedNum2);
-//
-//	    JsonObject userData = new JsonObject();
-//
-//	    JsonArray labels = new JsonArray();
-//	    labels.add("가입자수");
-//	    labels.add("탈퇴자수");
-//	    userData.add("labels", labels);
-//
-//	    JsonArray data = new JsonArray();
-//	    JsonArray months = new JsonArray();
-//
-//	    for (Map.Entry<String, Map<String, Integer>> entry : countsMap.entrySet()) {
-//	       String month = entry.getKey();
-//	       Map<String, Integer> countMap = entry.getValue();
-//	       int userCount = countMap.get("user_count");
-//	       int userLeft = countMap.get("user_left");
-//	       
-//	       months.add(month);
-//	       
-//	       JsonArray monthData = new JsonArray();
-//	       monthData.add(userCount);
-//	       monthData.add(userLeft);
-//	       data.add(monthData);
-//	    }
-//
-//	    userData.add("data", data);
-//	    userData.add("months", months);
-//
-//	    Gson gson = new Gson();
-//	    String jsonData = gson.toJson(userData);
-//
-//	    System.out.println(jsonData);
-//	    
-//	    
-//	    
-//	    
-//
-//	    resp.setContentType("application/json");
-//	    resp.setCharacterEncoding("UTF-8");
-//	    resp.getWriter().write(jsonData);
-		
-		
-	    
-	    
-	    
 	 
 	}
-	
-	
-	
-	
-
-	
 	
 	
 }//End of class

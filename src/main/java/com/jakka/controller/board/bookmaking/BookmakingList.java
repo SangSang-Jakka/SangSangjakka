@@ -18,9 +18,22 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * 동화책 제작 목록 서블릿 클래스입니다.
+ * 
+ * @author Jakka
+ */
 @WebServlet("/board/bookmaking/list.do")
 public class BookmakingList extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -38,7 +51,7 @@ public class BookmakingList extends HttpServlet {
             Iterator<BookDTO> iterator = bookDtoList.iterator();
             while (iterator.hasNext()) {
                 BookDTO dto = iterator.next();
-                if ("작성중".equals(dto.getBookTitle()) || "작성중".equals(dto.getBookInfo())) {
+                if ("작성중".equals(dto.getBookTitle()) && "작성중".equals(dto.getBookInfo())) {
                     pageDtoList.add(pageDao.findById("1", dto.getBookSeq()));  // Corrected here: Using pageDao instance
                 } else {
                     iterator.remove();

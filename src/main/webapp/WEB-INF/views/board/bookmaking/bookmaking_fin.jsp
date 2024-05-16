@@ -19,10 +19,16 @@
 		<div class="makedbookGridLeft"></div>
 		<div class="makedbookGridCenter">
 			<div class="mainTitle">
-				<h2>축하합니다! n번째 책을 만들었습니다!</h2>			
+				<h2>🎉축하합니다🎉</h2>
+				<h2>나만의 동화책이 완성 되었습니다!</h2>			
 			</div>
-			<div class="bookCoverBox">
-				<div class="bookCoverItem">
+			<div class="finBookWrap">
+				<div class="bookCoverBox">
+					<div class="bookCoverItem" style="background-image: url('${bookCover}');">
+					</div>
+				</div>
+				<div class="bookInfoBox">
+					<span class="bookInfoItem">${bookInfo}</span>
 				</div>
 			</div>
 		</div>

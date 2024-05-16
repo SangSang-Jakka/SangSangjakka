@@ -29,12 +29,13 @@
      <div class="makedPageViewer">
         <div class="containerLeft">
             <nav class="flex">
+             	<a id="bb-nav-first" href="#" class="bb-custom-icon pointer">
+                    <i class="fa-solid fa-angles-left"></i>
+                </a>
                 <a id="bb-nav-prev" href="#" class="bb-custom-icon pointer">
                     <i class="fa-solid fa-angle-left"></i>
                 </a>
-                <a id="bb-nav-first" href="#" class="bb-custom-icon pointer">
-                    <i class="fa-solid fa-angles-left"></i>
-                </a>
+               
             </nav>
         </div>
         <div class="bb-custom-wrapper">
@@ -78,7 +79,7 @@
     		<div class="iconItems">
 			<div class="subItems">
 				<i class="fa-solid fa-bookmark bookmarker"></i>
-				<p>${dto.bookScrapCnt}</p>
+				<p id="scrapCnt">${dto.bookScrapCnt}</p>
 			</div>
 			<div class="subItems" >
 				 <i class="fa-solid fa-heart heart"></i>
@@ -86,7 +87,7 @@
 			</div>
 			<div class="subItems">
 				 <i class="fa-solid fa-comment comment"></i>
-				 <p>${reviewTotal}</p>
+				 <p id="reportCnt">${reviewTotal}</p>
 			</div>
 		</div>
     	</div>
@@ -106,9 +107,24 @@
     		</c:if>
     		<c:if test="${result == false}">
     		<button class="like" id="likeBtn">동화책이 좋아요!</button>
+    		</c:if>   		
+    		
+    		
+    		<c:if test="${resultReport == true}">
+    		<button class="like reportBtn" id="alertBtn">동화책을 신고했어요!</button>	
     		</c:if>
-    		<button class="like reviewBtn">동화책이 이상해요!</button>	
-    		<button class="like saveBtn">동화책을 저장할래요!</button>
+    		<c:if test="${resultReport == false}">
+    		<button class="like reportBtn" id="alertBtn">동화책이 이상해요!</button>	
+    		</c:if>
+    		
+    		
+    		<c:if test="${resultScrap == true}">
+    		<button class="like saveBtn" id="scrapBtn">동화책을 저장했어요!</button>
+    		</c:if>
+    		<c:if test="${resultScrap == false}">
+    		<button class="like saveBtn" id="scrapBtn">동화책을 저장할래요!</button>
+    		</c:if>
+    	
     	</div>
     	
     </div>
@@ -141,7 +157,8 @@
     </form>
     
    	<div class="reviewTotal">
-   		<div class="reviewCnt">전체 리뷰 27건</div>
+   		<div class="reviewCnt">전체 리뷰 ${reviewTotal}건</div>
+   		<div>${review.reviewSeq}</div>
    	</div>
    	
     <div id="reviewContainer">
@@ -151,55 +168,119 @@
                 <div class="reviewListContainer">
                     
                     <div class="reviewUserWrap">
-                    	<div class="reviewUser">
+                    <div class="reviewUser">
 	                        <i class="fa-regular fa-user"></i>
 	                        <div class="reviewNick">${review.userNick}</div>
                         </div>
                         <div class="reviewDate">${review.reviewRegdate}</div>
                     </div>
-                    <div class="reviewContents">${review.reviewContents}</div>
-                    <form action="">
+                    <div class="reviewContents" id="reviewContent_${review.reviewSeq}">${review.reviewContents}</div>
+                    
+                    
+                    <div class="reviewEditArea" id="editArea_${review.reviewSeq}" style="display: none;">
+		                
+			                <textarea name="editReviewContents" id="textarea_${review.reviewSeq}" rows="4" cols="50"  style="resize: none; width: 1250px; height: 100px; margin-top:20px; padding:15px; font-size:16px; border-radius:10px;">${review.reviewContents}</textarea>
+			                <div class="reviewEditBtn">
+			                <button class="saveReviewBtn" onclick="saveReview(${review.reviewSeq});">저장하기</button>
+			                <button class="cancelReviewBtn" onclick="cancelReview(${review.reviewSeq});">취소하기</button>
+			            	</div>
+		            	
+		            </div>
+                    
+                    <input type="hidden" name="reviewSeq" value="${review.reviewSeq}">
+
                         <div class="reviewListBtn">
-                            <div class="reviewLike">
-                                <button><i class="fa-regular fa-heart"></i></button>
+                        	<div class="reviewBtnWrap">
+	                            <div class="reviewLike">							
+									  									             
+									   <button class="reviewLikeBtn_${review.reviewSeq}" onclick="reviewLike(${review.reviewSeq})">
+									         <i class="fa-regular fa-heart"></i>
+									    </button>
+
+	                            </div>
+	                            <div class="reviewReport">
+	                                <button><i class="fa-regular fa-bell"></i></button>
+	                            </div>
                             </div>
-                            <div class="reviewReport">
-                                <button><i class="fa-regular fa-bell"></i></button>
+                            <div class="reviewControllWrap">
+                           	     <c:if test="${review.userSeq == userSeq}">
+								    <button class="reviewEdit" onclick="showEditArea(${review.reviewSeq});">수정하기</button>
+								    <button class="reviewDel" onclick="reviewDelete(${review.reviewSeq});">삭제하기</button>
+								</c:if>
+
                             </div>
+                            
                         </div>
-                    </form>
+
                 </div>
+                
             </div>
         </c:forEach>
         
+        
+        
          <!-- 나머지 리뷰는 display:none으로 숨김 -->
             <c:forEach items="${reviewList}" var="review" begin="5">
-                 <div class="reviewListWrap hidden">
-                <div class="reviewListContainer">       
+               <div class="reviewListWrap">
+                <div class="reviewListContainer">
+                    
                     <div class="reviewUserWrap">
-                    	<div class="reviewUser">
+                    <div class="reviewUser">
 	                        <i class="fa-regular fa-user"></i>
 	                        <div class="reviewNick">${review.userNick}</div>
                         </div>
                         <div class="reviewDate">${review.reviewRegdate}</div>
                     </div>
-                    <div class="reviewContents">${review.reviewContents}</div>
-                    <form action="">
+                    <div class="reviewContents" id="reviewContent_${review.reviewSeq}">${review.reviewContents}</div>
+                    
+                    
+                    <div class="reviewEditArea" id="editArea_${review.reviewSeq}" style="display: none;">
+		                
+			                <textarea name="editReviewContents" id="textarea_${review.reviewSeq}" rows="4" cols="50"  style="resize: none; width: 1250px; height: 100px; margin-top:20px; padding:15px; font-size:16px; border-radius:10px;">${review.reviewContents}</textarea>
+			                <div class="reviewEditBtn">
+			                <button class="saveReviewBtn" onclick="saveReview(${review.reviewSeq});">저장하기</button>
+			                <button class="cancelReviewBtn" onclick="cancelReview(${review.reviewSeq});">취소하기</button>
+			            	</div>
+		            	
+		            </div>
+                    
+                    <input type="hidden" name="reviewSeq" value="${review.reviewSeq}">
+
                         <div class="reviewListBtn">
-                            <div class="reviewLike">
-                                <button><i class="fa-regular fa-heart"></i></button>
+                        	<div class="reviewBtnWrap">
+	                            <div class="reviewLike">
+	                            
+								
+	                                <button class="reviewLikeBtn_${review.reviewSeq}" onclick="reviewLike(${review.reviewSeq})">
+									    <i class="fa-regular fa-heart"></i>
+									</button> 
+								
+								
+								
+	                            </div>
+	                            <div class="reviewReport">
+	                                <button><i class="fa-regular fa-bell"></i></button>
+	                            </div>
                             </div>
-                            <div class="reviewReport">
-                                <button><i class="fa-regular fa-bell"></i></button>
+                            <div class="reviewControllWrap">
+                           	     <c:if test="${review.userSeq == userSeq}">
+								    <button class="reviewEdit" onclick="showEditArea(${review.reviewSeq});">수정하기</button>
+								    <button class="reviewDel" onclick="reviewDelete(${review.reviewSeq});">삭제하기</button>
+								</c:if>
+
                             </div>
+                            
                         </div>
-                    </form>
+
                 </div>
+                
             </div>
             </c:forEach>
     </div>
 
     <button id="showMoreBtn">더보기</button>
+    
+    <input type="hidden" name="seq" value="${seq}" >
    	
      </section>
     
@@ -321,11 +402,8 @@
             $("#likeBtn").click(function() {
                 var bookSeq = ${bookSeq}; // bookSeq 변수가 정의된 곳에서 값을 가져와야 함
                 var userSeq = ${userSeq}; // userSeq 변수가 정의된 곳에서 값을 가져와야 함
-				var pressLike = $("input[name='pressLike']").val();
+				//var pressLike = $("input[name='pressLike']").val();
                 
-                
-                
-         
                 console.log("bookSeq:", bookSeq);
                 console.log("userSeq:", userSeq);
 
@@ -354,8 +432,226 @@
                 });
             });
         });
+        
+        $(document).ready(function() {
+            $("#scrapBtn").click(function() {
+                var bookSeq = ${bookSeq}; // bookSeq 변수가 정의된 곳에서 값을 가져와야 함
+                var userSeq = ${userSeq}; // userSeq 변수가 정의된 곳에서 값을 가져와야 함
+
+                
+                console.log("bookSeq:", bookSeq);
+                console.log("userSeq:", userSeq);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/sangsangjakka/board/book/scrap.do",
+                    data: { bookSeq: bookSeq, userSeq: userSeq },
+                    success: function(response) {
+                        if (response === "success") {
+                            // 성공적으로 INSERT 되었을 때
+                            console.log("성공");
+                            var updatedScrapCnt = parseInt($("#scrapCnt").text()) + 1; 
+                            $("#scrapCnt").text(updatedScrapCnt); 
+                            $("#scrapBtn").text("동화책을 저장했어요!"); 
+                            $("#scrapBtn").addClass("newClass");
+
+                            
+                        } else {
+                            // 실패했을 때
+                            alert("동화책 저장에 실패하였습니다.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+        
+        $(document).ready(function() {
+            $("#alertBtn").click(function() {
+                var bookSeq = ${bookSeq}; // bookSeq 변수가 정의된 곳에서 값을 가져와야 함
+                var userSeq = ${userSeq}; // userSeq 변수가 정의된 곳에서 값을 가져와야 함
+
+                
+                console.log("bookSeq:", bookSeq);
+                console.log("userSeq:", userSeq);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/sangsangjakka/board/book/report.do",
+                    data: { bookSeq: bookSeq, userSeq: userSeq },
+                    success: function(response) {
+                        if (response === "success") {
+                            // 성공적으로 INSERT 되었을 때
+                            console.log("성공");
+                            $("#alertBtn").text("동화책을 신고했어요!"); 
+                            $("#alertBtn").addClass("newClass");
+
+                            
+                        } else {
+                            // 실패했을 때
+                            alert("동화책 신고에 실패하였습니다.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
 
         
+        
+        function showEditArea(reviewSeq) {
+            // 해당 ID를 가진 요소를 찾습니다.
+            var editArea = $('#editArea_' + reviewSeq);
+            
+            // 요소가 존재하는지 확인합니다.
+            if (editArea.length > 0) {
+                // 요소가 존재하면 부드럽게 펼쳐집니다.
+                editArea.slideDown('slow');
+                $('.reviewEdit').hide();
+                $('.reviewDel').hide();
+            } else {
+                console.error('요소를 찾을 수 없습니다: editArea_' + reviewSeq);
+            }
+        }
+
+        
+        function cancelReview(reviewSeq) {
+            // 해당 ID를 가진 요소를 찾습니다.
+            var editArea = $('#editArea_' + reviewSeq);
+            
+            // 요소가 존재하는지 확인합니다.
+            if (editArea.length > 0) {
+                // 요소가 존재하면 부드럽게 숨깁니다.
+                editArea.slideUp('slow');
+                $('.reviewEdit').show();
+                $('.reviewDel').show();
+            } else {
+                console.error('요소를 찾을 수 없습니다: editArea_' + reviewSeq);
+            }
+        }
+
+        	
+        
+        function saveReview(reviewSeq) {
+            // 리뷰 내용을 가져옵니다.
+            var reviewContents = $('#textarea_' + reviewSeq).val();
+            // 책 일련번호를 가져옵니다.
+            var bookSeq = $('input[name="bookSeq"]').val();
+
+            // POST 요청을 보낼 URL을 지정합니다.
+            var url = '/sangsangjakka/board/book/edit.do';
+
+            // POST 요청을 위한 데이터를 구성합니다.
+            var editReview = {
+                editReviewContents: reviewContents,
+                reviewSeq: reviewSeq,
+                bookSeq: bookSeq // 책 일련번호를 추가합니다.
+            };
+
+            // jQuery AJAX를 사용하여 POST 요청을 보냅니다.
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: editReview,
+                success: function(response) {
+                    // 서버로부터 받은 JSON 데이터를 파싱합니다.
+                    var updatedReviewContents = response.reviewContents;
+                    
+                    console.log(updatedReviewContents);
+
+                    // 해당 리뷰의 DOM 요소를 선택하고, 텍스트 내용을 업데이트된 리뷰 내용으로 변경합니다.
+                    var reviewContentElement = $('#reviewContent_' + reviewSeq);
+
+				    // 해당 리뷰의 내용을 업데이트합니다.
+				    reviewContentElement.text(updatedReviewContents);
+
+                    // 리뷰 편집 영역을 부드럽게 숨깁니다.
+                    $('#editArea_' + reviewSeq).slideUp('slow', function() {
+                        $(this).hide();
+                    });
+
+                    console.log('리뷰가 성공적으로 저장되었습니다.');
+                },
+                error: function(xhr, status, error) {
+                    // 오류 처리
+                    console.error('리뷰 저장 중 오류가 발생했습니다:', error);
+                }
+            });
+
+        }
+
+
+        function reviewDelete(reviewSeq) {
+        	
+        	var bookSeq = $('input[name="bookSeq"]').val();
+        	
+        	console.log(bookSeq);
+        	
+            if (confirm("정말 삭제 하시겠습니까?") == true) {
+                // 정말 삭제하겠다고 했을 때, ajax 통신
+                $.ajax({
+                    type: "POST",
+                    url: "/sangsangjakka/board/book/del.do",
+                    data: {
+                        reviewSeq: reviewSeq,
+                        bookSeq: bookSeq
+                    },
+                    dataType: "JSON",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("AJAX", "true");
+                    },
+                    success: function(response) {
+                        if (response.code === 0) {
+                            alert(response.message);
+                            location.href = '/sangsangjakka/board/book/view.do?no=' + bookSeq;
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("AJAX 요청 중 오류가 발생했습니다: " + error);
+                    }
+                });
+            }
+        }
+
+
+        
+
+        function reviewLike(reviewSeq) {
+        	
+            $.ajax({
+                type: "POST",
+                url: "/sangsangjakka/board/review/like.do",
+                data: { reviewSeq: reviewSeq },
+                success: function(response) {
+                    if (response === "success") {
+                        // 성공적으로 update 되었을 때
+                        console.log("성공");
+                        
+                        var icon = $('.reviewLikeBtn_' + reviewSeq + ' i');  /* "reviewLikeBtn_${review.reviewSeq}" */
+                        icon.remove(); // 기존의 하트 아이콘 삭제
+                        $('.reviewLikeBtn_' + reviewSeq).append('<i class="fa-solid fa-heart heart"></i>'); // 새로운 하트 아이콘 추가
+
+                        
+                    } else {
+                        // 실패했을 때
+                        alert("좋아요 등록에 실패하였습니다.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+
+
+
     </script>
 
 </body>

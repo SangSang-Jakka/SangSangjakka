@@ -35,14 +35,19 @@
       </div>
 
      
-      <div>
-        <form>
-           <select class="notice">
-               <option value="recent">최신순</option>
-               <option value="view">조회순</option>
-           </select>
-       </form>
+    <div>
+       
+           <div class="bookOrderWrap">
+			  <div class="bookOrder">
+			    <button type="button" class="bookNew" onclick="redirectTo('newest')">최신순</button>
+				<button type="button" class="bookClick" onclick="redirectTo('view_count')">조회순</button>
+
+
+			  </div>
+			</div>
+    
        </div>
+ 
     <!-- board list area -->
       <div>
           <div>
@@ -63,23 +68,27 @@
 					</tr>
 				  </c:if>
 				  
-				  <c:forEach items="${fix}" var="dto">
-				  	<tr>
-				  	  	<td>📌공지</td>
-                      	<th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
-                      	<td>${dto.noticeRegdate}</td>
-                      	<td>${dto.noticeCnt}</td>
-                  	</tr>
-				  </c:forEach>
+				  <c:if test="${not empty fix}">
+					  <c:forEach items="${fix}" var="dto">
+					  	<tr>
+					  	  	<td>📌공지</td>
+	                      	<th><a href="/sangsangjakka/board/notice/view.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+	                      	<td>${dto.noticeRegdate}</td>
+	                      	<td>${dto.noticeCnt}</td>
+	                  	</tr>
+					  </c:forEach>
+                  </c:if>
                   
-                  <c:forEach items="${list}" var="dto">
-                  	  <tr>
-	                      <td>공지</td>
-	                      <th><a href="/sangsangjakka/board/notice/View.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
-	                      <td>${dto.noticeRegdate}</td>
-	                      <td>${dto.noticeCnt}</td>
-	                  </tr>
-				  </c:forEach>
+                  <c:if test="${not empty list}">
+	                  <c:forEach items="${list}" var="dto">
+	                  	  <tr>
+		                      <td>공지</td>
+		                      <th><a href="/sangsangjakka/board/notice/view.do?no=${dto.noticeSeq}">${dto.noticeTitle}</a></th>
+		                      <td>${dto.noticeRegdate}</td>
+		                      <td>${dto.noticeCnt}</td>
+		                  </tr>
+					  </c:forEach>
+				  </c:if>
                   
                   </tbody>
               </table>

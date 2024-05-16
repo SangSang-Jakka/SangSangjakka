@@ -1,4 +1,5 @@
 
+<%@page import="com.jakka.model.dao.board.BoardDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.jakka.model.DAOManager"%>
@@ -10,8 +11,8 @@
 
 <%
     // DAO 객체 생성
-    UserDAO dao = DAOManager.getUserDAO();
-
+    //UserDAO dao = DAOManager.getUserDAO();
+	BoardDAO boardDAO = DAOManager.getBoardDAO();
     // DB에서 값 가져오기
    // int newBookCount = dao.getNewBookCount();
    
@@ -28,15 +29,15 @@
     // 형식에 맞게 날짜 문자열 생성
     String currentDate = formatter.format(now);
     
-    int newPostCount = dao.getNewPostCount(currentDate);
-    int newSuggestionCount = dao.getNewSuggestionCount(currentDate);
+    int newPostCount = boardDAO.getNewPostCount(currentDate);
+    int newSuggestionCount = boardDAO.getNewSuggestionCount(currentDate);
     
     
     
-    int boardReportCount = dao.boardReportCount(currentDate);
+    int boardReportCount = boardDAO.boardReportCount(currentDate);
     System.out.println("신고된 게시글: " + boardReportCount);
     
-    int CommReportCount = dao.CommReportCount(currentDate);
+    int CommReportCount = boardDAO.CommReportCount(currentDate);
     System.out.println("신고된 댓글: " + CommReportCount);
     
 
