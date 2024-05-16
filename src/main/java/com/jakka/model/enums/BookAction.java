@@ -5,26 +5,44 @@ package com.jakka.model.enums;
  */
 public enum BookAction {
 	
-	Inquiry("1"),		// 조회
-	Like("2"), 			// 좋아요
-	Scrap("3"), 		// 스크랩
-	BranchBook("4"),	// 나의 이야기로 만들기 
-	CreateBook("5"),	// 동화책 제작
-	Review("6");		// 리뷰
-	
-	private final String value;
-	
-	BookAction(String vale) {
-		this.value = vale;
-	}
-	
 	/**
+     * 조회
+     */
+    Inquiry("1"),
+    /**
+     * 좋아요
+     */
+    Like("2"),
+    /**
+     * 스크랩
+     */
+    Scrap("3"),
+    /**
+     * 나의 이야기로 만들기
+     */
+    BranchBook("4"),
+    /**
+     * 동화책 제작
+     */
+    CreateBook("5"),
+    /**
+     * 리뷰
+     */
+    Review("6");
+
+    private final String value;
+
+    BookAction(String value) {
+        this.value = value;
+    }
+
+    /**
      * 열거형 값을 반환합니다.
      *
      * @return 열거형 값
      */
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 	
 }//End of enum

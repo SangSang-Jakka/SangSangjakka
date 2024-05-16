@@ -14,10 +14,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.admin.AdminDAO;
 import com.jakka.model.dto.admin.AdminDTO;
 
-
+/**
+ * AdminPageEdit 서블릿은 관리자 개인 정보 수정 기능을 제공합니다.
+ */
 @WebServlet("/admin/myedit.do")
 public class AdminPageEdit extends HttpServlet{
 	
+	/**
+     * GET 요청을 처리합니다.
+     * 로그인한 관리자의 개인 정보를 조회하여 수정 페이지로 이동합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -36,6 +47,15 @@ public class AdminPageEdit extends HttpServlet{
 		dispatcher.forward(req, resp);
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 로그인한 관리자의 개인 정보를 수정합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -66,7 +86,6 @@ public class AdminPageEdit extends HttpServlet{
 					//resp.sendRedirect("/toy/board/list.do");
 					resp.sendRedirect("/sangsangjakka/admin/mypage.do");
 				}
-				
 				
 	}
 	

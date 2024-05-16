@@ -888,15 +888,3 @@ public ArrayList<SuggestionDTO> findAllWhite(HashMap<String, String> map, String
 
 	
 }//End of class
-
-
-
-
-
-
-
-
-
-
-
-

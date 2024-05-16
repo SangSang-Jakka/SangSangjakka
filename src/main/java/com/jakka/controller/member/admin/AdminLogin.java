@@ -15,11 +15,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.admin.AdminDAO;
 import com.jakka.model.dto.admin.AdminDTO;
 
-
-
+/**
+ * AdminLogin 서블릿은 관리자 로그인 기능을 제공합니다.
+ */
 @WebServlet("/admin/login.do")
 public class AdminLogin extends HttpServlet{
 	
+	/**
+     * GET 요청을 처리합니다.
+     * 관리자 로그인 페이지로 이동합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -29,21 +39,23 @@ public class AdminLogin extends HttpServlet{
 		dispatcher.forward(req, resp);
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 관리자 로그인을 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//LoginOk.java 역할
-		//1. 데이터 가져오기(id, pw)
-		//2. DB 작업 > select
-		//3. 결과 > 인증 티켓
-		
 		String adId = req.getParameter("adId");
 		String adPw = req.getParameter("adPw");
-		// boolean isAuthenticated = false;
 		
 		AdminDAO adminDAO = DAOManager.getAdminDAO();
 		AdminDTO dto = new AdminDTO();
-
 		
 		dto.setAdId(adId);
 		dto.setAdPw(adPw);
@@ -73,8 +85,6 @@ public class AdminLogin extends HttpServlet{
 		    writer.println("<script>alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');</script>");
 		    writer.println("<script>location.href='/sangsangjakka/admin/login.do';</script>"); // 로그인 페이지로 이동
 			writer.close();
-		    
-			
 			
 			
 		}

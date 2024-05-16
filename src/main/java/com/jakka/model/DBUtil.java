@@ -13,9 +13,9 @@ public class DBUtil {
 	
 	static {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:oracle:thin:@3.39.49.195:1521:xe");
-        config.setUsername("jakka");
-        config.setPassword("java1234");
+        config.setJdbcUrl("");
+        config.setUsername("");
+        config.setPassword("");
         config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         config.setMaximumPoolSize(10);
 

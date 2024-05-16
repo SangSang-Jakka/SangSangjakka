@@ -14,9 +14,22 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * FindIdOk 서블릿은 사용자 아이디 찾기 결과를 제공합니다.
+ */
 @WebServlet("/user/find_id_ok.do")
 public class FindIdOk extends HttpServlet{
 
+	/**
+     * POST 요청을 처리합니다.
+     * 입력된 닉네임과 이메일로 사용자 아이디와 가입일자를 조회하여 JSP 페이지로 전달합니다.
+     * 일치하는 아이디가 없으면 알림 메시지를 출력합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -51,8 +64,6 @@ public class FindIdOk extends HttpServlet{
 			writer.close();
 		}
 		
-//		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/member/user/find_id_ok.jsp");
-//		dispatcher.forward(req, resp);
 	}
 	
 }

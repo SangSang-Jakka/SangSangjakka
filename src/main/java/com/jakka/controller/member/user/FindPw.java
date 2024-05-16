@@ -15,9 +15,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * FindPw 서블릿은 사용자 비밀번호 찾기 기능을 제공합니다.
+ */
 @WebServlet("/user/find_pw.do")
 public class FindPw extends HttpServlet{
 
+	/**
+     * GET 요청을 처리합니다.
+     * 비밀번호 찾기 페이지로 이동합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -25,6 +37,17 @@ public class FindPw extends HttpServlet{
 		dispatcher.forward(req, resp);
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 입력된 아이디와 주민번호 앞자리로 사용자 시퀀스를 조회하여 세션에 저장합니다.
+     * 일치하는 사용자가 있으면 비밀번호 변경 페이지로 리다이렉트되고,
+     * 없으면 알림 메시지를 출력합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//		// 아이디와 주민번호 입력 후 넘어옴
@@ -62,13 +85,6 @@ public class FindPw extends HttpServlet{
 		}
 		writer.close();
 
-
-
-		//		writer.println("</script>");
-		//		writer.println("<script>");
-		//		writer.println("location.href='/sangsangjakka/user/change_pw.do';");
-		//		writer.println("</script>");
-		//		writer.close();
 	}
 
 }
