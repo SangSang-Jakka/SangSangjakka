@@ -716,21 +716,3 @@ public class NoticeDAOImpl implements NoticeDAO{
 	}
 	
 }//End of class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
