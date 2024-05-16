@@ -15,14 +15,24 @@ import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.admin.AdminDTO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * UserManagementEdit 서블릿은 사용자 정보 수정 기능을 제공합니다.
+ */
 @WebServlet("/dashboard/user/edit.do")
 public class UserManagementEdit extends HttpServlet{
 	
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 사용자의 정보를 조회하여 수정 페이지로 이동합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
-
 		String userId = req.getParameter("id");
 		
 		UserDAO dao = DAOManager.getUserDAO();
@@ -35,13 +45,19 @@ public class UserManagementEdit extends HttpServlet{
 		dispatcher.forward(req, resp);
 	}
 	
-	
+	/**
+     * POST 요청을 처리합니다.
+     * 사용자 정보를 수정합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		req.setCharacterEncoding("UTF-8");
-		
-		
-		
 		
 		String userId = req.getParameter("userId");
 		String userName = req.getParameter("userName");
@@ -53,11 +69,7 @@ public class UserManagementEdit extends HttpServlet{
 		String userAddress = req.getParameter("userAddress");
 		String userRegdate = req.getParameter("userRegdate");
 		String userLimitStorage = req.getParameter("userLimitStorage");
-		
 	
-		
-		
-		
 		UserDAO dao = DAOManager.getUserDAO();
 			
 		UserDTO dto = new UserDTO();
@@ -73,10 +85,7 @@ public class UserManagementEdit extends HttpServlet{
 		dto.setUserRegdate(userRegdate);
 		dto.setLimitStorage(userLimitStorage);
 		
-		
-		
 		int result = dao.save(dto);
-		
 		
 		
 		if (result == 1) {
@@ -85,4 +94,4 @@ public class UserManagementEdit extends HttpServlet{
 		}
 		
 	}
-}
+}//End of class

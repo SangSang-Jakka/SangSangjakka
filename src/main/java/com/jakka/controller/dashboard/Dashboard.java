@@ -21,9 +21,22 @@ import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.admin.AdminDTO;
 
+/**
+ * Dashboard 서블릿은 관리자 대시보드 페이지를 제공하며,
+ * 유입 경로 데이터와 동화책 제작 통계를 가져옵니다.
+ */
 @WebServlet("/admin/dashboard.do")
 public class Dashboard extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 대시보드 페이지로 이동합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -33,51 +46,28 @@ public class Dashboard extends HttpServlet {
 
 	}
 	
+	/**
+     * POST 요청을 처리합니다.
+     * 선택한 월의 유입 경로 데이터와 동화책 제작 통계를 가져와
+     * JSON 형식으로 응답합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 String selectedMonth = req.getParameter("selectedMonth");
-		 //String currentMonth = req.getParameter("currentMonth");
-		 System.out.println("가져옴?" + selectedMonth);
-		// String year = selectedMonth.substring(0, 4);
-		 //System.out.println("년도만!?" + year);
 		 String year = req.getParameter("year");
-		 //year = "20" + year;
-		 System.out.println("이 값 뭐냐 : " + year);
-		
 		 
 		 AdminDAO dao = DAOManager.getAdminDAO();
 		 List<AdminDTO>inflowCount = dao.getInflowCountData(selectedMonth);
-		// List<AdminDTO>currentMonths = dao.getInflowCountData(currentMonth);
-		 
-		 System.out.println("유입경로" + inflowCount);
 		 String json = new Gson().toJson(inflowCount);
-		 
-		 
-//		 if (selectedMonth != null) {
 			 
 			 BookDAO bookdao = DAOManager.getBookDAO();
 			 Map<String, Integer> makeBook  = bookdao.makeBook(year);
 
-			 System.out.println("북 만든 수 " + makeBook);
-			 
-//			 JsonObject bookData = new JsonObject();
-//			    JsonArray monthYears = new JsonArray();
-//			    JsonArray bookCounts = new JsonArray();
-//
-//			    // Map 데이터를 JsonObject로 변환
-//			    for (Map.Entry<String, Integer> entry : makeBook.entrySet()) {
-//			        String monthYear = entry.getKey();
-//			        int bookCount = entry.getValue();
-//
-//			        // monthYear와 bookCount를 JsonArray에 추가
-//			        monthYears.add(monthYear);
-//			        bookCounts.add(bookCount);
-//			    }
-//
-//			    // JsonObject에 JsonArray 추가
-//			    bookData.add("monthYears", monthYears);
-//			    bookData.add("bookCounts", bookCounts);
-//			    
 			    
 			 JsonArray bookData = new JsonArray();
 
@@ -89,32 +79,12 @@ public class Dashboard extends HttpServlet {
 			 }
 
 			 // 만들어진 JSON 배열을 JsonObject에 추가
-			// JsonObject bookDataObject = new JsonObject();
-			// bookDataObject.add("bookData", bookData);
 
 			 // Gson을 사용하여 JSON 문자열로 변환
 			 Gson gson = new Gson();
 			 String jsonmakeBookData = gson.toJson(bookData);
 			    
 			    
-			    //Gson gson = new Gson();
-			    //String jsonmakeBookData = gson.toJson(bookData);
-				
-			    //String jsonmakeBookData = "<script>var chartData = " + jsonmakeBookData + ";</script>";
-				
-			    
-			    
-		       // System.out.println(jsonmakeBookData);
-
-		        
-				
-				System.out.println("책 만든" +jsonmakeBookData);
-				
-			
-				 //req.setAttribute("jsonmakeBookData", jsonmakeBookData);
-			     
-		 
-		 
 		// JSON 응답 보내기
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
@@ -124,13 +94,6 @@ public class Dashboard extends HttpServlet {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().write(jsonmakeBookData);
-       
-		
-		
-		 
-		 
-		 
-		 
 		
 	}
 

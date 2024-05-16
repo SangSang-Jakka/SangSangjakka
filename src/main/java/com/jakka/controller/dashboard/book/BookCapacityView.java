@@ -20,9 +20,21 @@ import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * BookCapacityView 서블릿은 사용자의 동화책 저장소 용량 변경 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/book/capacityview.do")
 public class BookCapacityView extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 사용자의 정보와 동화책 목록을 조회하여 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -50,6 +62,15 @@ public class BookCapacityView extends HttpServlet {
 
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 선택한 사용자의 동화책 저장소 용량을 변경합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -20,9 +20,22 @@ import com.jakka.model.dto.board.BoardCommentDTO;
 import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
+/**
+ * BoardStats 서블릿은 게시판 통계 정보를 제공합니다.
+ */
 @WebServlet("/admin/dashboard/board/stats.do")
 public class BoardStats extends HttpServlet{
 	
+	/**
+     * GET 요청을 처리합니다.
+     * 오늘 작성된 자유 게시글, 건의사항 게시글 목록과 전체 댓글 목록을 조회하여
+     * JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -31,9 +44,6 @@ public class BoardStats extends HttpServlet{
         SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
         String formattedDate = dateFormat.format(currentDate);
 
-        // 결과 출력
-        System.out.println("현재 날짜(YY/MM/DD 형식): " + formattedDate);
-        
 		BoardDAO boardDAO = DAOManager.getBoardDAO();
 		
 		// 자유게시판 목록
@@ -47,9 +57,6 @@ public class BoardStats extends HttpServlet{
 		ArrayList<SuggestionDTO> suggestionList = suggestionDAO.findToday(formattedDate);
 
 		req.setAttribute("suggestionList", suggestionList);
-		
-		
-		
 		
 		BoardCommentsDAO dao = DAOManager.getBoardCommentDAO();
 

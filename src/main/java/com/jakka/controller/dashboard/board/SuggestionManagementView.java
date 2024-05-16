@@ -18,9 +18,21 @@ import com.jakka.model.dao.board.SuggestionDAO;
 import com.jakka.model.dto.board.SuggestionAnswerDTO;
 import com.jakka.model.dto.board.SuggestionDTO;
 
+/**
+ * SuggestionManagementView 서블릿은 건의사항 상세 보기와 답변 작성 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/suggestion/manageview.do")
 public class SuggestionManagementView extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 건의사항의 상세 정보와 답변 목록을 조회하여 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -69,7 +81,16 @@ public class SuggestionManagementView extends HttpServlet {
 		dispatcher.forward(req, resp);
 
 	}
-
+	
+	/**
+     * POST 요청을 처리합니다.
+     * 새로운 건의사항 답변을 등록합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -21,9 +21,21 @@ import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.book.PageDTO;
 import com.jakka.model.dto.book.ReviewDTO;
 
+/**
+ * BookShareManagementView 서블릿은 동화책 공유 관리 기능 중 리뷰 비활성화/활성화 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/bookshare/manageview.do")
 public class BookShareManagementView extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 동화책의 상세 정보, 페이지 정보, 리뷰 목록을 조회하여 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -64,6 +76,15 @@ public class BookShareManagementView extends HttpServlet {
 
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 리뷰의 비활성화 또는 활성화를 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

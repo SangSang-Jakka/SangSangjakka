@@ -16,9 +16,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.BookDAO;
 import com.jakka.model.dto.book.BookDTO;
 
+/**
+* BookShareManagement 서블릿은 동화책 공유 관리 기능을 제공합니다.
+*/
 @WebServlet("/admin/dashboard/bookshare/manage.do")
 public class BookShareManagement extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 전체 동화책 목록을 조회하여 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -39,6 +51,16 @@ public class BookShareManagement extends HttpServlet {
 
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 선택한 조건에 따라 동화책 목록을 필터링하여 JSON 형식으로 응답합니다.
+     * 조건: 전체, 활성화된 동화책, 비활성화된 동화책, 신고된 동화책, 신고되지 않은 동화책
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -93,9 +115,6 @@ public class BookShareManagement extends HttpServlet {
 				filteredBook.setUserNick(book.getUserNick());
 				filteredBook.setBookRegdate(book.getBookRegdate());
 				filteredBook.setBookCnt(book.getBookCnt());
-//				filteredBook.setBookScrapCnt(book.getBookScrapCnt());
-//				filteredBook.setLikeCnt(book.getLikeCnt());
-//				filteredBook.setBookReviewCnt(book.getBookReviewCnt());
 				filteredBook.setBookReportCnt(book.getBookReportCnt());
 
 				filteredList.add(filteredBook);

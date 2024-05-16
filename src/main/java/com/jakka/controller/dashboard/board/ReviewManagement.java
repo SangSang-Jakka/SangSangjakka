@@ -16,9 +16,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.book.ReviewDAO;
 import com.jakka.model.dto.book.ReviewDTO;
 
+/**
+ * ReviewManagement 서블릿은 리뷰 관리 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/review/manage.do")
 public class ReviewManagement extends HttpServlet {
-
+	
+	/**
+     * GET 요청을 처리합니다.
+     * 전체 리뷰 목록을 조회하여 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -36,6 +48,16 @@ public class ReviewManagement extends HttpServlet {
 
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 선택한 조건에 따라 리뷰 목록을 필터링하여 JSON 형식으로 응답합니다.
+     * 조건: 전체, 활성화된 리뷰, 비활성화된 리뷰, 신고된 리뷰, 신고되지 않은 리뷰
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

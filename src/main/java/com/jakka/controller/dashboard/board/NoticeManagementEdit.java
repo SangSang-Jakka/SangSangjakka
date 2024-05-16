@@ -16,9 +16,21 @@ import com.jakka.model.dao.board.NoticeDAO;
 import com.jakka.model.dto.board.NoticeDTO;
 import com.jakka.model.enums.AdminLog;
 
+/**
+ * NoticeManagementEdit 서블릿은 공지사항 수정 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/notice/manageedit.do")
 public class NoticeManagementEdit extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 공지사항의 상세 정보를 조회하여 수정 페이지로 이동합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -69,6 +81,15 @@ public class NoticeManagementEdit extends HttpServlet {
 
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 공지사항을 수정합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

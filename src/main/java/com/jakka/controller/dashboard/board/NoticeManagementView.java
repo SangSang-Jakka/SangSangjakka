@@ -16,9 +16,21 @@ import com.jakka.model.DAOManager;
 import com.jakka.model.dao.board.NoticeDAO;
 import com.jakka.model.dto.board.NoticeDTO;
 
+/**
+ * NoticeManagementView 서블릿은 공지사항 관리 기능 중 공지사항 상세 보기와 고정/고정 해제 기능을 제공합니다.
+ */
 @WebServlet("/admin/dashboard/notice/manageview.do")
 public class NoticeManagementView extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 공지사항의 상세 정보를 조회하여 JSP 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -64,6 +76,15 @@ public class NoticeManagementView extends HttpServlet {
 
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 공지사항의 고정 또는 고정 해제를 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
