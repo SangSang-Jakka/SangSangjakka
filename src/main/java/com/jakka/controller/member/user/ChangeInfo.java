@@ -15,9 +15,21 @@ import com.jakka.model.DBUtil;
 import com.jakka.model.dao.user.UserDAO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * ChangeInfo 서블릿은 사용자 정보 수정 기능을 제공합니다.
+ */
 public class ChangeInfo extends HttpServlet{
 
-	
+	/**
+     * POST 요청을 처리합니다.
+     * 사용자의 닉네임, 전화번호, 주소, 이메일을 수정합니다.
+     * 수정 성공 시 마이페이지로 리다이렉트되고, 실패 시 에러 페이지로 리다이렉트됩니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -18,10 +18,21 @@ import com.jakka.model.dao.board.SuggestionAnswerDAO;
 import com.jakka.model.dto.admin.AdminDTO;
 import com.jakka.model.dto.board.SuggestionAnswerDTO;
 
-
+/**
+ * AdminEdit 서블릿은 관리자 정보 수정과 삭제 기능을 제공합니다.
+ */
 @WebServlet("/admin/edit.do")
 public class AdminEdit extends HttpServlet{
 	
+	/**
+     * GET 요청을 처리합니다.
+     * 선택한 관리자의 정보를 조회하여 수정 페이지로 이동합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -40,37 +51,18 @@ public class AdminEdit extends HttpServlet{
 		dispatcher.forward(req, resp);
 	}
 	
+
+	/**
+     * POST 요청을 처리합니다.
+     * 선택한 관리자를 삭제합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
-			//1. 데이터 가져오기
-				//2. DB 작업 > update
-				//3. 결과
-				
-//				req.setCharacterEncoding("UTF-8");
-//				
-//				
-//		
-//				
-//				String adPw = req.getParameter("adPw");
-//				String adId = req.getParameter("adId");
-//				
-//				
-//				AdminDAO dao = DAOManager.getAdminDAO();
-//				
-//				AdminDTO dto = new AdminDTO();
-//				
-//				
-//				dto.setAdPw(adPw);
-//				dto.setAdId(adId);
-//				
-//				int result = dao.savePw(dto);
-//				
-//				if (result == 1) {
-//					//resp.sendRedirect("/toy/board/list.do");
-//					resp.sendRedirect("/sangsangjakka/admin/view.do?id=" + adId);
-//				}
 		
 		  String requestURI = req.getRequestURI();
 

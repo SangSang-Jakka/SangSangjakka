@@ -26,9 +26,22 @@ import com.jakka.model.dto.board.BoardDTO;
 import com.jakka.model.dto.book.BookDTO;
 import com.jakka.model.dto.user.UserDTO;
 
+/**
+ * MyPage 서블릿은 사용자 마이페이지 기능을 제공합니다.
+ */
 @WebServlet("/user/mypage.do")
 public class MyPage extends HttpServlet{
 
+	/**
+     * GET 요청을 처리합니다.
+     * 사용자의 정보와 작성한 게시글, 댓글, 동화책 목록을 조회하여 JSP 페이지로 전달합니다.
+     * 로그인하지 않은 사용자는 로그인 페이지로 리다이렉트됩니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -43,7 +56,6 @@ public class MyPage extends HttpServlet{
 			return;
 			
 		}
-	    
 	    
 	    try {
 	    	
@@ -86,11 +98,17 @@ public class MyPage extends HttpServlet{
 	        resp.sendRedirect("/sangsangjakka/error.jsp");
 	    }
 	}
-	
-	
-	
-	
-	
+
+	/**
+     * POST 요청을 처리합니다.
+     * 사용자의 닉네임, 전화번호, 주소, 이메일을 수정합니다.
+     * 수정 성공 시 마이페이지로 리다이렉트됩니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외가 발생한 경우
+     * @throws IOException      입출력 예외가 발생한 경우
+     */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		    req.setCharacterEncoding("UTF-8");
@@ -117,7 +135,6 @@ public class MyPage extends HttpServlet{
 		    
 		    UserDAO dao = DAOManager.getUserDAO();
 		    int count = dao.save(dto);
-		  
 		
 	        if (count > 0) {
 	        	// 업데이트 성공
@@ -127,12 +144,6 @@ public class MyPage extends HttpServlet{
 	        	// 업데이트 실패
 	        	resp.sendRedirect(req.getContextPath() + "/error.jsp");
 	        }
-	        }
-		    
-
-
-
-
-
+	}
 	
 }//End of class
