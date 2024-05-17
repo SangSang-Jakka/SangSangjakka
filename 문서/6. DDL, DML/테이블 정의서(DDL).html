@@ -1,0 +1,3346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Database Table Definitions</title>
+    <style type="text/css">
+        .entity {
+            width: 1024px;
+            margin-bottom: 50px;
+            page-break-before: always;
+        }
+        .entity-header tr td, .entity-header tr th {
+            text-align: left;
+            padding-left: 5px;
+            padding-right: 5px;
+            vertical-align: top;
+        }
+        .entity-header {
+            border-spacing: 0px;
+            border-top: solid 2px black;
+            margin: 0px;
+        }
+        .column-list {
+            width: 100%;
+            border-spacing: 0px;
+            margin: 0px;
+            border-bottom: solid 2px black;
+        }
+        .column-list th {
+            border-bottom: solid 2px black;
+            border-top: solid 2px black;
+            text-align: left;
+        }
+        .column-list th, .column-list td {
+            padding-left: 5px;
+            padding-right: 5px;
+            vertical-align: top;
+        }
+        .under-line {
+            border-bottom: solid 1px gray;
+        }
+        .right-line {
+            border-right: solid 1px gray;
+        }
+        .left-line {
+            border-left: solid 1px gray;
+        }
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <!-- tblUser -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">일반회원</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblUser</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">일반회원의 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userId</td>
+                        <td class="right-line">아이디</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">userPw</td>
+                        <td class="right-line">비밀번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">userName</td>
+                        <td class="right-line">이름</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">userNick</td>
+                        <td class="right-line">닉네임</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(50)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">userTel</td>
+                        <td class="right-line">전화번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(30)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">7</td>
+                        <td class="right-line">userAddress</td>
+                        <td class="right-line">주소</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(500)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">8</td>
+                        <td class="right-line">userEmail</td>
+                        <td class="right-line">이메일</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(100)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">9</td>
+                        <td class="right-line">userLeftSsn</td>
+                        <td class="right-line">주민번호 앞자리</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">10</td>
+                        <td class="right-line">userRightSsn</td>
+                        <td class="right-line">주민번호 뒷자리</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">11</td>
+                        <td class="right-line">userState</td>
+                        <td class="right-line">활동 상태</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(10)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">12</td>
+                        <td class="right-line">userLv</td>
+                        <td class="right-line">등급</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">13</td>
+                        <td class="right-line">userRegdate</td>
+                        <td class="right-line">가입일</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">14</td>
+                        <td class="right-line">limitStorage</td>
+                        <td class="right-line">제한용량</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">10737418240</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblBlackList -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">차단 계정</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBlackList</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">차단된 사용자 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">차단 사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblUserCat -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">사용자 행동로그 카테고리</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblUserCat</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">사용자 행동로그 카테고리 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userCatSeq</td>
+                        <td class="right-line">카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userCatContents</td>
+                        <td class="right-line">내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(200)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblUserLog -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">사용자 행동 로그</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblUserLog</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">사용자 행동 로그 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userLogSeq</td>
+                        <td class="right-line">로그 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userLogDate</td>
+                        <td class="right-line">날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">userLogContents</td>
+                        <td class="right-line">로그 내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">userCatSeq</td>
+                        <td class="right-line">카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblAgeCat -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">나이 카테고리</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblAgeCat</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">나이 카테고리 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">ageCatSeq</td>
+                        <td class="right-line">카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">ageRange</td>
+                        <td class="right-line">나이대</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(30)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblChildAge -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">자녀 나이</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblChildAge</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">자녀의 나이 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">childAgeSeq</td>
+                        <td class="right-line">자녀나이 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">childBirth</td>
+                        <td class="right-line">생년월일</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">ageCatSeq</td>
+                        <td class="right-line">카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblAdmin -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">관리자</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblAdmin</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">관리자 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">adId</td>
+                        <td class="right-line">아이디</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">adPw</td>
+                        <td class="right-line">비밀번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">'0000'</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">adName</td>
+                        <td class="right-line">이름</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">'관리자'</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">adNick</td>
+                        <td class="right-line">닉네임</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(50)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">adAddress</td>
+                        <td class="right-line">주소</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(500)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">adTel</td>
+                        <td class="right-line">전화번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(30)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">7</td>
+                        <td class="right-line">adLv</td>
+                        <td class="right-line">등급</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">2</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblNotice -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">공지사항 게시판</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblNotice</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">공지사항 게시판 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">noticeSeq</td>
+                        <td class="right-line">공지사항 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">noticeTitle</td>
+                        <td class="right-line">제목</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(200)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">noticeContents</td>
+                        <td class="right-line">내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(4000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">noticeRegdate</td>
+                        <td class="right-line">작성날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">noticeCnt</td>
+                        <td class="right-line">조회수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">adId</td>
+                        <td class="right-line">관리자 아이디</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblNoticeFix -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">공지사항 고정글</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblNoticeFix</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">공지사항 고정글 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">noticeSeq</td>
+                        <td class="right-line">공지사항 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblAdCat -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">관리자 행동 카테고리</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblAdCat</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">관리자 행동 카테고리 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">adCatSeq</td>
+                        <td class="right-line">카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">adCatContents</td>
+                        <td class="right-line">내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(200)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblAdLog -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">관리자 행동 로그</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblAdLog</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">관리자 행동 로그 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">adLogSeq</td>
+                        <td class="right-line">로그 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">adLogDate</td>
+                        <td class="right-line">날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">adId</td>
+                        <td class="right-line">관리자 아이디</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">adLogContents</td>
+                        <td class="right-line">로그 내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">adCatSeq</td>
+                        <td class="right-line">카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblSuggestion -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">건의사항 게시판</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblSuggestion</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">건의사항 게시판 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">sgstSeq</td>
+                        <td class="right-line">건의사항 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">sgstTitle</td>
+                        <td class="right-line">제목</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(100)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">sgstContents</td>
+                        <td class="right-line">내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">sgstRegdate</td>
+                        <td class="right-line">작성날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">sgstSecretYN</td>
+                        <td class="right-line">비밀글 여부</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(1)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">'n'</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">7</td>
+                        <td class="right-line">sgstCnt</td>
+                        <td class="right-line">조회수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblSuggestionAnswer -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">건의사항 답변</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblSuggestionAnswer</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">건의사항 답변 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">answSeq</td>
+                        <td class="right-line">답변 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">adId</td>
+                        <td class="right-line">관리자 아이디</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(20)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">sgstSeq</td>
+                        <td class="right-line">건의사항 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">sgstAnsw</td>
+                        <td class="right-line">답변 내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">sgstRegdate</td>
+                        <td class="right-line">등록 날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblInflowCat -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">유입경로 카테고리</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblInflowCat</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">유입경로 카테고리 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">inflowCatSeq</td>
+                        <td class="right-line">유입경로 카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">inflowName</td>
+                        <td class="right-line">유입경로 이름</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(100)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblUserInflow -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">회원 유입경로</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblUserInflow</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">회원 유입경로 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">inflowCatSeq</td>
+                        <td class="right-line">유입경로 카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblBoard -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">자유 게시판</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBoard</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">자유 게시판 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">boardSeq</td>
+                        <td class="right-line">게시글 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">boardTitle</td>
+                        <td class="right-line">제목</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(100)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">boardContents</td>
+                        <td class="right-line">내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">boardRegdate</td>
+                        <td class="right-line">작성일</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">boardReportCnt</td>
+                        <td class="right-line">신고수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">boardCnt</td>
+                        <td class="right-line">조회수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">7</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblBoardReport -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">게시글 신고</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBoardReport</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">게시글 신고 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">boardSeq</td>
+                        <td class="right-line">게시글 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">신고자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblBoardWhiteList -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">게시판 화이트 리스트</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBoardWhiteList</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">블라인드 처리되지 않는 자유게시판 게시글 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">boardSeq</td>
+                        <td class="right-line">게시글 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblBoardComments -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">자유게시판 댓글</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBoardComments</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">자유게시판 댓글 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">cmntSeq</td>
+                        <td class="right-line">댓글 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">작성자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">boardSeq</td>
+                        <td class="right-line">부모 게시글 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">cmntContents</td>
+                        <td class="right-line">내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">cmntReportCnt</td>
+                        <td class="right-line">신고수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">cmntRegdate</td>
+                        <td class="right-line">작성날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblBoardCommentsReport -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">댓글 신고 정보</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBoardCommentsReport</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">댓글 신고 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">cmntSeq</td>
+                        <td class="right-line">댓글 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">신고자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblBoardCommentsWhiteList -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">자유게시판 댓글 화이트 리스트</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBoardCommentsWhiteList</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">블라인드 처리되지 않는 자유게시판 댓글 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">cmntSeq</td>
+                        <td class="right-line">댓글 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblRecommendAge -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">추천 연령</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblRecommendAge</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">추천 연령 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">rcmAgeSeq</td>
+                        <td class="right-line">추천 연령 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">rcmAge</td>
+                        <td class="right-line">추천 연령</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(30)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblBook -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBook</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">bookTitle</td>
+                        <td class="right-line">제목</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(100)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">bookInfo</td>
+                        <td class="right-line">한줄소개</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">bookCover</td>
+                        <td class="right-line">표지 url</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(3000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">bookRegdate</td>
+                        <td class="right-line">등록일</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">bookModDate</td>
+                        <td class="right-line">수정일</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">7</td>
+                        <td class="right-line">likeCnt</td>
+                        <td class="right-line">좋아요수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">0</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">8</td>
+                        <td class="right-line">bookReviewCnt</td>
+                        <td class="right-line">리뷰수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">0</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">9</td>
+                        <td class="right-line">bookScrapCnt</td>
+                        <td class="right-line">저장수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">0</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">10</td>
+                        <td class="right-line">bookReportCnt</td>
+                        <td class="right-line">신고수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">0</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">11</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">12</td>
+                        <td class="right-line">parentBookSeq</td>
+                        <td class="right-line">부모 동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Null</td>
+                        <td class="right-line">null</td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">13</td>
+                        <td class="right-line">rcmAgeSeq</td>
+                        <td class="right-line">추천 연령 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">14</td>
+                        <td class="right-line">shareCnt</td>
+                        <td class="right-line">조회수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblPage -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 페이지</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblPage</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 페이지 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">pageSeq</td>
+                        <td class="right-line">페이지 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">cmntYN</td>
+                        <td class="right-line">문장 ai 사용여부</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(1)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">Y</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">imgYN</td>
+                        <td class="right-line">이미지 ai 사용여부</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(1)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">Y</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">pageUrl</td>
+                        <td class="right-line">이미지 url</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(200)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">pageContents</td>
+                        <td class="right-line">페이지 내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(4000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblAward -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">수상 동화책</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblAward</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 수상 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">awardRegdate</td>
+                        <td class="right-line">수상일</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">awardRank</td>
+                        <td class="right-line">등수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblScrap -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 스크랩</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblScrap</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 스크랩 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblLike -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 좋아요</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblLike</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 좋아요 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblBookShareReport -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 신고</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBookShareReport</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 신고 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">신고자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblBookWhiteList -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 화이트 리스트</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblBookWhiteList</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">블라인드 처리되지 않은 동화책 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblReview -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 리뷰</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblReview</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 리뷰 정보를 저장한다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">reviewSeq</td>
+                        <td class="right-line">리뷰 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">reviewContents</td>
+                        <td class="right-line">내용</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">VARCHAR2(2000)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">reiviewLikeCnt</td>
+                        <td class="right-line">좋아요수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">reviewReportCnt</td>
+                        <td class="right-line">신고수</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">5</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">6</td>
+                        <td class="right-line">reviewRegdate</td>
+                        <td class="right-line">작성날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">7</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblReviewLike -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 리뷰 좋아요</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblReviewLike</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 리뷰 좋아요 정보를 저장한다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">reviewSeq</td>
+                        <td class="right-line">리뷰 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblReviewReport -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 리뷰 신고</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblReviewReport</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 리뷰 신고 정보를 저장한다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">reviewSeq</td>
+                        <td class="right-line">리뷰 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">신고자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblReviewWhiteList -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 리뷰 화이트 리스트</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblReviewWhiteList</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 리뷰 화이트 리스트 정보를 저장한다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">reviewSeq</td>
+                        <td class="right-line">리뷰 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblUserBookAction -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">사용자 동화책 행동</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblUserBookAction</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">사용자의 동화책 행동 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">userSeq</td>
+                        <td class="right-line">사용자 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">actionDate</td>
+                        <td class="right-line">날짜</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">date</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line">sysdate</td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">3</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">4</td>
+                        <td class="right-line">actionCatSeq</td>
+                        <td class="right-line">행동 카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblActionCat -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">사용자 동화책 행동 카테고리</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblActionCat</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">사용자의 동화책 행동 카테고리 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">actionCatSeq</td>
+                        <td class="right-line">행동 카테고리 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">actionName</td>
+                        <td class="right-line">행동 이름</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">VARCHAR2(50)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblGenre -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 장르</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblGenre</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 장르 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">genreSeq</td>
+                        <td class="right-line">장르 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">genreName</td>
+                        <td class="right-line">장르 이름</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">varchar2(100)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <!-- tblGenreInfo -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">동화책 장르 정보</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblGenreInfo</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">동화책 장르 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">genreSeq</td>
+                        <td class="right-line">장르 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">bookSeq</td>
+                        <td class="right-line">동화책 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblTendency -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">장르 성향</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblTendency</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">장르 성향 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">tendencySeq</td>
+                        <td class="right-line">성향 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">tendencyName</td>
+                        <td class="right-line">성향 이름</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">VARCHAR2(50)</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>UQ</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- tblTendencyGenre -->
+    <table class="entity" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <table width="100%" class="entity-header">
+                    <tbody>
+                    <tr>
+                        <th class="under-line right-line" width="140px">엔티티 타입명</th>
+                        <td class="under-line right-line">장르 성향 정보</td>
+                        <th class="under-line right-line" width="70px">작성일</th>
+                        <td class="under-line">2024 05 16</td>
+                    </tr>
+                    <tr>
+                        <th class="under-line right-line">테이블명</th>
+                        <td class="under-line right-line">tblTendencyGenre</td>
+                        <th class="under-line right-line">작성자</th>
+                        <td class="under-line">박동수</td>
+                    </tr>
+                    <tr>
+                        <th class="right-line">테이블 설명</th>
+                        <td colspan="3">장르의 성향 정보를 저장한다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="column-list">
+                    <tbody>
+                    <tr>
+                        <th class="right-line" width="40px">번호</th>
+                        <th class="right-line">컬럼명</th>
+                        <th class="right-line">속성명</th>
+                        <th class="right-line">도메인</th>
+                        <th class="right-line">데이터타입</th>
+                        <th class="right-line">NULL여부</th>
+                        <th class="right-line">기본값</th>
+                        <th>KEY</th>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">1</td>
+                        <td class="right-line">tendencySeq</td>
+                        <td class="right-line">성향 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    <tr>
+                        <td class="right-line" style="text-align:right;">2</td>
+                        <td class="right-line">genreSeq</td>
+                        <td class="right-line">장르 번호</td>
+                        <td class="right-line">N/A</td>
+                        <td class="right-line">number</td>
+                        <td class="right-line">Not Null</td>
+                        <td class="right-line"></td>
+                        <td>PK, FK</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
