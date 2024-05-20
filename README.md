@@ -68,7 +68,8 @@ slf4j-simple-2.0.13.jar,
 taglibs-standard-impl-1.2.5.jar,
 taglibs-standard-jstlel-1.2.5.jar,
 taglibs-standard-spec-1.2.5.jar
-## 3. 역할 분담
+## 3. 프로젝트 구조
+## 4. 역할 분담
 - 곽지현:
 DAO, DTO작업
 생성형AI API연동
@@ -114,10 +115,34 @@ PPT
 DB작업
 관리자페이지 기본 CSS
 
+### 5. 신경 쓴 부분
+#### 1. SOLID 원칙 준수
 
-### 4. 주요 기능
+- 자유게시판(게시글, 댓글, 신고, 검색)
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c0cbc150-f310-4280-a6ff-d0ebea88171e" width="600" height="300"/>
 
-### 5. 회고
+- 사용자, 관리자
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/71918ecc-306f-49c0-ac74-04e897fffe57" width="600" height="300"/>
+
+- 건의 게시판(게시글, 댓글, 검색)
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/41a0a128-342a-43e3-8655-8054168dae71" width="600" height="300"/>
+
+  
+#### 2. 의존성 주입
+다른 클래스에서 DAO 객체를 직접 생성하지 않고 DAOManager 통해 객체를 받아 사용하여 
+**유지보수성**과 **확장성**을 향상하고 **테스트**에 용이하도록 했습니다.
+
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f3ae1081-39ab-4ca2-9dce-bb60eab2dd7a" width="600" height="300"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f3d2e5a1-7f36-4267-b5a1-3a9fa5ee1f01" width="600" height="200"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2e73ae06-a86a-4df3-aaaf-9e066695c8fc" width="600" height="150"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/319136ed-ca05-471b-ae25-602587cddb4f" width="600" height="70"/>
+
+
+
+ 
+### 6. 주요 기능
+
+### 7. 회고
 
 ##### 곽지현
 이번 프로젝트에서 팀장으로서 팀원들과 협력하여 주요 기능들을 구현하고 프로젝트를 성공적으로 완수했습니다. 인터페이스를 역할에 따라 분리하고 추상화하여 설계함으로써 구현체에 의존하지 않는 이점을 얻었지만, 프로젝트 진행 중 인터페이스 변경이 잦아지는 문제점이 발견되었습니다.
