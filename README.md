@@ -246,28 +246,27 @@ taglibs-standard-spec-1.2.5.jar
 
 ### [관리자 로그인]
 ![rhksflwkfhrmdls](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/813eab12-2075-4c7c-a635-fb0d92af353e)
-
+- 상상자까 메인 페이지 푸터에 있는 이미지를 Ctrl를 누르고 클릭하면 관리자 페이지로 이동할 수 있습니다.
 ### [관리자 메인화면]
 ![1  메인 화면](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/05d979e6-1ecb-4671-9567-c3aecc935fbb)
-
+- 대시보드에서는 새로운 동화책, 게시글, 유저, 건의사항 수를 한눈에 확인할 수 있으며 사이드 바에서 원하는 메뉴로 페이지를 이동할 수 있습니다.
 ### [회원관리]
 ![2-2  회원관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/1695da2d-59f1-4895-a34d-dafccb7a4bf3)
 ![2-3  회원 관리 회원정보](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f861ee15-106b-4456-8c40-ed371a615773)
-
 ![2-4  차단회원 관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/4cbb6b48-e699-41da-9951-e6ffe4c9165a)
-
+- 회원 관리에서는 전체 회원 정보 조회 및 수정이 가능하며 회원을 차단할 수 있습니다.
 
 ### [회원관리 > 개인용량관리]
 ![3-6  개인용량관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8dada383-dbaf-484b-8321-b2eab12a1689)
 ![3-7  개인용량관리 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/e4b69748-3d14-418d-8a77-94fb62501b11)
 
-
-
 ### [회원관리 > 통계]
 ![2-1  회원통계](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/36e5fb9d-8b0e-43ab-af7f-f35c5f03fcdb)
-
+- 회원 통계에서는, 탈퇴자, 신규 가입자 수를 확인할 수 있으며 회원의 성별, 사용자 연령대, 자녀 연령대를 그래프를 통해 비교해서 확인할 수 있습니다.
+  
 ### [게시판 관리]
-
+- 신규 작성글, 신고된 게시글, 신고 댓글 수를 확인할 수 있다.
+- - 
 ### [게시판 관리 > 통계]
 ![4-1  게시판 통계](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/db527452-3f8a-4292-b167-c0251a324f3c)
 
