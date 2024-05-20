@@ -149,14 +149,101 @@ taglibs-standard-spec-1.2.5.jar
 
  
 ## 7. 페이지별 기능
-#### [메인화면]
+### [메인화면]
 ![1  메인화면](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c2a518fd-a51f-4a3c-8d00-d10715bb5475)
-메인화면, 동화제작, 동화나라, 명예의전당, 공지사항, 자유게시판, 공지사항이 네비 바로 있으며 스크롤을 내리면 어제의 인기도서와 사용자의 선호도에 맞춘 책을 추천해줍니다.
-#### [회원가입]
-+회원가입 이미지 추가
+- 메인화면, 동화제작, 동화나라, 명예의전당, 공지사항, 자유게시판, 공지사항이 네비바로 있습니다
+- 스크롤을 내리면 어제의 인기도서와 사용자의 선호도에 맞춘 책을 추천해줍니다.
+### [회원가입]
 
-#### [로그인]
-+로그인 이미지 추가
+![screenshot-localhost_8090-2024 05 21-00_29_08](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/60601e41-7ba6-40c7-94bc-b6bcce14e633)
+- 회원가입시 [이름, 이메일, 아이디, 비밀번호, 비밀번호 확인, 주소, 자녀연령대, 유입경로] 정보를 입력합니다.
+- 아이디, 닉네임 중복확인을 하지 않으면 회원가입이 불가능합니다.
+- 정보를 입력하지 않고 회원가입 버튼을 누르면 정보를 입력하지 않은 곳으로 커서가 이동합니다.
+
+
+### [로그인]
+
+![캡처](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/17fa0ecd-cbeb-4734-99da-e2fe0dccec90)
+
+- 정보를 입력하지 않고 로그인 버튼을 누르면 정보를 입력하지 않은 곳으로 커서가 이동합니다.
+
+### [아이디, 비밀번호 찾기]
+![gfg](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2f5afcd0-e5ee-4a19-9cda-bde6584ee09d)
+![캡처](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f62c0b0f-9ec7-4003-b4fb-a7bbc1efcfb1)
+
+- 아이디는 이름과 이메일 주소를 입력하면 입력한 정보와 일치하는 아이디를 알려줍니다.
+- 비밀번호는 아이디와 주민등록번호 앞자리를 입력하면 입력한 정보와 일치하는 아이디를 알려줍니다.
+
+### [마이페이지]
+![2  마이페이지](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2786d396-46c9-4d99-afb5-5f15807d442a)
+
+- 자신의 개인정보를 확인할 수 있습니다
+- 닉네임, 이메일, 전화번호, 주소를 수정할 수 있습니다.
+- 닉네임, 이메일 수정시 유효성 + 중복 검사를 합니다
+- 주소 수정시 API를 사용해 우편번호 검색이 가능합니다 
+![2-1  마이페이지 내동화책](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/6745eb78-28da-4940-b1f9-6893ab4b86cd)
+- 자신이 만든 동화책을 확인할 수 있습니다.
+- 자신의 동화책 취향을 확인할 수 있습니다.
+![2-2  마이페이지 보관함](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/05d0ff00-295e-4da3-a38c-a106b0d07607)
+- 스크랩한 동화책을 확인할 수 있습니다
+![2-3  마이페이지 활동내역](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/139f2015-57d2-4ffe-a254-8ba610ec250c)
+- 자신이 쓴 글과 댓글을 확인할 수 있습니다.
+- 게시글의 제목을 누르면 해당 글로 이동합니다.
+
+### [동화책 제작]
+동화책 제작 움짤 추가
+- 기존에 주로 선택하던 방식과 새로운 형식으로 책을 만들 수 있는 선택지를 제공합니다.(이게 뭔 말이지?)
+- 책의 내용과 이미지는 각각 직접 입력과 업로드가 가능하며 원하면 AI의 도움을 받을 수 있습니다.
+- 각 페이지마다 이미지와 내용을 삽입할 수 있으며 페이지 추가를 통해 여러 페이지를 만들고 수정, 삭제할 수 있습니다.
+- 페이지가 완성되면 표지 페이지를 만들고 책의 정보(제목, 소개, 장르)를 선택하면 동화책이 완성되며 동화공유게시판과 마이페이지 보관함으로 자동으로 동화책이 업로드 됩니다.
+
+### [동화 공유 게시판]
+![4  동화나라](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/ad4b6749-e490-4976-ba6b-9c87582045c7)
+![4-1  동화나라 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f2a0f038-1d69-4410-be22-a2e08d34ae07)
+
+- 다양한 동화책을 볼 수 잇는 게시판이며 각 동화책 마다 스크랩수, 좋아요 수, 리뷰 수를 확인할 수 있습니다.
+- 동화책을 선택 후 들어가면 각 페이지의 그림과 내용을 확인할 수 있으며 좋아요, 스크랩, 신고할 수 있습니다.
+- 리뷰 작성이 가능하며 본인이 단 리뷰만 수정, 삭제할 수 있습니다.
+
+### [명예의 전당]
+![5-1  명예의 전당](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/022f8846-35c7-4048-9a2f-876486149176)
+
+- 각 달의 좋아요, 리뷰, 스크랩 수를 가장 많이 받은 동화책 중 관리자의 검토를 받은 동화책 5권이 명예의 전당 페이지로 이동합니다.
+- 책 표지를 클릭하면 이미지가 돌아가면서 뒷 페이지의 책 정보가 표시됩니다.
+
+### [자유게시판]
+![7  자유게시판](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/db26bcf8-c4a2-48b2-b32b-fa14c3b35f89)
+![7-1  자유게시판 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/31179faa-d6cc-4110-8180-1a7678428f98)
+![7-2  자유게시판 작성](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/40f3e23a-0282-4bb6-9a76-5a832b11e1b6)
+![7-3  자유게시판 수정](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/4edd0f58-3e9c-4339-820a-497a6d3c158b)
+
+- 회원은 모두 자유 게시판의 게시글을 등록, 수정, 삭제가 가능하며 다른 회원의 게시글에 댓글과 신고를 할 수 있습니다.
+- 게시글은 최신순, 조회순, 댓글순으로 정렬이 가능하며 각 게시글마다 댓글 개수, 작성자, 등록일, 조회수, 제목을 확인할 수 있습니다.
+- 제목, 내용, 제목+내용으로 검색할 수 있습니다.
+
+
+### [공지사항 게시판]
+![6  공지사항](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8871e572-41dd-4e8e-b91f-6bf5112cabcd)
+![6-1  공지사항 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/ec82f460-0b41-4c02-9cfe-be50f4d723f4)
+
+- 관리자만 공지사항을 등록할 수 있으며 등록할 시 고정글을 선택할 수 있습니다.
+- 제목, 내용, 제목+내용으로 검색할 수 있습니다.
+
+
+### [건의사항 게시판]
+![8  건의사항](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/4c57a363-a549-4b5d-bed8-24cd7d09833f)
+![8-1  건의사항 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/25173c0f-2c63-4450-94fb-f69b5f2efe14)
+![8-2  건의사항 작성](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/70b50b47-dcb8-4fce-8271-1bf02c2ca166)
+![8-3  건의사항 수정](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2bc45b01-31d1-421a-ab30-16fffe857131)
+
+- 회원은 모두 자유 게시판의 게시글을 등록, 수정, 삭제할 수 있습니다.
+- 게시글은 최신순, 조회순, 댓글순으로 정렬이 가능하며 각 게시글마다 댓글 개수, 작성자, 등록일, 조회수, 제목을 확인할 수 있습니다.
+- 건의사항의 답변은 관리자만 작성할 수 있습니다.
+- 제목, 내용, 제목+내용으로 검색이 가능하지만 공개글과 본인작성 게시글만 출력됩니다.
+
+
+--------------관리자-------------
+
 
 
 
