@@ -244,7 +244,66 @@ taglibs-standard-spec-1.2.5.jar
 
 --------------관리자-------------
 
+### [관리자 로그인]
+![rhksflwkfhrmdls](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/813eab12-2075-4c7c-a635-fb0d92af353e)
 
+### [관리자 메인화면]
+![1  메인 화면](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/05d979e6-1ecb-4671-9567-c3aecc935fbb)
+
+### [회원관리]
+![2-2  회원관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/1695da2d-59f1-4895-a34d-dafccb7a4bf3)
+![2-3  회원 관리 회원정보](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/1b3dcb57-1d80-4750-94fe-2338c967d166)
+![2-4  차단회원 관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/db75f9d5-0ae7-4764-9788-0a99ee707142)
+
+### [회원관리 > 개인용량관리]
+![3-6  개인용량관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8dada383-dbaf-484b-8321-b2eab12a1689)
+![3-7  개인용량관리 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/e4b69748-3d14-418d-8a77-94fb62501b11)
+
+
+
+### [회원관리 > 통계]
+![2-1  회원통계](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/36e5fb9d-8b0e-43ab-af7f-f35c5f03fcdb)
+
+### [게시판 관리]
+
+### [게시판 관리 > 통계]
+![4-1  게시판 통계](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/db527452-3f8a-4292-b167-c0251a324f3c)
+
+### [게시판 관리 > 각 게시판 별 관리]
+#### 자유게시판
+![4-8  자유게시판](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/cce0fb52-0aa9-4bba-8c9c-8d4a5e731c77)
+![4-9  자유게시판 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/721e1004-ffcc-4f0c-a07f-fdaf0b6e0d66)
+
+#### 공지사항
+![4-2  공지사항](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/9a747173-3f45-4fb3-9dd3-2258153855a1)
+![4-3  공지사항 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2a7be0d0-b091-40ce-adba-13b16d82d8d0)
+![4-4  공지사항 작성](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/5e10b4ec-5c32-44d3-9b0a-dd508fa30f97)
+![4-5  공지사항 수정](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/154e9866-2471-4ccd-8977-eba46f306217)
+
+#### 건의사항
+![4-6  건의사항](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/7cff329d-34b0-4efa-8b0c-670bda3be099)
+![4-7  건의사항 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/eb20fdd3-e633-457e-b186-cd67fd720392)
+
+#### 동화 공유 게시판
+![4-10  동화 공유 게시판](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/01c9d74a-1bbd-4624-a4f5-43dcffd0ca5a)
+![4-11  동화 공유 게시판 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/722b4b9a-ff22-4ddf-8331-5156aebb3001)
+![4-12  리뷰 관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/5ad34af9-e0b1-4010-acaf-e6ac8c2916b7)
+
+![4-13  댓글 관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/585f170d-2f82-4279-b2c6-ffb3cf714184)
+
+### [관리자 관리]
+![5-1  관리자 관리 계정 목록](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2651a46d-b3f0-42ab-81cd-afc35ab77304)
+![5-2  관리자 로그](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/e63f55ca-cd49-4af7-987e-3ada84d2dbed)
+![5-3  관리자 로그 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/211a0f8a-5198-4cc5-908a-3086461bd3c6)
+
+### [동화책 관리]
+![3-2  동화책 수상관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/97738595-1fcc-4523-b070-445366424aa4)
+![3-3  동화책 수상 등록](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f36bbeff-3fa4-45ea-a173-e0a9e0699d86)
+![3-4  동화책 신고 관리](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/a69f26a8-48a8-4177-8d7b-fad91ef9809d)
+![3-5  동화책 신고 관리 상세](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/3ab2174c-8cb6-4c07-9326-f56ae9595050)
+
+### [동화책 관리 > 통계]
+![3-1  동화책 통계](https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/82dd07ab-3126-471d-9b36-410a670d0431)
 
 
 ## 8. 회고
