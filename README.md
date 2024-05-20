@@ -115,8 +115,8 @@ PPT
 DB작업
 관리자페이지 기본 CSS
 
-### 5. 신경 쓴 부분
-#### 1. SOLID 원칙 준수
+## 5. 신경 쓴 부분
+### 1. SOLID 원칙 준수
 
 - 자유게시판(게시글, 댓글, 신고, 검색)
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c0cbc150-f310-4280-a6ff-d0ebea88171e" width="600" height="300"/>
@@ -128,8 +128,8 @@ DB작업
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/41a0a128-342a-43e3-8655-8054168dae71" width="600" height="300"/>
 
   
-#### 2. 의존성 주입
-다른 클래스에서 DAO 객체를 직접 생성하지 않고 DAOManager 통해 객체를 받아 사용하여 
+### 2. 의존성 주입
+다른 클래스에서 DAO 객체를 직접 생성하지 않고 DAOManager 통해 객체를 받아 사용하여  
 **유지보수성**과 **확장성**을 향상하고 **테스트**에 용이하도록 했습니다.
 
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f3ae1081-39ab-4ca2-9dce-bb60eab2dd7a" width="600" height="300"/>
