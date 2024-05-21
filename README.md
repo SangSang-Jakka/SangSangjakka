@@ -159,8 +159,8 @@ taglibs-standard-spec-1.2.5.jar
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c68c1e00-2447-473b-b95b-efeb19f09025" width="400" height="150"/>
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8df4c5ac-1028-4d9a-bc01-7223f9bd4b2d" width="450" height="370"/>
 <br/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/64e63c41-00e3-44c1-ad89-26409ead292a" width="600" height="300"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/055220d5-9ba1-477e-b880-a8d93ec51209" width="600" height="350"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/64e63c41-00e3-44c1-ad89-26409ead292a" width="650" height="300"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/055220d5-9ba1-477e-b880-a8d93ec51209" width="650" height="350"/>
 
 
  
