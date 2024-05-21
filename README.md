@@ -150,7 +150,7 @@ taglibs-standard-spec-1.2.5.jar
  
 ## 7. 페이지별 기능
 ### [메인화면]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c2a518fd-a51f-4a3c-8d00-d10715bb5475" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c2a518fd-a51f-4a3c-8d00-d10715bb5475" width="600" height="1100"/>
 
 - 메인화면, 동화제작, 동화나라, 명예의전당, 공지사항, 자유게시판, 공지사항이 네비바로 있습니다
 - 스크롤을 내리면 어제의 인기도서와 사용자의 선호도에 맞춘 책을 추천해줍니다.
@@ -165,31 +165,31 @@ taglibs-standard-spec-1.2.5.jar
 
 
 ### [로그인]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/17fa0ecd-cbeb-4734-99da-e2fe0dccec90" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/17fa0ecd-cbeb-4734-99da-e2fe0dccec90" width="400" height="300"/>
 
 - 정보를 입력하지 않고 로그인 버튼을 누르면 정보를 입력하지 않은 곳으로 커서가 이동합니다.
 ### [아이디, 비밀번호 찾기]
 
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2f5afcd0-e5ee-4a19-9cda-bde6584ee09d" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f62c0b0f-9ec7-4003-b4fb-a7bbc1efcfb1" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f62c0b0f-9ec7-4003-b4fb-a7bbc1efcfb1" width="400" height="300"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2f5afcd0-e5ee-4a19-9cda-bde6584ee09d" width="400" height="300"/>
 
 - 아이디는 이름과 이메일 주소를 입력하면 입력한 정보와 일치하는 아이디를 알려줍니다.
 - 비밀번호는 아이디와 주민등록번호 앞자리를 입력하면 입력한 정보와 일치하는 아이디를 알려줍니다.
 ### [마이페이지]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2786d396-46c9-4d99-afb5-5f15807d442a" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2786d396-46c9-4d99-afb5-5f15807d442a" width="600" height="800"/>
 
 - 자신의 개인정보를 확인할 수 있습니다
 - 닉네임, 이메일, 전화번호, 주소를 수정할 수 있습니다.
 - 닉네임, 이메일 수정시 유효성 + 중복 검사를 합니다
 - 주소 수정시 API를 사용해 우편번호 검색이 가능합니다
   
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/6745eb78-28da-4940-b1f9-6893ab4b86cd" width="500" height="1000"/> 
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/6745eb78-28da-4940-b1f9-6893ab4b86cd" width="600" height="800"/> 
 
 - 자신이 만든 동화책을 확인할 수 있습니다.
 - 자신의 동화책 취향을 확인할 수 있습니다.
 - 스크랩한 동화책을 확인할 수 있습니다
 
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/139f2015-57d2-4ffe-a254-8ba610ec250c" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/139f2015-57d2-4ffe-a254-8ba610ec250c" width="600" height="800"/>
 
 - 자신이 쓴 글과 댓글을 확인할 수 있습니다.
 - 게시글의 제목을 누르면 해당 글로 이동합니다.
@@ -202,24 +202,24 @@ taglibs-standard-spec-1.2.5.jar
 - 페이지가 완성되면 표지 페이지를 만들고 책의 정보(제목, 소개, 장르)를 선택하면 동화책이 완성되며 동화공유게시판과 마이페이지 보관함으로 자동으로 동화책이 업로드 됩니다.
 
 ### [동화 공유 게시판]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/ad4b6749-e490-4976-ba6b-9c87582045c7" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f2a0f038-1d69-4410-be22-a2e08d34ae07" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/ad4b6749-e490-4976-ba6b-9c87582045c7" width="700" height="600"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f2a0f038-1d69-4410-be22-a2e08d34ae07" width="700" height="1000"/>
 
 - 다양한 동화책을 볼 수 잇는 게시판이며 각 동화책 마다 스크랩수, 좋아요 수, 리뷰 수를 확인할 수 있습니다.
 - 동화책을 선택 후 들어가면 각 페이지의 그림과 내용을 확인할 수 있으며 좋아요, 스크랩, 신고할 수 있습니다.
 - 리뷰 작성이 가능하며 본인이 단 리뷰만 수정, 삭제할 수 있습니다.
 
 ### [명예의 전당]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/022f8846-35c7-4048-9a2f-876486149176" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/022f8846-35c7-4048-9a2f-876486149176" width="700" height="900"/>
 
 - 각 달의 좋아요, 리뷰, 스크랩 수를 가장 많이 받은 동화책 중 관리자의 검토를 받은 동화책 5권이 명예의 전당 페이지로 이동합니다.
 - 책 표지를 클릭하면 이미지가 돌아가면서 뒷 페이지의 책 정보가 표시됩니다.
 
 ### [자유게시판]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/db26bcf8-c4a2-48b2-b32b-fa14c3b35f89" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/31179faa-d6cc-4110-8180-1a7678428f98" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/40f3e23a-0282-4bb6-9a76-5a832b11e1b6" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/4edd0f58-3e9c-4339-820a-497a6d3c158b" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/db26bcf8-c4a2-48b2-b32b-fa14c3b35f89" width="700" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/31179faa-d6cc-4110-8180-1a7678428f98" width="700" height="500"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/40f3e23a-0282-4bb6-9a76-5a832b11e1b6" width="700" height="600"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/4edd0f58-3e9c-4339-820a-497a6d3c158b" width="700" height="600"/>
 
 
 - 회원은 모두 자유 게시판의 게시글을 등록, 수정, 삭제가 가능하며 다른 회원의 게시글에 댓글과 신고를 할 수 있습니다.
@@ -228,18 +228,18 @@ taglibs-standard-spec-1.2.5.jar
 
 
 ### [공지사항 게시판]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8871e572-41dd-4e8e-b91f-6bf5112cabcd" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/ec82f460-0b41-4c02-9cfe-be50f4d723f4" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8871e572-41dd-4e8e-b91f-6bf5112cabcd" width="700" height="900"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/ec82f460-0b41-4c02-9cfe-be50f4d723f4" width="700" height="500"/>
 
 - 관리자만 공지사항을 등록할 수 있으며 등록할 시 고정글을 선택할 수 있습니다.
 - 제목, 내용, 제목+내용으로 검색할 수 있습니다.
 
 
 ### [건의사항 게시판]
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/4c57a363-a549-4b5d-bed8-24cd7d09833f" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/25173c0f-2c63-4450-94fb-f69b5f2efe14" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/70b50b47-dcb8-4fce-8271-1bf02c2ca166" width="500" height="1000"/>
-<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2bc45b01-31d1-421a-ab30-16fffe857131" width="500" height="1000"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/4c57a363-a549-4b5d-bed8-24cd7d09833f" width="700" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/25173c0f-2c63-4450-94fb-f69b5f2efe14" width="700" height="400"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/70b50b47-dcb8-4fce-8271-1bf02c2ca166" width="700" height="600"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/2bc45b01-31d1-421a-ab30-16fffe857131" width="700" height="550"/>
 
 
 - 회원은 모두 자유 게시판의 게시글을 등록, 수정, 삭제할 수 있습니다.
