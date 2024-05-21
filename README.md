@@ -73,6 +73,8 @@ taglibs-standard-impl-1.2.5.jar,
 taglibs-standard-jstlel-1.2.5.jar,
 taglibs-standard-spec-1.2.5.jar
 ## 3. 프로젝트 구조
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c9f309c1-439a-4229-93ac-cd1e985e4675" width="750" height="400"/>
+
 ## 4. 역할 분담
 ### 🐨 곽지현
 - #### DB
@@ -145,7 +147,16 @@ taglibs-standard-spec-1.2.5.jar
 
 
 ## 6. 동화책 제작 프로세스
-+제작 움짤 추가
+
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/1f2027cd-ca40-42b1-bfb5-4403c47fe755" width="600" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c68c1e00-2447-473b-b95b-efeb19f09025" width="600" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/650da876-b315-4749-9585-1a3daad77354" width="600" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/86ac0cdb-0749-45f6-9ba7-8633482bd3d2" width="600" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/64e63c41-00e3-44c1-ad89-26409ead292a" width="600" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8df4c5ac-1028-4d9a-bc01-7223f9bd4b2d" width="600" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/055220d5-9ba1-477e-b880-a8d93ec51209" width="600" height="700"/>
+<img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/99d5f799-75de-49a7-b4f5-7351e945330a" width="600" height="700"/>
+
 
  
 ## 7. 페이지별 기능
