@@ -296,13 +296,14 @@ taglibs-standard-spec-1.2.5.jar
 
 ### [동화책 제작]
 
-https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c54bed9d-1fbd-4c12-9608-980f9bb9f3a8
 
 - 기존에 주로 선택하던 방식과 새로운 형식으로 책을 만들 수 있는 선택지를 제공합니다.
 - 책의 내용과 이미지는 각각 직접 입력과 업로드가 가능하며 원하면 AI의 도움을 받을 수 있습니다.
 - 각 페이지마다 이미지와 내용을 삽입할 수 있으며 페이지 추가를 통해 여러 페이지를 만들고 수정, 삭제할 수 있습니다.
 - 페이지가 완성되면 표지 페이지를 만들고 책의 정보(제목, 소개, 장르)를 선택하면 동화책이 완성되며 동화공유게시판과 마이페이지 보관함으로 자동으로 동화책이 업로드 됩니다.
 동화책 제작 움짤 추가
+
+https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c54bed9d-1fbd-4c12-9608-980f9bb9f3a8
 
 <br/>
 
