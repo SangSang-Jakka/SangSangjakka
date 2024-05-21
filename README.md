@@ -148,21 +148,44 @@ taglibs-standard-spec-1.2.5.jar
 
 ## 6. 동화책 제작 프로세스
 
+### [동화책 제작 전체적인 흐름]
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/1f2027cd-ca40-42b1-bfb5-4403c47fe755" width="400" height="500"/>
 <br/>
 
+### [사용자 취취향 분석]
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/86ac0cdb-0749-45f6-9ba7-8633482bd3d2" width="400" height="500"/>
+
+- 10개의 동화책 장르를 5개의 성향으로 변환합니다.
+
 <br/>
+
+### [선호도 점수 추출]
+
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/99d5f799-75de-49a7-b4f5-7351e945330a" width="600" height="400"/>
+
+- 사용자 행동 별 가중치를 부여합니다.
+
 <br/>
+
+
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/650da876-b315-4749-9585-1a3daad77354" width="400" height="250"/>
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/c68c1e00-2447-473b-b95b-efeb19f09025" width="400" height="150"/>
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/8df4c5ac-1028-4d9a-bc01-7223f9bd4b2d" width="450" height="370"/>
+
+- 추출한 점수를 바탕으로 사용의 취향을 분석합니다.
+
 <br/>
+
+### [취향에 기반한 동화책 제작]
+
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/64e63c41-00e3-44c1-ad89-26409ead292a" width="650" height="250"/>
+
+- 선호도 점수를 바탕으로 개인별 상위 4개의 카테고리를 추출합니다.(동점인 경우 랜덤 추출)
+
 <img src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/055220d5-9ba1-477e-b880-a8d93ec51209" width="650" height="300"/>
 
-
+- 그림 생성시 프롬프트에 사용자의 취향을 추가합니다.
+- 취향 분석에 따른 사용자 맞춤 이미지가 생성됩니다.
  
 ## 7. 페이지별 기능
 ### [메인화면]
