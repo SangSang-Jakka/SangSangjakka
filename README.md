@@ -304,8 +304,8 @@ taglibs-standard-spec-1.2.5.jar
 - 각 페이지마다 이미지와 내용을 삽입할 수 있으며 페이지 추가를 통해 여러 페이지를 만들고 수정, 삭제할 수 있습니다.
 - 페이지가 완성되면 표지 페이지를 만들고 책의 정보(제목, 소개, 장르)를 선택하면 동화책이 완성되며 동화공유게시판과 마이페이지 보관함으로 자동으로 동화책이 업로드 됩니다.
 
-<img width="60%" src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/9471c1f0-11db-41fe-bcd4-0d1a8ffb940f"/>
-<img width="60%" src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f1167282-2529-42b3-a34f-1bd19c15ee66"/>
+<img width="70%" src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/9471c1f0-11db-41fe-bcd4-0d1a8ffb940f"/>
+<img width="70%" src="https://github.com/SangSang-Jakka/SangSangjakka/assets/155609506/f1167282-2529-42b3-a34f-1bd19c15ee66"/>
 
 
 <br/>
